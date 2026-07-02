@@ -1,41 +1,21 @@
-# Gurjas Evidence and Policy Analytics — Website (v2)
+# gurjas.org — website v3
 
-A single-page, publication-first website for **gurjas.org**. Static HTML/CSS/JS — no build step, no dependencies. Deploys as-is to GitHub Pages, Netlify, Cloudflare Pages, or any static host.
+This folder IS the complete website. Every file needed is here: 13 pages, styles, scripts, images, favicon, sitemap, robots.txt, manifest and CNAME. Nothing else is required.
 
-## Files
-- `index.html` — the site (all sections)
-- `style.css` — styling (navy/teal/gold; Fraunces + Inter via Google Fonts)
-- `script.js` — nav toggle, scroll reveals, copy-to-clipboard
-- `404.html` — custom not-found page
-- `sitemap.xml`, `robots.txt` — SEO
-- `CNAME` — custom domain for GitHub Pages (`gurjas.org`)
-- `assets/` — logo, monogram, favicon, OG preview
+## How to publish (no technical steps, ~5 minutes)
 
-## What changed from v1
-- Domain switched to **gurjas.org** (canonical, OG, sitemap, JSON-LD).
-- **Phone number removed** from all public views; email retained (`gurjasevidence@gmail.com`). Add a number back in the Contact section once the office line is live.
-- New **Research standing** metrics strip and **Publications** section (real, APA-formatted).
-- New **Selected engagements** section (three real areas + one honest NGO placeholder).
-- **People** section now surfaces the Founder (Gurpreet Kaur) and a Chief Partnership Officer slot.
-- Typography upgraded to Fraunces (display serif) + Inter.
-- IIT Ropar stated correctly as a personal credential via **iHub-AWaDH** — no institutional endorsement implied.
+1. Open your website repository on **github.com** in your browser and sign in.
+2. Click **Add file → Upload files**.
+3. On your computer, open the `gurjas_website_v3` folder, select **everything inside it** (Cmd+A), and drag it all into the GitHub upload box. Folders like `about/` and `assets/` come along automatically.
+4. In the commit message box type: `Rebuild as multi-page institute site (v3)` and click **Commit changes**.
+5. Wait 2–3 minutes, then open https://gurjas.org — the new site is live. Old files with the same names are replaced automatically; nothing needs deleting first.
+6. Then follow `SEARCH_CONSOLE_ACTIONS.md` (in the folder above this one) to get the new pages into Google.
 
-## Editing notes (maintainer)
-- **Publications:** citations are drawn from the team's Google Scholar and SSRN records (June 2026). Before any formal/print use, verify each entry's volume, issue, page range and DOI against the publisher record and add DOIs where available.
-- **Chief Partnership Officer:** replace the placeholder line in the People section with the appointee's name and short bio once confirmed.
-- **NGO engagement card:** the dashed placeholder card in "Selected engagements" is ready to be replaced with the real study once complete and consent is in place.
-- **Advisory board:** advisor names go live only after written consent and approved wording.
-- **Phone:** when the office number is ready, add a `contact-row` in the Contact card and (optionally) a `tel:` button.
+## Checking it worked
+Visit https://gurjas.org/about/ and https://gurjas.org/publications/ — both should show the navy-and-gold design.
 
-## Deploy to GitHub Pages with gurjas.org
+## Previewing on your computer
+Double-click any `index.html` — the design and styling now display correctly offline. (Page-to-page links only work fully on the live site.)
 
-1. Create a public repo, e.g. `gurjas-site`.
-2. Upload the **contents** of this folder to the repo root (so `index.html` is at the top level, `CNAME` included).
-3. Repo **Settings → Pages** → Source: `Deploy from a branch` → Branch: `main` / `/root` → Save.
-4. Under **Custom domain**, enter `gurjas.org` (the `CNAME` file already sets this) and Save.
-5. At your domain registrar (Cloudflare / Porkbun), add DNS:
-   - Four `A` records for the apex `gurjas.org` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - One `CNAME` record for `www` → `<your-username>.github.io`
-6. Back in GitHub Pages, tick **Enforce HTTPS** once the certificate is issued (can take up to ~24h).
-
-Cloudflare tip: if you host DNS on Cloudflare, set the A/CNAME records to **DNS only** (grey cloud) during initial setup so GitHub can issue the certificate, then you may proxy afterwards.
+## Editing later
+Page text lives in `../website_src/content/`; titles and descriptions in `../website_src/build.py`. Ask Claude (or run `python3 build.py`) to regenerate after any edit — don't edit the page files here directly, they get overwritten by the generator.

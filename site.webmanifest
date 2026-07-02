@@ -1,0 +1,20 @@
+{
+ "name": "Gurjas Evidence and Policy Analytics",
+ "short_name": "Gurjas",
+ "start_url": "/",
+ "display": "browser",
+ "background_color": "#fdfcf9",
+ "theme_color": "#06264e",
+ "icons": [
+  {
+   "src": "/assets/favicon.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "/assets/apple-touch-icon.png",
+   "sizes": "180x180",
+   "type": "image/png"
+  }
+ ]
+}
