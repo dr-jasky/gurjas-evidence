@@ -24,6 +24,7 @@ a:hover{color:var(--gold-d)}
 .site-head{position:sticky;top:0;z-index:50;background:rgba(251,250,247,.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .head-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:84px}
 .brand{display:flex;align-items:center;gap:.8rem;text-decoration:none;color:var(--navy)}
+.brand-mark{border-radius:9px}
 .brand-t{font-family:var(--disp);font-size:1.45rem;font-weight:550;letter-spacing:.01em;line-height:1;display:flex;flex-direction:column;gap:.28rem}
 .brand-t em{font-family:var(--sans);font-style:normal;font-size:.6rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-d)}
 .site-nav ul{display:flex;gap:2rem;list-style:none}
