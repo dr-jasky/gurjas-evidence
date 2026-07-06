@@ -47,46 +47,64 @@
   </div>
 </header>
 <main id="main">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Predatory Journal Risk Checker","url":"https://gurjas.org/tools/predatory-journal-checker/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"Guided verification of journal legitimacy against authoritative databases plus a twelve-signal red-flag assessment with a shareable risk verdict."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Predatory Journal Risk Checker","url":"https://gurjas.org/tools/predatory-journal-checker/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"Live journal legitimacy check against OpenAlex, Crossref and DOAJ with a probability-style score, indexing panel and a twelve-signal red-flag assessment."}</script>
 <div class="hero">
   <div class="wrap">
     <span class="eyebrow">Free Tool</span>
     <h1>Predatory Journal Risk Checker</h1>
-    <p class="lede">Guided verification against the databases that actually matter, plus a twelve-signal red-flag assessment. We report verifiable signals and let you judge — no journal is ever defamed here.</p>
+    <p class="lede">Type a journal name or ISSN. The checker queries three live scholarly databases — OpenAlex, Crossref and DOAJ — and returns an evidence score, an indexing panel and the checks that remain yours to make.</p>
   </div>
 </div>
 
 <section>
-  <div class="wrap" style="max-width:880px">
+  <div class="wrap" style="max-width:900px">
     <div class="card" style="gap:1rem">
-      <h3 style="margin:0">Step 1 · Verify indexing at the source</h3>
-      <p style="margin:0;font-size:.92rem;color:var(--muted)">Enter the journal name (or ISSN) and open each authoritative check — pre-filled where the database allows it. Indexing in these sources is the strongest legitimacy signal that exists.</p>
-      <input id="jn" type="text" placeholder="e.g. Journal of Development Economics or 0304-3878" style="width:100%;padding:.7rem;border:1px solid var(--line);border-radius:4px;font-size:1rem">
-      <div class="pub-links" style="margin-top:.4rem">
-        <a id="l-scopus" href="https://www.scopus.com/sources.uri" rel="noopener" target="_blank">Scopus Source List ↗</a>
-        <a id="l-wos" href="https://mjl.clarivate.com/search-results" rel="noopener" target="_blank">Web of Science MJL ↗</a>
-        <a id="l-doaj" href="https://doaj.org/search/journals" rel="noopener" target="_blank">DOAJ ↗</a>
-        <a id="l-ugc" href="https://ugccare.unipune.ac.in/" rel="noopener" target="_blank">UGC-CARE ↗</a>
-        <a href="https://thinkchecksubmit.org/journals/" rel="noopener" target="_blank">Think. Check. Submit. ↗</a>
-        <a href="https://retractionwatch.com/the-retraction-watch-hijacked-journal-checker/" rel="noopener" target="_blank">Hijacked Journal Checker ↗</a>
+      <h3 style="margin:0">Step 1 · Live database check</h3>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+        <input id="jn" type="text" placeholder="Journal name or ISSN (e.g. 0264-2751)" style="flex:1;min-width:240px;padding:.7rem;border:1px solid var(--line);border-radius:4px;font-size:1rem">
+        <button id="go" class="btn btn-solid" style="border:none;cursor:pointer">Search</button>
+      </div>
+      <p id="status" style="margin:0;font-size:.9rem;color:var(--muted)"></p>
+      <div id="matches"></div>
+    </div>
+
+    <div id="panel" hidden>
+      <div class="card" style="margin-top:1.6rem;border-top-color:var(--gold)">
+        <h3 style="margin:0" id="pj-name">—</h3>
+        <p id="pj-meta" style="margin:.2rem 0 0;font-size:.92rem;color:var(--muted)"></p>
+        <div class="grid g3" style="margin-top:1.2rem">
+          <div class="stat"><b id="score">—</b><span>Evidence score (0–100) — a probability-style estimate, not a verdict</span></div>
+          <div class="stat"><b id="scorelabel">—</b><span id="scorenote">Reading</span></div>
+          <div class="stat"><b id="agec">—</b><span>Publication history found</span></div>
+        </div>
+        <h3 style="margin:1.6rem 0 .6rem;font-size:1.05rem">Indexing &amp; registration evidence</h3>
+        <div id="idx" style="font-size:.95rem;line-height:2"></div>
+        <h3 style="margin:1.4rem 0 .6rem;font-size:1.05rem">Confirm manually (no public API exists)</h3>
+        <div class="pub-links">
+          <a id="l-scopus" href="https://www.scopus.com/sources.uri" rel="noopener" target="_blank">Scopus Source List ↗</a>
+          <a id="l-wos" href="https://mjl.clarivate.com/search-results" rel="noopener" target="_blank">Web of Science MJL ↗</a>
+          <a href="https://ugccare.unipune.ac.in/" rel="noopener" target="_blank">UGC-CARE ↗</a>
+          <a href="https://retractionwatch.com/the-retraction-watch-hijacked-journal-checker/" rel="noopener" target="_blank">Hijacked Journal Checker ↗</a>
+        </div>
+        <p class="note" style="margin-top:1.4rem"><strong>Read this before relying on the score.</strong> The score is a probability-style estimate computed from public database signals at the moment of search. It can be wrong: legitimate new journals score low for lack of history; hijacked websites impersonate journals whose genuine records score high; database coverage varies by field. It is evidence to weigh, never a verdict — confirm indexing at the linked sources on the day you submit.</p>
       </div>
     </div>
 
     <div class="card" style="gap:.4rem;margin-top:2rem">
-      <h3 style="margin:0 0 .5rem">Step 2 · Twelve red-flag signals</h3>
-      <p style="margin:0 0 .8rem;font-size:.92rem;color:var(--muted)">Answer from the journal's website and your correspondence. Your answers stay in your browser.</p>
+      <h3 style="margin:0 0 .5rem">Step 2 · Twelve red-flag signals (from the journal's website)</h3>
+      <p style="margin:0 0 .8rem;font-size:.92rem;color:var(--muted)">The databases cannot see spam emails or fake editorial boards — you can. Your answers stay in your browser.</p>
       <div id="qs"></div>
-      <button id="verdictbtn" class="btn btn-solid" style="border:none;cursor:pointer;align-self:start;margin-top:.8rem">Get risk verdict</button>
+      <button id="verdictbtn" class="btn btn-solid" style="border:none;cursor:pointer;align-self:start;margin-top:.8rem">Get combined verdict</button>
     </div>
 
     <div id="vout" hidden>
       <div class="card" style="margin-top:2rem;border-top-color:var(--gold)">
-        <h3 style="margin:0">Verdict: <span id="vlabel" style="color:var(--gold-d)">—</span></h3>
+        <h3 style="margin:0">Combined verdict: <span id="vlabel" style="color:var(--gold-d)">—</span></h3>
         <p id="vtext" style="margin:.4rem 0 0"></p>
         <p id="vconf" style="margin:.4rem 0 0;font-size:.88rem;color:var(--muted)"></p>
       </div>
-      <p style="margin-top:1rem"><button id="share" class="btn btn-ghost" style="cursor:pointer">Copy shareable link to this assessment</button> <span id="shared" style="font-size:.85rem;color:var(--gold-d)"></span></p>
-      <p class="note">This tool reports the signals you verified; it does not maintain a blacklist and renders no judgement on any named journal. Indexing status changes — always confirm at the linked sources on the day you submit. Unsure about a specific journal for a specific manuscript? <a href="../../contact/">Journal strategy is part of what we do</a>.</p>
+      <p style="margin-top:1rem"><button id="share" class="btn btn-ghost" style="cursor:pointer">Copy shareable link</button> <span id="shared" style="font-size:.85rem;color:var(--gold-d)"></span></p>
+      <p class="note">This tool reports verifiable signals and probability-style estimates; it maintains no blacklist and renders no judgement on any named journal. Unsure about a specific journal for a specific manuscript? <a href="../../contact/">Journal strategy is part of what we do</a>.</p>
     </div>
   </div>
 </section>
@@ -94,18 +112,125 @@
 <script>
 (function(){
 "use strict";
+var MAILTO="&mailto=gurjasevidence@gmail.com";
+var dbScore=null;
+function esc(s){var d=document.createElement("span");d.textContent=s==null?"":String(s);return d.innerHTML;}
+function isISSN(s){return /^\d{4}-?\d{3}[\dxX]$/.test(s.trim());}
+function fmtISSN(s){s=s.replace("-","");return s.slice(0,4)+"-"+s.slice(4);}
+function row(ok,label,extra){
+  var mark=ok===true?'<span style="color:#3b6d11;font-weight:700">✓</span>':ok===false?'<span style="color:#993c1d;font-weight:700">✗</span>':'<span style="color:#854f0b;font-weight:700">?</span>';
+  return '<div>'+mark+' '+label+(extra?' <span style="color:var(--muted);font-size:.88rem">'+extra+'</span>':'')+'</div>';
+}
+function J(url){return fetch(url).then(function(r){if(!r.ok)throw 0;return r.json();});}
+
+document.getElementById("go").addEventListener("click",search);
+document.getElementById("jn").addEventListener("keydown",function(e){if(e.key==="Enter")search();});
+
+function search(){
+  var q=document.getElementById("jn").value.trim();
+  if(q.length<3){return;}
+  document.getElementById("status").textContent="Searching OpenAlex…";
+  document.getElementById("matches").innerHTML="";
+  document.getElementById("panel").hidden=true;
+  var url=isISSN(q)
+    ? "https://api.openalex.org/sources?filter=issn:"+fmtISSN(q)+"&per-page=5"+MAILTO
+    : "https://api.openalex.org/sources?search="+encodeURIComponent(q)+"&per-page=5"+MAILTO;
+  J(url).then(function(d){
+    var rs=(d.results||[]).filter(function(s){return s.type==="journal"||s.type==="conference"||true;});
+    if(!rs.length){document.getElementById("status").textContent="No match found in OpenAlex. A journal absent from all major databases is itself a strong caution — use Step 2 and the manual links below.";document.getElementById("panel").hidden=false;renderEmpty();return;}
+    document.getElementById("status").textContent="Select the journal you mean:";
+    var m=document.getElementById("matches");
+    rs.forEach(function(s){
+      var b=document.createElement("button");
+      b.style.cssText="display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:4px;padding:.7rem 1rem;margin:.35rem 0;cursor:pointer;font:inherit";
+      b.innerHTML="<strong style='color:#06264e'>"+esc(s.display_name)+"</strong> <span style='color:#5a6675;font-size:.88rem'>· "+esc(s.host_organization_name||"publisher unknown")+(s.issn_l?" · ISSN "+esc(s.issn_l):"")+"</span>";
+      b.addEventListener("click",function(){pick(s);});
+      m.appendChild(b);
+    });
+  }).catch(function(){
+    document.getElementById("status").textContent="OpenAlex could not be reached just now — try again in a moment, or use the manual checks in Step 2.";
+  });
+}
+
+function renderEmpty(){
+  dbScore=8;
+  document.getElementById("pj-name").textContent=document.getElementById("jn").value.trim();
+  document.getElementById("pj-meta").textContent="Not found in OpenAlex";
+  document.getElementById("score").textContent="≈ 8 / 100";
+  document.getElementById("scorelabel").textContent="Insufficient evidence";
+  document.getElementById("scorenote").textContent="Treat with high caution until verified";
+  document.getElementById("agec").textContent="—";
+  document.getElementById("idx").innerHTML=row(false,"OpenAlex record")+row(null,"Crossref registration","not checked — no ISSN found")+row(null,"DOAJ listing","not checked — no ISSN found");
+}
+
+function pick(s){
+  document.getElementById("status").textContent="Checking Crossref and DOAJ…";
+  document.getElementById("matches").innerHTML="";
+  var issn=s.issn_l||((s.issn||[])[0]);
+  var name=s.display_name||"";
+  document.getElementById("l-wos").href="https://mjl.clarivate.com/search-results?issn="+(issn||"")+"&title="+encodeURIComponent(name);
+  var cross=issn?J("https://api.crossref.org/journals/"+issn).catch(function(){return null;}):Promise.resolve(null);
+  var doaj=issn?J("https://doaj.org/api/search/journals/issn%3A%22"+issn+"%22").catch(function(){return null;}):Promise.resolve(null);
+  Promise.all([cross,doaj]).then(function(res){render(s,res[0],res[1]);});
+}
+
+function render(s,cr,dj){
+  var st=(s.summary_stats||{});
+  var works=s.works_count||0, cited=s.cited_by_count||0;
+  var h=st.h_index||0, mc=st["2yr_mean_citedness"]||0;
+  var inDoaj=false,doajRec=null;
+  try{ if(dj&&dj.results&&dj.results.length){inDoaj=true;doajRec=dj.results[0].bibjson||{};} }catch(e){}
+  if(s.is_in_doaj) inDoaj=true;
+  var crOk=false,doiCount=0,crPub="";
+  try{ if(cr&&cr.message){crOk=true;doiCount=(cr.message.counts&&cr.message.counts["total-dois"])||0;crPub=cr.message.publisher||"";} }catch(e){}
+  var majors=["elsevier","springer","wiley","taylor","sage","oxford","cambridge","emerald","ieee","nature","informa","acm","de gruyter","brill","routledge"];
+  var pub=(s.host_organization_name||crPub||"").toLowerCase();
+  var major=majors.some(function(m){return pub.indexOf(m)>=0;});
+  var score=0;
+  score+= inDoaj?25:0;
+  score+= crOk?(doiCount>500?12:8):0;
+  score+= works>100?12:(works>20?6:0);
+  score+= h>=30?14:(h>=10?9:(h>=3?4:0));
+  score+= mc>=1.5?16:(mc>=0.5?10:(mc>0?4:0));
+  score+= major?12:0;
+  score+= cited>5000?9:(cited>500?5:0);
+  score=Math.min(score,95);
+  dbScore=score;
+  var label,note;
+  if(score>=70){label="Strong evidence";note="Consistent with an established, cited, registered journal";}
+  else if(score>=40){label="Mixed evidence";note="Verify indexing manually before submitting";}
+  else{label="Weak evidence";note="High caution — complete every manual check";}
+  document.getElementById("pj-name").textContent=s.display_name||"";
+  document.getElementById("pj-meta").textContent=(s.host_organization_name||crPub||"Publisher unknown")+(s.issn_l?" · ISSN "+s.issn_l:"")+(s.is_oa?" · Open access":"");
+  document.getElementById("score").textContent="≈ "+score+" / 100";
+  document.getElementById("scorelabel").textContent=label;
+  document.getElementById("scorenote").textContent=note;
+  document.getElementById("agec").textContent=works.toLocaleString()+" works · "+cited.toLocaleString()+" citations";
+  var apc="";
+  try{ if(doajRec&&doajRec.apc){apc=doajRec.apc.has_apc?"APC declared":"No APC";} }catch(e){}
+  document.getElementById("idx").innerHTML=
+    row(true,"OpenAlex record","h-index "+h+" · 2-yr mean citedness "+(Math.round(mc*100)/100))+
+    row(crOk,"Crossref DOI registration",crOk?doiCount.toLocaleString()+" DOIs registered":"no registration found for this ISSN")+
+    row(inDoaj,"DOAJ listing",inDoaj?("vetted open-access directory"+(apc?" · "+apc:"")):"not listed (normal for subscription journals)")+
+    row(major?true:null,"Major publisher name match",major?"":"no match — many legitimate journals have independent publishers")+
+    row(null,"Scopus / Web of Science / UGC-CARE","no public API — confirm at the links below");
+  document.getElementById("status").textContent="";
+  document.getElementById("panel").hidden=false;
+  document.getElementById("panel").scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
 var SIGNALS=[
-["The journal appears in the Scopus Source List or Web of Science Master Journal List (verified above, not claimed on the journal's own site).","good"],
-["It appears in DOAJ or the current UGC-CARE list.","good"],
-["The publisher is a COPE or OASPA member (check their member directories).","good"],
-["The ISSN validates at portal.issn.org and matches the journal's name exactly.","good"],
 ["The editorial board lists real, named scholars whose institutional pages confirm the affiliation.","good"],
 ["Article processing charges are stated transparently before submission.","good"],
+["The ISSN on the website matches the record found above exactly.","good"],
+["The website's domain matches the one recorded in DOAJ/Crossref (guards against hijacked clones).","good"],
+["Recent published articles are within the journal's stated scope and professionally edited.","good"],
+["The publisher is a COPE or OASPA member (check their directories).","good"],
 ["The journal or its emails promise guaranteed, very fast acceptance (e.g. days).","bad"],
 ["Its stated scope is implausibly broad (e.g. all sciences, humanities and management).","bad"],
 ["You first heard of it through unsolicited flattering email.","bad"],
-["It advertises an 'impact factor' from agencies other than Clarivate JCR (e.g. generic 'IF' badges).","bad"],
-["Published papers show weak or absent peer-review evidence (extreme typos, out-of-scope articles).","bad"],
+["It advertises an 'impact factor' from agencies other than Clarivate JCR.","bad"],
+["Fees are revealed only after acceptance, or waivers are dangled personally to you.","bad"],
 ["Contact details are unverifiable — no working address, editor emails on free domains only.","bad"]];
 var qs=document.getElementById("qs");
 SIGNALS.forEach(function(s,i){
@@ -117,60 +242,41 @@ SIGNALS.forEach(function(s,i){
     '<label style="font-size:.85rem;color:var(--muted)"><input type="radio" name="q'+i+'" value="na" checked> Unsure</label></span>';
   qs.appendChild(d);
 });
-["l-scopus","l-wos","l-doaj"].forEach(function(id){
-  document.getElementById("jn").addEventListener("input",function(){
-    var q=encodeURIComponent(this.value.trim());
-    document.getElementById("l-doaj").href="https://doaj.org/search/journals?source=%7B%22query%22%3A%7B%22query_string%22%3A%7B%22query%22%3A%22"+q+"%22%7D%7D%7D";
-    document.getElementById("l-wos").href="https://mjl.clarivate.com/search-results?issn=&title="+q;
-  });
-});
-function answers(){
-  return SIGNALS.map(function(_,i){
-    var el=document.querySelector('input[name="q'+i+'"]:checked');
-    return el?el.value:"na";
-  });
-}
 document.getElementById("verdictbtn").addEventListener("click",function(){
-  var a=answers(), risk=0, protect=0, answered=0;
-  a.forEach(function(v,i){
-    if(v==="na") return;
+  var risk=0,protect=0,answered=0;
+  SIGNALS.forEach(function(s,i){
+    var el=document.querySelector('input[name="q'+i+'"]:checked');
+    var v=el?el.value:"na";
+    if(v==="na")return;
     answered++;
-    var good=SIGNALS[i][1]==="good";
-    if(good && v==="yes") protect++;
-    if(good && v==="no") risk++;
-    if(!good && v==="yes") risk+=2;
-    if(!good && v==="no") protect++;
+    var good=s[1]==="good";
+    if(good&&v==="yes")protect++;
+    if(good&&v==="no")risk++;
+    if(!good&&v==="yes")risk+=2;
+    if(!good&&v==="no")protect++;
   });
   var label,text;
-  if(answered<4){label="Insufficient information";text="Fewer than four signals answered — verify the indexing links in Step 1 first; they resolve most cases on their own.";}
-  else if(risk>=5){label="High risk";text="Multiple serious red flags are present. Do not submit before independent verification; consider journals whose indexing you confirmed at source.";}
-  else if(risk>=2){label="Moderate risk — verify further";text="Some warning signals are present. Confirm indexing at the Step 1 sources and scrutinise recent published issues before submitting.";}
-  else if(protect>=5){label="Lower risk on verified signals";text="The signals you verified are consistent with a legitimate journal. Indexing confirmed at source remains the decisive test.";}
-  else{label="Inconclusive";text="Signals answered so far do not point clearly either way — complete the Step 1 indexing checks.";}
+  var db=dbScore===null?"no database check run":"database evidence score "+dbScore+"/100";
+  if(risk>=5||(dbScore!==null&&dbScore<25&&risk>=2)){label="High risk";text="Serious red flags"+(dbScore!==null&&dbScore<40?" combined with weak database evidence":"")+". Do not submit before independent verification.";}
+  else if(risk>=2||(dbScore!==null&&dbScore<40)){label="Moderate risk — verify further";text="Warning signals present. Confirm Scopus/WoS/UGC-CARE indexing at the links above and scrutinise recent issues before submitting.";}
+  else if(protect>=4&&dbScore!==null&&dbScore>=70){label="Lower risk on available evidence";text="Database evidence and your verified signals are consistent with a legitimate journal. Indexing confirmed at source remains the decisive test.";}
+  else{label="Inconclusive";text="Not enough signals answered to strengthen the database estimate — complete Step 2 and the manual indexing checks.";}
   document.getElementById("vlabel").textContent=label;
   document.getElementById("vtext").textContent=text;
-  document.getElementById("vconf").textContent="Based on "+answered+" of 12 signals answered · risk score "+risk+" · protective score "+protect+".";
+  document.getElementById("vconf").textContent="Combined from "+db+" and "+answered+" of 12 website signals (risk "+risk+" · protective "+protect+"). Probability-style estimates can be wrong in both directions.";
   document.getElementById("vout").hidden=false;
-  location.hash=a.map(function(v){return v==="yes"?"y":v==="no"?"n":"u";}).join("")+"|"+encodeURIComponent(document.getElementById("jn").value.trim());
   document.getElementById("vout").scrollIntoView({behavior:"smooth",block:"nearest"});
 });
 document.getElementById("share").addEventListener("click",function(){
-  navigator.clipboard.writeText(location.href).then(function(){
+  var u=location.origin+location.pathname+"#q="+encodeURIComponent(document.getElementById("jn").value.trim());
+  navigator.clipboard.writeText(u).then(function(){
     document.getElementById("shared").textContent="Link copied.";
     setTimeout(function(){document.getElementById("shared").textContent="";},2000);
   });
 });
 (function restore(){
-  var h=location.hash.replace("#","");
-  if(!h) return;
-  var parts=h.split("|"), pat=parts[0]||"";
-  if(parts[1]) document.getElementById("jn").value=decodeURIComponent(parts[1]);
-  for(var i=0;i<Math.min(pat.length,SIGNALS.length);i++){
-    var v=pat[i]==="y"?"yes":pat[i]==="n"?"no":"na";
-    var el=document.querySelector('input[name="q'+i+'"][value="'+v+'"]');
-    if(el) el.checked=true;
-  }
-  if(/[yn]/.test(pat)) document.getElementById("verdictbtn").click();
+  var m=location.hash.match(/#q=(.+)/);
+  if(m){document.getElementById("jn").value=decodeURIComponent(m[1]);search();}
 })();
 })();
 </script>
