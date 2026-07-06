@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEM Sample Size Calculator | A-priori Power Analysis with Citations | Gurjas</title>
+<meta name="description" content="Free a-priori sample size calculator for structural equation modeling. Westland lower bound, Fisher-z power analysis and N:q heuristics, with a citation-ready paragraph.">
+<link rel="canonical" href="https://gurjas.org/tools/sem-sample-size-calculator/">
+<meta name="author" content="Gurjas Evidence and Policy Analytics">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#06264e">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Gurjas Evidence and Policy Analytics">
+<meta property="og:title" content="SEM Sample Size Calculator | A-priori Power Analysis with Citations | Gurjas">
+<meta property="og:description" content="Free a-priori sample size calculator for structural equation modeling. Westland lower bound, Fisher-z power analysis and N:q heuristics, with a citation-ready paragraph.">
+<meta property="og:url" content="https://gurjas.org/tools/sem-sample-size-calculator/">
+<meta property="og:image" content="https://gurjas.org/assets/og-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SEM Sample Size Calculator | A-priori Power Analysis with Citations | Gurjas">
+<meta name="twitter:description" content="Free a-priori sample size calculator for structural equation modeling. Westland lower bound, Fisher-z power analysis and N:q heuristics, with a citation-ready paragraph.">
+<meta name="twitter:image" content="https://gurjas.org/assets/og-preview.png">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<link rel="manifest" href="../../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,450;9..144,550;9..144,450&family=Source+Serif+4:opsz,wght@8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "gurjasevidence@gmail.com", "foundingDate": "2026-06-29", "founder": {"@type": "Person", "name": "Gurpreet Kaur"}, "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}, "identifier": {"@type": "PropertyValue", "propertyID": "Udyam Registration Number", "value": "UDYAM-PB-17-0132009"}, "description": "An independent, women-led research and policy analytics practice providing evidence synthesis, impact evaluation, policy analysis and institutional advisory.", "knowsAbout": ["Financial inclusion", "Digital public infrastructure", "Impact evaluation", "Policy analysis", "Urban poverty", "Research methodology"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "SEM Sample Size Calculator", "item": "https://gurjas.org/tools/sem-sample-size-calculator/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap head-in">
+    <a class="brand" href="../../" aria-label="Gurjas Evidence and Policy Analytics — home">
+      <img src="../../assets/gurjas-mark.png" alt="" width="40" height="47">
+      <span class="brand-t">Gurjas<em>Evidence &amp; Policy Analytics</em></span>
+    </a>
+    <button class="nav-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" class="site-nav" aria-label="Primary">
+      <ul><li><a href="../../about/">About</a></li><li><a href="../../services/">Services</a></li><li><a href="../../methods/">Methods</a></li><li><a href="../../research/">Research</a></li><li><a href="../../publications/">Publications</a></li><li><a href="../../tools/" aria-current="page">Tools</a></li><li><a href="../../people/">People</a></li><li><a href="../../contact/">Contact</a></li></ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SEM Sample Size Calculator","url":"https://gurjas.org/tools/sem-sample-size-calculator/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"Free a-priori sample size calculator for structural equation modeling with citation-ready justification."}</script>
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Free Tool</span>
+    <h1>SEM Sample Size Calculator</h1>
+    <p class="lede">A-priori minimum sample size for structural equation modeling — computed three ways, with a justification paragraph you can paste straight into a methods chapter, references included.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap" style="max-width:880px">
+    <div class="card" style="gap:1.1rem">
+      <div class="grid g2" style="gap:1.1rem">
+        <label style="font-size:.9rem;font-weight:600;color:var(--navy)">Latent variables (constructs)
+          <input id="k" type="number" min="1" max="50" value="5" style="display:block;width:100%;margin-top:.4rem;padding:.65rem;border:1px solid var(--line);border-radius:4px;font-size:1rem"></label>
+        <label style="font-size:.9rem;font-weight:600;color:var(--navy)">Observed indicators (items)
+          <input id="j" type="number" min="2" max="300" value="20" style="display:block;width:100%;margin-top:.4rem;padding:.65rem;border:1px solid var(--line);border-radius:4px;font-size:1rem"></label>
+        <label style="font-size:.9rem;font-weight:600;color:var(--navy)">Anticipated effect size (&rho;)
+          <select id="es" style="display:block;width:100%;margin-top:.4rem;padding:.65rem;border:1px solid var(--line);border-radius:4px;font-size:1rem">
+            <option value="0.1">0.10 — small</option>
+            <option value="0.2">0.20</option>
+            <option value="0.3" selected>0.30 — medium</option>
+            <option value="0.5">0.50 — large</option>
+          </select></label>
+        <label style="font-size:.9rem;font-weight:600;color:var(--navy)">Desired statistical power
+          <select id="pw" style="display:block;width:100%;margin-top:.4rem;padding:.65rem;border:1px solid var(--line);border-radius:4px;font-size:1rem">
+            <option value="0.8" selected>0.80 (conventional)</option>
+            <option value="0.9">0.90</option>
+            <option value="0.95">0.95</option>
+          </select></label>
+        <label style="font-size:.9rem;font-weight:600;color:var(--navy)">Significance level (&alpha;)
+          <select id="al" style="display:block;width:100%;margin-top:.4rem;padding:.65rem;border:1px solid var(--line);border-radius:4px;font-size:1rem">
+            <option value="0.05" selected>0.05</option>
+            <option value="0.01">0.01</option>
+          </select></label>
+      </div>
+      <button id="calc" class="btn btn-solid" style="border:none;cursor:pointer;align-self:start">Calculate minimum sample size</button>
+    </div>
+
+    <div id="out" hidden>
+      <div class="grid g3" style="margin-top:2rem">
+        <div class="stat"><b id="r1">—</b><span>Power-based minimum (Fisher-z, Cohen 1988)</span></div>
+        <div class="stat"><b id="r2">—</b><span>Model-structure lower bound (Westland 2010)</span></div>
+        <div class="stat"><b id="r3">—</b><span>N:q heuristic at 10:1 (Jackson 2003; Kline 2016)</span></div>
+      </div>
+      <div class="card" style="margin-top:2rem;border-top-color:var(--gold)">
+        <h3 style="margin:0">Recommended minimum: <span id="rec" style="color:var(--gold-d)">—</span></h3>
+        <p id="recnote" style="margin:0"></p>
+      </div>
+      <h2 style="margin:2.6rem 0 1rem">Citation-ready justification</h2>
+      <div class="card"><p id="para" style="font-family:var(--serif);font-size:1rem;line-height:1.8;color:var(--ink)"></p></div>
+      <p style="margin-top:1rem"><button id="copy" class="btn btn-ghost" style="cursor:pointer">Copy paragraph + references</button> <span id="copied" style="font-size:.85rem;color:var(--gold-d)"></span></p>
+      <h3 style="margin:2rem 0 .6rem">References (APA 7)</h3>
+      <ul id="refs" style="list-style:none;font-size:.92rem;line-height:1.8;color:var(--muted)">
+        <li>Bentler, P. M., &amp; Chou, C.-P. (1987). Practical issues in structural modeling. <em>Sociological Methods &amp; Research, 16</em>(1), 78–117.</li>
+        <li>Cohen, J. (1988). <em>Statistical power analysis for the behavioral sciences</em> (2nd ed.). Lawrence Erlbaum Associates.</li>
+        <li>Jackson, D. L. (2003). Revisiting sample size and number of parameter estimates: Some support for the N:q hypothesis. <em>Structural Equation Modeling, 10</em>(1), 128–141.</li>
+        <li>Kline, R. B. (2016). <em>Principles and practice of structural equation modeling</em> (4th ed.). Guilford Press.</li>
+        <li>Westland, J. C. (2010). Lower bounds on sample size in structural equation modeling. <em>Electronic Commerce Research and Applications, 9</em>(6), 476–487.</li>
+      </ul>
+    </div>
+
+    <div class="prose" style="margin-top:3rem">
+      <h2>How the three estimates work</h2>
+      <p>The power-based minimum applies Cohen's (1988) framework through the Fisher-z transformation: the sample required to detect your anticipated effect size at the chosen power and significance level. Westland's (2010) lower bound reflects model structure — the ratio of observed indicators to latent variables — because complex measurement models need more information regardless of effect size. The N:q heuristic ties sample size to the approximate number of freely estimated parameters, following Jackson (2003) and Kline (2016); this calculator estimates q from your model dimensions. The recommended minimum is the largest of the three — the defensible choice under reviewer scrutiny.</p>
+      <p class="note">This tool provides established a-priori conventions for planning, not a substitute for study-specific power simulation (e.g., Monte Carlo) where model particulars demand it. Need the full measurement model reviewed? That is what we do — <a href="../../contact/">start a conversation</a>.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+"use strict";
+function qnorm(p){var a=[-3.969683028665376e+01,2.209460984245205e+02,-2.759285104469687e+02,1.383577518672690e+02,-3.066479806614716e+01,2.506628277459239e+00],b=[-5.447609879822406e+01,1.615858368580409e+02,-1.556989798598866e+02,6.680131188771972e+01,-1.328068155288572e+01],c=[-7.784894002430293e-03,-3.223964580411365e-01,-2.400758277161838e+00,-2.549732539343734e+00,4.374664141464968e+00,2.938163982698783e+00],d=[7.784695709041462e-03,3.224671290700398e-01,2.445134137142996e+00,3.754408661907416e+00],pl=0.02425,q,r;if(p<pl){q=Math.sqrt(-2*Math.log(p));return(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);}if(p<=1-pl){q=p-0.5;r=q*q;return(((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1);}q=Math.sqrt(-2*Math.log(1-p));return-(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);}
+var lastText="";
+document.getElementById("calc").addEventListener("click",function(){
+  var k=Math.max(1,parseInt(document.getElementById("k").value)||1),
+      j=Math.max(2,parseInt(document.getElementById("j").value)||2),
+      es=parseFloat(document.getElementById("es").value),
+      pw=parseFloat(document.getElementById("pw").value),
+      al=parseFloat(document.getElementById("al").value);
+  var za=qnorm(1-al/2), zb=qnorm(pw);
+  var n1=Math.ceil(Math.pow((za+zb)/(0.5*Math.log((1+es)/(1-es))),2)+3);
+  var r=j/k, n2=Math.ceil(Math.max(50*r*r-450*r+1100,100));
+  var q=Math.round(2*j+(k*(k+1))/2);
+  var n3=q*10;
+  var rec=Math.max(n1,n2,n3);
+  document.getElementById("r1").textContent="N ≥ "+n1;
+  document.getElementById("r2").textContent="N ≥ "+n2;
+  document.getElementById("r3").textContent="N ≥ "+n3;
+  document.getElementById("rec").textContent="N = "+rec;
+  document.getElementById("recnote").textContent="The largest of the three estimates, for a model with "+k+" latent variables, "+j+" indicators (≈ "+q+" free parameters), effect size ρ = "+es.toFixed(2)+", power = "+pw.toFixed(2)+", α = "+al+". Bentler and Chou's (1987) 5:1 floor would be N = "+(q*5)+"; Kline's (2016) ideal 20:1 would be N = "+(q*20)+".";
+  var para="An a-priori power analysis was conducted to determine the minimum sample size for the hypothesised structural equation model comprising "+k+" latent variables measured by "+j+" observed indicators. Assuming an anticipated effect size of ρ = "+es.toFixed(2)+", statistical power of "+pw.toFixed(2)+" and α = "+al+", the power-based minimum following Cohen (1988) was N = "+n1+". Westland's (2010) lower-bound procedure, which accounts for model structure through the ratio of indicators to latent variables, indicated N = "+n2+", while the N:q heuristic of approximately ten cases per freely estimated parameter (Jackson, 2003; Kline, 2016) suggested N = "+n3+" for an estimated "+q+" free parameters. The most conservative of these estimates was therefore adopted, and a minimum sample of N = "+rec+" was targeted for the study.";
+  document.getElementById("para").textContent=para;
+  lastText=para+"\n\nReferences\nBentler, P. M., & Chou, C.-P. (1987). Practical issues in structural modeling. Sociological Methods & Research, 16(1), 78–117.\nCohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd ed.). Lawrence Erlbaum Associates.\nJackson, D. L. (2003). Revisiting sample size and number of parameter estimates: Some support for the N:q hypothesis. Structural Equation Modeling, 10(1), 128–141.\nKline, R. B. (2016). Principles and practice of structural equation modeling (4th ed.). Guilford Press.\nWestland, J. C. (2010). Lower bounds on sample size in structural equation modeling. Electronic Commerce Research and Applications, 9(6), 476–487.\n\nGenerated with the Gurjas SEM Sample Size Calculator, gurjas.org/tools/sem-sample-size-calculator/";
+  document.getElementById("out").hidden=false;
+  document.getElementById("out").scrollIntoView({behavior:"smooth",block:"nearest"});
+});
+document.getElementById("copy").addEventListener("click",function(){
+  navigator.clipboard.writeText(lastText).then(function(){
+    document.getElementById("copied").textContent="Copied.";
+    setTimeout(function(){document.getElementById("copied").textContent="";},2000);
+  });
+});
+})();
+</script>
+
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <img src="../../assets/gurjas-mark.png" alt="" width="32" height="38" loading="lazy">
+      <p><strong>Gurjas Evidence and Policy Analytics</strong><br>Evidence-led decisions for institutions, policy and impact.</p>
+      <p class="foot-meta">Registered Micro Enterprise · UDYAM-PB-17-0132009<br>Patiala, Punjab, India · Serving India, Canada &amp; global clients (remote)</p>
+    </div>
+    <nav aria-label="Footer — practice"><h2 class="foot-h">Practice</h2><ul>
+      <li><a href="../../about/">About</a></li><li><a href="../../services/">Services</a></li>
+      <li><a href="../../methods/">Methodology</a></li><li><a href="../../research/">Research</a></li>
+      <li><a href="../../publications/">Publications</a></li><li><a href="../../tools/">Research Tools</a></li></ul></nav>
+    <nav aria-label="Footer — organisation"><h2 class="foot-h">Organisation</h2><ul>
+      <li><a href="../../people/">People</a></li><li><a href="../../advisory/">Advisory Board</a></li>
+      <li><a href="../../resources/">Resource Centre</a></li><li><a href="../../contact/">Contact</a></li></ul></nav>
+    <nav aria-label="Footer — governance"><h2 class="foot-h">Governance</h2><ul>
+      <li><a href="../../governance/">Ethics &amp; Governance</a></li>
+      <li><a href="../../governance/#ai">AI Transparency</a></li>
+      <li><a href="../../privacy/">Privacy Policy</a></li><li><a href="../../terms/">Terms of Use</a></li></ul></nav>
+  </div>
+  <div class="wrap foot-base">
+    <p>© <span id="yr">2026</span> Gurjas Evidence and Policy Analytics. All rights reserved.</p>
+    <p>Advisors serve in a non-executive, voluntary capacity; affiliations are stated for identification only and do not imply endorsement.</p>
+  </div>
+</footer>
+<script src="../../script.js" defer></script>
+</body>
+</html>
