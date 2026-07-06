@@ -53,9 +53,11 @@ section{padding:5.5rem 0}
 
 /* ── Hero (navy, all pages) ── */
 .hero{background:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Cg fill='none' stroke='%23d9b968' stroke-width='1.5' opacity='0.35'%3E%3Cpolyline points='20,340 120,300 220,320 320,240 420,190 520,90' stroke-dasharray='0'/%3E%3Cpolyline points='20,370 120,355 220,330 320,310 420,260 520,210' opacity='0.5'/%3E%3C/g%3E%3Cg fill='%23d9b968' opacity='0.55'%3E%3Ccircle cx='120' cy='300' r='4'/%3E%3Ccircle cx='320' cy='240' r='4'/%3E%3Ccircle cx='420' cy='190' r='4'/%3E%3Ccircle cx='520' cy='90' r='5'/%3E%3C/g%3E%3Cg stroke='%23ffffff' stroke-width='0.4' opacity='0.06'%3E%3Cpath d='M0 100h600M0 200h600M0 300h600M100 0v400M200 0v400M300 0v400M400 0v400M500 0v400'/%3E%3C/g%3E%3C/svg%3E") no-repeat right -40px top -20px / 620px 420px,
   radial-gradient(1100px 500px at 85% -10%,rgba(176,138,53,.22),transparent 60%),
   radial-gradient(700px 380px at -10% 110%,rgba(176,138,53,.10),transparent 55%),
   linear-gradient(160deg,var(--navy) 0%,var(--navy-d) 55%,var(--navy-x) 100%)}
+@media(max-width:880px){.hero{background-size:0 0,auto,auto,auto}}
 .hero{padding:6.5rem 0 6rem;border-bottom:3px solid var(--gold)}
 .hero .wrap{max-width:980px}
 .hero h1{color:#fff}
