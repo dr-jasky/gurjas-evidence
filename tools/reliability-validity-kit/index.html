@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reliability & Validity Kit | Cronbach's Alpha, CR & AVE Calculator | Gurjas</title>
+<meta name="description" content="Free calculators for Cronbach's alpha, composite reliability and average variance extracted, with cited interpretation thresholds. Runs entirely in your browser.">
+<link rel="canonical" href="https://gurjas.org/tools/reliability-validity-kit/">
+<meta name="author" content="Gurjas Evidence and Policy Analytics">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#06264e">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Gurjas Evidence and Policy Analytics">
+<meta property="og:title" content="Reliability & Validity Kit | Cronbach's Alpha, CR & AVE Calculator | Gurjas">
+<meta property="og:description" content="Free calculators for Cronbach's alpha, composite reliability and average variance extracted, with cited interpretation thresholds. Runs entirely in your browser.">
+<meta property="og:url" content="https://gurjas.org/tools/reliability-validity-kit/">
+<meta property="og:image" content="https://gurjas.org/assets/og-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Reliability & Validity Kit | Cronbach's Alpha, CR & AVE Calculator | Gurjas">
+<meta name="twitter:description" content="Free calculators for Cronbach's alpha, composite reliability and average variance extracted, with cited interpretation thresholds. Runs entirely in your browser.">
+<meta name="twitter:image" content="https://gurjas.org/assets/og-preview.png">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<link rel="manifest" href="../../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,450;9..144,550;9..144,450&family=Source+Serif+4:opsz,wght@8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "gurjasevidence@gmail.com", "foundingDate": "2026-06-29", "founder": {"@type": "Person", "name": "Gurpreet Kaur"}, "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}, "identifier": {"@type": "PropertyValue", "propertyID": "Udyam Registration Number", "value": "UDYAM-PB-17-0132009"}, "description": "An independent, women-led research and policy analytics practice providing evidence synthesis, impact evaluation, policy analysis and institutional advisory.", "knowsAbout": ["Financial inclusion", "Digital public infrastructure", "Impact evaluation", "Policy analysis", "Urban poverty", "Research methodology"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "Reliability & Validity Kit", "item": "https://gurjas.org/tools/reliability-validity-kit/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap head-in">
+    <a class="brand" href="../../" aria-label="Gurjas Evidence and Policy Analytics — home">
+      <img src="../../assets/gurjas-mark.png" alt="" width="40" height="47">
+      <span class="brand-t">Gurjas<em>Evidence &amp; Policy Analytics</em></span>
+    </a>
+    <button class="nav-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" class="site-nav" aria-label="Primary">
+      <ul><li><a href="../../about/">About</a></li><li><a href="../../services/">Services</a></li><li><a href="../../methods/">Methods</a></li><li><a href="../../research/">Research</a></li><li><a href="../../publications/">Publications</a></li><li><a href="../../tools/" aria-current="page">Tools</a></li><li><a href="../../people/">People</a></li><li><a href="../../contact/">Contact</a></li></ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Reliability & Validity Quick Kit","url":"https://gurjas.org/tools/reliability-validity-kit/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"Free Cronbach's alpha, composite reliability and AVE calculators with cited interpretation thresholds."}</script>
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Free Tool</span>
+    <h1>Reliability &amp; Validity Quick Kit</h1>
+    <p class="lede">Composite reliability, AVE and Cronbach's alpha — computed in your browser, interpreted against the cited thresholds reviewers actually check.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap" style="max-width:880px">
+    <div class="card" style="gap:1rem">
+      <h3 style="margin:0">1 · Composite Reliability &amp; AVE from loadings</h3>
+      <p style="margin:0;font-size:.92rem;color:var(--muted)">Paste your standardised factor loadings for one construct, one per line (e.g. 0.78).</p>
+      <textarea id="loads" rows="6" placeholder="0.81&#10;0.77&#10;0.69&#10;0.84" style="width:100%;padding:.7rem;border:1px solid var(--line);border-radius:4px;font-size:1rem;font-family:inherit"></textarea>
+      <button id="crbtn" class="btn btn-solid" style="border:none;cursor:pointer;align-self:start">Compute CR &amp; AVE</button>
+      <div id="crout" hidden>
+        <div class="grid g3">
+          <div class="stat"><b id="crv">—</b><span>Composite reliability (CR) — threshold ≥ .70</span></div>
+          <div class="stat"><b id="avev">—</b><span>AVE — threshold ≥ .50 (Fornell &amp; Larcker, 1981)</span></div>
+          <div class="stat"><b id="crn">—</b><span>Indicators entered</span></div>
+        </div>
+        <p id="crverdict" class="note" style="margin-top:1.2rem"></p>
+      </div>
+    </div>
+
+    <div class="card" style="gap:1rem;margin-top:2rem">
+      <h3 style="margin:0">2 · Cronbach's alpha from raw data</h3>
+      <p style="margin:0;font-size:.92rem;color:var(--muted)">Paste raw responses: one respondent per line, items separated by commas, tabs or spaces (same item count per line).</p>
+      <textarea id="raw" rows="6" placeholder="4,5,3,4&#10;3,4,4,5&#10;5,5,4,4" style="width:100%;padding:.7rem;border:1px solid var(--line);border-radius:4px;font-size:1rem;font-family:inherit"></textarea>
+      <button id="albtn" class="btn btn-solid" style="border:none;cursor:pointer;align-self:start">Compute alpha</button>
+      <div id="alout" hidden>
+        <div class="grid g3">
+          <div class="stat"><b id="alv">—</b><span>Cronbach's alpha — ≥ .70 acceptable (Nunnally, 1978)</span></div>
+          <div class="stat"><b id="aln">—</b><span>Respondents × items</span></div>
+          <div class="stat"><b id="alverd">—</b><span>Interpretation</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose" style="margin-top:2.6rem">
+      <h2>Thresholds and citations</h2>
+      <p>Composite reliability of .70 or higher indicates acceptable internal consistency for established scales (Hair, Black, Babin, &amp; Anderson, 2019). Average variance extracted of .50 or higher indicates adequate convergent validity; where AVE falls below .50 but CR exceeds .60, convergent validity may still be judged adequate (Fornell &amp; Larcker, 1981). Cronbach's alpha of .70 is the conventional floor for research instruments, with .80+ preferred for applied decisions (Nunnally, 1978). All computation happens in your browser — no data leaves this page.</p>
+      <p class="note">Full measurement-model assessment involves discriminant validity, model fit and invariance — <a href="../../contact/">that is what we do</a>.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+"use strict";
+function nums(t){return t.split(/[\n]+/).map(function(s){return parseFloat(s.trim());}).filter(function(x){return !isNaN(x);});}
+document.getElementById("crbtn").addEventListener("click",function(){
+  var L=nums(document.getElementById("loads").value);
+  if(L.length<2||L.some(function(x){return x<=0||x>=1;})){alert("Enter at least two loadings, each between 0 and 1.");return;}
+  var sum=L.reduce(function(a,b){return a+b;},0);
+  var sum2=L.reduce(function(a,b){return a+b*b;},0);
+  var err=L.reduce(function(a,b){return a+(1-b*b);},0);
+  var cr=(sum*sum)/((sum*sum)+err), ave=sum2/L.length;
+  document.getElementById("crv").textContent=cr.toFixed(3);
+  document.getElementById("avev").textContent=ave.toFixed(3);
+  document.getElementById("crn").textContent=L.length;
+  var v=[];
+  v.push(cr>=0.7?"CR meets the .70 threshold (Hair et al., 2019)":"CR falls below .70 — consider indicator refinement");
+  v.push(ave>=0.5?"AVE meets the .50 threshold (Fornell & Larcker, 1981)":(cr>=0.6?"AVE below .50, but CR ≥ .60 — convergent validity may still be judged adequate (Fornell & Larcker, 1981)":"AVE below .50 — convergent validity is questionable"));
+  document.getElementById("crverdict").textContent=v.join(". ")+".";
+  document.getElementById("crout").hidden=false;
+});
+document.getElementById("albtn").addEventListener("click",function(){
+  var rows=document.getElementById("raw").value.split(/\n+/).map(function(r){return r.trim();}).filter(Boolean)
+    .map(function(r){return r.split(/[\s,;\t]+/).map(parseFloat).filter(function(x){return !isNaN(x);});});
+  if(rows.length<3){alert("Enter at least three respondents (rows).");return;}
+  var k=rows[0].length;
+  if(k<2||rows.some(function(r){return r.length!==k;})){alert("Each row must contain the same number of items (at least two).");return;}
+  var n=rows.length;
+  function svar(a){var m=a.reduce(function(x,y){return x+y;},0)/a.length;return a.reduce(function(x,y){return x+(y-m)*(y-m);},0)/(a.length-1);}
+  var itemVar=0;
+  for(var i=0;i<k;i++){itemVar+=svar(rows.map(function(r){return r[i];}));}
+  var totals=rows.map(function(r){return r.reduce(function(x,y){return x+y;},0);});
+  var tv=svar(totals);
+  var alpha=(k/(k-1))*(1-itemVar/tv);
+  document.getElementById("alv").textContent=alpha.toFixed(3);
+  document.getElementById("aln").textContent=n+" × "+k;
+  document.getElementById("alverd").textContent=alpha>=0.9?"Excellent":alpha>=0.8?"Good":alpha>=0.7?"Acceptable":alpha>=0.6?"Questionable":"Poor";
+  document.getElementById("alout").hidden=false;
+});
+})();
+</script>
+
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <img src="../../assets/gurjas-mark.png" alt="" width="32" height="38" loading="lazy">
+      <p><strong>Gurjas Evidence and Policy Analytics</strong><br>Evidence-led decisions for institutions, policy and impact.</p>
+      <p class="foot-meta">Registered Micro Enterprise · UDYAM-PB-17-0132009<br>Patiala, Punjab, India · Serving India, Canada &amp; global clients (remote)</p>
+    </div>
+    <nav aria-label="Footer — practice"><h2 class="foot-h">Practice</h2><ul>
+      <li><a href="../../about/">About</a></li><li><a href="../../services/">Services</a></li>
+      <li><a href="../../methods/">Methodology</a></li><li><a href="../../research/">Research</a></li>
+      <li><a href="../../publications/">Publications</a></li><li><a href="../../tools/">Research Tools</a></li></ul></nav>
+    <nav aria-label="Footer — organisation"><h2 class="foot-h">Organisation</h2><ul>
+      <li><a href="../../people/">People</a></li><li><a href="../../advisory/">Advisory Board</a></li>
+      <li><a href="../../resources/">Resource Centre</a></li><li><a href="../../contact/">Contact</a></li></ul></nav>
+    <nav aria-label="Footer — governance"><h2 class="foot-h">Governance</h2><ul>
+      <li><a href="../../governance/">Ethics &amp; Governance</a></li>
+      <li><a href="../../ethics-charter/">Ethics Charter</a></li>
+      <li><a href="../../faq/">FAQ</a></li>
+      <li><a href="../../privacy/">Privacy Policy</a></li><li><a href="../../terms/">Terms of Use</a></li></ul></nav>
+  </div>
+  <div class="wrap foot-base">
+    <p>© <span id="yr">2026</span> Gurjas Evidence and Policy Analytics. All rights reserved.</p>
+    <p>Advisors serve in a non-executive, voluntary capacity; affiliations are stated for identification only and do not imply endorsement.</p>
+  </div>
+</footer>
+<script src="../../script.js" defer></script>
+</body>
+</html>
