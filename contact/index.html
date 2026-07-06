@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,450;9..144,550;9..144,450&family=Source+Serif+4:opsz,wght@8..60,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css?v=6">
+<link rel="stylesheet" href="../style.css?v=7">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "gurjasevidence@gmail.com", "foundingDate": "2026-06-29", "founder": {"@type": "Person", "name": "Gurpreet Kaur"}, "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}, "identifier": {"@type": "PropertyValue", "propertyID": "Udyam Registration Number", "value": "UDYAM-PB-17-0132009"}, "description": "An independent, women-led research and policy analytics practice providing evidence synthesis, impact evaluation, policy analysis and institutional advisory.", "knowsAbout": ["Financial inclusion", "Digital public infrastructure", "Impact evaluation", "Policy analysis", "Urban poverty", "Research methodology"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "Contact", "item": "https://gurjas.org/contact/"}]}]}</script>
 </head>
 <body>
@@ -42,7 +42,7 @@
     </a>
     <button class="nav-btn" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav id="nav" class="site-nav" aria-label="Primary">
-      <ul><li><a href="../about/">About</a></li><li><a href="../services/">Services</a></li><li><a href="../methods/">Methods</a></li><li><a href="../research/">Research</a></li><li><a href="../publications/">Publications</a></li><li><a href="../tools/">Tools</a></li><li><a href="../people/">People</a></li><li><a href="../contact/" aria-current="page">Contact</a></li></ul>
+      <ul><li><a href="../about/">About</a></li><li><a href="../services/">Services</a></li><li><a href="../methods/">Methods</a></li><li><a href="../research/">Research</a></li><li><a href="../insights/">Insights</a></li><li><a href="../publications/">Publications</a></li><li><a href="../tools/">Tools</a></li><li><a href="../people/">People</a></li><li><a href="../contact/" aria-current="page">Contact</a></li></ul>
     </nav>
   </div>
 </header>
@@ -51,21 +51,90 @@
   <div class="wrap">
     <span class="eyebrow">Contact</span>
     <h1>Start with a clear research problem.</h1>
-    <p class="lede">Send a brief note with your objective, timeline, data status and expected output. We will respond with a suitable scope, process and next steps.</p>
-    <div class="cta-row">
-      <a class="btn btn-solid" href="mailto:gurjasevidence@gmail.com?subject=Consultation%20Request%20-%20Gurjas%20Evidence%20and%20Policy%20Analytics">Email Gurjas</a>
-    </div>
+    <p class="lede">Send a brief note with your objective, timeline, data status and expected output. We respond with a suitable scope, process and next steps — usually within two working days.</p>
   </div>
 </div>
 
 <section>
   <div class="wrap">
-    <dl class="facts">
-      <div><dt>Email</dt><dd><a href="mailto:gurjasevidence@gmail.com">gurjasevidence@gmail.com</a></dd></div>
-      <div><dt>Location</dt><dd>Patiala, Punjab, India</dd></div>
-      <div><dt>Reach</dt><dd>India · Canada · Global (remote)</dd></div>
-      <div><dt>Legal identity</dt><dd>Registered Micro Enterprise · UDYAM-PB-17-0132009</dd></div>
-    </dl>
+    <div class="contact-grid">
+
+      <div class="form-card">
+        <h2 style="font-size:1.35rem;margin-bottom:.4rem">Send a message</h2>
+        <p class="form-note" style="margin-bottom:1.4rem">Every field marked <span style="color:var(--gold-d)">*</span> helps us reply with something useful rather than generic.</p>
+        <form id="gcContactForm" novalidate>
+          <input type="text" name="_gotcha" class="form-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="hidden" name="_subject" value="New consultation request — gurjas.org">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <div class="form-row">
+            <div class="field">
+              <label for="cf-name">Name <span class="req">*</span></label>
+              <input id="cf-name" name="name" type="text" required autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="cf-email">Email <span class="req">*</span></label>
+              <input id="cf-email" name="email" type="email" required autocomplete="email">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="cf-org">Organisation</label>
+              <input id="cf-org" name="organisation" type="text" autocomplete="organization">
+            </div>
+            <div class="field">
+              <label for="cf-type">How can we help?</label>
+              <select id="cf-type" name="type">
+                <option value="">Select…</option>
+                <option>Research consulting</option>
+                <option>Policy evaluation</option>
+                <option>Impact analytics</option>
+                <option>Institutional / NAAC–IQAC advisory</option>
+                <option>Doctoral methodology support</option>
+                <option>NGO &amp; CSR research</option>
+                <option>Something else</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="cf-msg">Your research problem <span class="req">*</span></label>
+            <textarea id="cf-msg" name="message" required placeholder="Objective, data status, timeline and expected output…"></textarea>
+          </div>
+          <button class="btn btn-solid" type="submit" style="width:100%">Send message</button>
+          <div class="form-status" role="status" aria-live="polite"></div>
+          <p class="form-note" style="margin-top:1rem">By sending, you agree we may use your details solely to respond to this enquiry, under our <a href="../privacy/">privacy policy</a>. Correspondence is confidential.</p>
+        </form>
+      </div>
+
+      <aside class="reach-card">
+        <h3>Reach us directly</h3>
+        <div class="reach-line">
+          <span class="ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+          <div><b>Phone &amp; WhatsApp</b><a href="tel:+919877295825">+91 98772 95825</a></div>
+        </div>
+        <div class="reach-line">
+          <span class="ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>
+          <div><b>Email</b><a href="mailto:gurjasevidence@gmail.com">gurjasevidence@gmail.com</a></div>
+        </div>
+        <div class="reach-line">
+          <span class="ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <div><b>Location</b><span>Patiala, Punjab, India</span></div>
+        </div>
+        <div class="reach-line">
+          <span class="ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+          <div><b>Reach</b><span>India · Canada · Global (remote)</span></div>
+        </div>
+        <div class="reach-line">
+          <span class="ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+          <div><b>Legal identity</b><span>Registered Micro Enterprise · UDYAM-PB-17-0132009</span></div>
+        </div>
+        <a class="wa-btn" href="https://wa.me/919877295825?text=Hello%20Gurjas%2C%20I%27d%20like%20to%20discuss%20a%20research%20requirement." rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35zM12 2a10 10 0 0 0-8.6 15.06L2 22l5.06-1.33A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3 .79.8-2.92-.2-.31A8.2 8.2 0 1 1 12 20.2z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </aside>
+
+    </div>
   </div>
 </section>
 
@@ -89,6 +158,7 @@
       <img src="../assets/gurjas-mark.png" alt="" width="32" height="38" loading="lazy">
       <p><strong>Gurjas Evidence and Policy Analytics</strong><br>Evidence-led decisions for institutions, policy and impact.</p>
       <p class="foot-meta">Registered Micro Enterprise · UDYAM-PB-17-0132009<br>Patiala, Punjab, India · Serving India, Canada &amp; global clients (remote)</p>
+      <p class="foot-meta"><a href="tel:+919877295825" style="color:inherit">+91 98772 95825</a> · <a href="https://wa.me/919877295825" rel="noopener" style="color:inherit">WhatsApp</a> · <a href="mailto:gurjasevidence@gmail.com" style="color:inherit">gurjasevidence@gmail.com</a></p>
     </div>
     <nav aria-label="Footer — practice"><h2 class="foot-h">Practice</h2><ul>
       <li><a href="../about/">About</a></li><li><a href="../services/">Services</a></li>
@@ -104,10 +174,10 @@
       <li><a href="../privacy/">Privacy Policy</a></li><li><a href="../terms/">Terms of Use</a></li></ul></nav>
   </div>
   <div class="wrap foot-base">
-    <p>© <span id="yr">2026</span> Gurjas Evidence and Policy Analytics. All rights reserved.</p>
-    <p>Advisors serve in a non-executive, voluntary capacity; affiliations are stated for identification only and do not imply endorsement.</p>
+    <p>© <span id="yr">2026</span> Gurjas Evidence and Policy Analytics. All rights reserved. Original content, research and tools; text and code may not be copied or reproduced without permission.</p>
+    <p>Our claims are built to be checked. Citations, review record and metrics link to independent third-party sources — <a href="https://orcid.org/0000-0003-0337-7885" rel="noopener">ORCID</a>, <a href="https://scholar.google.com/citations?user=d8Kd4ywAAAAJ" rel="noopener">Google Scholar</a> and <a href="https://www.webofscience.com/wos/author/record/IQW-3142-2023" rel="noopener">Web of Science</a> — that only the named author can hold. Advisors serve in a non-executive, voluntary capacity; affiliations are for identification only and do not imply endorsement.</p>
   </div>
 </footer>
-<script src="../script.js?v=6" defer></script>
+<script src="../script.js?v=7" defer></script>
 </body>
 </html>

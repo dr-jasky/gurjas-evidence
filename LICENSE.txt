@@ -1,0 +1,8 @@
+Copyright (c) 2026 Gurjas Evidence & Policy Analytics. All rights reserved.
+
+The content of this website — including text, research, insights, tools,
+design and source code — is the original work of Gurjas Evidence & Policy
+Analytics and its named author, Dr. Jaskirat Singh. It may not be copied,
+reproduced, republished or reused, in whole or in part, without prior
+written permission. Peer-reviewed publications remain governed by their
+respective publishers' terms and are cited with DOIs for verification.
