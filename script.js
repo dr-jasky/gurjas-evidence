@@ -129,31 +129,35 @@
   document.addEventListener("keydown", function(e){ if(e.key==="Escape" && panel.classList.contains("open")) close(); });
   form.addEventListener("submit", function(e){ e.preventDefault(); var v=input.value.trim(); if(!v) return; user(v); input.value=""; route(v); });
 
-  /* ---------- Contact form (FormSubmit AJAX, mailto fallback) ---------- */
+  /* ---------- Contact form (FormSubmit: AJAX with native-POST fallback) ---------- */
   var cf = document.getElementById("gcContactForm");
   if (cf) {
     var status = cf.querySelector(".form-status");
+    if (/[?&]sent=1/.test(location.search) && status) {
+      status.className = "form-status ok";
+      status.textContent = "Thank you \u2014 your message has been sent. We usually respond within two working days.";
+      try { history.replaceState(null, "", location.pathname); } catch (e) {}
+    }
     cf.addEventListener("submit", function (e) {
+      var honey = cf.querySelector('[name="_honey"]');
+      if (honey && honey.value) { e.preventDefault(); return; }
       e.preventDefault();
-      if (cf.querySelector('[name="_gotcha"]').value) return; // honeypot
       var btn = cf.querySelector('button[type="submit"]');
       var data = new FormData(cf);
-      btn.disabled = true; var old = btn.textContent; btn.textContent = "Sending…";
-      status.className = "form-status";
+      btn.disabled = true; var old = btn.textContent; btn.textContent = "Sending\u2026";
+      if (status) status.className = "form-status";
       fetch("https://formsubmit.co/ajax/gurjasevidence@gmail.com", {
         method: "POST", headers: { "Accept": "application/json" }, body: data
       }).then(function (r) { return r.json(); }).then(function (j) {
         if (j && (j.success === true || j.success === "true")) {
-          status.className = "form-status ok";
-          status.textContent = "Thank you — your message has been sent. We usually respond within two working days.";
-          cf.reset();
-        } else { throw new Error("send failed"); }
+          if (status) { status.className = "form-status ok";
+            status.textContent = "Thank you \u2014 your message has been sent. We usually respond within two working days."; }
+          cf.reset(); btn.disabled = false; btn.textContent = old;
+        } else { throw new Error("needs native"); }
       }).catch(function () {
-        status.className = "form-status err";
-        var name = encodeURIComponent(data.get("name") || "");
-        var msg = encodeURIComponent("Name: " + (data.get("name")||"") + "\nEmail: " + (data.get("email")||"") + "\nOrganisation: " + (data.get("organisation")||"") + "\nType: " + (data.get("type")||"") + "\n\n" + (data.get("message")||""));
-        status.innerHTML = 'Could not send automatically. <a href="mailto:gurjasevidence@gmail.com?subject=Consultation%20Request%20-%20' + name + '&body=' + msg + '">Click here to send by email instead</a>, or WhatsApp <a href="' + WA + '" rel="noopener">+91 98772 95825</a>.';
-      }).then(function () { btn.disabled = false; btn.textContent = old; });
+        if (status) { status.className = "form-status"; status.textContent = "Sending your message\u2026"; }
+        cf.submit();
+      });
     });
   }
 })();
