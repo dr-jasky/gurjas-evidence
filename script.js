@@ -18,6 +18,36 @@
   }
   var yr = document.getElementById("yr");
   if (yr) yr.textContent = String(new Date().getFullYear());
+
+  // "Our Work" dropdown — click/tap + keyboard; hover handled in CSS
+  var subs = Array.prototype.slice.call(document.querySelectorAll(".site-nav .has-sub"));
+  function closeSub(li, refocus) {
+    var b = li.querySelector(".sub-btn");
+    li.classList.remove("open");
+    if (b) { b.setAttribute("aria-expanded", "false"); if (refocus) b.focus(); }
+  }
+  subs.forEach(function (li) {
+    var sub = li.querySelector(".sub-btn");
+    if (!sub) return;
+    sub.addEventListener("click", function () {
+      var open = li.classList.toggle("open");
+      sub.setAttribute("aria-expanded", String(open));
+    });
+  });
+  if (subs.length) {
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape") return;
+      subs.forEach(function (li) {
+        if (li.classList.contains("open")) closeSub(li, li.contains(document.activeElement));
+      });
+    });
+    document.addEventListener("click", function (e) {
+      subs.forEach(function (li) {
+        if (li.classList.contains("open") && !li.contains(e.target)) closeSub(li, false);
+      });
+    });
+  }
+
   if ("IntersectionObserver" in window &&
       !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     var io = new IntersectionObserver(function (entries) {
@@ -25,7 +55,7 @@
         if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
       });
     }, { threshold: 0.12 });
-    document.querySelectorAll(".card, .stat, .person").forEach(function (el) {
+    document.querySelectorAll(".card, .stat, .person, .flow-step, .pillar, .vignette, .cred-item").forEach(function (el) {
       el.classList.add("rv"); io.observe(el);
     });
   }

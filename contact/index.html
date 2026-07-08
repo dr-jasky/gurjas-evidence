@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,450;9..144,550;9..144,450&family=Source+Serif+4:opsz,wght@8..60,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css?v=7">
+<link rel="stylesheet" href="../style.css?v=8">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "gurjasevidence@gmail.com", "foundingDate": "2026-06-29", "founder": {"@type": "Person", "name": "Gurpreet Kaur"}, "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}, "identifier": {"@type": "PropertyValue", "propertyID": "Udyam Registration Number", "value": "UDYAM-PB-17-0132009"}, "description": "An independent, women-led research and policy analytics practice providing evidence synthesis, impact evaluation, policy analysis and institutional advisory.", "knowsAbout": ["Financial inclusion", "Digital public infrastructure", "Impact evaluation", "Policy analysis", "Urban poverty", "Research methodology"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "Contact", "item": "https://gurjas.org/contact/"}]}]}</script>
 </head>
 <body>
@@ -42,7 +42,7 @@
     </a>
     <button class="nav-btn" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav id="nav" class="site-nav" aria-label="Primary">
-      <ul><li><a href="../about/">About</a></li><li><a href="../services/">Services</a></li><li><a href="../methods/">Methods</a></li><li><a href="../research/">Research</a></li><li><a href="../insights/">Insights</a></li><li><a href="../publications/">Publications</a></li><li><a href="../tools/">Tools</a></li><li><a href="../people/">People</a></li><li><a href="../contact/" aria-current="page">Contact</a></li></ul>
+      <ul><li><a href="../about/">About</a></li><li><a href="../services/">Services</a></li><li class="has-sub"><button class="sub-btn" type="button" aria-expanded="false" aria-haspopup="true">Our Work</button><ul class="subnav"><li><a href="../methods/">Methods</a></li><li><a href="../research/">Research</a></li><li><a href="../publications/">Publications</a></li><li><a href="../insights/">Insights</a></li></ul></li><li><a href="../tools/">Tools</a></li><li><a href="../contact/" class="nav-cta" aria-current="page">Contact</a></li></ul>
     </nav>
   </div>
 </header>
@@ -68,6 +68,7 @@
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_next" value="https://gurjas.org/contact/?sent=1">
+          <input type="hidden" name="_autoresponse" value="Thank you for contacting Gurjas Evidence and Policy Analytics. We have received your enquiry and are reviewing your project objective, timeline and data status. If your requirements align with our methodological capabilities and practice focus, we will reply within two working days with a preliminary assessment and recommended next steps for scoping. A note on our governance framework: our practice is strictly advisory, methodological and analytical — we do not ghostwrite, and we never guarantee publication outcomes, institutional approvals or academic grades (see https://gurjas.org/ethics-charter/). All materials you share with us remain confidential. If you have supporting documentation — datasets, drafts or institutional guidelines — that will help us understand your scope of work, simply reply to this email and attach them. — Gurjas Evidence and Policy Analytics · Evidence-led decisions for institutions, policy and impact.">
           <div class="form-row">
             <div class="field">
               <label for="cf-name">Name <span class="req">*</span></label>
@@ -80,12 +81,26 @@
           </div>
           <div class="form-row">
             <div class="field">
-              <label for="cf-org">Organisation</label>
+              <label for="cf-org">Institution / Organisation</label>
               <input id="cf-org" name="organisation" type="text" autocomplete="organization">
             </div>
             <div class="field">
-              <label for="cf-type">How can we help?</label>
-              <select id="cf-type" name="type">
+              <label for="cf-cat">You are a… <span class="req">*</span></label>
+              <select id="cf-cat" name="client_category" required>
+                <option value="">Select…</option>
+                <option>Scholar / Doctoral researcher</option>
+                <option>Academic institution</option>
+                <option>NGO or CSR programme</option>
+                <option>Government or policy actor</option>
+                <option>Corporate</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="cf-type">Nature of request <span class="req">*</span></label>
+              <select id="cf-type" name="type" required>
                 <option value="">Select…</option>
                 <option>Research consulting</option>
                 <option>Policy evaluation</option>
@@ -96,10 +111,24 @@
                 <option>Something else</option>
               </select>
             </div>
+            <div class="field">
+              <label for="cf-data">Current data status</label>
+              <select id="cf-data" name="data_status">
+                <option value="">Select…</option>
+                <option>We have clean, ready data</option>
+                <option>We have raw data needing processing</option>
+                <option>We need a data-collection design</option>
+                <option>Not applicable</option>
+              </select>
+            </div>
           </div>
           <div class="field">
-            <label for="cf-msg">Your research problem <span class="req">*</span></label>
-            <textarea id="cf-msg" name="message" required placeholder="Objective, data status, timeline and expected output…"></textarea>
+            <label for="cf-when">Expected timeline</label>
+            <input id="cf-when" name="timeline" type="text" placeholder="e.g. proposal due 30 September; accreditation visit in March">
+          </div>
+          <div class="field">
+            <label for="cf-msg">Project objective &amp; expected output <span class="req">*</span></label>
+            <textarea id="cf-msg" name="message" required placeholder="Briefly describe your research problem and what you need delivered — report, analysis, brief, documentation or mentoring…"></textarea>
           </div>
           <button class="btn btn-solid" type="submit" style="width:100%">Send message</button>
           <div class="form-status" role="status" aria-live="polite"></div>
@@ -179,6 +208,6 @@
     <p>Our claims are built to be checked. Citations, review record and metrics link to independent third-party sources — <a href="https://orcid.org/0000-0003-0337-7885" rel="noopener">ORCID</a>, <a href="https://scholar.google.com/citations?user=d8Kd4ywAAAAJ" rel="noopener">Google Scholar</a> and <a href="https://www.webofscience.com/wos/author/record/IQW-3142-2023" rel="noopener">Web of Science</a> — that only the named author can hold. Advisors serve in a non-executive, voluntary capacity; affiliations are for identification only and do not imply endorsement.</p>
   </div>
 </footer>
-<script src="../script.js?v=7" defer></script>
+<script src="../script.js?v=8" defer></script>
 </body>
 </html>
