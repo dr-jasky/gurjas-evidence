@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,450;9..144,550;9..144,450&family=Source+Serif+4:opsz,wght@8..60,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../style.css?v=9">
+<link rel="stylesheet" href="../../style.css?v=8">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "gurjasevidence@gmail.com", "foundingDate": "2026-06-29", "founder": {"@type": "Person", "name": "Gurpreet Kaur"}, "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}, "identifier": {"@type": "PropertyValue", "propertyID": "Udyam Registration Number", "value": "UDYAM-PB-17-0132009"}, "description": "An independent, women-led research and policy analytics practice providing evidence synthesis, impact evaluation, policy analysis and institutional advisory.", "knowsAbout": ["Financial inclusion", "Digital public infrastructure", "Impact evaluation", "Policy analysis", "Urban poverty", "Research methodology"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "NAAC Readiness Scorecard", "item": "https://gurjas.org/tools/naac-readiness-scorecard/"}]}]}</script>
 </head>
 <body>
@@ -64,21 +64,12 @@
     </div>
 
     <div id="out" hidden>
-      <div class="dial-card card" style="border-top-color:var(--gold);margin-top:2.4rem">
-        <div class="dial" role="img" aria-labelledby="dial-label">
-          <svg viewBox="0 0 120 120" width="150" height="150">
-            <circle class="dial-track" cx="60" cy="60" r="52"/>
-            <circle class="dial-arc" id="dialArc" cx="60" cy="60" r="52" transform="rotate(-90 60 60)"/>
-          </svg>
-          <span class="dial-num" id="ov">—</span>
-        </div>
-        <div class="dial-body">
-          <h3 style="margin:0" id="dial-label">Overall readiness</h3>
-          <p id="ovnote" style="margin:.5rem 0 0"></p>
-        </div>
-      </div>
       <h2 style="margin:2.4rem 0 1.2rem">Criterion-wise readiness</h2>
       <div id="bars"></div>
+      <div class="card" style="margin-top:2rem;border-top-color:var(--gold)">
+        <h3 style="margin:0">Overall readiness: <span id="ov" style="color:var(--gold-d)">—</span></h3>
+        <p id="ovnote" style="margin:.4rem 0 0"></p>
+      </div>
       <h3 style="margin:2rem 0 .8rem">Top remediation priorities</h3>
       <ol id="prio" style="padding-left:1.3rem;font-size:.97rem;line-height:1.9"></ol>
       <p style="margin-top:1.4rem"><button id="prt" class="btn btn-ghost" style="cursor:pointer">Print / save as PDF</button></p>
@@ -114,7 +105,7 @@ var Q=[
 var qs=document.getElementById("qs");
 Q.forEach(function(q,i){
   var d=document.createElement("div");
-  d.style.cssText="display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:flex-start;padding:.6rem 0;border-bottom:1px solid var(--line)";
+  d.style.cssText="display:flex;gap:1rem;align-items:flex-start;padding:.6rem 0;border-bottom:1px solid var(--line)";
   d.innerHTML='<span style="flex:1;font-size:.93rem;line-height:1.55"><strong style="color:var(--gold-d);font-size:.78rem;letter-spacing:.06em">'+q[0]+'</strong><br>'+q[1]+'</span>'+
     '<span style="white-space:nowrap"><label style="margin-right:.6rem;font-size:.85rem"><input type="radio" name="n'+i+'" value="2"> Yes</label>'+
     '<label style="margin-right:.6rem;font-size:.85rem"><input type="radio" name="n'+i+'" value="1"> Partly</label>'+
@@ -139,21 +130,7 @@ document.getElementById("score").addEventListener("click",function(){
   });
   document.getElementById("bars").innerHTML=html;
   var op=Math.round(100*tot/totmax);
-  var band=op>=75?"#3b6d11":op>=45?"#854f0b":"#993c1d";
-  var ovEl=document.getElementById("ov"),arc=document.getElementById("dialArc");
-  var C=2*Math.PI*52; arc.style.strokeDasharray=C.toFixed(1);
-  arc.style.stroke=band;
-  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if(reduce){ arc.style.strokeDashoffset=(C*(1-op/100)).toFixed(1); ovEl.textContent=op+"%"; }
-  else {
-    arc.style.strokeDashoffset=C.toFixed(1);
-    var t0=null,dur=1100;
-    function step(ts){ if(t0===null)t0=ts; var p=Math.min((ts-t0)/dur,1); var e=1-Math.pow(1-p,3);
-      arc.style.strokeDashoffset=(C*(1-(op/100)*e)).toFixed(1);
-      ovEl.textContent=Math.round(op*e)+"%";
-      if(p<1)requestAnimationFrame(step); }
-    requestAnimationFrame(step);
-  }
+  document.getElementById("ov").textContent=op+"%";
   document.getElementById("ovnote").textContent=op>=75?"Strong documentation posture — the remaining gaps below are precision work, not rescue work.":op>=45?"A credible base with material gaps. Sequenced remediation over one to two terms typically closes most of these.":"Substantial preparation is needed before the cycle. Prioritise the items below in order — data validation failures are where institutions lose the most.";
   worst.sort(function(a,b){return a[0]-b[0];});
   document.getElementById("prio").innerHTML=worst.slice(0,5).map(function(w){return "<li><strong>"+w[1]+":</strong> "+w[2]+"</li>";}).join("");
@@ -191,6 +168,6 @@ document.getElementById("prt").addEventListener("click",function(){window.print(
     <p>Our claims are built to be checked. Citations, review record and metrics link to independent third-party sources — <a href="https://orcid.org/0000-0003-0337-7885" rel="noopener">ORCID</a>, <a href="https://scholar.google.com/citations?user=d8Kd4ywAAAAJ" rel="noopener">Google Scholar</a> and <a href="https://www.webofscience.com/wos/author/record/IQW-3142-2023" rel="noopener">Web of Science</a> — that only the named author can hold. Advisors serve in a non-executive, voluntary capacity; affiliations are for identification only and do not imply endorsement.</p>
   </div>
 </footer>
-<script src="../../script.js?v=9" defer></script>
+<script src="../../script.js?v=8" defer></script>
 </body>
 </html>

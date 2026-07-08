@@ -48,79 +48,16 @@
     });
   }
 
-  // Count-up tickers (respect reduced-motion)
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function runTick(el) {
-    if (el.dataset.done) return;
-    el.dataset.done = "1";
-    var to = parseFloat(el.getAttribute("data-to")) || 0;
-    var dec = parseInt(el.getAttribute("data-decimals") || "0", 10);
-    if (reduceMotion) { el.textContent = to.toFixed(dec); return; }
-    var t0 = null, dur = 1200;
-    function step(ts) {
-      if (t0 === null) t0 = ts;
-      var p = Math.min((ts - t0) / dur, 1);
-      var e = 1 - Math.pow(1 - p, 3);
-      el.textContent = (to * e).toFixed(dec);
-      if (p < 1) requestAnimationFrame(step); else el.textContent = to.toFixed(dec);
-    }
-    requestAnimationFrame(step);
-  }
-
-  if ("IntersectionObserver" in window && !reduceMotion) {
+  if ("IntersectionObserver" in window &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        if (en.isIntersecting) {
-          en.target.classList.add("in");
-          en.target.querySelectorAll && en.target.querySelectorAll(".tick").forEach(runTick);
-          io.unobserve(en.target);
-        }
+        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
       });
     }, { threshold: 0.12 });
-    document.querySelectorAll(".card, .stat, .person, .flow-step, .pillar, .vignette, .cred-item, .bento-cell")
-      .forEach(function (el) { el.classList.add("rv"); io.observe(el); });
-  } else {
-    document.querySelectorAll(".tick").forEach(runTick);
-  }
-
-  // Grant Deadline Tracker — client-side filtering
-  var gt = document.getElementById("grantTable");
-  var gf = document.getElementById("grantFilters");
-  if (gt && gf) {
-    var rows = Array.prototype.slice.call(gt.tBodies[0].rows);
-    var state = { funder: "all", status: "all" };
-    var countEl = document.getElementById("grantCount");
-    var emptyEl = document.getElementById("grantEmpty");
-    function apply() {
-      var shown = 0;
-      rows.forEach(function (r) {
-        var ok = (state.funder === "all" || r.getAttribute("data-funder") === state.funder) &&
-                 (state.status === "all" || r.getAttribute("data-status") === state.status);
-        r.hidden = !ok;
-        if (ok) shown++;
-      });
-      if (countEl) countEl.textContent = shown + (shown === 1 ? " call shown" : " calls shown");
-      if (emptyEl) emptyEl.hidden = shown !== 0;
-    }
-    gf.addEventListener("click", function (e) {
-      var b = e.target.closest(".gt-chip");
-      if (!b) return;
-      var dim = b.getAttribute("data-dim");
-      state[dim] = b.getAttribute("data-val");
-      gf.querySelectorAll('.gt-chip[data-dim="' + dim + '"]').forEach(function (c) {
-        c.setAttribute("aria-pressed", String(c === b));
-      });
-      apply();
+    document.querySelectorAll(".card, .stat, .person, .flow-step, .pillar, .vignette, .cred-item").forEach(function (el) {
+      el.classList.add("rv"); io.observe(el);
     });
-    var reset = document.getElementById("grantReset");
-    if (reset) reset.addEventListener("click", function () {
-      state = { funder: "all", status: "all" };
-      gf.querySelectorAll(".gt-chip").forEach(function (c) {
-        c.setAttribute("aria-pressed", String(c.getAttribute("data-val") === "all"));
-      });
-      apply();
-    });
-    apply();
   }
 })();
 
