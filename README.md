@@ -1,21 +1,19 @@
-# gurjas.org — website v3
+# gurjas.org — website
 
-This folder IS the complete website. Every file needed is here: 13 pages, styles, scripts, images, favicon, sitemap, robots.txt, manifest and CNAME. Nothing else is required.
+This repository is the live source for [gurjas.org](https://gurjas.org), served via GitHub Pages (see `CNAME`). It is a static, dependency-free multi-page site: plain HTML, one shared `style.css` and one shared `script.js`.
 
-## How to publish (no technical steps, ~5 minutes)
+## Structure
 
-1. Open your website repository on **github.com** in your browser and sign in.
-2. Click **Add file → Upload files**.
-3. On your computer, open the `gurjas_website_v3` folder, select **everything inside it** (Cmd+A), and drag it all into the GitHub upload box. Folders like `about/` and `assets/` come along automatically.
-4. In the commit message box type: `Rebuild as multi-page institute site (v3)` and click **Commit changes**.
-5. Wait 2–3 minutes, then open https://gurjas.org — the new site is live. Old files with the same names are replaced automatically; nothing needs deleting first.
-6. Then follow `SEARCH_CONSOLE_ACTIONS.md` (in the folder above this one) to get the new pages into Google.
+- `index.html` — homepage
+- `about/`, `services/`, `methods/`, `research/`, `publications/`, `insights/`, `tools/`, `people/`, `advisory/`, `resources/`, `governance/`, `ethics-charter/`, `faq/`, `contact/`, `privacy/`, `terms/` — one `index.html` per section
+- `style.css`, `script.js` — shared styles and behaviour, loaded by every page with a `?v=` cache-busting query string
+- `assets/` — logos, favicons, social-preview image
+- `404.html`, `robots.txt`, `sitemap.xml`, `site.webmanifest`, `humans.txt`, `favicon.ico`, `CNAME` — site plumbing
 
-## Checking it worked
-Visit https://gurjas.org/about/ and https://gurjas.org/publications/ — both should show the navy-and-gold design.
+## Editing
 
-## Previewing on your computer
-Double-click any `index.html` — the design and styling now display correctly offline. (Page-to-page links only work fully on the live site.)
+Pages are hand-written static HTML — edit the relevant `index.html` directly. When editing shared `style.css` or `script.js`, bump the `?v=` query string on every page that references them so browsers pick up the change.
 
-## Editing later
-Page text lives in `../website_src/content/`; titles and descriptions in `../website_src/build.py`. Ask Claude (or run `python3 build.py`) to regenerate after any edit — don't edit the page files here directly, they get overwritten by the generator.
+## Previewing locally
+
+Serve the folder with any static file server, e.g. `python3 -m http.server`, then open `http://localhost:8000/`. Opening `index.html` directly by double-click also works for a quick look; root-relative links between pages only resolve correctly when served over HTTP.

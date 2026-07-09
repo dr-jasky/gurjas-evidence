@@ -48,17 +48,160 @@
     });
   }
 
+  function countUp(el) {
+    var target = parseInt(el.getAttribute("data-count"), 10);
+    if (!target || el._counted) return;
+    el._counted = true;
+    var t0 = performance.now(), dur = 1100;
+    function step(t) {
+      var p = Math.min((t - t0) / dur, 1);
+      el.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
   if ("IntersectionObserver" in window &&
       !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+        if (en.isIntersecting) {
+          en.target.classList.add("in");
+          var counter = en.target.querySelector("[data-count]");
+          if (counter) countUp(counter);
+          io.unobserve(en.target);
+        }
       });
     }, { threshold: 0.12 });
-    document.querySelectorAll(".card, .stat, .person, .flow-step, .pillar, .vignette, .cred-item").forEach(function (el) {
+    document.querySelectorAll(
+      ".card, .stat, .person, .flow-step, .pillar, .vignette, .cred-item, " +
+      ".home-audience, .home-item, .home-step, .home-insight, .home-row"
+    ).forEach(function (el) {
       el.classList.add("rv"); io.observe(el);
     });
+  } else {
+    document.querySelectorAll("[data-count]").forEach(countUp);
   }
+})();
+
+/* ═══════════ Homepage evidence-field background (gold data-points, drifting) ═══════════ */
+(function () {
+  "use strict";
+  var canvas = document.querySelector(".evidence-field");
+  if (!canvas || !canvas.getContext) return;
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var ctx = canvas.getContext("2d");
+  var w, h, dpr, pts;
+  var LINK = 150;
+
+  function build() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth; h = window.innerHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var count = Math.round(Math.min(150, Math.max(48, (w * h) / 14500)));
+    pts = Array.from({ length: count }, function () {
+      return {
+        x: Math.random() * w, y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.12, vy: (Math.random() - 0.5) * 0.12,
+        r: 0.8 + Math.random() * 1.8, tw: Math.random() * Math.PI * 2
+      };
+    });
+  }
+
+  function link(a, b, alphaMax) {
+    var dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy;
+    return d2 < LINK * LINK ? (1 - Math.sqrt(d2) / LINK) * alphaMax : 0;
+  }
+
+  function draw(t) {
+    ctx.clearRect(0, 0, w, h);
+    for (var i = 0; i < pts.length; i++) {
+      for (var j = i + 1; j < pts.length; j++) {
+        var a = link(pts[i], pts[j], 0.15);
+        if (a > 0) {
+          ctx.strokeStyle = "rgba(217,185,104," + a.toFixed(3) + ")";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[j].x, pts[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    pts.forEach(function (p) {
+      var tw = 0.42 + 0.32 * Math.sin(t / 1400 + p.tw);
+      ctx.fillStyle = "rgba(217,185,104," + tw.toFixed(3) + ")";
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < -10) p.x = w + 10; if (p.x > w + 10) p.x = -10;
+      if (p.y < -10) p.y = h + 10; if (p.y > h + 10) p.y = -10;
+    });
+  }
+
+  var lights = [];
+  function buildLights() {
+    lights = Array.prototype.map.call(document.querySelectorAll(".evidence-field-light"), function (c) {
+      var host = c.parentElement;
+      var r = host.getBoundingClientRect();
+      var lw = Math.max(1, r.width), lh = Math.max(1, r.height);
+      c.width = lw * dpr; c.height = lh * dpr;
+      var lctx = c.getContext("2d");
+      lctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var n = Math.round(Math.min(70, Math.max(20, (lw * lh) / 22000)));
+      return {
+        ctx: lctx, w: lw, h: lh,
+        pts: Array.from({ length: n }, function () {
+          return {
+            x: Math.random() * lw, y: Math.random() * lh,
+            vx: (Math.random() - 0.5) * 0.12, vy: (Math.random() - 0.5) * 0.12,
+            r: 0.8 + Math.random() * 1.6, tw: Math.random() * Math.PI * 2
+          };
+        })
+      };
+    });
+  }
+
+  function drawLights(t) {
+    lights.forEach(function (L) {
+      L.ctx.clearRect(0, 0, L.w, L.h);
+      for (var i = 0; i < L.pts.length; i++) {
+        for (var j = i + 1; j < L.pts.length; j++) {
+          var dx = L.pts[i].x - L.pts[j].x, dy = L.pts[i].y - L.pts[j].y;
+          var d2 = dx * dx + dy * dy;
+          if (d2 < LINK * LINK) {
+            var a = (1 - Math.sqrt(d2) / LINK) * 0.09;
+            L.ctx.strokeStyle = "rgba(6,38,78," + a.toFixed(3) + ")";
+            L.ctx.lineWidth = 1;
+            L.ctx.beginPath();
+            L.ctx.moveTo(L.pts[i].x, L.pts[i].y);
+            L.ctx.lineTo(L.pts[j].x, L.pts[j].y);
+            L.ctx.stroke();
+          }
+        }
+      }
+      L.pts.forEach(function (p) {
+        var tw = 0.22 + 0.16 * Math.sin(t / 1400 + p.tw);
+        L.ctx.fillStyle = "rgba(6,38,78," + tw.toFixed(3) + ")";
+        L.ctx.beginPath();
+        L.ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        L.ctx.fill();
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < -10) p.x = L.w + 10; if (p.x > L.w + 10) p.x = -10;
+        if (p.y < -10) p.y = L.h + 10; if (p.y > L.h + 10) p.y = -10;
+      });
+    });
+  }
+
+  build();
+  buildLights();
+  var raf;
+  window.addEventListener("resize", function () { build(); buildLights(); });
+
+  if (reduced) { draw(0); drawLights(0); return; }
+  (function loop(t) { draw(t); drawLights(t); raf = requestAnimationFrame(loop); })(0);
 })();
 
 /* ═══════════ Gurjas concierge + contact form (2026) ═══════════ */
