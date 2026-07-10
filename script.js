@@ -89,15 +89,6 @@
   "use strict";
   var canvas = document.querySelector(".evidence-field");
   if (!canvas || !canvas.getContext) return;
-  // Inner pages: give every cream section its own navy-ink field automatically
-  document.querySelectorAll("body:not(.home) main > section:not(.alt):not(.navy-band):not(.tools-allure)").forEach(function (s) {
-    if (!s.querySelector(".evidence-field-light")) {
-      var c = document.createElement("canvas");
-      c.className = "evidence-field-light";
-      c.setAttribute("aria-hidden", "true");
-      s.insertBefore(c, s.firstChild);
-    }
-  });
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var ctx = canvas.getContext("2d");
   var w, h, dpr, pts;
@@ -151,27 +142,7 @@
   }
 
   var lights = [];
-  function buildLights() {
-    lights = Array.prototype.map.call(document.querySelectorAll(".evidence-field-light"), function (c) {
-      var host = c.parentElement;
-      var r = host.getBoundingClientRect();
-      var lw = Math.max(1, r.width), lh = Math.max(1, r.height);
-      c.width = lw * dpr; c.height = lh * dpr;
-      var lctx = c.getContext("2d");
-      lctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      var n = Math.round(Math.min(150, Math.max(40, (lw * lh) / 14500)));
-      return {
-        ctx: lctx, w: lw, h: lh,
-        pts: Array.from({ length: n }, function () {
-          return {
-            x: Math.random() * lw, y: Math.random() * lh,
-            vx: (Math.random() - 0.5) * 0.12, vy: (Math.random() - 0.5) * 0.12,
-            r: 0.8 + Math.random() * 1.6, tw: Math.random() * Math.PI * 2
-          };
-        })
-      };
-    });
-  }
+  function buildLights() { lights = []; }
 
   function drawLights(t) {
     lights.forEach(function (L) {
