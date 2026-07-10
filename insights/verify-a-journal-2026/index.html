@@ -44,6 +44,12 @@
     <button class="nav-btn" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav id="nav" class="site-nav" aria-label="Primary">
       <ul><li><a href="../../about/">About</a></li><li><a href="../../services/">Services</a></li><li class="has-sub"><button class="sub-btn" type="button" aria-expanded="false" aria-haspopup="true" aria-current="true">Our Work</button><ul class="subnav"><li><a href="../../methods/">Methods</a></li><li><a href="../../research/">Research</a></li><li><a href="../../publications/">Publications</a></li><li><a href="../../insights/" aria-current="page">Insights</a></li></ul></li><li><a href="../../tools/">Tools</a></li><li><a href="../../contact/" class="nav-cta">Contact</a></li></ul>
+      <div class="nav-trust">
+        <span class="nav-trust-h">Verified externally</span>
+        <a href="https://orcid.org/0000-0003-0337-7885" rel="noopener">ORCID ↗</a>
+        <a href="https://scholar.google.com/citations?user=d8Kd4ywAAAAJ" rel="noopener">Google Scholar ↗</a>
+        <a href="https://www.webofscience.com/wos/author/record/IQW-3142-2023" rel="noopener">Web of Science ↗</a>
+      </div>
     </nav>
   </div>
 </header>
@@ -60,26 +66,35 @@
 
 <section>
   <div class="wrap prose" style="max-width:52em">
+    <nav class="toc" aria-labelledby="toc-h">
+      <p class="toc-h" id="toc-h">On this page</p>
+      <ol>
+        <li><a href="#why-fragile">Why a list was always a fragile idea</a></li>
+        <li><a href="#three-checks">The three checks that actually settle the question</a></li>
+        <li><a href="#checker-fits">Where our free checker fits</a></li>
+        <li><a href="#rule-of-thumb">A practical rule of thumb</a></li>
+      </ol>
+    </nav>
     <p>On 11 February 2025, the University Grants Commission quietly did something that reshaped how millions of Indian scholars must now think about publishing: it discontinued the UGC-CARE list of approved journals. A public notice in July 2025 confirmed it. The historical list of 1,474 titles still sits on the UGC website, but the Commission has been unusually blunt about its meaning — inclusion no longer implies validation or endorsement. The single most consulted gatekeeper in Indian academic publishing simply stopped being a gatekeeper.</p>
 
     <p>In its place, at its 595th meeting on 24 June 2025, the Commission approved a set of Suggestive Parameters for Peer-Reviewed Journals: thirty-six criteria grouped under eight broad categories. Read carefully, this is not a new list you can look a journal up in. It is a framework you are now expected to apply yourself, on a journal-by-journal basis. The burden of judgement has shifted from a committee in Delhi to the individual researcher sitting in front of an invitation email. That is a heavier responsibility than it sounds, and it is worth being honest about why.</p>
 
-    <h2>Why a list was always a fragile idea</h2>
+    <h2 id="why-fragile">Why a list was always a fragile idea</h2>
     <p>The instinct to trust a list is understandable, but every list in this field has proven brittle. Jeffrey Beall's original list of predatory publishers — the one most Western academics still name — was taken offline entirely in January 2017, and the anonymous successors that sprang up in its place carry no institutional accountability. Cabells maintains a serious commercial database of questionable journals, running to something on the order of sixteen thousand titles, but it sits behind an institutional subscription most individual scholars in India will never see. Lists go stale, get captured, get sued, or get paywalled. The journals they try to catch, meanwhile, multiply and rename faster than any committee can follow.</p>
 
     <p>So the disappearance of UGC-CARE, disorienting as it feels, is really an invitation to do what careful researchers in every discipline already do: verify the journal directly, at the source, on the day you are deciding. That is slower than looking up a name. It is also far more reliable, because it cannot be gamed by a journal that bought its way onto a list.</p>
 
-    <h2>The three checks that actually settle the question</h2>
+    <h2 id="three-checks">The three checks that actually settle the question</h2>
     <p>Strip the problem to its essentials and almost every legitimate journal clears three independent, free, public checks. First, indexing: is the journal genuinely in Scopus, in Web of Science's Master Journal List, or — for open-access titles — in the Directory of Open Access Journals? For Indian researchers in 2026, Scopus and Web of Science indexation have quietly become the safest universally accepted benchmarks, precisely because they survived the collapse of the national list. Second, provenance: does the journal have a real, traceable publication history — a run of articles with registered DOIs through Crossref, editors who exist and are reachable, an ISSN that resolves? Third, conduct: does the journal behave like a scholarly venue or like a business? Unsolicited flattery by email, a promise to publish within days, an article-processing charge disclosed only after acceptance, and a scope so broad it accepts everything are the classic tells.</p>
 
     <p>None of these three requires a subscription, and none requires you to trust anyone's list. They require you to look. The reason this matters is subtle but important: a predatory journal can fake a logo, a name, even a plausible website, but it cannot easily fake a decade of indexed articles in a database it does not control. Verification at the source shifts the ground from what a journal claims about itself to what independent systems have recorded about it.</p>
 
-    <h2>Where our free checker fits</h2>
+    <h2 id="checker-fits">Where our free checker fits</h2>
     <p>This is precisely the gap our <a href="../../tools/predatory-journal-checker/">Predatory Journal Risk Checker</a> was built to close. It is not another list, and it deliberately keeps no blacklist. When you type a journal name or ISSN, it queries three live scholarly databases — OpenAlex, Crossref and DOAJ — in real time and returns an evidence score, an indexing panel, and a twelve-signal red-flag assessment you complete from the journal's own website. Every computation runs in your browser; nothing you type is stored or sent to us. Crucially, the tool frames its output as evidence to weigh, never as a verdict, and it links you straight to Scopus, the Web of Science Master Journal List and the Retraction Watch Hijacked Journal Checker so you can confirm the decisive facts yourself on the day you submit.</p>
 
     <p>That framing is deliberate. A tool that hands down verdicts on named journals is one aggrieved publisher's legal letter away from disappearing — which is exactly how earlier lists died. A tool that shows you the public evidence and teaches you to read it cannot be silenced, because it is only ever pointing at records that already exist in the open.</p>
 
-    <h2>A practical rule of thumb</h2>
+    <h2 id="rule-of-thumb">A practical rule of thumb</h2>
     <p>If you remember nothing else, remember this sequence. Confirm the journal is indexed where it claims to be, at Scopus or the Web of Science Master Journal List, opened directly rather than through a link the journal sent you. Check that its recent articles carry working DOIs and that its editorial board members are real scholars you can find elsewhere. Then read the invitation email again, coldly, and ask whether a serious journal in your field would ever have sent it. In the post-CARE era, that discipline — not a lookup — is what protects your record. It is also, not coincidentally, the same discipline that survives peer review, which is the standard we hold our own work to.</p>
 
     <p class="note">Deciding on a specific journal for a specific manuscript, or building a publication strategy that holds up under the new UGC parameters? <a href="../../contact/">Journal strategy is part of what we do</a>. You can also verify a title right now with the free <a href="../../tools/predatory-journal-checker/">Predatory Journal Risk Checker</a>.</p>
