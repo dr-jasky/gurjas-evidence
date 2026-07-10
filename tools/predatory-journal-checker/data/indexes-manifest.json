@@ -1,0 +1,16 @@
+{
+  "version": "2026-07-11",
+  "files": {
+    "scopus": "scopus.idx.2026-07.json",
+    "abdc": "abdc.json",
+    "hijacked": "hijacked.json"
+  },
+  "excluded": {
+    "Scopus_book_list_Q2.xlsx": "ISBN-keyed book data \u2014 out of scope for a journal-level predatory checker (v2)."
+  },
+  "counts": {
+    "scopus_entries": 74368,
+    "abdc_entries": 4599,
+    "hijacked_entries": 455
+  }
+}
