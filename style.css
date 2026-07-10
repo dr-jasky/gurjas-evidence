@@ -30,7 +30,7 @@ a:hover{color:var(--gold-d)}
 .site-nav ul{display:flex;gap:2rem;list-style:none}
 .site-nav>ul>li>a{font-family:var(--sans);font-size:.8rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;color:#c6d2e2;padding:.4rem 0;border-bottom:2px solid transparent;transition:color .18s,border-color .18s}
 .site-nav>ul>li>a:hover{color:var(--gold-l);border-bottom-color:var(--gold-l)}
-.site-nav>ul>li>a[aria-current="page"]{color:#fff;border-bottom-color:var(--gold-l)}
+.site-nav>ul>li>a[aria-current="page"]{color:var(--gold-l);border-bottom-color:var(--gold-l)}
 .nav-btn{display:none;font:inherit;font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:none;border:1px solid rgba(255,255,255,.32);border-radius:3px;padding:.5rem 1rem;cursor:pointer;color:#fff}
 @media(max-width:960px){
   .nav-btn{display:block}
@@ -308,9 +308,9 @@ a.card:hover h3{color:var(--gold-d)}
 .site-nav .has-sub{position:relative}
 .site-nav .sub-btn{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--sans);font-size:.8rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#c6d2e2;background:none;border:none;cursor:pointer;padding:.4rem 0;border-bottom:2px solid transparent;transition:color .18s,border-color .18s}
 .site-nav .sub-btn::after{content:"";width:.42em;height:.42em;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-15%);transition:transform .18s}
-.site-nav .sub-btn:hover,.site-nav .has-sub.open .sub-btn{color:#fff;border-bottom-color:var(--gold-l)}
+.site-nav .sub-btn:hover,.site-nav .has-sub.open .sub-btn{color:var(--gold-l);border-bottom-color:var(--gold-l)}
 .site-nav .has-sub.open .sub-btn::after{transform:rotate(225deg) translateY(-15%)}
-.site-nav .sub-btn[aria-current="true"]{color:#fff;border-bottom-color:var(--gold-l)}
+.site-nav .sub-btn[aria-current="true"]{color:var(--gold-l);border-bottom-color:var(--gold-l)}
 .site-nav .subnav{position:absolute;top:calc(100% + .6rem);left:50%;transform:translateX(-50%);min-width:215px;background:#fff;border:1px solid var(--line);border-top:3px solid var(--gold-l);border-radius:0 0 6px 6px;box-shadow:0 22px 48px rgba(2,10,24,.3);padding:.45rem 0;list-style:none;display:none;z-index:60}
 .site-nav .subnav::before{content:"";position:absolute;top:-.7rem;left:0;right:0;height:.7rem}
 .site-nav .has-sub.open .subnav{display:block}
@@ -326,7 +326,7 @@ a.card:hover h3{color:var(--gold-d)}
   .site-nav .subnav{position:static;transform:none;min-width:0;border:none;border-radius:0;box-shadow:none;background:#0a2a4f;padding:.2rem 0;margin:0 -28px;display:none}
   .site-nav .has-sub.open .subnav{display:block}
   .site-nav .subnav a{padding:.75rem 28px .75rem 44px;font-size:.8rem;border-bottom:1px solid rgba(217,185,104,.15);color:#c6d2e2}
-  .site-nav .subnav a:hover{background:#0e3358;color:#fff}
+  .site-nav .subnav a:hover{background:#0e3358;color:var(--gold-l)}
   .site-nav a.nav-cta{display:inline-block;margin:.9rem 0 .2rem;text-align:center;border-bottom:none}
 }
 
