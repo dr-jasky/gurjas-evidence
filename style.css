@@ -221,9 +221,9 @@ details.faq p{font-family:var(--serif);font-size:.98rem;line-height:1.75;color:v
 
 /* ═══ Inner pages: fixed evidence-field behind, cream ↔ navy-tint section rhythm ═══ */
 body:not(.home) main{position:relative;z-index:1}
-body:not(.home) main>section{background:var(--cream) radial-gradient(rgba(6,38,78,.05) 1px,transparent 1.5px);background-size:26px 26px;position:relative;overflow:hidden;z-index:1}
-body:not(.home) main>section>.wrap{position:relative;z-index:1}
-body:not(.home) main>section.alt{background:rgba(6,26,55,.45);backdrop-filter:blur(2px);border-top:1px solid rgba(217,185,104,.18);border-bottom:1px solid rgba(217,185,104,.18)}
+body:not(.home) main section:not(.alt):not(.navy-band):not(.tools-allure){background:var(--cream) radial-gradient(rgba(6,38,78,.05) 1px,transparent 1.5px);background-size:26px 26px;position:relative;overflow:hidden;z-index:1}
+body:not(.home) main section>.wrap{position:relative;z-index:1}
+body:not(.home) main section.alt{background:rgba(6,26,55,.45);backdrop-filter:blur(2px);border-top:1px solid rgba(217,185,104,.18);border-bottom:1px solid rgba(217,185,104,.18)}
 .alt .eyebrow{color:var(--gold-l)}
 .alt .eyebrow::before{background:var(--gold-l)}
 .alt .section-h h2{color:#fff}
@@ -239,6 +239,26 @@ body:not(.home) main>section.alt{background:rgba(6,26,55,.45);backdrop-filter:bl
 .alt .stat b,.alt .stat b a{color:#fff}
 .alt .stat span{color:#a9bcd6}
 .alt .creds{color:#c6d2e2!important}
+.navy-band .stat b,.navy-band .stat b a{color:#fff}
+.navy-band .stat span{color:#a9bcd6}
+/* Dark-context prose (e.g. “What to include in your first note”) */
+.alt .prose h2,.alt .prose h3,.navy-band .prose h2,.navy-band .prose h3{color:#fff}
+.alt .prose h2{border-top-color:rgba(217,185,104,.25)}
+.alt .prose p,.alt .prose li,.navy-band .prose p,.navy-band .prose li{color:#c3d2e6}
+.alt .prose strong,.alt .prose b,.navy-band .prose strong,.navy-band .prose b{color:#fff}
+.alt .prose a,.navy-band .prose a{color:var(--gold-l)}
+/* “Get started — Start with a clear research problem” CTA sections: warm cream on every page */
+body:not(.home) main section.alt[aria-labelledby="h-cta"]{background:var(--cream) radial-gradient(rgba(6,38,78,.05) 1px,transparent 1.5px);background-size:26px 26px;backdrop-filter:none;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+section.alt[aria-labelledby="h-cta"] .eyebrow{color:var(--gold-d)}
+section.alt[aria-labelledby="h-cta"] .eyebrow::before{background:var(--gold)}
+section.alt[aria-labelledby="h-cta"] .section-h h2{color:var(--navy)}
+section.alt[aria-labelledby="h-cta"] .section-h .lede{color:var(--muted)}
+section.alt[aria-labelledby="h-cta"] .note{color:var(--muted);border-left-color:var(--gold)}
+section.alt[aria-labelledby="h-cta"] .note a{color:var(--navy)}
+section.alt[aria-labelledby="h-cta"] .btn-solid{background:var(--navy);border-color:var(--navy);color:#fff}
+section.alt[aria-labelledby="h-cta"] .btn-solid:hover{background:var(--gold-d);border-color:var(--gold-d);color:#fff}
+section.alt[aria-labelledby="h-cta"] .btn-ghost{color:var(--navy);border-color:rgba(6,38,78,.35)}
+section.alt[aria-labelledby="h-cta"] .btn-ghost:hover{background:var(--navy);border-color:var(--navy);color:#fff}
 
 /* ── Premium service cards (services page) ── */
 .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:1.5rem}

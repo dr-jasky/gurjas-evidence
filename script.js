@@ -90,6 +90,7 @@
   var canvas = document.querySelector(".evidence-field");
   if (!canvas || !canvas.getContext) return;
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var isMobile = window.matchMedia("(max-width: 820px)").matches;
   var ctx = canvas.getContext("2d");
   var w, h, dpr, pts;
   var LINK = 150;
@@ -99,7 +100,7 @@
     w = window.innerWidth; h = window.innerHeight;
     canvas.width = w * dpr; canvas.height = h * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    var count = Math.round(Math.min(150, Math.max(48, (w * h) / 14500)));
+    var count = Math.round(Math.min(isMobile ? 60 : 150, Math.max(30, (w * h) / (isMobile ? 26000 : 14500))));
     pts = Array.from({ length: count }, function () {
       return {
         x: Math.random() * w, y: Math.random() * h,
@@ -181,7 +182,21 @@
   window.addEventListener("resize", function () { build(); buildLights(); });
 
   if (reduced) { draw(0); drawLights(0); return; }
-  (function loop(t) { draw(t); drawLights(t); raf = requestAnimationFrame(loop); })(0);
+  // Perf: start after first paint is settled; ~30fps on mobile; pause when hidden
+  var FRAME = isMobile ? 33 : 16, last = 0, running = false;
+  function loop(t) {
+    raf = requestAnimationFrame(loop);
+    if (t - last < FRAME) return;
+    last = t;
+    draw(t); drawLights(t);
+  }
+  function start() { if (!running) { running = true; raf = requestAnimationFrame(loop); } }
+  function stop() { running = false; cancelAnimationFrame(raf); }
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) stop(); else start();
+  });
+  if ("requestIdleCallback" in window) requestIdleCallback(start, { timeout: 1500 });
+  else setTimeout(start, 300);
 })();
 
 /* ═══════════ Gurjas concierge + contact form (2026) ═══════════ */
