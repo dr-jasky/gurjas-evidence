@@ -89,6 +89,15 @@
   "use strict";
   var canvas = document.querySelector(".evidence-field");
   if (!canvas || !canvas.getContext) return;
+  // Inner pages: give every cream section its own navy-ink field automatically
+  document.querySelectorAll("body:not(.home) main > section:not(.alt):not(.navy-band):not(.tools-allure)").forEach(function (s) {
+    if (!s.querySelector(".evidence-field-light")) {
+      var c = document.createElement("canvas");
+      c.className = "evidence-field-light";
+      c.setAttribute("aria-hidden", "true");
+      s.insertBefore(c, s.firstChild);
+    }
+  });
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var ctx = canvas.getContext("2d");
   var w, h, dpr, pts;
@@ -150,7 +159,7 @@
       c.width = lw * dpr; c.height = lh * dpr;
       var lctx = c.getContext("2d");
       lctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      var n = Math.round(Math.min(70, Math.max(20, (lw * lh) / 22000)));
+      var n = Math.round(Math.min(150, Math.max(40, (lw * lh) / 14500)));
       return {
         ctx: lctx, w: lw, h: lh,
         pts: Array.from({ length: n }, function () {
@@ -172,7 +181,7 @@
           var dx = L.pts[i].x - L.pts[j].x, dy = L.pts[i].y - L.pts[j].y;
           var d2 = dx * dx + dy * dy;
           if (d2 < LINK * LINK) {
-            var a = (1 - Math.sqrt(d2) / LINK) * 0.09;
+            var a = (1 - Math.sqrt(d2) / LINK) * 0.13;
             L.ctx.strokeStyle = "rgba(6,38,78," + a.toFixed(3) + ")";
             L.ctx.lineWidth = 1;
             L.ctx.beginPath();
@@ -183,7 +192,7 @@
         }
       }
       L.pts.forEach(function (p) {
-        var tw = 0.22 + 0.16 * Math.sin(t / 1400 + p.tw);
+        var tw = 0.3 + 0.22 * Math.sin(t / 1400 + p.tw);
         L.ctx.fillStyle = "rgba(6,38,78," + tw.toFixed(3) + ")";
         L.ctx.beginPath();
         L.ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
