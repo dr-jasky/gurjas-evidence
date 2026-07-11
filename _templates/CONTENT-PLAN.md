@@ -30,7 +30,9 @@ version, adjusted to the real repo state. Kept in `_templates/` (Jekyll-ignored)
 - [x] Pillar 1 page live: insights/how-to-identify-a-predatory-journal/ (~2,950 wds, FAQ schema, wired to hub + checker + clusters).
 - [x] Cluster: insights/cloned-hijacked-journals/ (~1,360 wds)
 - [x] Cluster: insights/published-in-predatory-journal-what-to-do/ (~1,150 wds)
-- [ ] Pillar 1 remaining clusters (fake impact factors; can-a-Scopus-journal-be-predatory; 12 red-flag emails; DOAJ/COPE/OASPA; Beall's list 2026)
+- [x] Cluster: insights/fake-impact-factors/ (~1,140 wds)
+- [x] Cluster: insights/can-a-scopus-journal-be-predatory/ (~1,120 wds)
+- [ ] Pillar 1 remaining clusters (12 red-flag emails; DOAJ/COPE/OASPA memberships; Beall's list 2026)
 - [x] Pillar 2 page live: insights/ugc-care-discontinued/ (~1,930 wds, FAQ schema, wired to hub + Pillar 1 + verify cluster + checker).
 - [ ] Pillar 2 clusters (8 criteria explained; how to choose now; PhD requirement 2026; institutional policy; UGC-CARE-approved red flag; ONOS; frozen 1,474 list)
 - [ ] Checker polish; Journal Finder by Scope; APC checker
