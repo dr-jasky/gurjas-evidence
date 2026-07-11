@@ -27,8 +27,11 @@ version, adjusted to the real repo state. Kept in `_templates/` (Jekyll-ignored)
 - [x] FAQPage schema — already present on /faq/
 - [x] Reference-data disclaimer added to Predatory Journal Checker
 - [x] Reusable article template (`_templates/article-template.html`)
-- [x] Pillar 1 page live: insights/how-to-identify-a-predatory-journal/ (~2,950 wds, FAQ schema, wired to hub + checker + cluster). Clusters still to write.
-- [ ] Pillar 1 clusters (7) + Pillar 2 + its clusters
+- [x] Pillar 1 page live: insights/how-to-identify-a-predatory-journal/ (~2,950 wds, FAQ schema, wired to hub + checker + clusters).
+- [x] Cluster: insights/cloned-hijacked-journals/ (~1,360 wds)
+- [x] Cluster: insights/published-in-predatory-journal-what-to-do/ (~1,150 wds)
+- [ ] Pillar 1 remaining clusters (fake impact factors; can-a-Scopus-journal-be-predatory; 12 red-flag emails; DOAJ/COPE/OASPA; Beall's list 2026)
+- [ ] Pillar 2 (UGC-CARE) + its clusters
 - [ ] Checker polish; Journal Finder by Scope; APC checker
 - [ ] Pillar 3 + Pillar 4 + remaining clusters
 - [ ] Hub-and-spoke internal linking; Insights hub grouping; final schema validation
