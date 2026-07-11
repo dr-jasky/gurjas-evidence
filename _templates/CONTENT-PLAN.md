@@ -31,7 +31,8 @@ version, adjusted to the real repo state. Kept in `_templates/` (Jekyll-ignored)
 - [x] Cluster: insights/cloned-hijacked-journals/ (~1,360 wds)
 - [x] Cluster: insights/published-in-predatory-journal-what-to-do/ (~1,150 wds)
 - [ ] Pillar 1 remaining clusters (fake impact factors; can-a-Scopus-journal-be-predatory; 12 red-flag emails; DOAJ/COPE/OASPA; Beall's list 2026)
-- [ ] Pillar 2 (UGC-CARE) + its clusters
+- [x] Pillar 2 page live: insights/ugc-care-discontinued/ (~1,930 wds, FAQ schema, wired to hub + Pillar 1 + verify cluster + checker).
+- [ ] Pillar 2 clusters (8 criteria explained; how to choose now; PhD requirement 2026; institutional policy; UGC-CARE-approved red flag; ONOS; frozen 1,474 list)
 - [ ] Checker polish; Journal Finder by Scope; APC checker
 - [ ] Pillar 3 + Pillar 4 + remaining clusters
 - [ ] Hub-and-spoke internal linking; Insights hub grouping; final schema validation
