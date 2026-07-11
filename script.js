@@ -261,7 +261,7 @@
     methods:{k:["method","sem","fsqca","nca","ardl","garch","econometric","statistic","analysis","prisma"],
       a:'Methods include SEM/PLS-SEM, fsQCA and NCA, ARDL and GARCH-family econometrics, and PRISMA-style synthesis. Detail on <a href="/methods/">Methodology</a>.'},
     contact:{k:["contact","consult","book","call","talk","reach","quote","scope","hire","engage","start"],
-      a:'Happy to help. You can <a href="/contact/">open the contact form</a>, WhatsApp us at <a href="'+WA+'" rel="noopener">+91 98772 95825</a>, or email <a href="mailto:gurjasevidence@gmail.com">gurjasevidence@gmail.com</a>. Share your objective, data status, timeline and expected output for a tailored scope.'},
+      a:'Happy to help. You can <a href="/contact/">open the contact form</a>, WhatsApp us at <a href="'+WA+'" rel="noopener">+91 98772 95825</a>, or email <a href="mailto:support@gurjas.org">support@gurjas.org</a>. Share your objective, data status, timeline and expected output for a tailored scope.'},
     whatsapp:{k:["whatsapp","wa","message","chat now","phone","number","mobile"],
       a:'Reach us directly on WhatsApp: <a href="'+WA+'" rel="noopener">+91 98772 95825</a> (or call <a href="'+TEL+'">the same number</a>). We usually respond within minutes during working hours.'},
     price:{k:["price","cost","fee","charge","how much","pricing","budget"],
