@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  GURJAS ARTICLE TEMPLATE  (insights/<slug>/index.html)
+  ============================================================================
+  This file lives in _templates/ and is NOT published (Jekyll ignores
+  underscore-prefixed folders; there is no .nojekyll). It is the canonical
+  pattern for every new Insight / pillar / cluster article, copied from the
+  proven live article insights/verify-a-journal-2026/.
+
+  AUTHORING RULES (agreed with Dr. Jaskirat Singh — do not deviate):
+    1. ZERO RISK. Every factual claim must trace to a credible, already-published
+       source, preferably government/official (UGC public notices, Scopus/Elsevier,
+       Clarivate/WoS, ABDC, DOAJ, Retraction Watch). Cite them in the .src line.
+    2. NO JOURNAL NAMES in prose. Describe patterns/techniques, never name a
+       specific journal as predatory/cloned. Point to third-party registers instead.
+    3. A responsible accuracy disclaimer must accompany any compiled/fetched data.
+    4. Dr. Jaskirat Singh is the named author (E-E-A-T face). Gurpreet Kaur is the
+       registered proprietor — legal/background only, not an article byline.
+    5. First-hand "here's what I actually check" passage is REQUIRED. Draft it in
+       his voice from sourced facts and mark it clearly for his edit before publish.
+    6. Verify all dates/counts twice against the primary source before publishing.
+
+  REPLACE every {{TOKEN}}. Depth target: pillar 2,500-4,000 words; cluster 1,200-1,800.
+  Path depth assumes insights/<slug>/ (two levels deep → ../../ to root).
+  ============================================================================
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}} | Gurjas</title>
+<meta name="description" content="{{META_DESCRIPTION_150_160_CHARS}}">
+<link rel="canonical" href="https://gurjas.org/insights/{{SLUG}}/">
+<meta name="author" content="Gurjas Evidence and Policy Analytics">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#041226">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Gurjas Evidence and Policy Analytics">
+<meta property="og:title" content="{{TITLE}} | Gurjas">
+<meta property="og:description" content="{{META_DESCRIPTION_150_160_CHARS}}">
+<meta property="og:url" content="https://gurjas.org/insights/{{SLUG}}/">
+<meta property="og:image" content="https://gurjas.org/assets/og-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{TITLE}} | Gurjas">
+<meta name="twitter:description" content="{{META_DESCRIPTION_150_160_CHARS}}">
+<meta name="twitter:image" content="https://gurjas.org/assets/og-preview.png">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<link rel="manifest" href="../../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Inter:wght@400;500;600&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css?v=10">
+<!-- Site-wide @graph: Organization (legal proprietor Gurpreet Kaur stays here) + this page's breadcrumb. -->
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "support@gurjas.org", "foundingDate": "2026-06-29", "founder": {"@type": "Person", "name": "Gurpreet Kaur"}, "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}, "identifier": {"@type": "PropertyValue", "propertyID": "Udyam Registration Number", "value": "UDYAM-PB-17-0132009"}, "description": "An independent research and policy analytics practice providing evidence synthesis, impact evaluation, policy analysis and institutional advisory.", "knowsAbout": ["Financial inclusion", "Digital public infrastructure", "Impact evaluation", "Policy analysis", "Urban poverty", "Research methodology"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://gurjas.org/insights/"}, {"@type": "ListItem", "position": 3, "name": "{{BREADCRUMB_SHORT}}", "item": "https://gurjas.org/insights/{{SLUG}}/"}]}]}</script>
+</head>
+<body>
+<canvas class="evidence-field" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap head-in">
+    <a class="brand" href="../../" aria-label="Gurjas Evidence and Policy Analytics — home">
+      <img src="../../assets/gurjas-mark.png" alt="" width="40" height="47">
+      <span class="brand-t">Gurjas<em>Evidence &amp; Policy Analytics</em></span>
+    </a>
+    <button class="nav-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" class="site-nav" aria-label="Primary">
+      <ul><li><a href="../../about/">About</a></li><li><a href="../../services/">Services</a></li><li class="has-sub"><button class="sub-btn" type="button" aria-expanded="false" aria-haspopup="true" aria-current="true">Our Work</button><ul class="subnav"><li><a href="../../methods/">Methods</a></li><li><a href="../../research/">Research</a></li><li><a href="../../publications/">Publications</a></li><li><a href="../../insights/" aria-current="page">Insights</a></li></ul></li><li><a href="../../tools/">Tools</a></li><li><a href="../../contact/" class="nav-cta">Contact</a></li></ul>
+      <div class="nav-trust">
+        <span class="nav-trust-h">Verified externally</span>
+        <a href="https://orcid.org/0000-0003-0337-7885" rel="noopener">ORCID ↗</a>
+        <a href="https://scholar.google.com/citations?user=d8Kd4ywAAAAJ" rel="noopener">Google Scholar ↗</a>
+        <a href="https://www.webofscience.com/wos/author/record/IQW-3142-2023" rel="noopener">Web of Science ↗</a>
+      </div>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<!-- Per-article Article schema. Keep author linked to the People page Person node. Update both dates on any edit. -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"{{HEADLINE_MATCHES_H1}}","datePublished":"{{YYYY-MM-DD}}","dateModified":"{{YYYY-MM-DD}}","author":{"@type":"Person","name":"Dr. Jaskirat Singh","url":"https://gurjas.org/people/#jaskirat-singh","sameAs":["https://orcid.org/0000-0003-0337-7885","https://scholar.google.com/citations?user=d8Kd4ywAAAAJ","https://www.webofscience.com/wos/author/record/IQW-3142-2023"]},"publisher":{"@id":"https://gurjas.org/#org"},"mainEntityOfPage":"https://gurjas.org/insights/{{SLUG}}/","description":"{{ARTICLE_SCHEMA_DESCRIPTION}}"}</script>
+<!-- OPTIONAL, for GEO/AI-answer capture: add FAQPage schema ONLY if the same Q&A text is visibly on the page.
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"{{Q1}}","acceptedAnswer":{"@type":"Answer","text":"{{A1_MATCHES_VISIBLE_TEXT}}"}}]}</script>
+-->
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Insight · {{CATEGORY}}</span>
+    <h1>{{H1_HEADLINE}}</h1>
+    <p class="lede">{{ONE_TO_TWO_SENTENCE_LEDE}}</p>
+    <p class="byline">By <a href="../../people/#jaskirat-singh">Dr. Jaskirat Singh</a> · {{D MONTH YYYY}} · {{N}} min read</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap prose" style="max-width:52em">
+    <nav class="toc" aria-labelledby="toc-h">
+      <p class="toc-h" id="toc-h">On this page</p>
+      <ol>
+        <li><a href="#{{ID1}}">{{SECTION_1}}</a></li>
+        <li><a href="#{{ID2}}">{{SECTION_2}}</a></li>
+        <li><a href="#{{ID3}}">{{SECTION_3}}</a></li>
+      </ol>
+    </nav>
+
+    <p>{{OPENING_PARAGRAPH — set the stakes; anchor to a dated, sourced fact.}}</p>
+
+    <h2 id="{{ID1}}">{{SECTION_1}}</h2>
+    <p>{{...}}</p>
+
+    <h2 id="{{ID2}}">{{SECTION_2}}</h2>
+    <p>{{...}}</p>
+
+    <!-- REQUIRED first-hand E-E-A-T passage. Drafted in Dr. Singh's voice from sourced facts;
+         MARK FOR HIS EDIT before publish. Example opener: "As a reviewing editor for Scopus and
+         Web of Science journals, the first thing I check is…" -->
+    <h2 id="{{ID3}}">{{SECTION_3}}</h2>
+    <p><!-- FIRST-HAND / VERIFY WITH DR. SINGH -->{{...}}</p>
+
+    <!-- Context-matched soft CTA (see conversion architecture): tool after a verification piece,
+         consultation after a methodology piece. Never high-pressure. -->
+    <p class="note">{{SOFT_CTA}} <a href="../../contact/">{{CTA_LINK_TEXT}}</a>. You can also use the free <a href="../../tools/predatory-journal-checker/">Predatory Journal Risk Checker</a>.</p>
+
+    <!-- MANDATORY sources line. List the credible/official sources actually used. -->
+    <p class="src">Sources and further reading: {{OFFICIAL_SOURCES_WITH_DATES}}. Figures and dates in this piece are drawn from these public sources and, where noted, from the author's own peer-review practice.</p>
+  </div>
+</section>
+
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <img src="../../assets/gurjas-mark.png" alt="" width="32" height="38" loading="lazy">
+      <p><strong>Gurjas Evidence and Policy Analytics</strong><br>Evidence-led decisions for institutions, policy and impact.</p>
+      <p class="foot-meta">Registered Micro Enterprise · UDYAM-PB-17-0132009<br>Patiala, Punjab, India · Serving India, Canada &amp; global clients (remote)</p>
+      <p class="foot-meta"><a href="tel:+919877295825" style="color:inherit">+91 98772 95825</a> · <a href="https://wa.me/919877295825" rel="noopener" style="color:inherit">WhatsApp</a> · <a href="mailto:support@gurjas.org" style="color:inherit">support@gurjas.org</a></p>
+    </div>
+    <nav aria-label="Footer — practice"><h2 class="foot-h">Practice</h2><ul>
+      <li><a href="../../about/">About</a></li><li><a href="../../services/">Services</a></li>
+      <li><a href="../../methods/">Methodology</a></li><li><a href="../../research/">Research</a></li>
+      <li><a href="../../publications/">Publications</a></li><li><a href="../../tools/">Research Tools</a></li></ul></nav>
+    <nav aria-label="Footer — organisation"><h2 class="foot-h">Organisation</h2><ul>
+      <li><a href="../../people/">People</a></li><li><a href="../../advisory/">Advisory Board</a></li>
+      <li><a href="../../resources/">Resource Centre</a></li><li><a href="../../contact/">Contact</a></li></ul></nav>
+    <nav aria-label="Footer — governance"><h2 class="foot-h">Governance</h2><ul>
+      <li><a href="../../governance/">Ethics &amp; Governance</a></li>
+      <li><a href="../../ethics-charter/">Ethics Charter</a></li>
+      <li><a href="../../faq/">FAQ</a></li>
+      <li><a href="../../privacy/">Privacy Policy</a></li><li><a href="../../terms/">Terms of Use</a></li></ul></nav>
+  </div>
+  <div class="wrap foot-base">
+    <p>© <span id="yr">2026</span> Gurjas Evidence and Policy Analytics. All rights reserved. Original content, research and tools; text and code may not be copied or reproduced without permission.</p>
+    <p>Our claims are built to be checked. Citations, review record and metrics link to independent third-party sources — <a href="https://orcid.org/0000-0003-0337-7885" rel="noopener">ORCID</a>, <a href="https://scholar.google.com/citations?user=d8Kd4ywAAAAJ" rel="noopener">Google Scholar</a> and <a href="https://www.webofscience.com/wos/author/record/IQW-3142-2023" rel="noopener">Web of Science</a> — that only the named author can hold. Advisors serve in a non-executive, voluntary capacity; affiliations are for identification only and do not imply endorsement.</p>
+  </div>
+</footer>
+<script src="../../script.js?v=10" defer></script>
+</body>
+</html>
