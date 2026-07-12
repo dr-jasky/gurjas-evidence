@@ -1,0 +1,43 @@
+name: IndexNow ping
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Submit sitemap URLs to IndexNow
+        run: |
+          set -euo pipefail
+          KEY="127d4f6734fd4c5b8f7308201fd3d836"
+          HOST="gurjas.org"
+          KEY_LOCATION="https://gurjas.org/${KEY}.txt"
+
+          urls=$(grep -o '<loc>[^<]*</loc>' sitemap.xml | sed -e 's/<loc>//' -e 's#</loc>##')
+
+          json_urls=$(printf '%s\n' "$urls" | jq -R . | jq -s .)
+
+          payload=$(jq -n \
+            --arg host "$HOST" \
+            --arg key "$KEY" \
+            --arg keyLocation "$KEY_LOCATION" \
+            --argjson urlList "$json_urls" \
+            '{host: $host, key: $key, keyLocation: $keyLocation, urlList: $urlList}')
+
+          http_code=$(curl -s -o /tmp/indexnow_response.txt -w '%{http_code}' \
+            -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d "$payload")
+
+          echo "IndexNow response code: $http_code"
+          cat /tmp/indexnow_response.txt || true
+
+          if [ "$http_code" != "200" ] && [ "$http_code" != "202" ]; then
+            echo "IndexNow submission failed with HTTP $http_code"
+            exit 1
+          fi

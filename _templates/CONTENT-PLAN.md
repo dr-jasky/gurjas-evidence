@@ -130,6 +130,12 @@ Technical (Fable E): Service schema on /services/; optional Python build script 
 Conversion (Fable H): "Free Journal Fit Audit" lead-magnet flow; pricing-page transparency; CTA consistency pass.
 Measurement (Fable I): embed GA4 + Microsoft Clarity snippets (need IDs) + event tracking on tool completions/CTAs.
 
+### DONE (12 Jul 2026, continued)
+- IndexNow: key file at site root + GitHub Action (`.github/workflows/indexnow.yml`) pings api.indexnow.org with all sitemap URLs on every push to main. Fixes Bing "discovered but not crawled" delay.
+- Service schema added to /services/ (6 Service entries, provider -> Organization, text matches visible service-line headings).
+- Library outreach plan built: `_templates/LIBRARY-OUTREACH.md` — verified Tier 1 (has existing predatory-journals LibGuide) + Tier 2 (India, no guide, gap-fill pitch) targets, two ready-to-send pitch emails, contact-finding method, cadence. Only IIM Bangalore verified as an existing Indian LibGuide; other Indian targets are cold gap-fill outreach.
+- AdSense: decided against — recommended against display ads (trust conflict + low yield vs. consulting funnel); no code change needed.
+
 ### LEFT — only Dr. Singh can do (off-site / account-based)
 - Edit the first-hand "what I actually check" passages in all articles (E-E-A-T).
 - Google Search Console: verify + submit sitemap. Bing Webmaster: verify + submit (ChatGPT visibility).
