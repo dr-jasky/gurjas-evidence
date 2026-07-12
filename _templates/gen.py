@@ -71,6 +71,9 @@ def build(a):
     title=_h.escape(a["title"]); desc=_h.escape(a["desc"])
     P=('<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
     '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+    '<!-- Google Analytics 4 -->\n<script async src="https://www.googletagmanager.com/gtag/js?id=G-P95TY2K8F3"></script>\n'
+    '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-P95TY2K8F3");</script>\n'
+    '<!-- Microsoft Clarity -->\n<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","xl7zo5h687");</script>\n'
     '<title>%s | Gurjas</title>\n<meta name="description" content="%s">\n'
     '<link rel="canonical" href="%s">\n<meta name="author" content="Gurjas Evidence and Policy Analytics">\n'
     '<meta name="robots" content="index, follow, max-image-preview:large">\n<meta name="theme-color" content="#041226">\n'
