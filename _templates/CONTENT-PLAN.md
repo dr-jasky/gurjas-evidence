@@ -135,6 +135,7 @@ Measurement (Fable I): embed GA4 + Microsoft Clarity snippets (need IDs) + event
 - Service schema added to /services/ (6 Service entries, provider -> Organization, text matches visible service-line headings).
 - Library outreach plan built: `_templates/LIBRARY-OUTREACH.md` — verified Tier 1 (has existing predatory-journals LibGuide) + Tier 2 (India, no guide, gap-fill pitch) targets, two ready-to-send pitch emails, contact-finding method, cadence. Only IIM Bangalore verified as an existing Indian LibGuide; other Indian targets are cold gap-fill outreach.
 - AdSense: decided against — recommended against display ads (trust conflict + low yield vs. consulting funnel); no code change needed.
+- Pricing transparency: /services/ now shows a "Typical engagement range" per service line (soft framing, not a price list; researched against real India market bands, positioned below full-service/ghostwriting competitors since Gurjas is advisory-only). Tiered where scope varies materially: Institutional Advisory (documentation-only vs. full SSR + peer-visit support, per Dr. Singh's confirmation he attends peer visits and can prepare the SSR), Doctoral Support (synopsis stage vs. pre-submission/thesis-level), NGO & CSR (small NGO vs. mid-sized CSR). FAQ's existing "indicative bands are published on our Services page" claim is now accurate.
 
 ### LEFT — only Dr. Singh can do (off-site / account-based)
 - Edit the first-hand "what I actually check" passages in all articles (E-E-A-T).
