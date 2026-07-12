@@ -332,9 +332,10 @@ section.alt[aria-labelledby="h-cta"] .btn-ghost:hover{background:var(--navy);bor
 /* ── Concierge chat widget (site-wide) ── */
 .gc-fab{position:fixed;right:22px;bottom:22px;z-index:80;display:inline-flex;align-items:center;gap:.6rem;background:var(--navy);color:#fff;border:none;border-radius:40px;padding:.85rem 1.25rem .85rem 1.05rem;font-family:var(--sans);font-size:.9rem;font-weight:600;letter-spacing:.01em;cursor:pointer;box-shadow:0 12px 34px rgba(4,26,55,.32);transition:transform .2s,box-shadow .2s,background .2s}
 .gc-fab:hover{transform:translateY(-2px);background:var(--navy-d);box-shadow:0 16px 40px rgba(4,26,55,.4)}
-.gc-fab .dot{width:9px;height:9px;border-radius:50%;background:var(--gold-l);box-shadow:0 0 0 0 rgba(217,185,104,.6);animation:gcpulse 2.4s infinite}
-@keyframes gcpulse{0%{box-shadow:0 0 0 0 rgba(217,185,104,.55)}70%{box-shadow:0 0 0 9px rgba(217,185,104,0)}100%{box-shadow:0 0 0 0 rgba(217,185,104,0)}}
-@media(prefers-reduced-motion:reduce){.gc-fab .dot{animation:none}}
+.gc-fab .dot{position:relative;width:9px;height:9px;border-radius:50%;background:var(--gold-l)}
+.gc-fab .dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:rgba(217,185,104,.5);animation:gcpulse 2.4s infinite;will-change:transform,opacity;pointer-events:none}
+@keyframes gcpulse{0%{transform:scale(1);opacity:.55}70%{transform:scale(3);opacity:0}100%{transform:scale(3);opacity:0}}
+@media(prefers-reduced-motion:reduce){.gc-fab .dot::after{animation:none}}
 @media(max-width:560px){.gc-fab span.lbl{display:none}.gc-fab{padding:.9rem;border-radius:50%}}
 .gc-panel{position:fixed;right:22px;bottom:22px;z-index:81;width:min(374px,calc(100vw - 32px));max-height:min(600px,calc(100vh - 44px));display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:0 30px 70px rgba(4,26,55,.34);overflow:hidden;opacity:0;transform:translateY(14px) scale(.98);pointer-events:none;transition:opacity .22s,transform .22s}
 .gc-panel.open{opacity:1;transform:none;pointer-events:auto}
