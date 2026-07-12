@@ -103,3 +103,37 @@ version, adjusted to the real repo state. Kept in `_templates/` (Jekyll-ignored)
 5. Pillar 3 + clusters  [Pillar 3 page DONE: insights/scopus-publication-guide/ ~1,900 wds]
 6. Pillar 4 + clusters
 7. Internal-linking hub-and-spoke, Insights hub grouping, CTAs, schema validation pass
+
+---
+
+## WHAT'S LEFT PER FABLE (status as of 12 Jul 2026)
+
+### DONE
+- Tech foundation: Article/FAQ/Org/Person/Breadcrumb schema; robots.txt welcomes AI crawlers; sitemap maintained; canonical/OG already present.
+- Email -> support@gurjas.org (form endpoints kept on gmail).
+- Reusable article template + this content plan.
+- Pillar 1 (predatory/cloned) + clusters: cloned-hijacked, fake-impact-factors, published-in-predatory, can-a-scopus, verify-a-journal.
+- Pillar 2 (UGC-CARE) + cluster: ugc-suggestive-parameters-explained.
+- Pillar 3 (Scopus publication guide).
+- Checker featured #1 on /tools/ and homepage.
+- Insights hub + homepage reorganised into pillar-grouped linkable sections.
+- 11 insights articles live on main.
+
+### LEFT — I can build in code
+Content (Fable target ~28-30; at 11):
+- Pillar 4: NAAC — promote existing naac article into a full pillar + clusters (binary vs MBGL, DVV process, DCF 2025 readiness, research output -> accreditation, documentation checklist).
+- Pillar 1 clusters left: DOAJ/COPE/OASPA memberships; Beall's list in 2026; the 12 red-flag invitation-email cluster. (Cloned "case study" deferred — defamation caution.)
+- Pillar 2 clusters left: how to choose a journal now; PhD publication requirement 2026; institutional journal policy; ONOS explained; the frozen 1,474 list (standalone).
+- Pillar 3 clusters left: verify Scopus step-by-step; Scopus discontinued list; Q1-Q4 & CiteScore; Scopus vs WoS vs ABDC; APCs deep-dive; thesis -> article; responding to peer review.
+Tools (Fable D): Journal Finder by Scope; APC "should I pay this?" checker; Predatory-Risk self-check scorecard.
+Technical (Fable E): Service schema on /services/; optional Python build script + GitHub Action (auto sitemap/schema/link-check); programmatic "is [journal] Scopus-indexed" pilot (factual-only, legal caution, later).
+Conversion (Fable H): "Free Journal Fit Audit" lead-magnet flow; pricing-page transparency; CTA consistency pass.
+Measurement (Fable I): embed GA4 + Microsoft Clarity snippets (need IDs) + event tracking on tool completions/CTAs.
+
+### LEFT — only Dr. Singh can do (off-site / account-based)
+- Edit the first-hand "what I actually check" passages in all articles (E-E-A-T).
+- Google Search Console: verify + submit sitemap. Bing Webmaster: verify + submit (ChatGPT visibility).
+- Create GA4 + Clarity accounts and give me the IDs to embed.
+- Google Business Profile decision (service-area business) — only if genuine in-person/service-area contact.
+- University-library / LibGuides backlink outreach; digital PR pitches; HARO/Qwoted; LinkedIn/ResearchGate repurposing; YouTube walkthroughs; Quora/Reddit/WhatsApp/Telegram distribution; Scam-Alert newsletter; Wikipedia citations.
+- Paid ads: deferred per plan until organic authority exists.
