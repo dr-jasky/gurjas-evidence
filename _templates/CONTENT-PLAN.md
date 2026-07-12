@@ -100,6 +100,6 @@ version, adjusted to the real repo state. Kept in `_templates/` (Jekyll-ignored)
 2. Pillar 1 + 2–3 clusters, publish-ready, wired to checker
 3. Pillar 2 + 2–3 clusters
 4. Checker polish + Journal Finder + APC checker
-5. Pillar 3 + clusters
+5. Pillar 3 + clusters  [Pillar 3 page DONE: insights/scopus-publication-guide/ ~1,900 wds]
 6. Pillar 4 + clusters
 7. Internal-linking hub-and-spoke, Insights hub grouping, CTAs, schema validation pass
