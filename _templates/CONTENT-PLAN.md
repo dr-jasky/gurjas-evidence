@@ -34,7 +34,15 @@ version, adjusted to the real repo state. Kept in `_templates/` (Jekyll-ignored)
 - [x] Cluster: insights/can-a-scopus-journal-be-predatory/ (~1,120 wds)
 - [ ] Pillar 1 remaining clusters (12 red-flag emails; DOAJ/COPE/OASPA memberships; Beall's list 2026)
 - [x] Pillar 2 page live: insights/ugc-care-discontinued/ (~1,930 wds, FAQ schema, wired to hub + Pillar 1 + verify cluster + checker).
-- [ ] Pillar 2 clusters (8 criteria explained; how to choose now; PhD requirement 2026; institutional policy; UGC-CARE-approved red flag; ONOS; frozen 1,474 list)
+- [x] Cluster: insights/ugc-suggestive-parameters-explained/ (~1,600 wds; 8 criteria plain-English; 35-vs-36 flagged honestly; UGC notice cited)
+- [x] robots.txt: explicitly welcomes AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, Bingbot, CCBot, Applebot) for GEO
+- [x] Predatory Journal Checker promoted to featured first card on /tools/ (card-feature CSS; style.css bumped v10->v11 site-wide)
+- [ ] Pillar 2 clusters remaining (how to choose now; PhD requirement 2026; institutional policy; UGC-CARE-approved red flag; ONOS; frozen 1,474 list)
+
+## Manual steps for Dr. Singh (cannot be done from code)
+- Bing Webmaster Tools: verify gurjas.org (import from Google Search Console) + submit sitemap. Bing feeds ChatGPT web search — high GEO value.
+- Google Search Console: submit/refresh sitemap after this push.
+- Optional: IndexNow key file + ping for instant Bing indexing (needs a publish-time ping; revisit if we add GitHub Actions).
 - [ ] Checker polish; Journal Finder by Scope; APC checker
 - [ ] Pillar 3 + Pillar 4 + remaining clusters
 - [ ] Hub-and-spoke internal linking; Insights hub grouping; final schema validation

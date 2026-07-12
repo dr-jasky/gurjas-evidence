@@ -102,6 +102,8 @@ section{padding:5.5rem 0}
 .card p{font-size:.94rem;line-height:1.7;color:var(--muted)}
 .card h3 a{text-decoration:none}
 .card h3 a:hover{color:var(--gold-d)}
+.card-feature{border-top-width:4px;border-top-color:var(--gold);background:linear-gradient(180deg,#fffdf8,#fff)}
+.grid.g2 .card-feature{grid-column:1/-1}
 
 /* ── Stats ── */
 .stat{border-top:2px solid var(--gold);padding:1.3rem 0 .4rem}
