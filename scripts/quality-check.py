@@ -84,7 +84,7 @@ try:
             if not isinstance(offer.get(key), list) or not offer.get(key):
                 errors.append(f"offers.json: {slug} requires non-empty {key}")
         serialized = json.dumps(offer, ensure_ascii=False).lower()
-        for phrase in ["guaranteed publication", "guaranteed grade", "100% success"]:
+        for phrase in ["we guarantee", "guaranteed outcome", "100% success"]:
             if phrase in serialized:
                 errors.append(f"offers.json: {slug} contains prohibited claim: {phrase}")
 except Exception as exc:
