@@ -1,0 +1,66 @@
+{
+  "brand": {
+    "name": "Gurjas Evidence and Policy Analytics",
+    "shortName": "Gurjas",
+    "strapline": "Evidence & Policy Analytics",
+    "footerLine": "Evidence-led decisions for institutions, policy and impact."
+  },
+  "assetVersion": "11",
+  "navigation": [
+    {"label": "About", "path": "about/", "section": "about"},
+    {"label": "Services", "path": "services/", "section": "services"},
+    {
+      "label": "Our Work",
+      "section": "work",
+      "children": [
+        {"label": "Methods", "path": "methods/", "section": "methods"},
+        {"label": "Research", "path": "research/", "section": "research"},
+        {"label": "Publications", "path": "publications/", "section": "publications"},
+        {"label": "Insights", "path": "insights/", "section": "insights"}
+      ]
+    },
+    {"label": "Tools", "path": "tools/", "section": "tools"},
+    {"label": "Contact", "path": "contact/", "section": "contact", "cta": true}
+  ],
+  "verificationProfiles": [
+    {"label": "ORCID", "url": "https://orcid.org/0000-0003-0337-7885"},
+    {"label": "Google Scholar", "url": "https://scholar.google.com/citations?user=d8Kd4ywAAAAJ"},
+    {"label": "Web of Science", "url": "https://www.webofscience.com/wos/author/record/IQW-3142-2023"}
+  ],
+  "footerColumns": [
+    {
+      "heading": "Practice",
+      "links": [
+        {"label": "About", "path": "about/"},
+        {"label": "Services", "path": "services/"},
+        {"label": "Methodology", "path": "methods/"},
+        {"label": "Research", "path": "research/"},
+        {"label": "Publications", "path": "publications/"},
+        {"label": "Research Tools", "path": "tools/"}
+      ]
+    },
+    {
+      "heading": "Organisation",
+      "links": [
+        {"label": "People", "path": "people/"},
+        {"label": "Advisory Board", "path": "advisory/"},
+        {"label": "Resource Centre", "path": "resources/"},
+        {"label": "Contact", "path": "contact/"}
+      ]
+    },
+    {
+      "heading": "Governance",
+      "links": [
+        {"label": "Ethics & Governance", "path": "governance/"},
+        {"label": "Ethics Charter", "path": "ethics-charter/"},
+        {"label": "FAQ", "path": "faq/"},
+        {"label": "Privacy Policy", "path": "privacy/"},
+        {"label": "Terms of Use", "path": "terms/"}
+      ]
+    }
+  ],
+  "enterpriseLine": "Registered Micro Enterprise · UDYAM-PB-17-0132009",
+  "locationLine": "Patiala, Punjab, India · Serving India, Canada & global clients (remote)",
+  "copyright": "Gurjas Evidence and Policy Analytics. All rights reserved. Original content, research and tools; text and code may not be copied or reproduced without permission.",
+  "verificationDisclaimer": "Our claims are built to be checked. Citations, review record and metrics link to independent third-party sources — ORCID, Google Scholar and Web of Science — that only the named author can hold. Advisors serve in a non-executive, voluntary capacity; affiliations are for identification only and do not imply endorsement."
+}
