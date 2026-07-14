@@ -15,6 +15,7 @@ const artifactDir = path.resolve("tests/visual/artifacts");
 
 const routes = [
   { name: "home", route: "/" },
+  { name: "not-found", route: "/404.html" },
   { name: "services", route: "/services/" },
   { name: "people", route: "/people/" },
   { name: "tools", route: "/tools/" },

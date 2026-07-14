@@ -73,6 +73,8 @@ if "gcpulse" in style or ".gc-fab" in style:
     errors.append("style.css: the site guide must not use a pulsing floating launcher")
 if ".gc-panel[hidden]{display:none}" not in style:
     errors.append("style.css: the hidden site-guide panel must be removed from display")
+if "@keyframes home-sweep" in style or "animation:home-sweep" in style:
+    errors.append("style.css: hero CTA sheen must be interaction-only, not continuously animated")
 
 consent_start = script.find("function showConsentPanel")
 consent_end = script.find("function addPreferencesControl", consent_start)
