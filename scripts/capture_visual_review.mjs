@@ -47,8 +47,27 @@ const results = [];
 async function verifySiteGuide(page, viewportName) {
   const guide = page.locator("[data-site-guide]");
   if (!(await guide.isVisible())) {
-    await page.locator(".nav-btn").click();
+    const menu = page.locator(".nav-btn");
+    const initialMenu = await page.evaluate(() => ({
+      expanded: document.querySelector(".nav-btn")?.getAttribute("aria-expanded"),
+      label: document.querySelector(".nav-btn")?.getAttribute("aria-label"),
+      text: document.querySelector(".nav-btn")?.textContent?.trim(),
+    }));
+    if (initialMenu.expanded !== "false" || initialMenu.label !== "Open primary navigation" || initialMenu.text !== "Menu") {
+      throw new Error(`${viewportName} mobile navigation did not begin in its closed state`);
+    }
+
+    await menu.click();
     await guide.waitFor({ state: "visible" });
+    const openMenu = await page.evaluate(() => ({
+      expanded: document.querySelector(".nav-btn")?.getAttribute("aria-expanded"),
+      label: document.querySelector(".nav-btn")?.getAttribute("aria-label"),
+      navOpen: document.querySelector("#nav")?.classList.contains("open"),
+      text: document.querySelector(".nav-btn")?.textContent?.trim(),
+    }));
+    if (openMenu.expanded !== "true" || openMenu.label !== "Close primary navigation" || !openMenu.navOpen || openMenu.text !== "Close") {
+      throw new Error(`${viewportName} mobile navigation did not expose its open state clearly`);
+    }
     await page.screenshot({
       path: `${outputDirectory}/${viewportName}--site-guide-menu.png`,
       fullPage: false,
@@ -80,10 +99,51 @@ async function verifySiteGuide(page, viewportName) {
     expanded: document.querySelector("[data-site-guide]")?.getAttribute("aria-expanded"),
     focusIsMenu: document.activeElement?.classList.contains("nav-btn"),
     focusIsGuide: document.activeElement?.hasAttribute("data-site-guide"),
+    menuExpanded: document.querySelector(".nav-btn")?.getAttribute("aria-expanded"),
+    menuLabel: document.querySelector(".nav-btn")?.getAttribute("aria-label"),
+    menuText: document.querySelector(".nav-btn")?.textContent?.trim(),
   }));
   const expectedFocus = viewportName === "mobile" ? closedState.focusIsMenu : closedState.focusIsGuide;
-  if (closedState.expanded !== "false" || !expectedFocus) {
+  const menuRestored = viewportName !== "mobile" || (
+    closedState.menuExpanded === "false" &&
+    closedState.menuLabel === "Open primary navigation" &&
+    closedState.menuText === "Menu"
+  );
+  if (closedState.expanded !== "false" || !expectedFocus || !menuRestored) {
     throw new Error(`${viewportName} site guide did not close and restore focus correctly`);
+  }
+
+  if (viewportName === "mobile") {
+    const menu = page.locator(".nav-btn");
+    const closedCorrectly = async (mustHaveFocus = false) => page.evaluate((needsFocus) => {
+      const button = document.querySelector(".nav-btn");
+      return button?.getAttribute("aria-expanded") === "false" &&
+        button?.getAttribute("aria-label") === "Open primary navigation" &&
+        button?.textContent?.trim() === "Menu" &&
+        !document.querySelector("#nav")?.classList.contains("open") &&
+        (!needsFocus || document.activeElement === button);
+    }, mustHaveFocus);
+
+    await menu.click();
+    await page.keyboard.press("Escape");
+    if (!(await closedCorrectly(true))) {
+      throw new Error("mobile navigation did not close, relabel and restore focus on Escape");
+    }
+
+    await menu.click();
+    await page.locator("main").evaluate((main) => main.click());
+    if (!(await closedCorrectly())) {
+      throw new Error("mobile navigation did not close and relabel after an outside click");
+    }
+
+    await menu.click();
+    const viewport = page.viewportSize();
+    await page.setViewportSize({ width: 1000, height: viewport?.height ?? 844 });
+    await page.waitForTimeout(50);
+    if (!(await closedCorrectly())) {
+      throw new Error("mobile navigation remained open after crossing the desktop breakpoint");
+    }
+    await page.setViewportSize({ width: viewport?.width ?? 390, height: viewport?.height ?? 844 });
   }
 }
 

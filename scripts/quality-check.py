@@ -65,6 +65,8 @@ for required in [
     "gurjas.analyticsConsent.v1",
     'document.querySelector("[data-site-guide]")',
     'base.querySelector("[data-cookie-preferences]")',
+    'btn.textContent = open ? "Close" : "Menu"',
+    'window.matchMedia("(min-width: 961px)")',
 ]:
     if required not in script:
         errors.append(f"script.js: missing required integrity control: {required}")
@@ -80,6 +82,11 @@ if "@keyframes home-sweep" in style or "animation:home-sweep" in style:
 footer_template = (ROOT / "site/templates/footer.html").read_text(encoding="utf-8")
 if footer_template.count("data-cookie-preferences") != 1 or footer_template.count('id="gurjas-cookie-preferences"') != 1:
     errors.append("footer template: cookie-preferences control must appear exactly once")
+
+header_template = (ROOT / "site/templates/header.html").read_text(encoding="utf-8")
+for required in ['class="nav-btn" type="button"', 'aria-label="Open primary navigation"']:
+    if required not in header_template:
+        errors.append(f"header template: mobile navigation is missing state control: {required}")
 
 consent_start = script.find("function showConsentPanel")
 consent_end = script.find("function addPreferencesControl", consent_start)

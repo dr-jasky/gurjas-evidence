@@ -222,6 +222,8 @@ def check() -> list[str]:
             errors.append(f"{rel}: generated shared footer missing or duplicated")
         if built_text.count("data-site-guide") != 1:
             errors.append(f"{rel}: primary navigation site-guide control missing or duplicated")
+        if built_text.count('class="nav-btn" type="button"') != 1 or built_text.count('aria-label="Open primary navigation"') != 1:
+            errors.append(f"{rel}: mobile navigation state control missing or duplicated")
         if built_text.count("data-cookie-preferences") != 1 or built_text.count('id="gurjas-cookie-preferences"') != 1:
             errors.append(f"{rel}: footer cookie-preferences control missing or duplicated")
         if built_text.count("script.js?v=") != 1:
