@@ -31,7 +31,7 @@ Exact fees remain fixed only in a written scope.
 
 ## Owner confirmations for ongoing sales
 
-These items should be reviewed operationally whenever capacity or pricing changes; they are not claims of guaranteed availability:
+These items should be reviewed operationally whenever capacity or pricing changes; they are not claims of guaranteed availability. They do not require technical GitHub review:
 
 - Confirm all four priority offers remain services Gurjas actively intends to sell.
 - Confirm a focused diagnostic can normally be planned over 1–3 weeks after complete inputs are available.
