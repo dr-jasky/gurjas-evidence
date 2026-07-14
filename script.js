@@ -449,9 +449,11 @@
     var primaryNav = document.getElementById("nav");
     var menuButton = document.querySelector(".nav-btn");
     if (primaryNav && primaryNav.classList.contains("open")) {
-      setMenuState(false, false);
       if (menuButton) {
+        menuButton.click();
         lastFocus = menuButton;
+      } else {
+        primaryNav.classList.remove("open");
       }
     }
     panel.hidden = false;
