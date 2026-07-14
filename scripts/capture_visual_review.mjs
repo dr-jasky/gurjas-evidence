@@ -47,6 +47,10 @@ try {
       const page = await context.newPage();
       const url = new URL(route.path, baseUrl).toString();
       const response = await page.goto(url, { waitUntil: "networkidle" });
+      const declineConsent = page.locator('[data-consent="denied"]');
+      if (await declineConsent.isVisible()) {
+        await declineConsent.click();
+      }
       await page.evaluate(() => document.fonts.ready);
 
       const pageFacts = await page.evaluate(() => ({

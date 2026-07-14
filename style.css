@@ -223,7 +223,7 @@ details.faq p{font-family:var(--serif);font-size:.98rem;line-height:1.75;color:v
 
 /* ═══ Inner pages: fixed evidence-field behind, cream ↔ navy-tint section rhythm ═══ */
 body:not(.home) main{position:relative;z-index:1}
-body:not(.home) main section:not(.alt):not(.navy-band):not(.tools-allure){background:var(--cream) radial-gradient(rgba(6,38,78,.05) 1px,transparent 1.5px);background-size:26px 26px;position:relative;overflow:hidden;z-index:1}
+body:not(.home):not(.offer) main section:not(.alt):not(.navy-band):not(.tools-allure){background:var(--cream) radial-gradient(rgba(6,38,78,.05) 1px,transparent 1.5px);background-size:26px 26px;position:relative;overflow:hidden;z-index:1}
 body:not(.home) main section>.wrap{position:relative;z-index:1}
 body:not(.home) main section.alt{background:rgba(6,26,55,.45);backdrop-filter:blur(2px);border-top:1px solid rgba(217,185,104,.18);border-bottom:1px solid rgba(217,185,104,.18)}
 .alt .eyebrow{color:var(--gold-l)}
@@ -581,7 +581,7 @@ body.home main{position:relative;z-index:1;font-family:var(--h-sans)}
 /* ═══════════════ Priority offers — native editorial system ═══════════════ */
 body.offer{background:#041226}
 .offer-page{position:relative;z-index:1;background:var(--paper);color:var(--ink)}
-.offer-hero{position:relative;background:radial-gradient(70% 80% at 50% 32%,rgba(10,47,92,.55),transparent 78%);color:#fff;padding:clamp(72px,10vw,116px) 0 clamp(64px,9vw,104px)}
+.offer-hero{position:relative;background:radial-gradient(70% 80% at 50% 32%,rgba(10,47,92,.55),transparent 78%),linear-gradient(160deg,var(--navy) 0%,var(--navy-d) 70%);color:#fff;padding:clamp(72px,10vw,116px) 0 clamp(64px,9vw,104px)}
 .offer-hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(290px,.75fr);gap:clamp(42px,7vw,88px);align-items:end}
 .offer-hero .eyebrow{color:var(--gold-l)}
 .offer-hero .eyebrow::before{background:var(--gold-l)}
