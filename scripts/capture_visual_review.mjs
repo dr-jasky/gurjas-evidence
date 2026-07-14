@@ -23,6 +23,10 @@ const routes = [
     name: "advanced-research-methods",
     path: "/services/research-methods/",
   },
+  {
+    name: "phd-shortcut-longest-route",
+    path: "/insights/phd-shortcut-longest-route/",
+  },
 ];
 
 const viewports = [
