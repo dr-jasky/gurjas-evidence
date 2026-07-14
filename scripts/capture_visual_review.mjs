@@ -27,6 +27,10 @@ const routes = [
     name: "phd-shortcut-longest-route",
     path: "/insights/phd-shortcut-longest-route/",
   },
+  {
+    name: "insights-directory",
+    path: "/insights/",
+  },
 ];
 
 const viewports = [
