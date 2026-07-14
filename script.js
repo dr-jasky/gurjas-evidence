@@ -3,18 +3,41 @@
   "use strict";
   var btn = document.querySelector(".nav-btn"),
       nav = document.getElementById("nav");
+  function setMenuState(open, refocus) {
+    if (!btn || !nav) return;
+    nav.classList.toggle("open", open);
+    btn.setAttribute("aria-expanded", String(open));
+    btn.setAttribute("aria-label", (open ? "Close" : "Open") + " primary navigation");
+    btn.textContent = open ? "Close" : "Menu";
+    if (!open) {
+      Array.prototype.slice.call(nav.querySelectorAll(".has-sub.open")).forEach(function (item) {
+        item.classList.remove("open");
+        var subButton = item.querySelector(".sub-btn");
+        if (subButton) subButton.setAttribute("aria-expanded", "false");
+      });
+    }
+    if (refocus) btn.focus();
+  }
   if (btn && nav) {
     btn.addEventListener("click", function () {
-      var open = nav.classList.toggle("open");
-      btn.setAttribute("aria-expanded", String(open));
+      setMenuState(!nav.classList.contains("open"), false);
     });
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && nav.classList.contains("open")) {
-        nav.classList.remove("open");
-        btn.setAttribute("aria-expanded", "false");
-        btn.focus();
+        setMenuState(false, true);
       }
     });
+    document.addEventListener("click", function (e) {
+      if (nav.classList.contains("open") && e.target !== btn && !nav.contains(e.target)) {
+        setMenuState(false, false);
+      }
+    });
+    var desktopNav = window.matchMedia("(min-width: 961px)");
+    function resetMenuAtDesktop(e) {
+      if (e.matches && nav.classList.contains("open")) setMenuState(false, false);
+    }
+    if (desktopNav.addEventListener) desktopNav.addEventListener("change", resetMenuAtDesktop);
+    else desktopNav.addListener(resetMenuAtDesktop);
   }
   var yr = document.getElementById("yr");
   if (yr) yr.textContent = String(new Date().getFullYear());
@@ -426,9 +449,8 @@
     var primaryNav = document.getElementById("nav");
     var menuButton = document.querySelector(".nav-btn");
     if (primaryNav && primaryNav.classList.contains("open")) {
-      primaryNav.classList.remove("open");
+      setMenuState(false, false);
       if (menuButton) {
-        menuButton.setAttribute("aria-expanded", "false");
         lastFocus = menuButton;
       }
     }
