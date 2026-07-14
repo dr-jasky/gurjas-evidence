@@ -59,9 +59,58 @@ try:
 except Exception as exc:
     errors.append(f"site-facts.json: invalid: {exc}")
 
+expected_offers = {
+    "research-integrity",
+    "naac-evidence-readiness",
+    "impact-evaluation",
+    "research-methods",
+}
+try:
+    offer_data = json.loads((ROOT / "site/data/offers.json").read_text(encoding="utf-8"))
+    offers = offer_data.get("offers", [])
+    found_slugs = {offer.get("slug") for offer in offers if isinstance(offer, dict)}
+    if len(offers) != 4 or found_slugs != expected_offers:
+        errors.append(f"offers.json: expected exactly four approved offers, found {sorted(str(slug) for slug in found_slugs)}")
+    for offer in offers:
+        slug = str(offer.get("slug", "unknown"))
+        for key in ["title", "metaDescription", "problem", "inaction", "cta", "subject"]:
+            if not str(offer.get(key, "")).strip():
+                errors.append(f"offers.json: {slug} missing {key}")
+        entry = offer.get("entryOffer", {})
+        for key in ["name", "scope", "timeline", "investment"]:
+            if not isinstance(entry, dict) or not str(entry.get(key, "")).strip():
+                errors.append(f"offers.json: {slug} missing entryOffer.{key}")
+        for key in ["for", "notFor", "outcomes", "deliverables", "inputs", "method", "priceFactors", "exclusions", "proof", "faq"]:
+            if not isinstance(offer.get(key), list) or not offer.get(key):
+                errors.append(f"offers.json: {slug} requires non-empty {key}")
+        serialized = json.dumps(offer, ensure_ascii=False).lower()
+        for phrase in ["we guarantee", "guaranteed outcome", "100% success"]:
+            if phrase in serialized:
+                errors.append(f"offers.json: {slug} contains prohibited claim: {phrase}")
+except Exception as exc:
+    errors.append(f"offers.json: invalid: {exc}")
+
+homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+services = (ROOT / "services/index.html").read_text(encoding="utf-8")
+sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+pages_workflow = (ROOT / ".github/workflows/pages.yml").read_text(encoding="utf-8")
+for slug in sorted(expected_offers):
+    route = f"services/{slug}/"
+    if route not in homepage:
+        errors.append(f"index.html: missing one-click route to {route}")
+    if f'href="{slug}/"' not in services:
+        errors.append(f"services/index.html: missing priority offer card for {slug}")
+    if f"https://gurjas.org/{route}" not in sitemap:
+        errors.append(f"sitemap.xml: missing priority offer {route}")
+    if f'"/{route}"' not in pages_workflow:
+        errors.append(f"pages.yml: deployment smoke test missing /{route}")
+
+if "offers.css?v=" not in homepage or "offers.css?v=" not in services:
+    errors.append("homepage/services: priority offer stylesheet must be loaded")
+
 if errors:
     print("Quality checks failed:")
     for error in errors:
         print(" -", error)
     sys.exit(1)
-print(f"Quality checks passed for {len(html_files)} HTML files.")
+print(f"Quality checks passed for {len(html_files)} HTML files and four priority offers.")

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import re
 import sys
 import xml.etree.ElementTree as ET
@@ -12,6 +13,7 @@ from urllib.parse import unquote, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "_site"
+OFFERS_DATA = ROOT / "site" / "data" / "offers.json"
 EXCLUDED_TOP_LEVEL = {
     ".git",
     ".github",
@@ -20,6 +22,7 @@ EXCLUDED_TOP_LEVEL = {
     "reviews",
     "scripts",
     "site",
+    "operations",
     "__pycache__",
 }
 MAIN_RE = re.compile(r"<main\b[^>]*>.*?</main>", re.IGNORECASE | re.DOTALL)
@@ -27,7 +30,35 @@ CANONICAL_RE = re.compile(
     r'<link\s+rel=["\']canonical["\']\s+href=["\']([^"\']+)["\']',
     re.IGNORECASE,
 )
+JSONLD_RE = re.compile(
+    r'<script\s+type=["\']application/ld\+json["\']>(.*?)</script>',
+    re.IGNORECASE | re.DOTALL,
+)
 UNRESOLVED_TOKEN_RE = re.compile(r"\[\[[A-Z0-9_]+\]\]")
+REQUIRED_OFFER_KEYS = {
+    "slug",
+    "serviceType",
+    "eyebrow",
+    "title",
+    "metaTitle",
+    "metaDescription",
+    "intro",
+    "problem",
+    "inaction",
+    "for",
+    "notFor",
+    "outcomes",
+    "deliverables",
+    "inputs",
+    "method",
+    "entryOffer",
+    "priceFactors",
+    "exclusions",
+    "proof",
+    "faq",
+    "cta",
+    "subject",
+}
 
 
 class ReferenceParser(HTMLParser):
@@ -51,6 +82,15 @@ def source_pages() -> list[Path]:
             continue
         pages.append(path)
     return sorted(pages)
+
+
+def load_offers() -> list[dict[str, object]]:
+    data = json.loads(OFFERS_DATA.read_text(encoding="utf-8"))
+    return data.get("offers", [])
+
+
+def offer_routes() -> set[Path]:
+    return {Path("services") / str(offer["slug"]) / "index.html" for offer in load_offers()}
 
 
 def sha(value: str) -> str:
@@ -89,14 +129,61 @@ def expected_file_for_url(url_path: str, base_file: Path) -> Path | None:
     return candidate
 
 
-def check() -> list[str]:
+def check_offer_data() -> list[str]:
     errors: list[str] = []
+    offers = load_offers()
+    if len(offers) != 4:
+        errors.append(f"Expected four priority offers, found {len(offers)}")
+        return errors
+
+    slugs: set[str] = set()
+    titles: set[str] = set()
+    ctas: set[str] = set()
+    for index, offer in enumerate(offers, start=1):
+        missing = REQUIRED_OFFER_KEYS - set(offer)
+        if missing:
+            errors.append(f"Offer {index} missing fields: {', '.join(sorted(missing))}")
+            continue
+        slug = str(offer["slug"])
+        title = str(offer["title"])
+        cta = str(offer["cta"])
+        if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug):
+            errors.append(f"Offer slug is not URL-safe: {slug}")
+        if slug in slugs:
+            errors.append(f"Duplicate offer slug: {slug}")
+        if title in titles:
+            errors.append(f"Duplicate offer title: {title}")
+        if cta in ctas:
+            errors.append(f"Duplicate primary CTA: {cta}")
+        slugs.add(slug)
+        titles.add(title)
+        ctas.add(cta)
+
+        entry = offer.get("entryOffer", {})
+        for key in ("name", "scope", "timeline", "investment"):
+            if not isinstance(entry, dict) or not str(entry.get(key, "")).strip():
+                errors.append(f"{slug}: entryOffer.{key} is required")
+        for key in ("for", "notFor", "outcomes", "deliverables", "inputs", "method", "priceFactors", "exclusions", "proof", "faq"):
+            value = offer.get(key)
+            if not isinstance(value, list) or not value:
+                errors.append(f"{slug}: {key} must be a non-empty list")
+
+        serialized = json.dumps(offer, ensure_ascii=False).lower()
+        for banned in ("we guarantee", "guaranteed outcome", "100% success"):
+            if banned in serialized:
+                errors.append(f"{slug}: prohibited outcome claim: {banned}")
+    return errors
+
+
+def check() -> list[str]:
+    errors: list[str] = check_offer_data()
     pages = source_pages()
+    generated_offers = offer_routes()
     if not OUTPUT.exists():
-        return ["_site does not exist; run scripts/build_site.py first"]
+        return errors + ["_site does not exist; run scripts/build_site.py first"]
 
     built_pages = sorted(OUTPUT.rglob("*.html"))
-    expected_rel = {page.relative_to(ROOT) for page in pages}
+    expected_rel = {page.relative_to(ROOT) for page in pages} | generated_offers
     built_rel = {page.relative_to(OUTPUT) for page in built_pages}
     if expected_rel != built_rel:
         missing = sorted(expected_rel - built_rel)
@@ -121,6 +208,9 @@ def check() -> list[str]:
         if sha(source_main.group(0).strip()) != sha(built_main.group(0).strip()):
             errors.append(f"{rel}: page-specific <main> content changed during build")
 
+    for built in built_pages:
+        rel = built.relative_to(OUTPUT)
+        built_text = built.read_text(encoding="utf-8")
         if built_text.count('data-site-system="header"') != 1:
             errors.append(f"{rel}: generated shared header missing or duplicated")
         if built_text.count('data-site-system="footer"') != 1:
@@ -142,6 +232,12 @@ def check() -> list[str]:
                         f"{rel}: canonical {canonical.group(1)!r} does not match https://gurjas.org{expected_route}"
                     )
 
+        for block in JSONLD_RE.findall(built_text):
+            try:
+                json.loads(block)
+            except json.JSONDecodeError as exc:
+                errors.append(f"{rel}: malformed JSON-LD: {exc}")
+
         parser = ReferenceParser()
         parser.feed(built_text)
         for tag, reference in parser.references:
@@ -149,7 +245,31 @@ def check() -> list[str]:
             if target is not None and not target.exists():
                 errors.append(f"{rel}: broken local {tag} reference {reference!r}")
 
+    for rel in generated_offers:
+        path = OUTPUT / rel
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        for marker in (
+            'class="offer-page"',
+            "The buyer problem",
+            "Good fit",
+            "Not a fit",
+            "Exact deliverables",
+            "Client inputs",
+            "Indicative investment",
+            "Ethical boundaries",
+            "Questions to settle before a fit call",
+        ):
+            if marker not in text:
+                errors.append(f"{rel}: missing required offer section {marker!r}")
+        if "offers.css?v=" not in text:
+            errors.append(f"{rel}: offer stylesheet missing")
+        if '"@type": "Service"' not in text or '"@type": "FAQPage"' not in text:
+            errors.append(f"{rel}: Service or FAQ schema missing")
+
     sitemap = OUTPUT / "sitemap.xml"
+    sitemap_paths: set[str] = set()
     if not sitemap.exists():
         errors.append("sitemap.xml missing from build")
     else:
@@ -163,15 +283,25 @@ def check() -> list[str]:
                 if parsed.scheme != "https" or parsed.netloc != "gurjas.org":
                     errors.append(f"sitemap contains non-canonical host: {loc.text}")
                     continue
+                sitemap_paths.add(parsed.path)
                 target = expected_file_for_url(parsed.path, OUTPUT / "index.html")
                 if target is not None and not target.exists():
                     errors.append(f"sitemap route has no generated file: {parsed.path}")
         except ET.ParseError as exc:
             errors.append(f"sitemap.xml is malformed: {exc}")
 
-    for required in ["CNAME", ".nojekyll", "style.css", "script.js", "robots.txt", "site.webmanifest"]:
+    for rel in generated_offers:
+        route = route_for(rel)
+        if route not in sitemap_paths:
+            errors.append(f"Priority offer missing from sitemap: {route}")
+
+    for required in ["CNAME", ".nojekyll", "style.css", "offers.css", "script.js", "robots.txt", "site.webmanifest"]:
         if not (OUTPUT / required).exists():
             errors.append(f"required public file missing: {required}")
+
+    for source_only in ["site", "scripts", "reviews", "operations"]:
+        if (OUTPUT / source_only).exists():
+            errors.append(f"source-only directory leaked into public artifact: {source_only}")
 
     return errors
 
@@ -183,4 +313,4 @@ if __name__ == "__main__":
         for failure in failures:
             print(" -", failure)
         sys.exit(1)
-    print(f"Build checks passed for {len(source_pages())} stable routes.")
+    print(f"Build checks passed for {len(source_pages())} source routes and {len(offer_routes())} generated offer routes.")
