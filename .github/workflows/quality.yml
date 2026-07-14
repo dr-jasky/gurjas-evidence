@@ -22,5 +22,11 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Check JavaScript syntax
+        run: node --check script.js
+
+      - name: Check Python syntax
+        run: python -m py_compile scripts/quality-check.py
+
       - name: Run dependency-free quality checks
         run: python scripts/quality-check.py
