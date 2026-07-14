@@ -9,19 +9,19 @@ const routes = [
   { name: "services", path: "/services/" },
   {
     name: "institutional-research-integrity",
-    path: "/services/institutional-research-integrity/",
+    path: "/services/research-integrity/",
   },
   {
     name: "naac-iqac-evidence-readiness",
-    path: "/services/naac-iqac-evidence-readiness/",
+    path: "/services/naac-evidence-readiness/",
   },
   {
     name: "impact-evaluation-analytics",
-    path: "/services/impact-evaluation-analytics/",
+    path: "/services/impact-evaluation/",
   },
   {
     name: "advanced-research-methods",
-    path: "/services/advanced-research-methods/",
+    path: "/services/research-methods/",
   },
 ];
 
