@@ -1,0 +1,107 @@
+{
+  "instructions": "Complete one object per real engagement or professional project. Do not use an academic publication as a client case. Leave publish false until facts, permission and any sample have been checked.",
+  "cases": [
+    {
+      "caseId": "case-1",
+      "publish": false,
+      "origin": "gurjas-engagement or principal-experience-before-gurjas",
+      "identityMode": "named or anonymised",
+      "clientNameIfApproved": "",
+      "clientType": "",
+      "sector": "",
+      "countryOrRegion": "",
+      "dateStart": "YYYY-MM",
+      "dateEnd": "YYYY-MM",
+      "problem": "",
+      "gurjasOrPrincipalRole": "",
+      "method": [],
+      "deliverables": [],
+      "baselineOrStartingPoint": "",
+      "measurableOrQualitativeOutcome": "",
+      "outcomeTimeframe": "",
+      "limitations": [],
+      "anonymisationRationale": "",
+      "permission": {
+        "status": "not-requested",
+        "evidenceLocation": "",
+        "permissionDate": "",
+        "approvedPublicWording": ""
+      },
+      "approvedTestimonial": {
+        "quote": "",
+        "attributionLevel": "",
+        "permissionDate": "",
+        "reviewOrExpiryDate": ""
+      },
+      "authorisedSampleDeliverables": []
+    },
+    {
+      "caseId": "case-2",
+      "publish": false,
+      "origin": "gurjas-engagement or principal-experience-before-gurjas",
+      "identityMode": "named or anonymised",
+      "clientNameIfApproved": "",
+      "clientType": "",
+      "sector": "",
+      "countryOrRegion": "",
+      "dateStart": "YYYY-MM",
+      "dateEnd": "YYYY-MM",
+      "problem": "",
+      "gurjasOrPrincipalRole": "",
+      "method": [],
+      "deliverables": [],
+      "baselineOrStartingPoint": "",
+      "measurableOrQualitativeOutcome": "",
+      "outcomeTimeframe": "",
+      "limitations": [],
+      "anonymisationRationale": "",
+      "permission": {
+        "status": "not-requested",
+        "evidenceLocation": "",
+        "permissionDate": "",
+        "approvedPublicWording": ""
+      },
+      "approvedTestimonial": {
+        "quote": "",
+        "attributionLevel": "",
+        "permissionDate": "",
+        "reviewOrExpiryDate": ""
+      },
+      "authorisedSampleDeliverables": []
+    },
+    {
+      "caseId": "case-3",
+      "publish": false,
+      "origin": "gurjas-engagement or principal-experience-before-gurjas",
+      "identityMode": "named or anonymised",
+      "clientNameIfApproved": "",
+      "clientType": "",
+      "sector": "",
+      "countryOrRegion": "",
+      "dateStart": "YYYY-MM",
+      "dateEnd": "YYYY-MM",
+      "problem": "",
+      "gurjasOrPrincipalRole": "",
+      "method": [],
+      "deliverables": [],
+      "baselineOrStartingPoint": "",
+      "measurableOrQualitativeOutcome": "",
+      "outcomeTimeframe": "",
+      "limitations": [],
+      "anonymisationRationale": "",
+      "permission": {
+        "status": "not-requested",
+        "evidenceLocation": "",
+        "permissionDate": "",
+        "approvedPublicWording": ""
+      },
+      "approvedTestimonial": {
+        "quote": "",
+        "attributionLevel": "",
+        "permissionDate": "",
+        "reviewOrExpiryDate": ""
+      },
+      "authorisedSampleDeliverables": []
+    }
+  ]
+}
