@@ -43,7 +43,7 @@ for required in ["cf.checkValidity()", "cf.reportValidity()", 'panel.hidden = tr
         errors.append(f"script.js: missing required integrity control: {required}")
 
 finder = (ROOT / "tools/journal-finder/index.html").read_text(encoding="utf-8")
-if "abstractConsent" not in finder or "sent directly from your browser to OpenAlex" not in finder:
+if 'id="abstractConsent"' not in finder or "sent directly from your browser to OpenAlex" not in finder or "q.length>240" not in finder:
     errors.append("Journal Finder: abstract acknowledgement/disclosure missing")
 
 try:

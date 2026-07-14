@@ -70,11 +70,14 @@
 <section>
   <div class="wrap" style="max-width:900px">
     <div class="card" style="gap:1rem">
-      <h3 style="margin:0">Describe your paper</h3>
-      <textarea id="q" rows="4" placeholder="Paste your abstract, title, or 5–10 keywords (e.g. financial inclusion, digital payments, urban poverty, India)" style="width:100%;padding:.7rem;border:1px solid var(--line);border-radius:4px;font-size:1rem;font-family:inherit;resize:vertical"></textarea>
+      <h3 style="margin:0">Start with a title or keywords</h3>
+       <label for="q" style="font-weight:600">Paper title or 5–10 keywords</label>
+       <textarea id="q" rows="4" placeholder="e.g. financial inclusion, digital payments, urban poverty, India" aria-describedby="query-privacy" style="width:100%;padding:.7rem;border:1px solid var(--line);border-radius:4px;font-size:1rem;font-family:inherit;resize:vertical"></textarea>
+       <p id="query-privacy" class="form-note" style="margin:0">Nothing is sent while you type. When you press <strong>Find journals</strong>, this text is sent directly from your browser to OpenAlex for the lookup; Gurjas does not receive or store it.</p>
+       <label style="display:flex;gap:.55rem;align-items:flex-start;font-size:.9rem;line-height:1.5"><input id="abstractConsent" type="checkbox" style="margin-top:.25rem"> <span>I am intentionally submitting an abstract (rather than a short title or keywords) and understand that up to 1,200 characters will be sent to OpenAlex.</span></label>
       <div style="display:flex;gap:.8rem;flex-wrap:wrap;align-items:center">
         <button id="go" class="btn btn-solid" style="border:none;cursor:pointer">Find journals</button>
-        <span id="status" style="font-size:.9rem;color:var(--muted)"></span>
+        <span id="status" style="font-size:.9rem;color:var(--muted)" role="status" aria-live="polite"></span>
       </div>
     </div>
 
@@ -124,8 +127,9 @@ function esc(s){var d=document.createElement("span");d.textContent=s==null?"":St
 var qEl=document.getElementById("q"),abstractConsent=document.getElementById("abstractConsent"),goEl=document.getElementById("go"),statusEl=document.getElementById("status"),outEl=document.getElementById("out"),rowsEl=document.getElementById("rows");
 function run(){
   var q=(qEl.value||"").trim();
-  if(q.length<3){statusEl.textContent="Please enter a few keywords or an abstract.";return;}
-  if(q.length>1200)q=q.slice(0,1200);
+  if(q.length<3){statusEl.textContent="Please enter a paper title or a few keywords.";qEl.focus();return;}
+   if(q.length>240&&(!abstractConsent||!abstractConsent.checked)){statusEl.textContent="This looks like an abstract. Tick the acknowledgement before sending abstract text to OpenAlex.";if(abstractConsent)abstractConsent.focus();return;}
+   if(q.length>1200)q=q.slice(0,1200);
   statusEl.textContent="Searching the open literature…";goEl.disabled=true;
   var url="https://api.openalex.org/works?search="+encodeURIComponent(q)+"&group_by=primary_location.source.id&per-page=200"+MAILTO;
   fetch(url).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
