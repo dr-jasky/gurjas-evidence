@@ -10,7 +10,13 @@ ROOT = Path(__file__).resolve().parents[1]
 errors: list[str] = []
 html_files = sorted(ROOT.rglob("*.html"))
 
-forbidden = ["FIRST-HAND", "VERIFY WITH DR. SINGH", "TODO BEFORE PUBLISH"]
+# Block actual drafting/verification markers, not legitimate section anchors such
+# as id="first-hand". First-person passages are handled through owner sign-off.
+forbidden = [
+    "FIRST-HAND / VERIFY",
+    "VERIFY WITH DR. SINGH",
+    "TODO BEFORE PUBLISH",
+]
 privacy_regressions = [
     "each runs entirely in your browser, so your data never leaves your device",
     "All computation runs in your browser — your data never leaves your device",
