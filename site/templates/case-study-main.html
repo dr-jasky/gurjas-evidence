@@ -1,0 +1,50 @@
+<main id="main" class="proof-page">
+  <div class="hero">
+    <div class="wrap">
+      <span class="eyebrow">[[CASE_ORIGIN_LABEL]] · [[CASE_DATE_RANGE]]</span>
+      <h1>[[CASE_TITLE]]</h1>
+      <p class="lede">[[CASE_SUMMARY]]</p>
+      <p class="note">Identity status: [[CASE_IDENTITY_STATUS]]. Permission reviewed: [[CASE_PERMISSION_DATE]].</p>
+    </div>
+  </div>
+
+  <section aria-labelledby="case-context">
+    <div class="wrap">
+      <div class="section-h"><span class="eyebrow">Context</span><h2 id="case-context">Problem and starting point</h2></div>
+      <div class="grid g2">
+        <article class="svc"><span class="num">CLIENT CONTEXT</span><h3>[[CASE_CLIENT_TYPE]]</h3><p>[[CASE_CONTEXT]]</p></article>
+        <article class="svc"><span class="num">STARTING POINT</span><h3>The problem</h3><p>[[CASE_PROBLEM]]</p><p><strong>Baseline:</strong> [[CASE_BASELINE]]</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" aria-labelledby="case-work">
+    <div class="wrap">
+      <div class="section-h"><span class="eyebrow">Delivery</span><h2 id="case-work">Role, method and outputs</h2></div>
+      <div class="grid g3">
+        <article class="svc"><span class="num">ROLE</span><h3>Responsibility</h3><p>[[CASE_ROLE]]</p></article>
+        <article class="svc"><span class="num">METHOD</span><h3>How the work was performed</h3><ul class="dl">[[CASE_METHOD_ITEMS]]</ul></article>
+        <article class="svc"><span class="num">DELIVERABLES</span><h3>What was handed over</h3><ul class="dl">[[CASE_DELIVERABLE_ITEMS]]</ul></article>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="case-outcome">
+    <div class="wrap">
+      <div class="section-h"><span class="eyebrow">Outcome</span><h2 id="case-outcome">What changed — and what did not</h2></div>
+      <div class="grid g2">
+        <article class="svc"><span class="num">OBSERVED OUTCOME</span><h3>[[CASE_OUTCOME_HEADING]]</h3><p>[[CASE_OUTCOME]]</p><p><strong>Timeframe:</strong> [[CASE_OUTCOME_TIMEFRAME]]</p></article>
+        <article class="svc"><span class="num">LIMITATIONS</span><h3>Boundaries and dependencies</h3><ul class="dl">[[CASE_LIMITATION_ITEMS]]</ul></article>
+      </div>
+      [[CASE_TESTIMONIAL]]
+      [[CASE_SAMPLE_LINKS]]
+    </div>
+  </section>
+
+  <section class="alt" aria-labelledby="case-next">
+    <div class="wrap">
+      <div class="section-h"><span class="eyebrow">Related service</span><h2 id="case-next">[[CASE_RELATED_OFFER_TITLE]]</h2><p class="lede">[[CASE_RELATED_OFFER_COPY]]</p></div>
+      <div class="cta-row"><a class="btn btn-solid" href="[[ROOT]][[CASE_RELATED_OFFER_PATH]]">[[CASE_RELATED_OFFER_CTA]] →</a></div>
+    </div>
+  </section>
+</main>
