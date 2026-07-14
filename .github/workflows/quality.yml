@@ -3,6 +3,7 @@ name: Site quality
 on:
   pull_request:
     branches: [main]
+    types: [opened, synchronize, reopened, labeled, unlabeled]
   push:
     branches: [main]
   workflow_dispatch:
@@ -17,15 +18,35 @@ concurrency:
 jobs:
   integrity:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 10
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11.13.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Set up Java for the Nu HTML Checker
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Install quality dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Check JavaScript syntax
         run: node --check script.js
@@ -39,6 +60,9 @@ jobs:
       - name: Build static site
         run: python scripts/build_site.py --clean
 
+      - name: Validate generated HTML
+        run: pnpm test:html
+
       - name: Check generated routes, canonicals and local links
         shell: bash
         run: |
@@ -47,7 +71,7 @@ jobs:
 
       - name: Upload generated site and diagnostics
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: gurjas-static-site
           path: |
@@ -61,46 +85,84 @@ jobs:
     if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
     needs: integrity
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11.13.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Install visual-test dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
 
       - name: Build static site
         run: python scripts/build_site.py --clean
 
-      - name: Install screenshot browser
-        run: |
-          npm install --no-save --no-package-lock playwright@1.61.1
-          npx playwright install --with-deps chromium
-
-      - name: Capture responsive visual review
+      - name: Capture responsive review and compare with target baseline
         shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          CANDIDATE_URL: http://127.0.0.1:8000/
+          VISUAL_APPROVED: ${{ github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'visual-change-approved') }}
         run: |
-          python -m http.server 8000 --bind 127.0.0.1 --directory _site > /tmp/gurjas-review-server.log 2>&1 &
-          server_pid=$!
-          trap 'kill "$server_pid"' EXIT
-
-          for attempt in {1..20}; do
-            if curl --fail --silent http://127.0.0.1:8000/ > /dev/null; then
-              break
+          python -m http.server 8000 --bind 127.0.0.1 --directory _site > visual-server.log 2>&1 &
+          candidate_pid=$!
+          base_pid=""
+          cleanup() {
+            kill "$candidate_pid" 2>/dev/null || true
+            if [[ -n "$base_pid" ]]; then
+              kill "$base_pid" 2>/dev/null || true
             fi
-            sleep 1
-          done
+          }
+          trap cleanup EXIT
 
-          curl --fail --silent http://127.0.0.1:8000/ > /dev/null
+          curl --fail --silent --show-error \
+            --retry 20 --retry-delay 1 --retry-all-errors \
+            http://127.0.0.1:8000/ > /dev/null
+
+          baseline_url="https://gurjas.org/"
+          if [[ -n "$BASE_SHA" ]]; then
+            git worktree add --detach /tmp/gurjas-base "$BASE_SHA"
+            python /tmp/gurjas-base/scripts/build_site.py --clean
+            python -m http.server 8001 --bind 127.0.0.1 --directory /tmp/gurjas-base/_site > baseline-server.log 2>&1 &
+            base_pid=$!
+            curl --fail --silent --show-error \
+              --retry 20 --retry-delay 1 --retry-all-errors \
+              http://127.0.0.1:8001/ > /dev/null
+            baseline_url="http://127.0.0.1:8001/"
+          fi
+
           node scripts/capture_visual_review.mjs
+          BASELINE_URL="$baseline_url" pnpm test:visual
 
-      - name: Upload responsive screenshots
+      - name: Upload visual review
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: gurjas-visual-review
-          path: visual-review
+          path: |
+            visual-review
+            tests/visual/artifacts
+            baseline-server.log
+            visual-server.log
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 14

@@ -1,7 +1,7 @@
 /* Gurjas Evidence & Policy Analytics — v3.1 premium */
 :root{
   --navy:#06264e; --navy-d:#041a37; --navy-x:#02102a; --ink:#1b2531; --muted:#5d6878;
-  --paper:#fbfaf7; --cream:#f4f0e6; --line:#e6e1d3; --gold:#b08a35; --gold-d:#8a6a24; --gold-l:#d9b968;
+  --paper:#fbfaf7; --cream:#f4f0e6; --line:#e6e1d3; --gold:#b08a35; --gold-d:#86651f; --gold-l:#d9b968;
   --disp:"Fraunces",Georgia,serif;
   --serif:"Newsreader",Georgia,serif;
   --sans:"Archivo",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
@@ -270,6 +270,7 @@ section.alt[aria-labelledby="h-cta"] .btn-ghost:hover{background:var(--navy);bor
 .svc h2{font-size:1.4rem;margin:0;border:none;padding:0;scroll-margin-top:7rem}
 .svc>p{font-family:var(--serif);font-size:.97rem;line-height:1.7;color:var(--muted)}
 .svc .dl{list-style:none;padding:1rem 0 0;margin:0;border-top:1px dashed var(--line)}
+.svc .dl ul{list-style:none;padding:0;margin:0}
 .svc .dl-h{display:block;font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);margin-bottom:.4rem}
 .svc .dl li{font-family:var(--sans);font-size:.86rem;color:var(--muted);padding:.3rem 0 .3rem 1.15rem;position:relative;margin:0}
 .svc .dl li::before{content:"";position:absolute;left:0;top:.82rem;width:5px;height:5px;border-radius:50%;background:var(--gold)}

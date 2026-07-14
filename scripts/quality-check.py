@@ -8,9 +8,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 errors: list[str] = []
+EXCLUDED_TOP_LEVEL = {
+    "_site",
+    "node_modules",
+    "tests",
+}
 html_files = sorted(
-    path for path in ROOT.rglob("*.html")
-    if "_site" not in path.relative_to(ROOT).parts
+    path
+    for path in ROOT.rglob("*.html")
+    if path.relative_to(ROOT).parts[0] not in EXCLUDED_TOP_LEVEL
 )
 
 # Block actual drafting/verification markers, not legitimate section anchors such
@@ -47,9 +53,25 @@ for path in html_files:
             errors.append(f"{rel}: malformed JSON-LD: {exc}")
 
 script = (ROOT / "script.js").read_text(encoding="utf-8")
-for required in ["cf.checkValidity()", "cf.reportValidity()", 'panel.hidden = true', 'aria-modal', "gurjas.analyticsConsent.v1"]:
+for required in [
+    "cf.checkValidity()",
+    "cf.reportValidity()",
+    'panel.hidden = true',
+    'panel.setAttribute("role", "dialog")',
+    'panel.setAttribute("aria-modal", "true")',
+    'panel.setAttribute("role", "region")',
+    'panel.setAttribute("aria-describedby", "gurjas-consent-desc")',
+    "gurjas.analyticsConsent.v1",
+]:
     if required not in script:
         errors.append(f"script.js: missing required integrity control: {required}")
+
+consent_start = script.find("function showConsentPanel")
+consent_end = script.find("function addPreferencesControl", consent_start)
+if consent_start < 0 or consent_end < 0:
+    errors.append("script.js: consent control functions are missing")
+elif 'aria-modal' in script[consent_start:consent_end]:
+    errors.append("script.js: consent notice must not claim modal behavior without a focus trap")
 
 finder = (ROOT / "tools/journal-finder/index.html").read_text(encoding="utf-8")
 if 'id="abstractConsent"' not in finder or "sent directly from your browser to OpenAlex" not in finder or "q.length>240" not in finder:

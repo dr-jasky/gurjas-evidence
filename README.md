@@ -32,6 +32,21 @@ For page-specific copy, metadata or tool code, edit the relevant existing `index
 
 Any pull request to `main` runs the **Site quality** workflow. It checks JavaScript and Python syntax, source integrity, builds the entire site, regression-tests the output and uploads the generated `_site` directory as a short-lived review artifact.
 
+The workflow also validates generated pages with the Nu HTML Checker, captures the homepage, Services hub and four priority offers at desktop and mobile sizes, and runs a deterministic comparison between the pull request and its exact target-branch build. The comparison covers the homepage, Services, People, Tools, Contact and the flagship journal-integrity article at desktop, tablet and mobile sizes. Unexpected differences and horizontal overflow fail the pull request and upload responsive, baseline, candidate and diff screenshots for review. Manual workflow runs compare against live production instead.
+
+Intentional visual work must be reviewed from that artifact before the pull request receives the `visual-change-approved` label. The label records approval; it does not suppress horizontal-overflow failures.
+
+Local quality commands are:
+
+```bash
+pnpm install
+python scripts/build_site.py --clean
+pnpm test:html
+
+# With Chromium installed and the generated site served on port 8000:
+pnpm test:visual
+```
+
 ## Production deployment
 
 A successful push to `main` runs **Deploy generated site to Pages**. The workflow rebuilds and rechecks the repository, uploads `_site` as the GitHub Pages artifact, deploys it to the protected `github-pages` environment and smoke-tests the homepage plus representative service, tool, contact, privacy and article routes.
