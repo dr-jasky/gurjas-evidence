@@ -14,6 +14,7 @@ from urllib.parse import unquote, urlparse
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "_site"
 OFFERS_DATA = ROOT / "site" / "data" / "offers.json"
+SITE_DATA = ROOT / "site" / "data" / "site.json"
 INDEXNOW_KEY = "127d4f6734fd4c5b8f7308201fd3d836"
 EXCLUDED_TOP_LEVEL = {
     ".git",
@@ -180,6 +181,7 @@ def check_offer_data() -> list[str]:
 
 def check() -> list[str]:
     errors: list[str] = check_offer_data()
+    asset_version = str(json.loads(SITE_DATA.read_text(encoding="utf-8"))["assetVersion"])
     pages = source_pages()
     generated_offers = offer_routes()
     if not OUTPUT.exists():
@@ -220,6 +222,9 @@ def check() -> list[str]:
             errors.append(f"{rel}: generated shared footer missing or duplicated")
         if built_text.count("script.js?v=") != 1:
             errors.append(f"{rel}: shared script reference missing or duplicated")
+        style_versions = re.findall(r"style\.css\?v=([^\"']+)", built_text, re.IGNORECASE)
+        if not style_versions or any(version != asset_version for version in style_versions):
+            errors.append(f"{rel}: stylesheet references must use asset version {asset_version}")
         if UNRESOLVED_TOKEN_RE.search(built_text):
             errors.append(f"{rel}: unresolved template token")
 
