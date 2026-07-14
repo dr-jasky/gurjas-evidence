@@ -64,6 +64,7 @@ for required in [
     'panel.setAttribute("aria-describedby", "gurjas-consent-desc")',
     "gurjas.analyticsConsent.v1",
     'document.querySelector("[data-site-guide]")',
+    'base.querySelector("[data-cookie-preferences]")',
 ]:
     if required not in script:
         errors.append(f"script.js: missing required integrity control: {required}")
@@ -75,6 +76,10 @@ if ".gc-panel[hidden]{display:none}" not in style:
     errors.append("style.css: the hidden site-guide panel must be removed from display")
 if "@keyframes home-sweep" in style or "animation:home-sweep" in style:
     errors.append("style.css: hero CTA sheen must be interaction-only, not continuously animated")
+
+footer_template = (ROOT / "site/templates/footer.html").read_text(encoding="utf-8")
+if footer_template.count("data-cookie-preferences") != 1 or footer_template.count('id="gurjas-cookie-preferences"') != 1:
+    errors.append("footer template: cookie-preferences control must appear exactly once")
 
 consent_start = script.find("function showConsentPanel")
 consent_end = script.find("function addPreferencesControl", consent_start)

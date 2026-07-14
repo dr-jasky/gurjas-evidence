@@ -87,6 +87,33 @@ async function verifySiteGuide(page, viewportName) {
   }
 }
 
+async function verifyCookiePreferences(page, viewportName) {
+  const preferences = page.locator("[data-cookie-preferences]");
+  if ((await preferences.count()) !== 1) {
+    throw new Error(`${viewportName} must expose exactly one cookie-preferences control`);
+  }
+
+  await preferences.click();
+  const notice = page.locator("#gurjas-consent");
+  await notice.waitFor({ state: "visible" });
+  const state = await page.evaluate(() => ({
+    describedBy: document.querySelector("#gurjas-consent")?.getAttribute("aria-describedby"),
+    focusedChoice: document.activeElement?.getAttribute("data-consent"),
+    modal: document.querySelector("#gurjas-consent")?.getAttribute("aria-modal"),
+    role: document.querySelector("#gurjas-consent")?.getAttribute("role"),
+  }));
+  if (state.role !== "region" || state.describedBy !== "gurjas-consent-desc" || state.modal !== null || state.focusedChoice !== "granted") {
+    throw new Error(`${viewportName} cookie preferences did not open with the expected accessible state`);
+  }
+
+  await page.screenshot({
+    path: `${outputDirectory}/${viewportName}--cookie-preferences.png`,
+    fullPage: false,
+  });
+  await notice.locator('[data-consent="denied"]').click();
+  await notice.waitFor({ state: "detached" });
+}
+
 try {
   for (const viewport of viewports) {
     const context = await browser.newContext({
@@ -120,6 +147,7 @@ try {
 
       if (route.name === "home") {
         await verifySiteGuide(page, viewport.name);
+        await verifyCookiePreferences(page, viewport.name);
       }
 
       const result = {
