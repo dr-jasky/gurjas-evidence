@@ -80,14 +80,9 @@ jobs:
           routes=(
             "/"
             "/services/"
-            "/services/research-integrity/"
-            "/services/naac-evidence-readiness/"
-            "/services/impact-evaluation/"
-            "/services/research-methods/"
             "/tools/"
             "/contact/"
             "/privacy/"
-            "/editorial-policy/"
             "/insights/how-to-identify-a-predatory-journal/"
           )
           for route in "${routes[@]}"; do
