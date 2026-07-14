@@ -38,13 +38,20 @@ jobs:
           rm -f .github/workflows/session3-migrate.yml
           rm -f scripts/session3_migrate.py
 
-      - name: Validate complete source and generated site
-        run: |
-          node --check script.js
-          python -m py_compile scripts/*.py
-          python scripts/quality-check.py
-          python scripts/build_site.py --clean
-          python scripts/check_build.py
+      - name: Check JavaScript syntax
+        run: node --check script.js
+
+      - name: Check Python syntax
+        run: python -m py_compile scripts/*.py
+
+      - name: Check source integrity
+        run: python scripts/quality-check.py
+
+      - name: Build complete static site
+        run: python scripts/build_site.py --clean
+
+      - name: Check generated site
+        run: python scripts/check_build.py
 
       - name: Commit migrated pages
         run: |
