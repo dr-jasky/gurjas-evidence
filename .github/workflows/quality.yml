@@ -3,49 +3,29 @@ name: Site quality
 on:
   pull_request:
     branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: session3-quality-migration
-  cancel-in-progress: false
+  group: site-quality-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  session3-migrate:
-    if: github.event.pull_request.head.ref == 's3-priority-offers' && github.actor != 'github-actions[bot]'
+  integrity:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 8
     steps:
-      - name: Check out Session 3 branch
+      - name: Check out repository
         uses: actions/checkout@v4
-        with:
-          ref: s3-priority-offers
-          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
-      - name: Prepare one-time migration
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          path = Path("scripts/session3_migrate.py")
-          text = path.read_text(encoding="utf-8")
-          start = text.index("# Production smoke tests must include every commercial pathway.")
-          end = text.index('print("Session 3 homepage', start)
-          path.write_text(text[:start] + text[end:], encoding="utf-8")
-          PY
-
-      - name: Apply deterministic routing migration
-        run: python scripts/session3_migrate.py
-
-      - name: Prepare validated non-workflow commit
-        run: |
-          git checkout -- scripts/session3_migrate.py
-          sed -i 's/("guaranteed publication", "guaranteed grade", "100% success")/("we guarantee", "guaranteed outcome", "100% success")/' scripts/check_build.py
 
       - name: Check JavaScript syntax
         run: node --check script.js
@@ -53,19 +33,26 @@ jobs:
       - name: Check Python syntax
         run: python -m py_compile scripts/*.py
 
-      - name: Check source integrity
+      - name: Run source integrity checks
         run: python scripts/quality-check.py
 
-      - name: Build complete static site
+      - name: Build static site
         run: python scripts/build_site.py --clean
 
-      - name: Check generated site
-        run: python scripts/check_build.py
-
-      - name: Commit migrated content
+      - name: Check generated routes, canonicals and local links
+        shell: bash
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html services/index.html sitemap.xml scripts/check_build.py
-          git commit -m "Apply Session 3 priority offer routing"
-          git push origin HEAD:s3-priority-offers
+          set -o pipefail
+          python scripts/check_build.py 2>&1 | tee build-check.log
+
+      - name: Upload generated site and diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gurjas-static-site
+          path: |
+            _site
+            build-check.log
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
