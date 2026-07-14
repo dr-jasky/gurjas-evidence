@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "publishingPolicy": "A case is publishable only when every required factual field is complete and permission.status is approved or anonymisation.status is approved with a recorded rationale.",
+  "requiredPublishedFields": [
+    "slug",
+    "title",
+    "origin",
+    "clientType",
+    "dateStart",
+    "dateEnd",
+    "context",
+    "problem",
+    "role",
+    "method",
+    "deliverables",
+    "outcome",
+    "limitations",
+    "permission"
+  ],
+  "allowedOrigins": [
+    "gurjas-engagement",
+    "principal-experience-before-gurjas"
+  ],
+  "allowedIdentityModes": [
+    "named",
+    "anonymised"
+  ],
+  "cases": []
+}
