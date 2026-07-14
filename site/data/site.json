@@ -53,6 +53,7 @@
       "links": [
         {"label": "Ethics & Governance", "path": "governance/"},
         {"label": "Ethics Charter", "path": "ethics-charter/"},
+        {"label": "Editorial & Corrections", "path": "editorial-policy/"},
         {"label": "FAQ", "path": "faq/"},
         {"label": "Privacy Policy", "path": "privacy/"},
         {"label": "Terms of Use", "path": "terms/"}
