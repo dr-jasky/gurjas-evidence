@@ -43,6 +43,49 @@ mkdirSync(outputDirectory, { recursive: true });
 const browser = await chromium.launch({ headless: true });
 const results = [];
 
+async function verifySiteGuide(page, viewportName) {
+  const guide = page.locator("[data-site-guide]");
+  if (!(await guide.isVisible())) {
+    await page.locator(".nav-btn").click();
+    await guide.waitFor({ state: "visible" });
+    await page.screenshot({
+      path: `${outputDirectory}/${viewportName}--site-guide-menu.png`,
+      fullPage: false,
+    });
+  }
+
+  await guide.click();
+  const panel = page.locator("#gurjas-site-guide");
+  await panel.waitFor({ state: "visible" });
+  await page.waitForTimeout(100);
+
+  const openState = await page.evaluate(() => ({
+    expanded: document.querySelector("[data-site-guide]")?.getAttribute("aria-expanded"),
+    focused: document.activeElement?.id,
+    modal: document.querySelector("#gurjas-site-guide")?.getAttribute("aria-modal"),
+  }));
+  if (openState.expanded !== "true" || openState.focused !== "gcIn" || openState.modal !== "true") {
+    throw new Error(`${viewportName} site guide did not open with its focus and dialog state intact`);
+  }
+
+  await page.screenshot({
+    path: `${outputDirectory}/${viewportName}--site-guide.png`,
+    fullPage: false,
+  });
+
+  await page.keyboard.press("Escape");
+  await panel.waitFor({ state: "hidden" });
+  const closedState = await page.evaluate(() => ({
+    expanded: document.querySelector("[data-site-guide]")?.getAttribute("aria-expanded"),
+    focusIsMenu: document.activeElement?.classList.contains("nav-btn"),
+    focusIsGuide: document.activeElement?.hasAttribute("data-site-guide"),
+  }));
+  const expectedFocus = viewportName === "mobile" ? closedState.focusIsMenu : closedState.focusIsGuide;
+  if (closedState.expanded !== "false" || !expectedFocus) {
+    throw new Error(`${viewportName} site guide did not close and restore focus correctly`);
+  }
+}
+
 try {
   for (const viewport of viewports) {
     const context = await browser.newContext({
@@ -73,6 +116,10 @@ try {
         path: `${outputDirectory}/${screenshot}`,
         fullPage: true,
       });
+
+      if (route.name === "home") {
+        await verifySiteGuide(page, viewport.name);
+      }
 
       const result = {
         route: route.path,

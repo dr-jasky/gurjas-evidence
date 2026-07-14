@@ -97,6 +97,12 @@ def current_section(rel: Path) -> str:
 
 def render_navigation(site: dict[str, Any], root: str, section: str) -> str:
     items: list[str] = []
+    guide_control = (
+        '<li class="nav-guide-item"><button class="nav-guide" type="button" '
+        'aria-haspopup="dialog" aria-expanded="false" aria-controls="gurjas-site-guide" '
+        'data-site-guide><span aria-hidden="true"></span>Site guide</button></li>'
+    )
+    guide_added = False
     for item in site["navigation"]:
         children = item.get("children")
         if children:
@@ -117,12 +123,17 @@ def render_navigation(site: dict[str, Any], root: str, section: str) -> str:
                 f'<ul class="subnav">{"".join(subitems)}</ul></li>'
             )
             continue
+        if item.get("cta") and not guide_added:
+            items.append(guide_control)
+            guide_added = True
         current = ' aria-current="page"' if section == item["section"] else ""
         css = ' class="nav-cta"' if item.get("cta") else ""
         items.append(
             f'<li><a href="{root}{html.escape(item["path"])}"{css}{current}>'
             f'{html.escape(item["label"])}</a></li>'
         )
+    if not guide_added:
+        items.append(guide_control)
     return "".join(items)
 
 
