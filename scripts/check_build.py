@@ -17,9 +17,11 @@ EXCLUDED_TOP_LEVEL = {
     ".github",
     "_site",
     "_templates",
+    "node_modules",
     "reviews",
     "scripts",
     "site",
+    "tests",
     "__pycache__",
 }
 MAIN_RE = re.compile(r"<main\b[^>]*>.*?</main>", re.IGNORECASE | re.DOTALL)

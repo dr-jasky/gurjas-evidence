@@ -29,9 +29,11 @@ EXCLUDED_TOP_LEVEL = {
     ".github",
     "_site",
     "_templates",
+    "node_modules",
     "reviews",
     "scripts",
     "site",
+    "tests",
     "__pycache__",
 }
 PUBLIC_ROOT_FILES = {

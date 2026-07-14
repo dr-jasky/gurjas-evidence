@@ -17,7 +17,7 @@ concurrency:
 jobs:
   integrity:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 10
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -26,6 +26,26 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.13.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Set up Java for the Nu HTML Checker
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Install quality dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Check JavaScript syntax
         run: node --check script.js
@@ -38,6 +58,9 @@ jobs:
 
       - name: Build static site
         run: python scripts/build_site.py --clean
+
+      - name: Validate generated HTML
+        run: pnpm test:html
 
       - name: Check generated routes, canonicals and local links
         shell: bash
@@ -56,3 +79,62 @@ jobs:
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 7
+
+  visual-regression:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.13.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Install visual-test dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Build static site
+        run: python scripts/build_site.py --clean
+
+      - name: Start local review server
+        shell: bash
+        run: |
+          python -m http.server --directory _site 8000 > visual-server.log 2>&1 &
+          curl --fail --silent --show-error \
+            --retry 20 --retry-delay 1 --retry-all-errors \
+            http://127.0.0.1:8000/ > /dev/null
+
+      - name: Compare candidate with production
+        env:
+          CANDIDATE_URL: http://127.0.0.1:8000/
+          PRODUCTION_URL: https://gurjas.org/
+          VISUAL_APPROVED: ${{ contains(github.event.pull_request.labels.*.name, 'visual-change-approved') }}
+        run: pnpm test:visual
+
+      - name: Upload visual comparison
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gurjas-visual-comparison
+          path: |
+            tests/visual/artifacts
+            visual-server.log
+          if-no-files-found: error
+          retention-days: 14

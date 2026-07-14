@@ -1,3 +1,5 @@
 __pycache__/
 *.pyc
 _site/
+node_modules/
+tests/visual/artifacts/

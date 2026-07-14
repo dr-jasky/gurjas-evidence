@@ -1,0 +1,16 @@
+{
+  "name": "gurjas-site-quality",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.13.0",
+  "scripts": {
+    "test:html": "vnu --errors-only --skip-non-html _site",
+    "test:visual": "node tests/visual/compare.mjs"
+  },
+  "devDependencies": {
+    "pixelmatch": "7.2.0",
+    "playwright": "1.61.1",
+    "pngjs": "7.0.0",
+    "vnu-jar": "26.7.11"
+  }
+}

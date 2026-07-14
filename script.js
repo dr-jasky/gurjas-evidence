@@ -248,12 +248,12 @@
 
     var panel = document.createElement("section");
     panel.id = "gurjas-consent";
-    panel.setAttribute("role", "dialog");
-    panel.setAttribute("aria-modal", "true");
+    panel.setAttribute("role", "region");
     panel.setAttribute("aria-labelledby", "gurjas-consent-title");
+    panel.setAttribute("aria-describedby", "gurjas-consent-desc");
     panel.style.cssText = "position:fixed;z-index:10000;left:clamp(12px,3vw,32px);right:clamp(12px,3vw,32px);bottom:clamp(12px,3vw,28px);max-width:760px;margin:auto;background:#fffdf8;color:#172033;border:1px solid #c8b16a;border-radius:8px;box-shadow:0 18px 60px rgba(4,18,38,.25);padding:18px 20px;font:14px/1.55 Archivo,system-ui,sans-serif";
     panel.innerHTML = '<h2 id="gurjas-consent-title" style="font:600 18px/1.25 Fraunces,Georgia,serif;margin:0 0 6px;color:#06264e">Your analytics choice</h2>'
-      + '<p style="margin:0 0 14px">The site works without analytics. Google Analytics 4 and Microsoft Clarity load only if you accept. Tool lookups are disclosed beside each tool and are separate from this choice. <a href="/privacy/">Privacy details</a>.</p>'
+      + '<p id="gurjas-consent-desc" style="margin:0 0 14px">The site works without analytics. Google Analytics 4 and Microsoft Clarity load only if you accept. Tool lookups are disclosed beside each tool and are separate from this choice. <a href="/privacy/">Privacy details</a>.</p>'
       + '<div style="display:flex;gap:10px;flex-wrap:wrap"><button type="button" data-consent="granted" style="border:1px solid #06264e;background:#06264e;color:#fff;border-radius:4px;padding:9px 14px;font-weight:600;cursor:pointer">Accept analytics</button>'
       + '<button type="button" data-consent="denied" style="border:1px solid #687285;background:#fff;color:#172033;border-radius:4px;padding:9px 14px;font-weight:600;cursor:pointer">Decline</button></div>';
     document.body.appendChild(panel);
