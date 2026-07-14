@@ -6,6 +6,7 @@ const outputDirectory = process.env.REVIEW_OUTPUT_DIR ?? "visual-review";
 
 const routes = [
   { name: "home", path: "/" },
+  { name: "not-found", path: "/404.html" },
   { name: "services", path: "/services/" },
   {
     name: "institutional-research-integrity",
