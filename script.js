@@ -272,14 +272,22 @@
 
   function addPreferencesControl() {
     var base = document.querySelector(".foot-base");
-    if (!base || document.getElementById("gurjas-cookie-preferences")) return;
-    var button = document.createElement("button");
+    if (!base) return;
+    var button = base.querySelector("[data-cookie-preferences]");
+    if (!button) {
+      button = document.createElement("button");
+      button.type = "button";
+      button.className = "cookie-preferences";
+      button.setAttribute("data-cookie-preferences", "");
+      button.textContent = "Cookie preferences";
+      var p = document.createElement("p");
+      p.appendChild(button);
+      base.appendChild(p);
+    }
     button.id = "gurjas-cookie-preferences";
-    button.type = "button";
-    button.textContent = "Cookie preferences";
-    button.style.cssText = "border:0;background:transparent;color:inherit;text-decoration:underline;font:inherit;padding:0;cursor:pointer";
+    if (button.getAttribute("data-preferences-ready") === "true") return;
+    button.setAttribute("data-preferences-ready", "true");
     button.addEventListener("click", function () { showConsentPanel(true); });
-    var p = document.createElement("p"); p.appendChild(button); base.appendChild(p);
   }
 
   window.GurjasPrivacy = {

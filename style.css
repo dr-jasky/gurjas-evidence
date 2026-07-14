@@ -187,6 +187,8 @@ section{padding:5.5rem 0}
 .site-foot a{color:#c7d2e0;text-decoration:none;font-size:.92rem}
 .site-foot a:hover{color:#fff;text-decoration:underline}
 .foot-base{border-top:1px solid rgba(255,255,255,.1);padding:1.5rem 28px;display:flex;flex-wrap:wrap;gap:.8rem;justify-content:space-between;font-size:.78rem;color:#7d90a9}
+.cookie-preferences{border:0;background:transparent;color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;font:inherit;padding:0;cursor:pointer;transition:color .18s}
+.cookie-preferences:hover{color:#fff}
 @media(max-width:960px){.foot-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:580px){.foot-grid{grid-template-columns:1fr}}
 
