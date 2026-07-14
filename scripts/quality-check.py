@@ -8,6 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 errors: list[str] = []
+INDEXNOW_KEY = "127d4f6734fd4c5b8f7308201fd3d836"
 EXCLUDED_TOP_LEVEL = {
     "_site",
     "node_modules",
@@ -119,6 +120,7 @@ homepage = (ROOT / "index.html").read_text(encoding="utf-8")
 services = (ROOT / "services/index.html").read_text(encoding="utf-8")
 sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
 pages_workflow = (ROOT / ".github/workflows/pages.yml").read_text(encoding="utf-8")
+indexnow_workflow = (ROOT / ".github/workflows/indexnow.yml").read_text(encoding="utf-8")
 for slug in sorted(expected_offers):
     route = f"services/{slug}/"
     if route not in homepage:
@@ -138,6 +140,19 @@ if homepage.count('id="h-caps"') != 1:
     errors.append("index.html: commercial pathway section must appear exactly once")
 if not (ROOT / "reviews/session3-visual-contract.md").exists():
     errors.append("session3: visual contract is missing")
+
+indexnow_key_file = ROOT / f"{INDEXNOW_KEY}.txt"
+if not indexnow_key_file.exists() or indexnow_key_file.read_text(encoding="utf-8").strip() != INDEXNOW_KEY:
+    errors.append("IndexNow: ownership file is missing or does not contain the configured key")
+for required in [
+    'workflows: ["Deploy generated site to Pages"]',
+    "github.event.workflow_run.conclusion == 'success'",
+    "KEY_LOCATION",
+    "SITEMAP_URL",
+    'INDEXNOW_ENDPOINT="https://search.seznam.cz/indexnow"',
+]:
+    if required not in indexnow_workflow:
+        errors.append(f"IndexNow workflow: missing deployment-order control: {required}")
 
 doctoral_insight_route = "insights/phd-shortcut-longest-route/"
 doctoral_insight = ROOT / doctoral_insight_route / "index.html"

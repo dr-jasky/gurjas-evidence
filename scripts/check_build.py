@@ -14,6 +14,7 @@ from urllib.parse import unquote, urlparse
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "_site"
 OFFERS_DATA = ROOT / "site" / "data" / "offers.json"
+INDEXNOW_KEY = "127d4f6734fd4c5b8f7308201fd3d836"
 EXCLUDED_TOP_LEVEL = {
     ".git",
     ".github",
@@ -299,9 +300,21 @@ def check() -> list[str]:
         if route not in sitemap_paths:
             errors.append(f"Priority offer missing from sitemap: {route}")
 
-    for required in ["CNAME", ".nojekyll", "style.css", "script.js", "robots.txt", "site.webmanifest"]:
+    for required in [
+        "CNAME",
+        ".nojekyll",
+        f"{INDEXNOW_KEY}.txt",
+        "style.css",
+        "script.js",
+        "robots.txt",
+        "site.webmanifest",
+    ]:
         if not (OUTPUT / required).exists():
             errors.append(f"required public file missing: {required}")
+
+    indexnow_key_file = OUTPUT / f"{INDEXNOW_KEY}.txt"
+    if indexnow_key_file.exists() and indexnow_key_file.read_text(encoding="utf-8").strip() != INDEXNOW_KEY:
+        errors.append("IndexNow ownership file does not contain the configured key")
 
     for source_only in ["site", "scripts", "reviews", "operations"]:
         if (OUTPUT / source_only).exists():

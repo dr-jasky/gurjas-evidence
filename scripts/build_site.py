@@ -26,6 +26,7 @@ TEMPLATE_DIR = SITE_DIR / "templates"
 SITE_DATA = SITE_DIR / "data" / "site.json"
 OFFERS_DATA = SITE_DIR / "data" / "offers.json"
 FACTS_DATA = ROOT / "data" / "site-facts.json"
+INDEXNOW_KEY = "127d4f6734fd4c5b8f7308201fd3d836"
 
 EXCLUDED_TOP_LEVEL = {
     ".git",
@@ -41,6 +42,7 @@ EXCLUDED_TOP_LEVEL = {
     "__pycache__",
 }
 PUBLIC_ROOT_FILES = {
+    f"{INDEXNOW_KEY}.txt",
     "CNAME",
     "favicon.ico",
     "humans.txt",
