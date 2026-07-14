@@ -4,15 +4,20 @@ on:
   pull_request:
     branches: [main]
   push:
-    branches: [main, s1-truth-privacy-integrity]
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: site-quality-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   integrity:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -26,7 +31,22 @@ jobs:
         run: node --check script.js
 
       - name: Check Python syntax
-        run: python -m py_compile scripts/quality-check.py
+        run: python -m py_compile scripts/*.py
 
-      - name: Run dependency-free quality checks
+      - name: Run source integrity checks
         run: python scripts/quality-check.py
+
+      - name: Build static site
+        run: python scripts/build_site.py --clean
+
+      - name: Check generated routes, canonicals and local links
+        run: python scripts/check_build.py
+
+      - name: Upload generated site
+        uses: actions/upload-artifact@v4
+        with:
+          name: gurjas-static-site
+          path: _site
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
