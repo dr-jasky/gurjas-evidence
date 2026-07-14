@@ -1,6 +1,6 @@
 # gurjas.org — website
 
-This repository contains the source for [gurjas.org](https://gurjas.org). The production output is a static, GitHub Pages-compatible site: plain HTML, one shared `style.css`, one shared `script.js`, and no client-side framework.
+This repository contains the source for [gurjas.org](https://gurjas.org). Production is a static GitHub Pages site: plain HTML, one shared `style.css`, one shared `script.js`, and no client-side framework.
 
 ## Site system
 
@@ -14,7 +14,7 @@ The build is intentionally dependency-free and runs with Python 3.12 or newer.
 - The generated site is written to `_site/` with the same public paths and canonical URLs.
 - `scripts/check_build.py` verifies route parity, main-content parity, canonicals, sitemap targets, required public files and local links.
 
-The legacy header and footer copies inside page files are deliberately ignored by the generated output. They remain temporarily so the live branch-deployed site stays unchanged until GitHub Pages is explicitly switched to the generated artifact.
+The legacy header and footer copies inside page files are ignored by the generated output. They remain temporarily as a low-risk migration boundary, but production is generated from the reusable templates.
 
 ## Build and preview
 
@@ -30,7 +30,15 @@ Then open `http://localhost:8000/`.
 
 For page-specific copy, metadata or tool code, edit the relevant existing `index.html`. For navigation, footer, organisation shell copy or shared asset versioning, edit `site/data/site.json` or the templates instead of changing every page.
 
-Any pull request to `main` runs the **Site quality** workflow. It checks JavaScript and Python syntax, source integrity, builds the entire site, regression-tests the output and uploads the generated `_site` directory as a short-lived workflow artifact.
+Any pull request to `main` runs the **Site quality** workflow. It checks JavaScript and Python syntax, source integrity, builds the entire site, regression-tests the output and uploads the generated `_site` directory as a short-lived review artifact.
+
+## Production deployment
+
+A successful push to `main` runs **Deploy generated site to Pages**. The workflow rebuilds and rechecks the repository, uploads `_site` as the GitHub Pages artifact, deploys it to the protected `github-pages` environment and smoke-tests the homepage plus representative service, tool, contact, privacy and article routes.
+
+Only generated files inside `_site` are deployed. Source-only directories such as `site/`, `scripts/` and `reviews/` are not published.
+
+Rollback instructions are in `operations/deployment-and-rollback.md`.
 
 ## Public structure
 
@@ -39,7 +47,3 @@ Any pull request to `main` runs the **Site quality** workflow. It checks JavaScr
 - `style.css`, `script.js` — shared presentation and behaviour
 - `assets/` and nested tool `data/` directories — static assets and local reference data
 - `404.html`, `robots.txt`, `sitemap.xml`, `site.webmanifest`, `humans.txt`, `favicon.ico`, `CNAME` — public site plumbing
-
-## Deployment boundary
-
-This session introduces and validates the generated site but does not silently change the repository’s GitHub Pages source setting. After owner review of the generated artifact, Pages can be switched to a dedicated deployment workflow in a separate, reversible change.
