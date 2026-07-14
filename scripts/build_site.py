@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Build gurjas.org with one authoritative site shell.
 
-The current page files remain the content source during the low-risk migration.
+Existing page files remain the content source during the low-risk migration.
 Their page-specific <head>, <main> and inline tool scripts are preserved, while
 copied headers, footers and shared-script tags are replaced by reusable,
-data-driven templates. Output remains plain static HTML for GitHub Pages.
+data-driven templates. Priority offer pages are generated from one shared
+content model and layout. Output remains plain static HTML for GitHub Pages.
 """
 from __future__ import annotations
 
@@ -16,12 +17,14 @@ import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "_site"
 SITE_DIR = ROOT / "site"
 TEMPLATE_DIR = SITE_DIR / "templates"
 SITE_DATA = SITE_DIR / "data" / "site.json"
+OFFERS_DATA = SITE_DIR / "data" / "offers.json"
 FACTS_DATA = ROOT / "data" / "site-facts.json"
 
 EXCLUDED_TOP_LEVEL = {
@@ -32,6 +35,7 @@ EXCLUDED_TOP_LEVEL = {
     "reviews",
     "scripts",
     "site",
+    "operations",
     "__pycache__",
 }
 PUBLIC_ROOT_FILES = {
@@ -225,6 +229,152 @@ def render_page(path: Path, site: dict[str, Any], facts: dict[str, Any]) -> str:
     return replace_tokens(read_template("base.html"), values).rstrip() + "\n"
 
 
+def list_items(items: list[str]) -> str:
+    return "".join(f"<li>{html.escape(item)}</li>" for item in items)
+
+
+def render_offer_head(offer: dict[str, Any], root: str) -> str:
+    canonical = f'https://gurjas.org/services/{offer["slug"]}/'
+    graph = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"},
+                    {"@type": "ListItem", "position": 2, "name": "Services", "item": "https://gurjas.org/services/"},
+                    {"@type": "ListItem", "position": 3, "name": offer["title"], "item": canonical},
+                ],
+            },
+            {
+                "@type": "Service",
+                "name": offer["title"],
+                "serviceType": offer["serviceType"],
+                "description": offer["metaDescription"],
+                "provider": {"@id": "https://gurjas.org/#org"},
+                "areaServed": ["India", "Canada", "Worldwide (remote)"],
+                "url": canonical,
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": item["q"],
+                        "acceptedAnswer": {"@type": "Answer", "text": item["a"]},
+                    }
+                    for item in offer["faq"]
+                ],
+            },
+        ],
+    }
+    meta_title = html.escape(offer["metaTitle"])
+    description = html.escape(offer["metaDescription"], quote=True)
+    return "\n".join(
+        [
+            '<meta charset="utf-8">',
+            '<meta name="viewport" content="width=device-width, initial-scale=1">',
+            '<!-- Non-essential analytics load only after explicit consent through script.js. -->',
+            f"<title>{meta_title}</title>",
+            f'<meta name="description" content="{description}">',
+            f'<link rel="canonical" href="{canonical}">',
+            '<meta name="author" content="Gurjas Evidence and Policy Analytics">',
+            '<meta name="robots" content="index, follow, max-image-preview:large">',
+            '<meta name="theme-color" content="#041226">',
+            '<meta property="og:type" content="website">',
+            '<meta property="og:site_name" content="Gurjas Evidence and Policy Analytics">',
+            f'<meta property="og:title" content="{meta_title}">',
+            f'<meta property="og:description" content="{description}">',
+            f'<meta property="og:url" content="{canonical}">',
+            '<meta property="og:image" content="https://gurjas.org/assets/og-preview.png">',
+            '<meta property="og:image:width" content="1200">',
+            '<meta property="og:image:height" content="630">',
+            '<meta property="og:locale" content="en_IN">',
+            '<meta name="twitter:card" content="summary_large_image">',
+            f'<meta name="twitter:title" content="{meta_title}">',
+            f'<meta name="twitter:description" content="{description}">',
+            '<meta name="twitter:image" content="https://gurjas.org/assets/og-preview.png">',
+            f'<link rel="icon" href="{root}favicon.ico" sizes="32x32">',
+            f'<link rel="icon" href="{root}assets/favicon.png" type="image/png">',
+            f'<link rel="apple-touch-icon" href="{root}assets/apple-touch-icon.png">',
+            f'<link rel="manifest" href="{root}site.webmanifest">',
+            '<link rel="preconnect" href="https://fonts.googleapis.com">',
+            '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
+            '<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap">',
+            '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap" media="print" onload="this.media=&#39;all&#39;">',
+            '<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap"></noscript>',
+            f'<link rel="preload" as="style" href="{root}style.css?v=12">',
+            f'<link rel="stylesheet" href="{root}style.css?v=12">',
+            f'<script type="application/ld+json">{json.dumps(graph, ensure_ascii=False)}</script>',
+        ]
+    )
+
+
+def render_offer_main(offer: dict[str, Any], root: str) -> str:
+    outcomes = "".join(
+        f'<article class="offer-outcome"><span class="offer-num">0{number}</span><p>{html.escape(item)}</p></article>'
+        for number, item in enumerate(offer["outcomes"], start=1)
+    )
+    method = "".join(
+        f'<li><h3>{html.escape(step["title"])}</h3><p>{html.escape(step["text"])}</p></li>'
+        for step in offer["method"]
+    )
+    proof = "".join(
+        f'<a href="{html.escape(item["path"], quote=True)}">{html.escape(item["label"])}</a>'
+        for item in offer["proof"]
+    )
+    faq = "".join(
+        f'<details><summary>{html.escape(item["q"])}</summary><p>{html.escape(item["a"])}</p></details>'
+        for item in offer["faq"]
+    )
+    subject = quote(offer["subject"])
+    cta_href = f'{root}contact/?service={quote(offer["slug"])}&subject={subject}'
+    entry = offer["entryOffer"]
+    return replace_tokens(
+        read_template("offer-main.html"),
+        {
+            "ROOT": root,
+            "OFFER_EYEBROW": html.escape(offer["eyebrow"]),
+            "OFFER_TITLE": html.escape(offer["title"]),
+            "OFFER_INTRO": html.escape(offer["intro"]),
+            "OFFER_PROBLEM": html.escape(offer["problem"]),
+            "OFFER_INACTION": html.escape(offer["inaction"]),
+            "FIT_LIST": list_items(offer["for"]),
+            "NOT_FIT_LIST": list_items(offer["notFor"]),
+            "OUTCOME_CARDS": outcomes,
+            "DELIVERABLES_LIST": list_items(offer["deliverables"]),
+            "INPUTS_LIST": list_items(offer["inputs"]),
+            "METHOD_STEPS": method,
+            "ENTRY_NAME": html.escape(entry["name"]),
+            "ENTRY_SCOPE": html.escape(entry["scope"]),
+            "ENTRY_TIMELINE": html.escape(entry["timeline"]),
+            "ENTRY_INVESTMENT": html.escape(entry["investment"]),
+            "PRICE_FACTORS_LIST": list_items(offer["priceFactors"]),
+            "EXCLUSIONS_LIST": list_items(offer["exclusions"]),
+            "PROOF_LINKS": proof,
+            "FAQ_ITEMS": faq,
+            "CTA_TEXT": html.escape(offer["cta"]),
+            "CTA_HREF": html.escape(cta_href, quote=True),
+        },
+    )
+
+
+def render_offer_page(offer: dict[str, Any], site: dict[str, Any], facts: dict[str, Any]) -> tuple[Path, str]:
+    rel = Path("services") / offer["slug"] / "index.html"
+    root = root_prefix(rel)
+    values = {
+        "HEAD": render_offer_head(offer, root),
+        "BODY_ATTRIBUTES": ' class="offer"',
+        "HEADER": render_header(site, root, "services"),
+        "MAIN": render_offer_main(offer, root),
+        "FOOTER": render_footer(site, facts, root),
+        "PAGE_SCRIPTS": "",
+        "ROOT": root,
+        "ASSET_VERSION": html.escape(str(site["assetVersion"])),
+    }
+    return rel, replace_tokens(read_template("base.html"), values).rstrip() + "\n"
+
+
 def copy_public_files(output: Path) -> None:
     for name in PUBLIC_ROOT_FILES:
         source = ROOT / name
@@ -253,9 +403,12 @@ def build(output: Path, clean: bool) -> int:
 
     site = read_json(SITE_DATA)
     facts = read_json(FACTS_DATA)
+    offers = read_json(OFFERS_DATA)["offers"]
     pages = source_html_files()
     if len(pages) < 20:
         raise RuntimeError(f"Refusing suspicious build with only {len(pages)} source pages")
+    if len(offers) != 4:
+        raise RuntimeError(f"Expected four priority offers, found {len(offers)}")
 
     copy_public_files(output)
     for source in pages:
@@ -264,8 +417,15 @@ def build(output: Path, clean: bool) -> int:
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_text(render_page(source, site, facts), encoding="utf-8")
 
-    print(f"Built {len(pages)} HTML pages into {output.relative_to(ROOT)}")
-    return len(pages)
+    for offer in offers:
+        rel, document = render_offer_page(offer, site, facts)
+        destination = output / rel
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(document, encoding="utf-8")
+
+    total = len(pages) + len(offers)
+    print(f"Built {len(pages)} source pages and {len(offers)} generated offer pages into {output.relative_to(ROOT)}")
+    return total
 
 
 def parse_args() -> argparse.Namespace:
