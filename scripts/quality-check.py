@@ -149,6 +149,7 @@ for required in [
     "github.event.workflow_run.conclusion == 'success'",
     "KEY_LOCATION",
     "SITEMAP_URL",
+    'INDEXNOW_ENDPOINT="https://search.seznam.cz/indexnow"',
 ]:
     if required not in indexnow_workflow:
         errors.append(f"IndexNow workflow: missing deployment-order control: {required}")

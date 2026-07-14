@@ -6,7 +6,7 @@
 2. The **Deploy generated site to Pages** workflow checks the source again, builds `_site`, validates routes and links, deploys the Pages artifact and runs live smoke tests.
 3. Treat a release as complete only when the deployment and smoke-test jobs both pass.
 4. Keep the repository's Pages source set to **GitHub Actions** (`build_type: workflow`). Legacy branch publishing must remain disabled so raw source cannot overwrite the generated artifact.
-5. After a successful deployment, the **IndexNow ping** workflow verifies the public ownership key, reads the deployed sitemap and submits those live URLs.
+5. After a successful deployment, the **IndexNow ping** workflow verifies the public ownership key, reads the deployed sitemap and submits those live URLs through an official sharing participant.
 
 ## Fast rollback
 

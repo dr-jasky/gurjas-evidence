@@ -23,6 +23,7 @@ jobs:
           HOST="gurjas.org"
           KEY_LOCATION="https://gurjas.org/${KEY}.txt"
           SITEMAP_URL="https://gurjas.org/sitemap.xml"
+          INDEXNOW_ENDPOINT="https://search.seznam.cz/indexnow"
 
           for attempt in {1..24}; do
             public_key=$(curl --fail --silent --show-error --location \
@@ -57,7 +58,7 @@ jobs:
 
           http_code=$(curl --silent --show-error \
             --output /tmp/indexnow_response.txt --write-out '%{http_code}' \
-            --request POST "https://api.indexnow.org/indexnow" \
+            --request POST "$INDEXNOW_ENDPOINT" \
             --header "Content-Type: application/json; charset=utf-8" \
             --data "$payload")
 
