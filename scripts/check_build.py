@@ -27,6 +27,7 @@ CANONICAL_RE = re.compile(
     r'<link\s+rel=["\']canonical["\']\s+href=["\']([^"\']+)["\']',
     re.IGNORECASE,
 )
+UNRESOLVED_TOKEN_RE = re.compile(r"\[\[[A-Z0-9_]+\]\]")
 
 
 class ReferenceParser(HTMLParser):
@@ -66,8 +67,6 @@ def route_for(rel: Path) -> str:
 def expected_file_for_url(url_path: str, base_file: Path) -> Path | None:
     parsed = urlparse(url_path)
     if parsed.scheme or parsed.netloc or url_path.startswith("//"):
-        return None
-    if parsed.scheme in {"mailto", "tel", "javascript", "data"}:
         return None
     path = unquote(parsed.path)
     if not path:
@@ -128,7 +127,7 @@ def check() -> list[str]:
             errors.append(f"{rel}: generated shared footer missing or duplicated")
         if built_text.count("script.js?v=") != 1:
             errors.append(f"{rel}: shared script reference missing or duplicated")
-        if "[[" in built_text or "]]" in built_text:
+        if UNRESOLVED_TOKEN_RE.search(built_text):
             errors.append(f"{rel}: unresolved template token")
 
         if rel.name != "404.html":
