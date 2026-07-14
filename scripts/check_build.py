@@ -169,7 +169,7 @@ def check_offer_data() -> list[str]:
                 errors.append(f"{slug}: {key} must be a non-empty list")
 
         serialized = json.dumps(offer, ensure_ascii=False).lower()
-        for banned in ("guaranteed publication", "guaranteed grade", "100% success"):
+        for banned in ("we guarantee", "guaranteed outcome", "100% success"):
             if banned in serialized:
                 errors.append(f"{slug}: prohibited outcome claim: {banned}")
     return errors
