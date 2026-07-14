@@ -199,132 +199,296 @@
   else setTimeout(start, 300);
 })();
 
-/* ═══════════ Gurjas concierge + contact form (2026) ═══════════ */
+/* ═══════════ Privacy consent, guided assistant + contact form (2026) ═══════════ */
+(function () {
+  "use strict";
+
+  var CONSENT_KEY = "gurjas.analyticsConsent.v1";
+  var GA_ID = "G-P95TY2K8F3";
+  var CLARITY_ID = "xl7zo5h687";
+  var analyticsLoaded = false;
+
+  function consentChoice() {
+    try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; }
+  }
+
+  function saveChoice(value) {
+    try { localStorage.setItem(CONSENT_KEY, value); } catch (e) {}
+  }
+
+  function loadAnalytics() {
+    if (analyticsLoaded || consentChoice() !== "granted") return;
+    analyticsLoaded = true;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", GA_ID, { anonymize_ip: true });
+
+    var google = document.createElement("script");
+    google.async = true;
+    google.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_ID);
+    document.head.appendChild(google);
+
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r); t.async = true; t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", CLARITY_ID);
+  }
+
+  function removeConsentPanel() {
+    var existing = document.getElementById("gurjas-consent");
+    if (existing) existing.remove();
+  }
+
+  function showConsentPanel(force) {
+    if (!force && consentChoice()) return;
+    removeConsentPanel();
+
+    var panel = document.createElement("section");
+    panel.id = "gurjas-consent";
+    panel.setAttribute("role", "dialog");
+    panel.setAttribute("aria-modal", "true");
+    panel.setAttribute("aria-labelledby", "gurjas-consent-title");
+    panel.style.cssText = "position:fixed;z-index:10000;left:clamp(12px,3vw,32px);right:clamp(12px,3vw,32px);bottom:clamp(12px,3vw,28px);max-width:760px;margin:auto;background:#fffdf8;color:#172033;border:1px solid #c8b16a;border-radius:8px;box-shadow:0 18px 60px rgba(4,18,38,.25);padding:18px 20px;font:14px/1.55 Archivo,system-ui,sans-serif";
+    panel.innerHTML = '<h2 id="gurjas-consent-title" style="font:600 18px/1.25 Fraunces,Georgia,serif;margin:0 0 6px;color:#06264e">Your analytics choice</h2>'
+      + '<p style="margin:0 0 14px">The site works without analytics. Google Analytics 4 and Microsoft Clarity load only if you accept. Tool lookups are disclosed beside each tool and are separate from this choice. <a href="/privacy/">Privacy details</a>.</p>'
+      + '<div style="display:flex;gap:10px;flex-wrap:wrap"><button type="button" data-consent="granted" style="border:1px solid #06264e;background:#06264e;color:#fff;border-radius:4px;padding:9px 14px;font-weight:600;cursor:pointer">Accept analytics</button>'
+      + '<button type="button" data-consent="denied" style="border:1px solid #687285;background:#fff;color:#172033;border-radius:4px;padding:9px 14px;font-weight:600;cursor:pointer">Decline</button></div>';
+    document.body.appendChild(panel);
+
+    panel.addEventListener("click", function (event) {
+      var button = event.target.closest("[data-consent]");
+      if (!button) return;
+      var value = button.getAttribute("data-consent");
+      saveChoice(value);
+      removeConsentPanel();
+      if (value === "granted") loadAnalytics();
+    });
+    var first = panel.querySelector("button");
+    if (force && first) first.focus();
+  }
+
+  function addPreferencesControl() {
+    var base = document.querySelector(".foot-base");
+    if (!base || document.getElementById("gurjas-cookie-preferences")) return;
+    var button = document.createElement("button");
+    button.id = "gurjas-cookie-preferences";
+    button.type = "button";
+    button.textContent = "Cookie preferences";
+    button.style.cssText = "border:0;background:transparent;color:inherit;text-decoration:underline;font:inherit;padding:0;cursor:pointer";
+    button.addEventListener("click", function () { showConsentPanel(true); });
+    var p = document.createElement("p"); p.appendChild(button); base.appendChild(p);
+  }
+
+  window.GurjasPrivacy = {
+    getAnalyticsChoice: consentChoice,
+    openPreferences: function () { showConsentPanel(true); }
+  };
+
+  if (consentChoice() === "granted") loadAnalytics();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () { showConsentPanel(false); addPreferencesControl(); });
+  } else {
+    showConsentPanel(false); addPreferencesControl();
+  }
+})();
+
 (function () {
   "use strict";
   var WA = "https://wa.me/919877295825";
   var TEL = "tel:+919877295825";
-  var base = location.pathname.split("/").filter(Boolean);
-  // depth-aware root so links work from any page
-  var isFile = location.protocol === "file:";
-  function P(p){ return p; } // pages use root-relative; server rewrites fine on gurjas.org
+  var FACTS = {
+    toolCount: 8,
+    metrics: { journalArticles: 10, bookChapters: 4, googleScholarCitations: 202 },
+    contact: { responseSla: "usually within two working days" },
+    pricing: { summary: "Indicative engagement ranges are published on the Services page; the exact fee is fixed in a written scope." }
+  };
 
-  /* ---------- Concierge chat ---------- */
+  fetch("/data/site-facts.json", { cache: "no-store" })
+    .then(function (response) { return response.ok ? response.json() : Promise.reject(); })
+    .then(function (data) { FACTS = data; })
+    .catch(function () {});
+
   var fab = document.createElement("button");
   fab.className = "gc-fab"; fab.type = "button";
-  fab.setAttribute("aria-label", "Open the Gurjas assistant");
+  fab.setAttribute("aria-label", "Open the Gurjas guided assistant");
+  fab.setAttribute("aria-haspopup", "dialog");
+  fab.setAttribute("aria-expanded", "false");
   fab.innerHTML = '<span class="dot"></span><span class="lbl">How can I help?</span>';
   document.body.appendChild(fab);
 
   var panel = document.createElement("div");
-  panel.className = "gc-panel"; panel.setAttribute("role","dialog");
-  panel.setAttribute("aria-label","Gurjas assistant"); panel.hidden = false;
-  panel.innerHTML =
-    '<div class="gc-head"><div class="av">G</div><div><b>Gurjas Assistant</b>'
-    + '<small>Typically replies in minutes</small></div>'
-    + '<button class="gc-x" type="button" aria-label="Close">&times;</button></div>'
-    + '<div class="gc-body" id="gcBody"></div>'
+  panel.className = "gc-panel";
+  panel.setAttribute("role", "dialog");
+  panel.setAttribute("aria-modal", "true");
+  panel.setAttribute("aria-labelledby", "gcTitle");
+  panel.hidden = true;
+  panel.innerHTML = '<div class="gc-head"><div class="av">G</div><div><b id="gcTitle">Gurjas guided assistant</b>'
+    + '<small>Site navigation, not live chat</small></div>'
+    + '<button class="gc-x" type="button" aria-label="Close guided assistant">&times;</button></div>'
+    + '<div class="gc-body" id="gcBody" aria-live="polite"></div>'
     + '<div class="gc-chips" id="gcChips"></div>'
-    + '<form class="gc-foot" id="gcForm" autocomplete="off"><input id="gcIn" type="text" '
-    + 'placeholder="Ask about services, tools, publications…" aria-label="Type your question">'
-    + '<button class="gc-send" type="submit" aria-label="Send">&#8593;</button></form>'
-    + '<div class="gc-foot-note">Guided assistant · for a person, use email or WhatsApp</div>';
+    + '<form class="gc-foot" id="gcForm" autocomplete="off"><label class="sr-only" for="gcIn">Ask about services, tools or publications</label><input id="gcIn" type="text" '
+    + 'placeholder="Ask about services, tools, publications…" aria-label="Ask about services, tools or publications">'
+    + '<button class="gc-send" type="submit" aria-label="Send question">&#8593;</button></form>'
+    + '<div class="gc-foot-note">Automated site guide · for a person, use email or WhatsApp</div>';
   document.body.appendChild(panel);
 
-  var body = panel.querySelector("#gcBody"),
-      chipWrap = panel.querySelector("#gcChips"),
-      form = panel.querySelector("#gcForm"),
-      input = panel.querySelector("#gcIn");
+  var body = panel.querySelector("#gcBody");
+  var chipWrap = panel.querySelector("#gcChips");
+  var form = panel.querySelector("#gcForm");
+  var input = panel.querySelector("#gcIn");
+  var closeButton = panel.querySelector(".gc-x");
+  var lastFocus = null;
 
-  function bot(html){ var d=document.createElement("div"); d.className="gc-msg gc-bot"; d.innerHTML=html; body.appendChild(d); body.scrollTop=body.scrollHeight; }
-  function user(t){ var d=document.createElement("div"); d.className="gc-msg gc-user"; d.textContent=t; body.appendChild(d); body.scrollTop=body.scrollHeight; }
-  function chips(list){ chipWrap.innerHTML=""; list.forEach(function(c){ var b=document.createElement("button"); b.className="gc-chip"; b.type="button"; b.textContent=c.t; b.addEventListener("click",function(){ user(c.t); if(c.r) c.r(); }); chipWrap.appendChild(b); }); }
+  function bot(html) { var d = document.createElement("div"); d.className = "gc-msg gc-bot"; d.innerHTML = html; body.appendChild(d); body.scrollTop = body.scrollHeight; }
+  function user(text) { var d = document.createElement("div"); d.className = "gc-msg gc-user"; d.textContent = text; body.appendChild(d); body.scrollTop = body.scrollHeight; }
+  function chips(list) {
+    chipWrap.innerHTML = "";
+    list.forEach(function (choice) {
+      var b = document.createElement("button"); b.className = "gc-chip"; b.type = "button"; b.textContent = choice.t;
+      b.addEventListener("click", function () { user(choice.t); choice.r(); });
+      chipWrap.appendChild(b);
+    });
+  }
 
   var DEFAULT_CHIPS = [
-    {t:"Explore services", r:function(){ answer("services"); }},
-    {t:"Free research tools", r:function(){ answer("tools"); }},
-    {t:"Check a journal", r:function(){ answer("checker"); }},
-    {t:"See publications", r:function(){ answer("pubs"); }},
-    {t:"Book a consultation", r:function(){ answer("contact"); }},
-    {t:"WhatsApp us", r:function(){ answer("whatsapp"); }}
+    { t: "Explore services", r: function () { answer("services"); } },
+    { t: "Free research tools", r: function () { answer("tools"); } },
+    { t: "Check a journal", r: function () { answer("checker"); } },
+    { t: "See publications", r: function () { answer("pubs"); } },
+    { t: "Pricing guidance", r: function () { answer("price"); } },
+    { t: "Contact a person", r: function () { answer("contact"); } }
   ];
 
-  var K = {
-    services:{k:["service","consult","advisory","evaluation","analytics","naac","iqac","doctoral","phd support","ngo","csr","help with"],
-      a:'We offer research consulting, policy evaluation, impact analytics, institutional (NAAC/IQAC) advisory, doctoral methodology support and NGO/CSR research. See the full breakdown on <a href="/services/">Services</a>.'},
-    tools:{k:["tool","calculator","sample size","reliability","validity","timeline","grant","sem","free"],
-      a:'Six free, citation-ready tools run entirely in your browser — predatory journal checker, NAAC readiness scorecard, SEM sample-size calculator, reliability &amp; validity kit, PhD timeline planner and grant tracker. Open the <a href="/tools/">Tools hub</a>.'},
-    checker:{k:["predatory","journal","checker","legit","scopus","doaj","ugc-care","fake journal","verify journal"],
-      a:'The <a href="/tools/predatory-journal-checker/">Predatory Journal Risk Checker</a> runs guided verification against Scopus, DOAJ, UGC-CARE and Web of Science plus a twelve-signal red-flag assessment — free, no sign-up.'},
-    pubs:{k:["publication","paper","research record","citation","scholar","ssrn","author","dr. jaskirat","jaskirat"],
-      a:'Our record is the peer-reviewed scholarship of Dr. Jaskirat Singh — 10 journal articles and 4 book chapters in Cities, Technological Forecasting &amp; Social Change and other Scopus/WoS journals, 202 Google Scholar citations. See <a href="/publications/">Publications</a>.'},
-    methods:{k:["method","sem","fsqca","nca","ardl","garch","econometric","statistic","analysis","prisma"],
-      a:'Methods include SEM/PLS-SEM, fsQCA and NCA, ARDL and GARCH-family econometrics, and PRISMA-style synthesis. Detail on <a href="/methods/">Methodology</a>.'},
-    contact:{k:["contact","consult","book","call","talk","reach","quote","scope","hire","engage","start"],
-      a:'Happy to help. You can <a href="/contact/">open the contact form</a>, WhatsApp us at <a href="'+WA+'" rel="noopener">+91 98772 95825</a>, or email <a href="mailto:support@gurjas.org">support@gurjas.org</a>. Share your objective, data status, timeline and expected output for a tailored scope.'},
-    whatsapp:{k:["whatsapp","wa","message","chat now","phone","number","mobile"],
-      a:'Reach us directly on WhatsApp: <a href="'+WA+'" rel="noopener">+91 98772 95825</a> (or call <a href="'+TEL+'">the same number</a>). We usually respond within minutes during working hours.'},
-    price:{k:["price","cost","fee","charge","how much","pricing","budget"],
-      a:'Engagements are scoped to the problem, not sold as fixed packages — pricing follows a written scope. Tell us what you need on <a href="/contact/">Contact</a> and we will propose a suitable scope and next steps.'},
-    about:{k:["about","who","gurjas","company","team","people","credible","trust"],
-      a:'Gurjas Evidence &amp; Policy Analytics is an independent, women-led research practice; its methodology is led by Dr. Jaskirat Singh, an ICSSR Postdoctoral Fellow and Springer Nature Reviewing Editor. More on <a href="/about/">About</a> and <a href="/people/">People</a>.'}
-  };
-
-  function answer(key){
-    var e = K[key];
-    if(e){ setTimeout(function(){ bot(e.a); }, 220); }
-    setTimeout(function(){ chips(DEFAULT_CHIPS); }, 240);
+  function knowledge() {
+    var metrics = FACTS.metrics || {};
+    var contact = FACTS.contact || {};
+    var pricing = FACTS.pricing || {};
+    return {
+      services: { k: ["service", "consult", "advisory", "evaluation", "analytics", "naac", "iqac", "doctoral", "ngo", "csr", "help with"], a: 'Gurjas provides research consulting, policy evaluation, impact analytics, institutional (NAAC/IQAC) advisory, doctoral methodology support and NGO/CSR research. See the current scope and indicative ranges on <a href="/services/">Services</a>.' },
+      tools: { k: ["tool", "calculator", "sample size", "reliability", "validity", "timeline", "grant", "sem", "free"], a: 'There are ' + (FACTS.toolCount || 8) + ' free tools. Five process inputs locally; Journal Finder, Predatory Journal Checker and APC Checker query named public databases only after you submit a search. Open the <a href="/tools/">Tools hub</a>.' },
+      checker: { k: ["predatory", "journal", "checker", "legit", "scopus", "doaj", "fake journal", "verify journal"], a: 'The <a href="/tools/predatory-journal-checker/">Predatory Journal Risk Checker</a> reports evidence signals from public databases and local reference files. It does not maintain a blacklist or issue a definitive verdict.' },
+      pubs: { k: ["publication", "paper", "research record", "citation", "scholar", "author", "jaskirat"], a: 'The published record currently lists ' + (metrics.journalArticles || 10) + ' journal articles and ' + (metrics.bookChapters || 4) + ' book chapters, with a snapshot of ' + (metrics.googleScholarCitations || 202) + ' Google Scholar citations. Verify the sources on <a href="/publications/">Publications</a>.' },
+      methods: { k: ["method", "sem", "fsqca", "nca", "ardl", "garch", "econometric", "statistic", "analysis", "prisma"], a: 'Methods include SEM/PLS-SEM, fsQCA and NCA, ARDL and GARCH-family econometrics, and PRISMA-style synthesis. See <a href="/methods/">Methodology</a>.' },
+      contact: { k: ["contact", "consult", "book", "call", "talk", "reach", "quote", "scope", "hire", "engage", "start"], a: 'Use the <a href="/contact/">structured contact form</a>, email <a href="mailto:support@gurjas.org">support@gurjas.org</a>, or WhatsApp <a href="' + WA + '" rel="noopener">+91 98772 95825</a>. The published response target is ' + (contact.responseSla || "usually within two working days") + '.' },
+      whatsapp: { k: ["whatsapp", "wa", "message", "phone", "number", "mobile"], a: 'WhatsApp: <a href="' + WA + '" rel="noopener">+91 98772 95825</a>; telephone: <a href="' + TEL + '">the same number</a>. This assistant is automated and cannot confirm live availability.' },
+      price: { k: ["price", "cost", "fee", "charge", "how much", "pricing", "budget"], a: (pricing.summary || "Indicative engagement ranges are published on the Services page; the exact fee is fixed in a written scope.") + ' See <a href="/services/">Services</a>.' },
+      about: { k: ["about", "who", "gurjas", "company", "team", "people", "credible", "trust"], a: 'Gurjas Evidence &amp; Policy Analytics is an independent, women-led research practice. Its scholarly credentials are linked to external profiles, while business-delivery evidence is presented separately. See <a href="/about/">About</a> and <a href="/people/">People</a>.' }
+    };
   }
-  function route(text){
-    var q = text.toLowerCase(), best=null, score=0;
-    Object.keys(K).forEach(function(key){
-      var s=0; K[key].k.forEach(function(w){ if(q.indexOf(w)>-1) s++; });
-      if(s>score){ score=s; best=key; }
+
+  function answer(key) {
+    var item = knowledge()[key];
+    if (item) setTimeout(function () { bot(item.a); }, 180);
+    setTimeout(function () { chips(DEFAULT_CHIPS); }, 200);
+  }
+
+  function route(text) {
+    var q = text.toLowerCase(); var best = null; var score = 0; var K = knowledge();
+    Object.keys(K).forEach(function (key) {
+      var s = 0; K[key].k.forEach(function (word) { if (q.indexOf(word) > -1) s += 1; });
+      if (s > score) { score = s; best = key; }
     });
-    if(best && score>0){ answer(best); }
-    else { setTimeout(function(){ bot('I can point you to the right place — try one of these, or reach a person on <a href="'+WA+'" rel="noopener">WhatsApp</a> or <a href="/contact/">the contact form</a>.'); chips(DEFAULT_CHIPS); }, 220); }
+    if (best && score > 0) answer(best);
+    else setTimeout(function () { bot('I can route you to the right page. Choose a topic below, or contact a person through <a href="/contact/">the form</a> or <a href="' + WA + '" rel="noopener">WhatsApp</a>.'); chips(DEFAULT_CHIPS); }, 180);
   }
 
-  var greeted=false;
-  function greet(){ if(greeted) return; greeted=true;
-    bot("Hello 👋 I'm the Gurjas assistant. I can help you find services, free research tools, our publications, or a way to reach the team. What are you looking for?");
+  var greeted = false;
+  function greet() {
+    if (greeted) return; greeted = true;
+    bot("Hello. I’m an automated guide to Gurjas services, tools and published evidence—not a live person. What are you looking for?");
     chips(DEFAULT_CHIPS);
   }
-  function open(){ panel.classList.add("open"); fab.style.display="none"; greet(); setTimeout(function(){ input.focus(); },260); }
-  function close(){ panel.classList.remove("open"); fab.style.display=""; }
-  fab.addEventListener("click", open);
-  panel.querySelector(".gc-x").addEventListener("click", close);
-  document.addEventListener("keydown", function(e){ if(e.key==="Escape" && panel.classList.contains("open")) close(); });
-  form.addEventListener("submit", function(e){ e.preventDefault(); var v=input.value.trim(); if(!v) return; user(v); input.value=""; route(v); });
 
-  /* ---------- Contact form (FormSubmit: AJAX with native-POST fallback) ---------- */
+  function focusable() {
+    return Array.prototype.slice.call(panel.querySelectorAll('button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])')).filter(function (el) { return !el.hidden; });
+  }
+
+  function open() {
+    lastFocus = document.activeElement;
+    panel.hidden = false;
+    panel.classList.add("open");
+    fab.style.display = "none";
+    fab.setAttribute("aria-expanded", "true");
+    greet();
+    setTimeout(function () { input.focus(); }, 60);
+  }
+
+  function close() {
+    panel.classList.remove("open");
+    panel.hidden = true;
+    fab.style.display = "";
+    fab.setAttribute("aria-expanded", "false");
+    if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+    else fab.focus();
+  }
+
+  fab.addEventListener("click", open);
+  closeButton.addEventListener("click", close);
+  document.addEventListener("keydown", function (event) {
+    if (panel.hidden) return;
+    if (event.key === "Escape") { event.preventDefault(); close(); return; }
+    if (event.key !== "Tab") return;
+    var items = focusable(); if (!items.length) return;
+    var first = items[0]; var last = items[items.length - 1];
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  });
+  form.addEventListener("submit", function (event) { event.preventDefault(); var value = input.value.trim(); if (!value) return; user(value); input.value = ""; route(value); });
+
   var cf = document.getElementById("gcContactForm");
   if (cf) {
     var status = cf.querySelector(".form-status");
     if (/[?&]sent=1/.test(location.search) && status) {
       status.className = "form-status ok";
-      status.textContent = "Thank you \u2014 your message has been sent. We usually respond within two working days.";
+      status.textContent = "Thank you — your message has been sent. We usually respond within two working days.";
       try { history.replaceState(null, "", location.pathname); } catch (e) {}
     }
-    cf.addEventListener("submit", function (e) {
+
+    cf.querySelectorAll("[required]").forEach(function (field) {
+      field.addEventListener("invalid", function () { field.setAttribute("aria-invalid", "true"); });
+      field.addEventListener("input", function () { if (field.checkValidity()) field.removeAttribute("aria-invalid"); });
+      field.addEventListener("change", function () { if (field.checkValidity()) field.removeAttribute("aria-invalid"); });
+    });
+
+    cf.addEventListener("submit", function (event) {
       var honey = cf.querySelector('[name="_honey"]');
-      if (honey && honey.value) { e.preventDefault(); return; }
-      e.preventDefault();
-      var btn = cf.querySelector('button[type="submit"]');
+      if (honey && honey.value) { event.preventDefault(); return; }
+      if (!cf.checkValidity()) {
+        event.preventDefault();
+        cf.reportValidity();
+        var invalid = cf.querySelector(":invalid");
+        if (invalid) invalid.focus();
+        if (status) { status.className = "form-status error"; status.textContent = "Please complete the required fields before sending."; }
+        return;
+      }
+
+      event.preventDefault();
+      var button = cf.querySelector('button[type="submit"]');
       var data = new FormData(cf);
-      btn.disabled = true; var old = btn.textContent; btn.textContent = "Sending\u2026";
-      if (status) status.className = "form-status";
+      var old = button.textContent;
+      button.disabled = true; button.textContent = "Sending…";
+      if (status) { status.className = "form-status"; status.textContent = "Sending securely…"; }
+
       fetch("https://formsubmit.co/ajax/gurjasevidence@gmail.com", {
-        method: "POST", headers: { "Accept": "application/json" }, body: data
-      }).then(function (r) { return r.json(); }).then(function (j) {
-        if (j && (j.success === true || j.success === "true")) {
-          if (status) { status.className = "form-status ok";
-            status.textContent = "Thank you \u2014 your message has been sent. We usually respond within two working days."; }
-          cf.reset(); btn.disabled = false; btn.textContent = old;
-        } else { throw new Error("needs native"); }
+        method: "POST", headers: { Accept: "application/json" }, body: data
+      }).then(function (response) {
+        if (!response.ok) throw new Error("Form service unavailable");
+        return response.json();
+      }).then(function (result) {
+        if (!(result && (result.success === true || result.success === "true"))) throw new Error("Form service rejected request");
+        if (status) { status.className = "form-status ok"; status.textContent = "Thank you — your message has been sent. We usually respond within two working days."; }
+        cf.reset();
       }).catch(function () {
-        if (status) { status.className = "form-status"; status.textContent = "Sending your message\u2026"; }
-        cf.submit();
+        if (status) {
+          status.className = "form-status error";
+          status.innerHTML = 'The form could not be delivered. Please email <a href="mailto:support@gurjas.org">support@gurjas.org</a> or try again shortly.';
+        }
+      }).finally(function () {
+        button.disabled = false; button.textContent = old;
       });
     });
   }

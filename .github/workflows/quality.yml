@@ -1,0 +1,32 @@
+name: Site quality
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main, s1-truth-privacy-integrity]
+
+permissions:
+  contents: read
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check JavaScript syntax
+        run: node --check script.js
+
+      - name: Check Python syntax
+        run: python -m py_compile scripts/quality-check.py
+
+      - name: Run dependency-free quality checks
+        run: python scripts/quality-check.py

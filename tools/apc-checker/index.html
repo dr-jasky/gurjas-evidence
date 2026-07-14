@@ -3,9 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Analytics: lazy-loaded on first interaction or after 4s (performance + privacy) -->
-<script>(function(){var L=false;function load(){if(L)return;L=true;var g=document.createElement("script");g.async=1;g.src="https://www.googletagmanager.com/gtag/js?id=G-P95TY2K8F3";document.head.appendChild(g);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag("js",new Date());gtag("config","G-P95TY2K8F3");(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","xl7zo5h687");}var E=["scroll","mousemove","touchstart","keydown","click","pointerdown"];function fire(){E.forEach(function(e){window.removeEventListener(e,fire);});load();}E.forEach(function(e){window.addEventListener(e,fire,{passive:true});});setTimeout(load,4000);})();</script>
-
+<!-- Non-essential analytics load only after explicit consent through script.js. -->
 <title>Should I Pay This APC? Free Fee Checker | Gurjas</title>
 <meta name="description" content="Enter a journal name or ISSN to see its open-access status and any recorded article-processing charge (APC) from OpenAlex and DOAJ — and understand whether the fee is a normal cost or a warning sign.">
 <link rel="canonical" href="https://gurjas.org/tools/apc-checker/">
@@ -77,7 +75,8 @@
         <input id="jn" type="text" placeholder="Journal name or ISSN (e.g. 2041-1723)" style="flex:1;min-width:240px;padding:.7rem;border:1px solid var(--line);border-radius:4px;font-size:1rem">
         <button id="go" class="btn btn-solid" style="border:none;cursor:pointer">Check</button>
       </div>
-      <p id="status" style="margin:0;font-size:.9rem;color:var(--muted)"></p>
+      <p class="form-note" style="margin:0">When you press <strong>Check</strong>, the journal name or ISSN is sent from your browser to OpenAlex and DOAJ. Gurjas does not receive or store the query.</p>
+      <p id="status" style="margin:0;font-size:.9rem;color:var(--muted)" role="status" aria-live="polite"></p>
     </div>
 
     <div id="out" hidden>
@@ -182,6 +181,6 @@ jn.addEventListener("keydown",function(e){if(e.key==="Enter")run();});
 var y=document.getElementById("yr");if(y)y.textContent=new Date().getFullYear();
 })();
 </script>
-<script src="../../script.js?v=10" defer></script>
+<script src="../../script.js?v=11" defer></script>
 </body>
 </html>
