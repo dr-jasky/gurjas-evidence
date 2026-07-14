@@ -80,6 +80,10 @@ jobs:
           routes=(
             "/"
             "/services/"
+            "/services/research-integrity/"
+            "/services/naac-evidence-readiness/"
+            "/services/impact-evaluation/"
+            "/services/research-methods/"
             "/tools/"
             "/contact/"
             "/privacy/"
