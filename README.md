@@ -32,7 +32,7 @@ For page-specific copy, metadata or tool code, edit the relevant existing `index
 
 Any pull request to `main` runs the **Site quality** workflow. It checks JavaScript and Python syntax, source integrity, builds the entire site, regression-tests the output and uploads the generated `_site` directory as a short-lived review artifact.
 
-The workflow also validates generated pages with the Nu HTML Checker, captures the homepage, Services hub and four priority offers at desktop and mobile sizes, and runs a deterministic visual comparison against the live production site. The comparison covers the homepage, Services, People, Tools, Contact and the flagship journal-integrity article at desktop, tablet and mobile sizes. Unexpected differences and horizontal overflow fail the pull request and upload responsive, live, candidate and diff screenshots for review.
+The workflow also validates generated pages with the Nu HTML Checker, captures the homepage, Services hub and four priority offers at desktop and mobile sizes, and runs a deterministic comparison between the pull request and its exact target-branch build. The comparison covers the homepage, Services, People, Tools, Contact and the flagship journal-integrity article at desktop, tablet and mobile sizes. Unexpected differences and horizontal overflow fail the pull request and upload responsive, baseline, candidate and diff screenshots for review. Manual workflow runs compare against live production instead.
 
 Intentional visual work must be reviewed from that artifact before the pull request receives the `visual-change-approved` label. The label records approval; it does not suppress horizontal-overflow failures.
 

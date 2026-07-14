@@ -3,6 +3,7 @@ name: Site quality
 on:
   pull_request:
     branches: [main]
+    types: [opened, synchronize, reopened, labeled, unlabeled]
   push:
     branches: [main]
   workflow_dispatch:
@@ -88,6 +89,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -114,23 +117,42 @@ jobs:
       - name: Build static site
         run: python scripts/build_site.py --clean
 
-      - name: Capture responsive review and compare with production
+      - name: Capture responsive review and compare with target baseline
         shell: bash
         env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
           CANDIDATE_URL: http://127.0.0.1:8000/
-          PRODUCTION_URL: https://gurjas.org/
           VISUAL_APPROVED: ${{ github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'visual-change-approved') }}
         run: |
           python -m http.server 8000 --bind 127.0.0.1 --directory _site > visual-server.log 2>&1 &
-          server_pid=$!
-          trap 'kill "$server_pid"' EXIT
+          candidate_pid=$!
+          base_pid=""
+          cleanup() {
+            kill "$candidate_pid" 2>/dev/null || true
+            if [[ -n "$base_pid" ]]; then
+              kill "$base_pid" 2>/dev/null || true
+            fi
+          }
+          trap cleanup EXIT
 
           curl --fail --silent --show-error \
             --retry 20 --retry-delay 1 --retry-all-errors \
             http://127.0.0.1:8000/ > /dev/null
 
+          baseline_url="https://gurjas.org/"
+          if [[ -n "$BASE_SHA" ]]; then
+            git worktree add --detach /tmp/gurjas-base "$BASE_SHA"
+            python /tmp/gurjas-base/scripts/build_site.py --clean
+            python -m http.server 8001 --bind 127.0.0.1 --directory /tmp/gurjas-base/_site > baseline-server.log 2>&1 &
+            base_pid=$!
+            curl --fail --silent --show-error \
+              --retry 20 --retry-delay 1 --retry-all-errors \
+              http://127.0.0.1:8001/ > /dev/null
+            baseline_url="http://127.0.0.1:8001/"
+          fi
+
           node scripts/capture_visual_review.mjs
-          pnpm test:visual
+          BASELINE_URL="$baseline_url" pnpm test:visual
 
       - name: Upload visual review
         if: always()
@@ -140,6 +162,7 @@ jobs:
           path: |
             visual-review
             tests/visual/artifacts
+            baseline-server.log
             visual-server.log
           if-no-files-found: error
           retention-days: 14

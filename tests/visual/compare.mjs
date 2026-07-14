@@ -6,7 +6,9 @@ import pixelmatch from "pixelmatch";
 import { PNG } from "pngjs";
 
 const candidateRoot = new URL(process.env.CANDIDATE_URL || "http://127.0.0.1:8000/");
-const productionRoot = new URL(process.env.PRODUCTION_URL || "https://gurjas.org/");
+const baselineRoot = new URL(
+  process.env.BASELINE_URL || process.env.PRODUCTION_URL || "https://gurjas.org/",
+);
 const approved = /^(1|true|yes)$/i.test(process.env.VISUAL_APPROVED || "");
 const maxDiffRatio = Number(process.env.MAX_VISUAL_DIFF_RATIO || "0.001");
 const artifactDir = path.resolve("tests/visual/artifacts");
@@ -107,7 +109,7 @@ function markdownSummary(results) {
     "# Visual comparison",
     "",
     `Candidate: ${candidateRoot.href}`,
-    `Production baseline: ${productionRoot.href}`,
+    `Baseline: ${baselineRoot.href}`,
     `Approval override: ${approved ? "present" : "absent"}`,
     "",
     "| Page | Viewport | Difference | Horizontal overflow | Result |",
@@ -122,7 +124,7 @@ function markdownSummary(results) {
 
   lines.push(
     "",
-    "A difference above the configured threshold fails the pull request unless the `visual-change-approved` label is present. Review the live, candidate and diff images before applying that label.",
+    "A difference above the configured threshold fails the pull request unless the `visual-change-approved` label is present. Review the baseline, candidate and diff images before applying that label.",
     "",
   );
   return lines.join("\n");
@@ -162,15 +164,15 @@ try {
 
     try {
       for (const route of routes) {
-        const productionPage = await context.newPage();
+        const baselinePage = await context.newPage();
         const candidatePage = await context.newPage();
         const key = `${route.name}-${viewport.name}`;
 
         try {
-          const [production, candidate] = await Promise.all([
+          const [baseline, candidate] = await Promise.all([
             capture(
-              productionPage,
-              targetUrl(productionRoot, route.route),
+              baselinePage,
+              targetUrl(baselineRoot, route.route),
               viewport.fullPage,
             ),
             capture(
@@ -180,9 +182,9 @@ try {
             ),
           ]);
 
-          const productionPng = PNG.sync.read(production.image);
+          const baselinePng = PNG.sync.read(baseline.image);
           const candidatePng = PNG.sync.read(candidate.image);
-          const normalized = normalize(productionPng, candidatePng);
+          const normalized = normalize(baselinePng, candidatePng);
           const diff = new PNG({
             height: normalized.height,
             width: normalized.width,
@@ -193,7 +195,7 @@ try {
             diff.data,
             normalized.width,
             normalized.height,
-            { includeAA: false, threshold: 0.12 },
+            { includeAA: false, threshold: 0.01 },
           );
           const diffRatio = diffPixels / (normalized.width * normalized.height);
           const overflow = candidate.overflow;
@@ -208,7 +210,7 @@ try {
           if (changed || hasOverflow) {
             await Promise.all([
               writeFile(
-                path.join(artifactDir, `${key}-live.png`),
+                path.join(artifactDir, `${key}-baseline.png`),
                 PNG.sync.write(normalized.left),
               ),
               writeFile(
@@ -235,7 +237,7 @@ try {
             `${key}: ${(diffRatio * 100).toFixed(3)}% different, ${overflow}px overflow — ${status}`,
           );
         } finally {
-          await Promise.all([productionPage.close(), candidatePage.close()]);
+          await Promise.all([baselinePage.close(), candidatePage.close()]);
         }
       }
     } finally {
@@ -248,7 +250,7 @@ try {
 
 await writeFile(
   path.join(artifactDir, "manifest.json"),
-  `${JSON.stringify({ approved, maxDiffRatio, results }, null, 2)}\n`,
+  `${JSON.stringify({ approved, baseline: baselineRoot.href, maxDiffRatio, results }, null, 2)}\n`,
 );
 await writeFile(
   path.join(artifactDir, "summary.md"),
