@@ -87,6 +87,7 @@ jobs:
             "/tools/"
             "/contact/"
             "/privacy/"
+            "/editorial-policy/"
             "/insights/how-to-identify-a-predatory-journal/"
           )
           for route in "${routes[@]}"; do
