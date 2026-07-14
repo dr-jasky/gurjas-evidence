@@ -139,6 +139,26 @@ if homepage.count('id="h-caps"') != 1:
 if not (ROOT / "reviews/session3-visual-contract.md").exists():
     errors.append("session3: visual contract is missing")
 
+doctoral_insight_route = "insights/phd-shortcut-longest-route/"
+doctoral_insight = ROOT / doctoral_insight_route / "index.html"
+if not doctoral_insight.exists():
+    errors.append(f"{doctoral_insight_route}: approved doctoral recovery insight is missing")
+else:
+    doctoral_text = doctoral_insight.read_text(encoding="utf-8")
+    for required in [
+        "It is not a client case study",
+        "does not identify any scholar, institution, supervisor or provider",
+        "We do not fabricate data",
+        "services/research-methods/",
+        "tools/predatory-journal-checker/",
+    ]:
+        if required not in doctoral_text:
+            errors.append(f"{doctoral_insight_route}: missing integrity or routing statement: {required}")
+    if doctoral_insight_route not in (ROOT / "insights/index.html").read_text(encoding="utf-8"):
+        errors.append(f"insights/index.html: missing route to {doctoral_insight_route}")
+    if f"https://gurjas.org/{doctoral_insight_route}" not in sitemap:
+        errors.append(f"sitemap.xml: missing {doctoral_insight_route}")
+
 if errors:
     print("Quality checks failed:")
     for error in errors:
