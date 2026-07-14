@@ -3,9 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Analytics: lazy-loaded on first interaction or after 4s (performance + privacy) -->
-<script>(function(){var L=false;function load(){if(L)return;L=true;var g=document.createElement("script");g.async=1;g.src="https://www.googletagmanager.com/gtag/js?id=G-P95TY2K8F3";document.head.appendChild(g);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag("js",new Date());gtag("config","G-P95TY2K8F3");(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","xl7zo5h687");}var E=["scroll","mousemove","touchstart","keydown","click","pointerdown"];function fire(){E.forEach(function(e){window.removeEventListener(e,fire);});load();}E.forEach(function(e){window.addEventListener(e,fire,{passive:true});});setTimeout(load,4000);})();</script>
-
+<!-- Non-essential analytics load only after explicit consent through script.js. -->
 <title>Journal Finder by Scope — Free, Field-Aware | Gurjas</title>
 <meta name="description" content="Paste your abstract or keywords and see the journals that actually publish work like yours, ranked from the open OpenAlex database — then verify each one for free. No sign-up.">
 <link rel="canonical" href="https://gurjas.org/tools/journal-finder/">
@@ -65,7 +63,7 @@
   <div class="wrap">
     <span class="eyebrow">Free Tool</span>
     <h1>Journal Finder by Scope</h1>
-    <p class="lede">Paste your abstract, title or a few keywords. The finder queries the open OpenAlex database and shows you the journals that actually publish work like yours — ranked by how many matching papers they carry. Then verify any candidate for free before you submit.</p>
+    <p class="lede">Start with a paper title or 5–10 keywords. When you press Find journals, the query is sent to the open OpenAlex database and the results are ranked by matching published papers. Abstract mode is optional and requires an explicit acknowledgement before any abstract text is transmitted.</p>
   </div>
 </div>
 
@@ -123,7 +121,7 @@
 "use strict";
 var MAILTO="&mailto=support@gurjas.org";
 function esc(s){var d=document.createElement("span");d.textContent=s==null?"":String(s);return d.innerHTML;}
-var qEl=document.getElementById("q"),goEl=document.getElementById("go"),statusEl=document.getElementById("status"),outEl=document.getElementById("out"),rowsEl=document.getElementById("rows");
+var qEl=document.getElementById("q"),abstractConsent=document.getElementById("abstractConsent"),goEl=document.getElementById("go"),statusEl=document.getElementById("status"),outEl=document.getElementById("out"),rowsEl=document.getElementById("rows");
 function run(){
   var q=(qEl.value||"").trim();
   if(q.length<3){statusEl.textContent="Please enter a few keywords or an abstract.";return;}
@@ -157,6 +155,6 @@ qEl.addEventListener("keydown",function(e){if((e.ctrlKey||e.metaKey)&&e.key==="E
 var y=document.getElementById("yr");if(y)y.textContent=new Date().getFullYear();
 })();
 </script>
-<script src="../../script.js?v=10" defer></script>
+<script src="../../script.js?v=11" defer></script>
 </body>
 </html>

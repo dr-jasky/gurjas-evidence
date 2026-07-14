@@ -1,0 +1,24 @@
+{
+  "reviewed": "2026-07-14",
+  "brand": "Gurjas Evidence and Policy Analytics",
+  "toolCount": 8,
+  "metrics": {
+    "journalArticles": 10,
+    "bookChapters": 4,
+    "googleScholarCitations": 202,
+    "hIndex": 8,
+    "i10Index": 8,
+    "ssrnTopPercent": "3.2%",
+    "snapshotDate": "2026-06"
+  },
+  "contact": {
+    "email": "support@gurjas.org",
+    "phoneDisplay": "+91 98772 95825",
+    "phoneE164": "+919877295825",
+    "responseSla": "usually within two working days"
+  },
+  "pricing": {
+    "summary": "Indicative engagement ranges are published on the Services page; the exact fee is fixed in a written scope.",
+    "url": "/services/"
+  }
+}
