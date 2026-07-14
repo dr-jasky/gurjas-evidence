@@ -311,23 +311,29 @@
     .then(function (data) { FACTS = data; })
     .catch(function () {});
 
-  var fab = document.createElement("button");
-  fab.className = "gc-fab"; fab.type = "button";
-  fab.setAttribute("aria-label", "Open the Gurjas guided assistant");
-  fab.setAttribute("aria-haspopup", "dialog");
-  fab.setAttribute("aria-expanded", "false");
-  fab.innerHTML = '<span class="dot"></span><span class="lbl">How can I help?</span>';
-  document.body.appendChild(fab);
+  var guideButton = document.querySelector("[data-site-guide]");
+  if (!guideButton) {
+    var guideList = document.querySelector(".site-nav > ul");
+    if (guideList) {
+      var guideItem = document.createElement("li");
+      guideItem.className = "nav-guide-item";
+      guideItem.innerHTML = '<button class="nav-guide" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="gurjas-site-guide" data-site-guide><span aria-hidden="true"></span>Site guide</button>';
+      var contactItem = guideList.querySelector(".nav-cta");
+      guideList.insertBefore(guideItem, contactItem ? contactItem.parentElement : null);
+      guideButton = guideItem.querySelector("[data-site-guide]");
+    }
+  }
 
   var panel = document.createElement("div");
+  panel.id = "gurjas-site-guide";
   panel.className = "gc-panel";
   panel.setAttribute("role", "dialog");
   panel.setAttribute("aria-modal", "true");
   panel.setAttribute("aria-labelledby", "gcTitle");
   panel.hidden = true;
-  panel.innerHTML = '<div class="gc-head"><div class="av">G</div><div><b id="gcTitle">Gurjas guided assistant</b>'
+  panel.innerHTML = '<div class="gc-head"><div class="av">G</div><div><b id="gcTitle">Gurjas site guide</b>'
     + '<small>Site navigation, not live chat</small></div>'
-    + '<button class="gc-x" type="button" aria-label="Close guided assistant">&times;</button></div>'
+    + '<button class="gc-x" type="button" aria-label="Close site guide">&times;</button></div>'
     + '<div class="gc-body" id="gcBody" aria-live="polite"></div>'
     + '<div class="gc-chips" id="gcChips"></div>'
     + '<form class="gc-foot" id="gcForm" autocomplete="off"><label class="sr-only" for="gcIn">Ask about services, tools or publications</label><input id="gcIn" type="text" '
@@ -408,11 +414,19 @@
   }
 
   function open() {
-    lastFocus = document.activeElement;
+    lastFocus = guideButton;
+    var primaryNav = document.getElementById("nav");
+    var menuButton = document.querySelector(".nav-btn");
+    if (primaryNav && primaryNav.classList.contains("open")) {
+      primaryNav.classList.remove("open");
+      if (menuButton) {
+        menuButton.setAttribute("aria-expanded", "false");
+        lastFocus = menuButton;
+      }
+    }
     panel.hidden = false;
     panel.classList.add("open");
-    fab.style.display = "none";
-    fab.setAttribute("aria-expanded", "true");
+    guideButton.setAttribute("aria-expanded", "true");
     greet();
     setTimeout(function () { input.focus(); }, 60);
   }
@@ -420,13 +434,12 @@
   function close() {
     panel.classList.remove("open");
     panel.hidden = true;
-    fab.style.display = "";
-    fab.setAttribute("aria-expanded", "false");
+    guideButton.setAttribute("aria-expanded", "false");
     if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
-    else fab.focus();
+    else guideButton.focus();
   }
 
-  fab.addEventListener("click", open);
+  if (guideButton) guideButton.addEventListener("click", open);
   closeButton.addEventListener("click", close);
   document.addEventListener("keydown", function (event) {
     if (panel.hidden) return;

@@ -63,9 +63,16 @@ for required in [
     'panel.setAttribute("role", "region")',
     'panel.setAttribute("aria-describedby", "gurjas-consent-desc")',
     "gurjas.analyticsConsent.v1",
+    'document.querySelector("[data-site-guide]")',
 ]:
     if required not in script:
         errors.append(f"script.js: missing required integrity control: {required}")
+
+style = (ROOT / "style.css").read_text(encoding="utf-8")
+if "gcpulse" in style or ".gc-fab" in style:
+    errors.append("style.css: the site guide must not use a pulsing floating launcher")
+if ".gc-panel[hidden]{display:none}" not in style:
+    errors.append("style.css: the hidden site-guide panel must be removed from display")
 
 consent_start = script.find("function showConsentPanel")
 consent_end = script.find("function addPreferencesControl", consent_start)

@@ -220,6 +220,8 @@ def check() -> list[str]:
             errors.append(f"{rel}: generated shared header missing or duplicated")
         if built_text.count('data-site-system="footer"') != 1:
             errors.append(f"{rel}: generated shared footer missing or duplicated")
+        if built_text.count("data-site-guide") != 1:
+            errors.append(f"{rel}: primary navigation site-guide control missing or duplicated")
         if built_text.count("script.js?v=") != 1:
             errors.append(f"{rel}: shared script reference missing or duplicated")
         style_versions = re.findall(r"style\.css\?v=([^\"']+)", built_text, re.IGNORECASE)
