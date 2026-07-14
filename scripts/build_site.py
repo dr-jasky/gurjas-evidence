@@ -63,6 +63,7 @@ SHARED_SCRIPT_RE = re.compile(
     r"<script\b[^>]*src=[\"'][^\"']*script\.js(?:\?[^\"']*)?[\"'][^>]*>\s*</script>",
     re.IGNORECASE | re.DOTALL,
 )
+STYLE_VERSION_RE = re.compile(r"(style\.css\?v=)[^\"']+", re.IGNORECASE)
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -220,8 +221,10 @@ def render_page(path: Path, site: dict[str, Any], facts: dict[str, Any]) -> str:
 
     root = root_prefix(rel)
     scripts = extract_page_scripts(document, main_match.end(), body_close.start())
+    asset_version = html.escape(str(site["assetVersion"]), quote=True)
+    head = STYLE_VERSION_RE.sub(lambda match: f"{match.group(1)}{asset_version}", head_match.group(1).strip())
     values = {
-        "HEAD": head_match.group(1).strip(),
+        "HEAD": head,
         "BODY_ATTRIBUTES": body_match.group("attrs"),
         "HEADER": render_header(site, root, current_section(rel)),
         "MAIN": main_match.group(0).strip(),
@@ -237,7 +240,7 @@ def list_items(items: list[str]) -> str:
     return "".join(f"<li>{html.escape(item)}</li>" for item in items)
 
 
-def render_offer_head(offer: dict[str, Any], root: str) -> str:
+def render_offer_head(offer: dict[str, Any], root: str, asset_version: str) -> str:
     canonical = f'https://gurjas.org/services/{offer["slug"]}/'
     graph = {
         "@context": "https://schema.org",
@@ -307,8 +310,8 @@ def render_offer_head(offer: dict[str, Any], root: str) -> str:
             '<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap">',
             '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap" media="print" onload="this.media=&#39;all&#39;">',
             '<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap"></noscript>',
-            f'<link rel="preload" as="style" href="{root}style.css?v=12">',
-            f'<link rel="stylesheet" href="{root}style.css?v=12">',
+            f'<link rel="preload" as="style" href="{root}style.css?v={asset_version}">',
+            f'<link rel="stylesheet" href="{root}style.css?v={asset_version}">',
             f'<script type="application/ld+json">{json.dumps(graph, ensure_ascii=False)}</script>',
         ]
     )
@@ -367,7 +370,7 @@ def render_offer_page(offer: dict[str, Any], site: dict[str, Any], facts: dict[s
     rel = Path("services") / offer["slug"] / "index.html"
     root = root_prefix(rel)
     values = {
-        "HEAD": render_offer_head(offer, root),
+        "HEAD": render_offer_head(offer, root, html.escape(str(site["assetVersion"]), quote=True)),
         "BODY_ATTRIBUTES": ' class="offer"',
         "HEADER": render_header(site, root, "services"),
         "MAIN": render_offer_main(offer, root),
