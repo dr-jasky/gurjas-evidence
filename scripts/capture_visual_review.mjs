@@ -28,6 +28,10 @@ const routes = [
     name: "phd-shortcut-longest-route",
     path: "/insights/phd-shortcut-longest-route/",
   },
+  { name: "advisory-board", path: "/advisory/" },
+  { name: "people", path: "/people/" },
+  { name: "research-tools", path: "/tools/" },
+  { name: "resource-centre", path: "/resources/" },
   {
     name: "insights-directory",
     path: "/insights/",
