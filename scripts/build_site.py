@@ -14,10 +14,12 @@ import html
 import json
 import re
 import shutil
+import subprocess
+import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-from urllib.parse import quote
+from urllib.parse import quote, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "_site"
@@ -64,6 +66,7 @@ SHARED_SCRIPT_RE = re.compile(
     re.IGNORECASE | re.DOTALL,
 )
 STYLE_VERSION_RE = re.compile(r"(style\.css\?v=)[^\"']+", re.IGNORECASE)
+SITEMAP_NS = "http://www.sitemaps.org/schemas/sitemap/0.9"
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -413,6 +416,53 @@ def copy_public_files(output: Path) -> None:
     (output / ".nojekyll").write_text("", encoding="utf-8")
 
 
+def git_last_modified(source: Path, fallback: str) -> str:
+    """Return the last content commit date, retaining the reviewed fallback outside Git."""
+    try:
+        relative = source.relative_to(ROOT)
+        result = subprocess.run(
+            ["git", "log", "-1", "--format=%cs", "--", relative.as_posix()],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        candidate = result.stdout.strip()
+        if result.returncode == 0 and re.fullmatch(r"\d{4}-\d{2}-\d{2}", candidate):
+            return candidate
+    except (OSError, ValueError):
+        pass
+    return fallback
+
+
+def write_generated_sitemap(output: Path) -> None:
+    """Refresh sitemap dates from the actual source history without inventing freshness."""
+    source_sitemap = ROOT / "sitemap.xml"
+    tree = ET.parse(source_sitemap)
+    root = tree.getroot()
+    namespace = {"sm": SITEMAP_NS}
+    ET.register_namespace("", SITEMAP_NS)
+
+    for entry in root.findall("sm:url", namespace):
+        loc = entry.find("sm:loc", namespace)
+        lastmod = entry.find("sm:lastmod", namespace)
+        if loc is None or not loc.text or lastmod is None or not lastmod.text:
+            raise ValueError("Every sitemap URL requires loc and reviewed lastmod values")
+        route = urlparse(loc.text.strip()).path
+        if route == "/":
+            source = ROOT / "index.html"
+        else:
+            source = ROOT / route.strip("/") / "index.html"
+        if not source.exists() and route.startswith("/services/"):
+            source = OFFERS_DATA
+        if not source.exists():
+            raise ValueError(f"Sitemap route {route} has no source page")
+        lastmod.text = git_last_modified(source, lastmod.text.strip())
+
+    ET.indent(tree, space="  ")
+    tree.write(output / "sitemap.xml", encoding="utf-8", xml_declaration=True)
+
+
 def build(output: Path, clean: bool) -> int:
     if clean and output.exists():
         shutil.rmtree(output)
@@ -439,6 +489,8 @@ def build(output: Path, clean: bool) -> int:
         destination = output / rel
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_text(document, encoding="utf-8")
+
+    write_generated_sitemap(output)
 
     total = len(pages) + len(offers)
     print(f"Built {len(pages)} source pages and {len(offers)} generated offer pages into {output.relative_to(ROOT)}")
