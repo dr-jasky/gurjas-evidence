@@ -107,6 +107,21 @@
   }
 })();
 
+/* Enable the seamless proof ribbon only after its layout CSS is active.
+   Without CSS or JavaScript, the hidden duplicate cannot leak as a second row. */
+(function () {
+  "use strict";
+  var ticker = document.querySelector(".home-proof-ticker");
+  if (!ticker || !window.getComputedStyle) return;
+  var track = ticker.querySelector(".home-proof-track");
+  var duplicate = ticker.querySelector('.home-proof-group[aria-hidden="true"]');
+  if (!track || !duplicate) return;
+  if (window.getComputedStyle(track).display !== "flex" ||
+      window.getComputedStyle(ticker).overflow !== "hidden") return;
+  duplicate.hidden = false;
+  window.requestAnimationFrame(function () { track.classList.add("is-ready"); });
+})();
+
 /* ═══════════ Homepage evidence-field background (gold data-points, drifting) ═══════════ */
 (function () {
   "use strict";
