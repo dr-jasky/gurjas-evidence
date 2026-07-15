@@ -205,6 +205,8 @@ def check() -> list[str]:
             continue
         source_text = source.read_text(encoding="utf-8")
         built_text = built.read_text(encoding="utf-8")
+        if "gmail.com" in built_text.lower():
+            errors.append(f"{rel}: generated public infrastructure contains a Gmail reference")
         source_main = MAIN_RE.search(source_text)
         built_main = MAIN_RE.search(built_text)
         if not source_main or not built_main:
