@@ -249,13 +249,16 @@ if homepage.count('id="h-caps"') != 1:
     errors.append("index.html: commercial pathway section must appear exactly once")
 if homepage.count('class="home-proof-group"') != 2:
     errors.append("index.html: proof ribbon requires one accessible group and one seamless duplicate")
-if homepage.count('class="home-proof-group" aria-hidden="true"') != 1 or homepage.count('tabindex="-1"') < 4:
+if homepage.count('class="home-proof-group" aria-hidden="true" hidden') != 1 or homepage.count('tabindex="-1"') < 4:
     errors.append("index.html: duplicate proof-ribbon links must remain hidden from assistive technology and keyboard focus")
 if 'class="home-proofbar"' in homepage or ".home-proofbar" in style:
     errors.append("homepage: boxed proof rail must not replace the premium moving ribbon")
-for required in ["@keyframes home-proof-scroll", ".home-proof-ticker:hover .home-proof-track", '.home-proof-group[aria-hidden="true"]{display:none}']:
+for required in ["@keyframes home-proof-scroll", ".home-proof-track.is-ready", ".home-proof-ticker:hover .home-proof-track", ".home-proof-group[hidden]{display:none}", '.home-proof-group[aria-hidden="true"]{display:none}']:
     if required not in style:
         errors.append(f"style.css: proof ribbon is missing motion/accessibility control: {required}")
+for required in ['querySelector(".home-proof-ticker")', 'duplicate.hidden = false', 'track.classList.add("is-ready")']:
+    if required not in script:
+        errors.append(f"script.js: proof ribbon is missing progressive enhancement control: {required}")
 if homepage.count('class="home-tool-group"') != 3:
     errors.append("index.html: homepage tools must be organised into exactly three expandable groups")
 if homepage.count('class="home-tool-group" open') != 1:

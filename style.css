@@ -539,7 +539,7 @@ body.home main{position:relative;z-index:1;font-family:var(--h-sans)}
 @media(prefers-reduced-motion:reduce){
   .home-eyebrow,.home-h1,.home-h1 em,.home-hero .home-lede,.home-cta-row{animation:none!important;opacity:1!important;transform:none!important}
   .home-btn-shine::after{transition:none!important;transform:translateX(-180%)!important}
-  .home-proof-track{width:auto!important;animation:none!important;transform:none!important}
+  .home-proof-track,.home-proof-track.is-ready{width:auto!important;animation:none!important;transform:none!important}
   .home-proof-group:first-child{width:100%;flex-wrap:wrap;justify-content:center;white-space:normal}
   .home-proof-group[aria-hidden="true"]{display:none}
 }
@@ -549,8 +549,10 @@ body.home main{position:relative;z-index:1;font-family:var(--h-sans)}
 .home-proof-ticker::before,.home-proof-ticker::after{content:"";position:absolute;z-index:2;top:0;bottom:0;width:clamp(34px,8vw,140px);pointer-events:none}
 .home-proof-ticker::before{left:0;background:linear-gradient(90deg,rgba(189,145,60,.98),rgba(189,145,60,0))}
 .home-proof-ticker::after{right:0;width:clamp(90px,22vw,360px);background:radial-gradient(ellipse at 100% 50%,rgba(255,248,211,.82) 0%,rgba(242,215,143,.35) 38%,rgba(201,159,74,0) 76%)}
-.home-proof-track{display:flex;align-items:center;width:max-content;will-change:transform;animation:home-proof-scroll 38s linear infinite;padding:16px 0}
+.home-proof-track{display:flex;align-items:center;width:max-content;padding:16px 0}
+.home-proof-track.is-ready{will-change:transform;animation:home-proof-scroll 38s linear infinite}
 .home-proof-ticker:hover .home-proof-track,.home-proof-ticker:focus-within .home-proof-track{animation-play-state:paused}
+.home-proof-group[hidden]{display:none}
 .home-proof-group{display:flex;align-items:center;flex-shrink:0;gap:clamp(26px,4vw,58px);padding-right:clamp(26px,4vw,58px);white-space:nowrap}
 .home-proof-group a{display:flex;align-items:baseline;gap:12px;color:#041226;text-decoration:none}
 .home-proof-group a > span{font-family:var(--h-mono);font-size:9px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:rgba(4,18,38,.62)}
