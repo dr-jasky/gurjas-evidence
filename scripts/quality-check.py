@@ -385,6 +385,15 @@ for required in [
 ]:
     if required not in indexnow_workflow:
         errors.append(f"IndexNow workflow: missing deployment-order control: {required}")
+for required in [
+    "write_generated_sitemap(output)",
+    'git", "log", "-1", "--format=%cs"',
+    "Indexable canonical route missing from sitemap",
+    "Unexpected noindex header",
+    "Sitemap: https://gurjas.org/sitemap.xml",
+]:
+    if required not in (ROOT / "scripts/build_site.py").read_text(encoding="utf-8") + (ROOT / "scripts/check_build.py").read_text(encoding="utf-8") + pages_workflow:
+        errors.append(f"indexing safeguards: missing {required}")
 
 doctoral_insight_route = "insights/phd-shortcut-longest-route/"
 doctoral_insight = ROOT / doctoral_insight_route / "index.html"
