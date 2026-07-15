@@ -718,6 +718,14 @@ body.offer{background:#041226}
   .offer-hero{padding-top:64px}
   .priority-offer-card{min-height:0}
   .home-hero{min-height:min(82svh,700px);padding:78px 18px 64px}
+  /* Keep the first mobile viewport useful immediately; delayed hero reveals
+     otherwise leave the primary message and actions blank during first paint. */
+  .home-eyebrow,.home-h1,.home-h1 em,.home-hero .home-lede,.home-cta-row,
+  .hero .eyebrow,.hero h1,.hero .lede,.hero .lede-2,.hero .cta-row,.hero .hero-badges{
+    animation:none;
+    opacity:1;
+    transform:none;
+  }
   .home-eyebrow{font-size:10px;letter-spacing:.22em}
   .home-h1{font-size:clamp(44px,13.5vw,58px)}
   .home-cta-row{width:min(100%,360px)}
