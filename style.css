@@ -905,3 +905,74 @@ body.offer{background:#041226}
   .home-audience p,.home-item p,.home-step p{font-size:14px}
   .home-insight .dek{font-size:15px}
 }
+
+/* ═══════════ Research tools — unified editorial workspace ═══════════ */
+.tool-page main{background:var(--paper)}
+.tool-page .hero{overflow:hidden;border-bottom:1px solid rgba(217,185,104,.2)}
+.tool-page .hero::after{content:"";position:absolute;right:max(-8rem,-8vw);bottom:-13rem;width:clamp(20rem,42vw,38rem);aspect-ratio:1;border:1px solid rgba(217,185,104,.14);border-radius:50%;box-shadow:0 0 0 5rem rgba(217,185,104,.025),0 0 0 10rem rgba(217,185,104,.018);pointer-events:none}
+.tool-page .hero .wrap{position:relative;z-index:1}
+.tool-page main>section{position:relative;background:linear-gradient(180deg,#fbfaf7 0%,#f7f4ec 100%)}
+.tool-page main>section::before{content:"";position:absolute;inset:0;opacity:.28;pointer-events:none;background-image:radial-gradient(circle at 1px 1px,rgba(6,38,78,.12) 1px,transparent 0);background-size:26px 26px}
+.tool-page main>section>.wrap{position:relative}
+
+.tool-page main .card{border:1px solid #dcd5c5;border-top:3px solid var(--navy);border-radius:6px;background:rgba(255,255,255,.96);box-shadow:0 20px 54px rgba(4,26,55,.075);padding:clamp(1.45rem,4vw,2.25rem);gap:1.05rem;transform:none}
+.tool-page main .card:hover{transform:none;border-top-color:var(--navy);box-shadow:0 20px 54px rgba(4,26,55,.075)}
+.tool-page main .tool-input-surface{position:relative;overflow:hidden;border-top-color:var(--gold)}
+.tool-page main .tool-input-surface::before{content:"Research workspace";display:block;font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:var(--gold-d);padding-bottom:.9rem;margin-bottom:.15rem;border-bottom:1px solid var(--line)}
+.tool-page main .tool-input-surface~.tool-input-surface{margin-top:2rem}
+.tool-page main .tool-input-surface~.tool-input-surface::before{content:"Additional calculation"}
+.tool-page main .card h3{font-weight:480}
+
+.tool-page main section label{font-size:.78rem!important;font-weight:650!important;letter-spacing:.045em;color:var(--navy)!important}
+.tool-page main section input[type="text"],
+.tool-page main section input[type="number"],
+.tool-page main section input[type="date"],
+.tool-page main section select,
+.tool-page main section textarea{display:block;width:100%!important;min-height:48px;margin-top:.45rem!important;padding:.78rem .9rem!important;font-family:var(--sans)!important;font-size:.98rem!important;line-height:1.45;color:var(--ink);background:#fff;border:1px solid #cec6b4!important;border-radius:4px!important;box-shadow:inset 0 1px 2px rgba(4,26,55,.035);transition:border-color .18s,box-shadow .18s,background .18s}
+.tool-page main section textarea{min-height:132px;resize:vertical}
+.tool-page main section input[type="text"]:focus,
+.tool-page main section input[type="number"]:focus,
+.tool-page main section input[type="date"]:focus,
+.tool-page main section select:focus,
+.tool-page main section textarea:focus{outline:0;border-color:var(--gold)!important;background:#fffdf8;box-shadow:0 0 0 4px rgba(176,138,53,.14)}
+.tool-page main section input[type="checkbox"],.tool-page main section input[type="radio"]{accent-color:var(--navy)}
+.tool-page main section .btn{min-height:48px;display:inline-flex;align-items:center;justify-content:center;border-radius:3px!important;cursor:pointer;box-shadow:none;transition:background .18s,color .18s,border-color .18s,transform .18s,box-shadow .18s}
+.tool-page main section .btn-solid{border:1px solid var(--navy)!important;background:var(--navy);color:#fff}
+.tool-page main section .btn-solid:hover,.tool-page main section .btn-solid:focus-visible{background:#0a3868;border-color:#0a3868!important;color:#fff;box-shadow:0 8px 24px rgba(4,26,55,.15);transform:translateY(-1px)}
+.tool-page main section .btn-ghost{background:transparent;color:var(--navy);border:1px solid rgba(6,38,78,.38)}
+
+.tool-progress{height:3px;overflow:hidden;background:var(--line);margin:.2rem 0 -.15rem;border-radius:999px;opacity:0;transition:opacity .15s}
+.tool-progress span{display:block;width:42%;height:100%;background:linear-gradient(90deg,var(--gold-d),var(--gold-l));transform:translateX(-115%)}
+.tool-input-surface.is-processing .tool-progress{opacity:1}
+.tool-input-surface.is-processing .tool-progress span{animation:tool-progress 720ms cubic-bezier(.4,0,.2,1) infinite}
+@keyframes tool-progress{to{transform:translateX(340%)}}
+
+.tool-result{position:relative;margin-top:clamp(1.7rem,4vw,2.5rem);padding-top:1.4rem;border-top:1px solid rgba(6,38,78,.18)}
+.tool-result::before{content:"Analysis output";display:block;font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:var(--gold-d);margin-bottom:1rem}
+.tool-result .card{border-top-color:var(--gold);box-shadow:0 16px 42px rgba(4,26,55,.065)}
+.tool-result .stat{min-width:0;padding:1.15rem 1rem 1.05rem;border:1px solid var(--line);border-top:2px solid var(--gold);background:rgba(255,255,255,.72)}
+.tool-result .stat b{font-size:clamp(2rem,5vw,2.7rem);overflow-wrap:anywhere}
+.tool-result .stat>span{font-size:.78rem;line-height:1.55}
+.tool-result.is-revealed{animation:tool-result-reveal .46s ease both}
+@keyframes tool-result-reveal{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.tool-page--resource main>section .wrap>div[style*="overflow-x"]{border:1px solid #d9d2c2;border-top:3px solid var(--gold);border-radius:5px;background:#fff;box-shadow:0 20px 54px rgba(4,26,55,.075)}
+.tool-page main table{width:100%!important;border-collapse:separate!important;border-spacing:0!important;background:#fff}
+.tool-page main table th{padding:.95rem 1rem!important;background:var(--navy)!important;color:#fff!important;font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.tool-page main table td{padding:1rem!important;border-bottom:1px solid var(--line)!important;line-height:1.55;vertical-align:top}
+.tool-page main table tr:last-child td{border-bottom:0!important}
+.tool-page main table tr:nth-child(even) td{background:#faf8f2}
+.tool-page main table a{font-weight:600;text-decoration-color:rgba(6,38,78,.28)}
+.tool-page--resource main table td:last-child{color:var(--navy)!important;font-family:var(--mono);font-size:.72rem;letter-spacing:.035em}
+
+@media(max-width:680px){
+  .tool-page .hero{padding:4.5rem 0 4rem}
+  .tool-page main>section{padding:4rem 0}
+  .tool-page main>section>.wrap{padding-inline:18px}
+  .tool-page main .card{padding:1.25rem}
+  .tool-page main .grid.g2,.tool-page main .grid.g3{grid-template-columns:1fr}
+  .tool-page main section .btn{width:100%;padding-inline:1rem;text-align:center}
+  .tool-result .stat{padding:1rem}
+  .tool-page main table th,.tool-page main table td{padding:.8rem!important;min-width:130px}
+  .tool-page--resource main table th:first-child,.tool-page--resource main table td:first-child{min-width:230px}
+}
