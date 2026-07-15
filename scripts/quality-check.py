@@ -86,6 +86,12 @@ if ".gc-panel[hidden]{display:none}" not in style:
     errors.append("style.css: the hidden site-guide panel must be removed from display")
 if "@keyframes home-sweep" in style or "animation:home-sweep" in style:
     errors.append("style.css: hero CTA sheen must be interaction-only, not continuously animated")
+for broad_selector in [".stat span{", ".alt .stat span{", ".navy-band .stat span{"]:
+    if broad_selector in style:
+        errors.append(f"style.css: nested metric values must not inherit broad selector {broad_selector}")
+for direct_selector in [".stat > span{", ".alt .stat > span{", ".navy-band .stat > span{"]:
+    if direct_selector not in style:
+        errors.append(f"style.css: missing direct-child metric label selector {direct_selector}")
 
 footer_template = (ROOT / "site/templates/footer.html").read_text(encoding="utf-8")
 if footer_template.count("data-cookie-preferences") != 1 or footer_template.count('id="gurjas-cookie-preferences"') != 1:
@@ -120,9 +126,37 @@ try:
     facts = json.loads((ROOT / "data/site-facts.json").read_text(encoding="utf-8"))
     if facts.get("toolCount") != 8:
         errors.append("site-facts.json: toolCount must be 8")
+    metrics = facts.get("metrics", {})
+    for key in [
+        "googleScholarCitations",
+        "hIndex",
+        "i10Index",
+        "ssrnPublicPapers",
+        "ssrnViews",
+        "ssrnDownloads",
+        "ssrnAuthorRank",
+        "ssrnAuthorPopulation",
+        "ssrnTopPercent",
+        "wosPeerReviewRecords",
+        "wosManuscriptsReviewed",
+    ]:
+        if key not in metrics:
+            errors.append(f"site-facts.json: metrics.{key} is required")
+    if metrics.get("ssrnDownloads", 0) > metrics.get("ssrnViews", 0):
+        errors.append("site-facts.json: SSRN downloads cannot exceed views")
+    if metrics.get("wosManuscriptsReviewed", 0) > metrics.get("wosPeerReviewRecords", 0):
+        errors.append("site-facts.json: Web of Science manuscripts cannot exceed review records")
+    expected_percent = f'{metrics.get("ssrnAuthorRank", 0) / metrics.get("ssrnAuthorPopulation", 1) * 100:.1f}%'
+    if metrics.get("ssrnTopPercent") != expected_percent:
+        errors.append(f"site-facts.json: ssrnTopPercent must be computed as {expected_percent}")
+    evidence = facts.get("evidence", {})
+    for source in ["googleScholar", "ssrn", "researchId", "webOfScience"]:
+        source_evidence = evidence.get(source, {})
+        if not source_evidence.get("url") or source_evidence.get("asOf") != facts.get("reviewed"):
+            errors.append(f"site-facts.json: {source} evidence must have a URL and match the reviewed date")
     reviewed = date.fromisoformat(str(facts.get("reviewed", "")))
     age = (date.today() - reviewed).days
-    if age < 0 or age > 100:
+    if age < 0 or age > 92:
         errors.append(f"site-facts.json: evidence snapshot is {age} days old; review at least quarterly")
 except Exception as exc:
     errors.append(f"site-facts.json: invalid: {exc}")
@@ -199,7 +233,7 @@ for required in [
     "github.event.workflow_run.conclusion == 'success'",
     "KEY_LOCATION",
     "SITEMAP_URL",
-    'INDEXNOW_ENDPOINT="https://search.seznam.cz/indexnow"',
+    'INDEXNOW_ENDPOINT="https://api.indexnow.org/indexnow"',
 ]:
     if required not in indexnow_workflow:
         errors.append(f"IndexNow workflow: missing deployment-order control: {required}")

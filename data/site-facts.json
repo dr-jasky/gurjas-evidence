@@ -5,11 +5,40 @@
   "metrics": {
     "journalArticles": 10,
     "bookChapters": 4,
-    "googleScholarCitations": 202,
+    "googleScholarCitations": 204,
     "hIndex": 8,
     "i10Index": 8,
+    "ssrnPublicPapers": 14,
+    "ssrnViews": 6886,
+    "ssrnDownloads": 1300,
+    "ssrnAuthorRank": 89186,
+    "ssrnAuthorPopulation": 2814137,
     "ssrnTopPercent": "3.2%",
+    "wosPeerReviewRecords": 63,
+    "wosManuscriptsReviewed": 56,
     "reviewCadence": "Quarterly"
+  },
+  "evidence": {
+    "googleScholar": {
+      "asOf": "2026-07-15",
+      "url": "https://scholar.google.com/citations?user=d8Kd4ywAAAAJ&hl=en",
+      "basis": "Owner-supplied Google Scholar profile export"
+    },
+    "ssrn": {
+      "asOf": "2026-07-15",
+      "url": "https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=7349141",
+      "basis": "Owner-supplied authenticated SSRN My Papers export"
+    },
+    "researchId": {
+      "asOf": "2026-07-15",
+      "url": "https://researchid.co/jasky786",
+      "basis": "Secondary profile cross-check; not used as the live citation authority"
+    },
+    "webOfScience": {
+      "asOf": "2026-07-15",
+      "url": "https://www.webofscience.com/wos/author/record/IQW-3142-2023",
+      "basis": "Owner-supplied Web of Science My peer review records export"
+    }
   },
   "contact": {
     "email": "support@gurjas.org",

@@ -30,11 +30,16 @@ const routes = [
   },
   { name: "advisory-board", path: "/advisory/" },
   { name: "people", path: "/people/" },
+  { name: "publications", path: "/publications/" },
   { name: "research-tools", path: "/tools/" },
   { name: "resource-centre", path: "/resources/" },
   {
     name: "insights-directory",
     path: "/insights/",
+  },
+  {
+    name: "verify-a-journal-2026",
+    path: "/insights/verify-a-journal-2026/",
   },
 ];
 

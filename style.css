@@ -114,7 +114,7 @@ section{padding:5.5rem 0}
 /* ── Stats ── */
 .stat{border-top:2px solid var(--gold);padding:1.3rem 0 .4rem}
 .stat b{display:block;font-family:var(--disp);font-size:2.9rem;font-weight:450;color:var(--navy);line-height:1.05;letter-spacing:-.02em}
-.stat span{display:block;font-size:.85rem;letter-spacing:.03em;color:var(--muted);margin-top:.5rem}
+.stat > span{display:block;font-size:.85rem;letter-spacing:.03em;color:var(--muted);margin-top:.5rem}
 
 /* ── Chips ── */
 .chips{display:flex;flex-wrap:wrap;gap:.7rem;list-style:none}
@@ -300,10 +300,10 @@ body:not(.home) main section.alt{background:rgba(6,26,55,.45);backdrop-filter:bl
 .alt .btn-ghost:hover{background:rgba(255,255,255,.1);border-color:#fff;color:#fff}
 .alt .chips li{background:rgba(255,255,255,.06);border-color:rgba(217,185,104,.3);color:#e8edf4}
 .alt .stat b,.alt .stat b a{color:#fff}
-.alt .stat span{color:#a9bcd6}
+.alt .stat > span{color:#a9bcd6}
 .alt .creds{color:#c6d2e2!important}
 .navy-band .stat b,.navy-band .stat b a{color:#fff}
-.navy-band .stat span{color:#a9bcd6}
+.navy-band .stat > span{color:#a9bcd6}
 /* Dark-context prose (e.g. “What to include in your first note”) */
 .alt .prose h2,.alt .prose h3,.navy-band .prose h2,.navy-band .prose h3{color:#fff}
 .alt .prose h2{border-top-color:rgba(217,185,104,.25)}
