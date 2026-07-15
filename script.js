@@ -332,7 +332,19 @@
   var TEL = "tel:+919877295825";
   var FACTS = {
     toolCount: 8,
-    metrics: { journalArticles: 10, bookChapters: 4, googleScholarCitations: 202 },
+    metrics: {
+      journalArticles: 10,
+      bookChapters: 4,
+      googleScholarCitations: 204,
+      hIndex: 8,
+      i10Index: 8,
+      ssrnPublicPapers: 14,
+      ssrnViews: 6886,
+      ssrnDownloads: 1300,
+      ssrnTopPercent: "3.2%",
+      wosPeerReviewRecords: 63,
+      wosManuscriptsReviewed: 56
+    },
     contact: { responseSla: "usually within two working days" },
     pricing: { summary: "Indicative engagement ranges are published on the Services page; the exact fee is fixed in a written scope." }
   };
@@ -422,7 +434,7 @@
       services: { k: ["service", "consult", "advisory", "evaluation", "analytics", "naac", "iqac", "doctoral", "ngo", "csr", "help with"], a: 'Gurjas provides research consulting, policy evaluation, impact analytics, institutional (NAAC/IQAC) advisory, doctoral methodology support and NGO/CSR research. See the current scope and indicative ranges on <a href="/services/">Services</a>.' },
       tools: { k: ["tool", "calculator", "sample size", "reliability", "validity", "timeline", "grant", "sem", "free"], a: 'There are ' + (FACTS.toolCount || 8) + ' free tools. Five process inputs locally; Journal Finder, Predatory Journal Checker and APC Checker query named public databases only after you submit a search. Open the <a href="/tools/">Tools hub</a>.' },
       checker: { k: ["predatory", "journal", "checker", "legit", "scopus", "doaj", "fake journal", "verify journal"], a: 'The <a href="/tools/predatory-journal-checker/">Predatory Journal Risk Checker</a> reports evidence signals from public databases and local reference files. It does not maintain a blacklist or issue a definitive verdict.' },
-      pubs: { k: ["publication", "paper", "research record", "citation", "scholar", "author", "jaskirat"], a: 'The published record currently lists ' + (metrics.journalArticles || 10) + ' journal articles and ' + (metrics.bookChapters || 4) + ' book chapters, with a snapshot of ' + (metrics.googleScholarCitations || 202) + ' Google Scholar citations. Verify the sources on <a href="/publications/">Publications</a>.' },
+      pubs: { k: ["publication", "paper", "research record", "citation", "scholar", "author", "jaskirat"], a: 'The published record currently lists ' + (metrics.journalArticles || 10) + ' journal articles and ' + (metrics.bookChapters || 4) + ' book chapters, with a snapshot of ' + (metrics.googleScholarCitations || 204) + ' Google Scholar citations. Verify the sources on <a href="/publications/">Publications</a>.' },
       methods: { k: ["method", "sem", "fsqca", "nca", "ardl", "garch", "econometric", "statistic", "analysis", "prisma"], a: 'Methods include SEM/PLS-SEM, fsQCA and NCA, ARDL and GARCH-family econometrics, and PRISMA-style synthesis. See <a href="/methods/">Methodology</a>.' },
       contact: { k: ["contact", "consult", "book", "call", "talk", "reach", "quote", "scope", "hire", "engage", "start"], a: 'Use the <a href="/contact/">structured contact form</a>, email <a href="mailto:support@gurjas.org">support@gurjas.org</a>, or WhatsApp <a href="' + WA + '" rel="noopener">+91 98772 95825</a>. The published response target is ' + (contact.responseSla || "usually within two working days") + '.' },
       whatsapp: { k: ["whatsapp", "wa", "message", "phone", "number", "mobile"], a: 'WhatsApp: <a href="' + WA + '" rel="noopener">+91 98772 95825</a>; telephone: <a href="' + TEL + '">the same number</a>. This assistant is automated and cannot confirm live availability.' },

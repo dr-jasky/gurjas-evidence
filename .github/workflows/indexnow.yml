@@ -23,7 +23,7 @@ jobs:
           HOST="gurjas.org"
           KEY_LOCATION="https://gurjas.org/${KEY}.txt"
           SITEMAP_URL="https://gurjas.org/sitemap.xml"
-          INDEXNOW_ENDPOINT="https://search.seznam.cz/indexnow"
+          INDEXNOW_ENDPOINT="https://api.indexnow.org/indexnow"
 
           for attempt in {1..24}; do
             public_key=$(curl --fail --silent --show-error --location \
