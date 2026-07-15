@@ -122,6 +122,44 @@
   window.requestAnimationFrame(function () { track.classList.add("is-ready"); });
 })();
 
+/* Accessible enhancement for the published-evidence dashboard. Both panels
+   remain readable when JavaScript is unavailable. */
+(function () {
+  "use strict";
+  document.querySelectorAll("[data-evidence-dashboard]").forEach(function (dashboard) {
+    var tabs = Array.prototype.slice.call(dashboard.querySelectorAll('[role="tab"]'));
+    var panels = Array.prototype.slice.call(dashboard.querySelectorAll('[role="tabpanel"]'));
+    if (tabs.length < 2 || panels.length !== tabs.length) return;
+
+    function activate(tab, focus) {
+      tabs.forEach(function (item) {
+        var selected = item === tab;
+        item.setAttribute("aria-selected", String(selected));
+        item.setAttribute("tabindex", selected ? "0" : "-1");
+        var panel = document.getElementById(item.getAttribute("aria-controls"));
+        if (panel) panel.hidden = !selected;
+      });
+      if (focus) tab.focus();
+    }
+
+    dashboard.classList.add("is-enhanced");
+    activate(tabs[0], false);
+    tabs.forEach(function (tab, index) {
+      tab.addEventListener("click", function () { activate(tab, false); });
+      tab.addEventListener("keydown", function (event) {
+        var target = null;
+        if (event.key === "ArrowRight") target = tabs[(index + 1) % tabs.length];
+        if (event.key === "ArrowLeft") target = tabs[(index - 1 + tabs.length) % tabs.length];
+        if (event.key === "Home") target = tabs[0];
+        if (event.key === "End") target = tabs[tabs.length - 1];
+        if (!target) return;
+        event.preventDefault();
+        activate(target, true);
+      });
+    });
+  });
+})();
+
 /* ═══════════ Homepage evidence-field background (gold data-points, drifting) ═══════════ */
 (function () {
   "use strict";
@@ -361,6 +399,10 @@
       wosPeerReviewRecords: 63,
       wosManuscriptsReviewed: 56
     },
+    researchAssets: {
+      globalFindex: { adults: 101528, economies: 97, panel: "2021–2024", doi: "10.5281/zenodo.20932393" },
+      aucrIndia: { jurisdictions: 36, analyticalSample: 34, pillars: 4, weightingSchemes: 3, robustnessRange: "0.89–0.94", doi: "10.5281/zenodo.20860992" }
+    },
     contact: { responseSla: "usually within two working days" },
     pricing: { summary: "Indicative engagement ranges are published on the Services page; the exact fee is fixed in a written scope." }
   };
@@ -377,6 +419,9 @@
       if (value === undefined || value === null || value === "") return;
       if (element.getAttribute("data-fact-format") === "number" && typeof value === "number") {
         value = value.toLocaleString("en-IN");
+      }
+      if (element.getAttribute("data-fact-format") === "number-western" && typeof value === "number") {
+        value = value.toLocaleString("en-US");
       }
       element.textContent = String(value) + (element.getAttribute("data-fact-suffix") || "");
     });
