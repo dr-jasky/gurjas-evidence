@@ -337,9 +337,23 @@
     pricing: { summary: "Indicative engagement ranges are published on the Services page; the exact fee is fixed in a written scope." }
   };
 
+  function factValue(data, path) {
+    return path.split(".").reduce(function (value, key) {
+      return value && Object.prototype.hasOwnProperty.call(value, key) ? value[key] : undefined;
+    }, data);
+  }
+
+  function hydrateFacts(data) {
+    document.querySelectorAll("[data-fact]").forEach(function (element) {
+      var value = factValue(data, element.getAttribute("data-fact"));
+      if (value === undefined || value === null || value === "") return;
+      element.textContent = String(value) + (element.getAttribute("data-fact-suffix") || "");
+    });
+  }
+
   fetch("/data/site-facts.json", { cache: "no-store" })
     .then(function (response) { return response.ok ? response.json() : Promise.reject(); })
-    .then(function (data) { FACTS = data; })
+    .then(function (data) { FACTS = data; hydrateFacts(data); })
     .catch(function () {});
 
   var guideButton = document.querySelector("[data-site-guide]");
@@ -518,7 +532,7 @@
       button.disabled = true; button.textContent = "Sending…";
       if (status) { status.className = "form-status"; status.textContent = "Sending securely…"; }
 
-      fetch("https://formsubmit.co/ajax/gurjasevidence@gmail.com", {
+      fetch("https://formsubmit.co/ajax/support@gurjas.org", {
         method: "POST", headers: { Accept: "application/json" }, body: data
       }).then(function (response) {
         if (!response.ok) throw new Error("Form service unavailable");
