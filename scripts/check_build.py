@@ -313,6 +313,16 @@ def check() -> list[str]:
         if route not in sitemap_paths:
             errors.append(f"Priority offer missing from sitemap: {route}")
 
+    expected_sitemap_paths = {
+        route_for(page.relative_to(OUTPUT))
+        for page in built_pages
+        if page.name != "404.html"
+    }
+    for route in sorted(expected_sitemap_paths - sitemap_paths):
+        errors.append(f"Indexable canonical route missing from sitemap: {route}")
+    for route in sorted(sitemap_paths - expected_sitemap_paths):
+        errors.append(f"Sitemap route has no indexable canonical page: {route}")
+
     for required in [
         "CNAME",
         ".nojekyll",
