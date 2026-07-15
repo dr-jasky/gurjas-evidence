@@ -5,7 +5,7 @@
     "strapline": "Evidence & Policy Analytics",
     "footerLine": "Evidence-led decisions for institutions, policy and impact."
   },
-  "assetVersion": "23",
+  "assetVersion": "24",
   "navigation": [
     {"label": "About", "path": "about/", "section": "about"},
     {"label": "Services", "path": "services/", "section": "services"},
