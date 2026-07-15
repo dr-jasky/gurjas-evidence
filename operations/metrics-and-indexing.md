@@ -32,8 +32,14 @@ snapshot updates the homepage, publications, resources and future evidence pages
 
 ## Indexing response
 
-- Keep every sitemap `lastmod` accurate; update it only when page content changes.
+- Sitemap `lastmod` values in the deployed artifact are derived from each page's
+  latest Git commit. Keep the reviewed dates in the source sitemap as safe
+  fallbacks; never bump them merely to simulate freshness.
+- The build fails when any indexable canonical page is absent from the sitemap,
+  or when the sitemap contains a route without an indexable page.
 - Let the post-deployment IndexNow workflow notify participating search engines.
+- The deployment smoke test checks priority-page canonicals, robots.txt, the
+  generated sitemap and any accidental `X-Robots-Tag: noindex` response.
 - In Google Search Console or Bing Webmaster Tools, request indexing only for
   important updated URLs. Repeated requests cannot guarantee inclusion.
 - Record coverage exports periodically. Investigate a technical block only when
