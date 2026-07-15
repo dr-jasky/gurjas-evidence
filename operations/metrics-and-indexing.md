@@ -27,6 +27,8 @@ scheduled scraper. That would be fragile and could expose account access.
 
 The public site reads `data/site-facts.json`; source PDFs remain private and
 must not be committed. The quality check refuses evidence older than one quarter.
+Every repeated public metric must use a `data-fact` binding so one verified
+snapshot updates the homepage, publications, resources and future evidence pages.
 
 ## Indexing response
 

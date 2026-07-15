@@ -75,6 +75,7 @@ for required in [
     'btn.textContent = open ? "Close" : "Menu"',
     'window.matchMedia("(min-width: 961px)")',
     'document.querySelectorAll("[data-fact]")',
+    'data-fact-format',
 ]:
     if required not in script:
         errors.append(f"script.js: missing required integrity control: {required}")
@@ -122,10 +123,34 @@ finder = (ROOT / "tools/journal-finder/index.html").read_text(encoding="utf-8")
 if 'id="abstractConsent"' not in finder or "sent directly from your browser to OpenAlex" not in finder or "q.length>240" not in finder:
     errors.append("Journal Finder: abstract acknowledgement/disclosure missing")
 
+home_page = (ROOT / "index.html").read_text(encoding="utf-8")
+resources_page = (ROOT / "resources/index.html").read_text(encoding="utf-8")
+publications_page = (ROOT / "publications/index.html").read_text(encoding="utf-8")
+verification_article = (ROOT / "insights/verify-a-journal-2026/index.html").read_text(encoding="utf-8")
+fact_bindings = {
+    "homepage checker signal count": (home_page, 'data-fact="predatoryCheckerSignals"'),
+    "journal-verification article signal count": (verification_article, 'data-fact="predatoryCheckerSignals"'),
+    "resource-centre SSRN paper count": (resources_page, 'data-fact="metrics.ssrnPublicPapers"'),
+    "resource-centre SSRN views": (resources_page, 'data-fact="metrics.ssrnViews"'),
+    "publications SSRN paper count": (publications_page, 'data-fact="metrics.ssrnPublicPapers"'),
+    "publications SSRN views": (publications_page, 'data-fact="metrics.ssrnViews"'),
+    "publications SSRN downloads": (publications_page, 'data-fact="metrics.ssrnDownloads"'),
+}
+for label, (page, binding) in fact_bindings.items():
+    if binding not in page:
+        errors.append(f"{label}: repeated fact must use {binding}")
+for stale_phrase in ["Twelve pre-publication papers", "6,700+ views", "twelve-signal red-flag"]:
+    if any(stale_phrase.lower() in page.lower() for page in [home_page, resources_page, publications_page, verification_article]):
+        errors.append(f"public fact drift: stale phrase remains: {stale_phrase}")
+if "Metrics reviewed 15 July 2026" in publications_page:
+    errors.append("publications: metric cadence must not use a hardcoded display date")
+
 try:
     facts = json.loads((ROOT / "data/site-facts.json").read_text(encoding="utf-8"))
     if facts.get("toolCount") != 8:
         errors.append("site-facts.json: toolCount must be 8")
+    if facts.get("predatoryCheckerSignals") != 13:
+        errors.append("site-facts.json: predatoryCheckerSignals must match the 13-signal checker")
     metrics = facts.get("metrics", {})
     for key in [
         "googleScholarCitations",
