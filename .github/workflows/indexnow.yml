@@ -23,7 +23,9 @@ jobs:
           HOST="gurjas.org"
           KEY_LOCATION="https://gurjas.org/${KEY}.txt"
           SITEMAP_URL="https://gurjas.org/sitemap.xml"
-          INDEXNOW_ENDPOINT="https://api.indexnow.org/indexnow"
+          # This participant endpoint accepts the deployed ownership key and
+          # shares accepted notifications with the IndexNow network.
+          INDEXNOW_ENDPOINT="https://search.seznam.cz/indexnow"
 
           for attempt in {1..24}; do
             public_key=$(curl --fail --silent --show-error --location \
