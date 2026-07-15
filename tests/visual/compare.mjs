@@ -18,11 +18,16 @@ const routes = [
   { name: "not-found", route: "/404.html" },
   { name: "services", route: "/services/" },
   { name: "people", route: "/people/" },
+  { name: "publications", route: "/publications/" },
   { name: "tools", route: "/tools/" },
   { name: "contact", route: "/contact/" },
   {
     name: "flagship-article",
     route: "/insights/how-to-identify-a-predatory-journal/",
+  },
+  {
+    name: "verify-a-journal-2026",
+    route: "/insights/verify-a-journal-2026/",
   },
 ];
 
