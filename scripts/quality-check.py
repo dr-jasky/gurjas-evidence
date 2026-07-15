@@ -116,6 +116,8 @@ for slug in tool_routes:
     if '<body class="tool-page' not in tool_page:
         errors.append(f"tools/{slug}/index.html: missing the shared premium tool-page interface")
 for required in [
+    ".tool-page .hero{overflow:hidden;isolation:isolate;background:",
+    ".tool-page .hero .lede{color:#c3d0e0",
     ".tool-page main .tool-input-surface",
     ".tool-progress span",
     ".tool-result.is-revealed",
