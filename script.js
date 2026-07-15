@@ -332,6 +332,7 @@
   var TEL = "tel:+919877295825";
   var FACTS = {
     toolCount: 8,
+    predatoryCheckerSignals: 13,
     metrics: {
       journalArticles: 10,
       bookChapters: 4,
@@ -359,6 +360,9 @@
     document.querySelectorAll("[data-fact]").forEach(function (element) {
       var value = factValue(data, element.getAttribute("data-fact"));
       if (value === undefined || value === null || value === "") return;
+      if (element.getAttribute("data-fact-format") === "number" && typeof value === "number") {
+        value = value.toLocaleString("en-IN");
+      }
       element.textContent = String(value) + (element.getAttribute("data-fact-suffix") || "");
     });
   }
