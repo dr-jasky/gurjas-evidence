@@ -107,6 +107,55 @@
   }
 })();
 
+/* Research-tool interface enhancement. Calculators remain fully readable and
+   functional without this layer; it only adds shared state and restrained motion. */
+(function () {
+  "use strict";
+  var page = document.querySelector(".tool-page");
+  if (!page) return;
+
+  var section = page.querySelector("main section");
+  if (!section) return;
+  page.classList.add("tool-ui-ready");
+
+  var outputs = Array.prototype.slice.call(section.querySelectorAll("#out, #panel, #vout, #crout, #alout"));
+  outputs.forEach(function (output) {
+    output.classList.add("tool-result");
+    if (!output.hidden) output.classList.add("is-revealed");
+  });
+
+  var surfaces = Array.prototype.slice.call(section.querySelectorAll(".card")).filter(function (card) {
+    return !outputs.some(function (output) { return output.contains(card); });
+  });
+  surfaces.forEach(function (card) {
+    card.classList.add("tool-input-surface");
+    var action = card.querySelector("button.btn-solid");
+    if (!action) return;
+    var progress = document.createElement("div");
+    progress.className = "tool-progress";
+    progress.setAttribute("aria-hidden", "true");
+    progress.innerHTML = "<span></span>";
+    action.insertAdjacentElement("afterend", progress);
+    action.addEventListener("click", function () {
+      card.classList.add("is-processing");
+      window.setTimeout(function () { card.classList.remove("is-processing"); }, 760);
+    });
+  });
+
+  if ("MutationObserver" in window) {
+    var observer = new MutationObserver(function (records) {
+      records.forEach(function (record) {
+        var output = record.target;
+        if (!output.hidden) {
+          output.classList.remove("is-revealed");
+          window.requestAnimationFrame(function () { output.classList.add("is-revealed"); });
+        }
+      });
+    });
+    outputs.forEach(function (output) { observer.observe(output, { attributes: true, attributeFilter: ["hidden"] }); });
+  }
+})();
+
 /* Enable the seamless proof ribbon only after its layout CSS is active.
    Without CSS or JavaScript, the hidden duplicate cannot leak as a second row. */
 (function () {

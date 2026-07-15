@@ -101,6 +101,38 @@ for direct_selector in [".stat > span{", ".alt .stat > span{", ".navy-band .stat
     if direct_selector not in style:
         errors.append(f"style.css: missing direct-child metric label selector {direct_selector}")
 
+tool_routes = [
+    "apc-checker",
+    "grant-deadline-tracker",
+    "journal-finder",
+    "naac-readiness-scorecard",
+    "phd-timeline-planner",
+    "predatory-journal-checker",
+    "reliability-validity-kit",
+    "sem-sample-size-calculator",
+]
+for slug in tool_routes:
+    tool_page = (ROOT / "tools" / slug / "index.html").read_text(encoding="utf-8")
+    if '<body class="tool-page' not in tool_page:
+        errors.append(f"tools/{slug}/index.html: missing the shared premium tool-page interface")
+for required in [
+    ".tool-page main .tool-input-surface",
+    ".tool-progress span",
+    ".tool-result.is-revealed",
+    ".tool-page main table th",
+    "@media(max-width:680px)",
+]:
+    if required not in style:
+        errors.append(f"style.css: research-tool interface is missing {required}")
+for required in [
+    'document.querySelector(".tool-page")',
+    'progress.className = "tool-progress"',
+    'output.classList.add("tool-result")',
+    'new MutationObserver',
+]:
+    if required not in script:
+        errors.append(f"script.js: research-tool enhancement is missing {required}")
+
 footer_template = (ROOT / "site/templates/footer.html").read_text(encoding="utf-8")
 if footer_template.count("data-cookie-preferences") != 1 or footer_template.count('id="gurjas-cookie-preferences"') != 1:
     errors.append("footer template: cookie-preferences control must appear exactly once")
