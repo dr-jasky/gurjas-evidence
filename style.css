@@ -595,6 +595,17 @@ body.home main{position:relative;z-index:1;font-family:var(--h-sans)}
 .home-audience:hover h3{color:var(--gold-d)}
 
 /* Numbered row list (tools / capabilities) */
+.home-tool-groups{border-bottom:1px solid rgba(217,185,104,.3)}
+.home-tool-group{border-top:1px solid rgba(217,185,104,.3)}
+.home-tool-group summary{position:relative;display:block;cursor:pointer;list-style:none;padding:18px 42px 18px 0;color:#fff}
+.home-tool-group summary::-webkit-details-marker{display:none}
+.home-tool-group summary::after{content:"+";position:absolute;right:4px;top:50%;transform:translateY(-50%);font-family:var(--h-disp);font-size:25px;font-weight:320;color:var(--gold-l)}
+.home-tool-group[open] summary::after{content:"−"}
+.home-tool-group summary b{display:block;font-family:var(--h-disp);font-size:clamp(19px,2.2vw,23px);font-weight:420;line-height:1.2}
+.home-tool-group summary small{display:block;margin-top:5px;font-family:var(--h-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#8ba0bd}
+.home-tool-group summary:hover b,.home-tool-group summary:focus-visible b{color:var(--gold-l)}
+.home-tool-group summary:focus-visible{outline:2px solid var(--gold-l);outline-offset:4px}
+.home-tool-group-list{padding:0 0 10px 18px;border-left:1px solid rgba(217,185,104,.22)}
 .home-row{display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:16px;align-items:baseline;padding:20px 0;border-top:1px solid rgba(217,185,104,.22);text-decoration:none;color:inherit}
 .home-row:last-child{border-bottom:1px solid rgba(217,185,104,.22)}
 .home-row .idx{font-family:var(--h-mono);font-size:12px;color:var(--gold-l)}
@@ -602,9 +613,16 @@ body.home main{position:relative;z-index:1;font-family:var(--h-sans)}
 .home-row .dsc{display:block;font-size:12.5px;line-height:1.55;color:#8ba0bd;margin-top:5px;font-family:var(--h-sans)}
 .home-row .go{color:var(--gold-l);font-size:17px;align-self:center}
 .home-row:hover .ttl{color:var(--gold-l)}
+.home-tool-group .home-row{padding:13px 0 13px 16px}
+.home-tool-group .home-row:last-child{border-bottom:0}
 .home-row--lg .ttl{font-family:var(--h-disp);font-weight:420;font-size:clamp(19px,2.3vw,23px);color:#fff}
 .home-row--lg .idx{font-size:12px}
 .home-row--lg .dsc{margin-top:6px}
+@media(max-width:560px){
+  .home-tool-group summary{padding:16px 38px 16px 0}
+  .home-tool-group-list{padding-left:8px}
+  .home-tool-group .home-row{grid-template-columns:28px minmax(0,1fr) auto;gap:10px;padding-left:10px}
+}
 
 /* Minimalist border-top item (credentials / ethics) */
 .home-item{border-top:1px solid var(--navy);padding-top:16px}
