@@ -1,5 +1,5 @@
 {
-  "reviewed": "2026-07-14",
+  "reviewed": "2026-07-15",
   "brand": "Gurjas Evidence and Policy Analytics",
   "toolCount": 8,
   "metrics": {
@@ -9,7 +9,7 @@
     "hIndex": 8,
     "i10Index": 8,
     "ssrnTopPercent": "3.2%",
-    "snapshotDate": "2026-06"
+    "reviewCadence": "Quarterly"
   },
   "contact": {
     "email": "support@gurjas.org",
