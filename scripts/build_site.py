@@ -345,8 +345,7 @@ def render_offer_main(offer: dict[str, Any], root: str) -> str:
         f'<details><summary>{html.escape(item["q"])}</summary><p>{html.escape(item["a"])}</p></details>'
         for item in offer["faq"]
     )
-    subject = quote(offer["subject"])
-    cta_href = f'{root}contact/?service={quote(offer["slug"])}&subject={subject}'
+    cta_href = f'{root}contact/?service={quote(offer["slug"])}'
     entry = offer["entryOffer"]
     return replace_tokens(
         read_template("offer-main.html"),

@@ -73,12 +73,14 @@
       <div class="form-card">
         <h2 style="font-size:1.35rem;margin-bottom:.4rem">Send a message</h2>
         <p class="form-note" style="margin-bottom:1.4rem">Every field marked <span style="color:var(--gold-d)">*</span> helps us reply with something useful rather than generic.</p>
+        <p class="enquiry-context" id="enquiry-context" hidden><span>Enquiry context</span><strong id="enquiry-service"></strong><small>We have pre-selected the closest request type. You can change it below.</small></p>
         <form id="gcContactForm" action="https://formsubmit.co/support@gurjas.org" method="POST">
           <input type="text" name="_honey" class="form-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
           <input type="hidden" name="_subject" value="New consultation request — gurjas.org">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_next" value="https://gurjas.org/contact/?sent=1">
+          <input type="hidden" name="service_interest" value="">
           <input type="hidden" name="_autoresponse" value="Thank you for contacting Gurjas Evidence and Policy Analytics. We have received your enquiry and are reviewing your project objective, timeline and data status. If your requirements align with our methodological capabilities and practice focus, we will reply within two working days with a preliminary assessment and recommended next steps for scoping. A note on our governance framework: our practice is strictly advisory, methodological and analytical — we do not ghostwrite, and we never guarantee publication outcomes, institutional approvals or academic grades (see https://gurjas.org/ethics-charter/). All materials you share with us remain confidential. If supporting documentation — datasets, drafts or institutional guidelines — will help us understand your scope, send it to support@gurjas.org. — Gurjas Evidence and Policy Analytics · Evidence-led decisions for institutions, policy and impact.">
           <div class="form-row">
             <div class="field">

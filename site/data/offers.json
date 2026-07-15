@@ -76,7 +76,8 @@
         {"q": "Will you train faculty and research staff?", "a": "Training can be scoped as a second phase and tied to the control gaps identified in the diagnostic."}
       ],
       "cta": "Request an integrity diagnostic",
-      "subject": "Institutional Research Integrity Diagnostic"
+      "subject": "Institutional Research Integrity Diagnostic",
+      "contactType": "Research consulting"
     },
     {
       "slug": "naac-evidence-readiness",
@@ -153,7 +154,8 @@
         {"q": "Can the work be delivered remotely?", "a": "Yes, where records and responsible staff are available securely online. Any on-site requirement is agreed explicitly in the written scope."}
       ],
       "cta": "Request a readiness diagnostic",
-      "subject": "NAAC Evidence Readiness Diagnostic"
+      "subject": "NAAC Evidence Readiness Diagnostic",
+      "contactType": "Institutional / NAAC–IQAC advisory"
     },
     {
       "slug": "impact-evaluation",
@@ -230,7 +232,8 @@
         {"q": "Can you work with data we already hold?", "a": "Yes. We review provenance, structure and limitations before agreeing the analytical claims the data can support."}
       ],
       "cta": "Discuss an evaluation",
-      "subject": "Impact Evaluation and Analytics"
+      "subject": "Impact Evaluation and Analytics",
+      "contactType": "Impact analytics"
     },
     {
       "slug": "research-methods",
@@ -307,7 +310,8 @@
         {"q": "Can you review an analysis that is already complete?", "a": "Yes, provided the data, model decisions and outputs are available. The review may recommend re-specification where the original approach is not defensible."}
       ],
       "cta": "Book a methods fit call",
-      "subject": "Advanced Research Methods"
+      "subject": "Advanced Research Methods",
+      "contactType": "Doctoral methodology support"
     }
   ]
 }

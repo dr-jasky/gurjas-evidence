@@ -96,6 +96,9 @@ if 'action="https://formsubmit.co/support@gurjas.org"' not in contact_page:
     errors.append("contact page: form delivery must target support@gurjas.org")
 if "send it to support@gurjas.org" not in contact_page:
     errors.append("contact page: automated response must route follow-up material to support@gurjas.org")
+for required in ['id="enquiry-context"', 'id="enquiry-service"', 'name="service_interest"']:
+    if required not in contact_page:
+        errors.append(f"contact page: contextual service handoff is missing {required}")
 
 header_template = (ROOT / "site/templates/header.html").read_text(encoding="utf-8")
 for required in ['class="nav-btn" type="button"', 'aria-label="Open primary navigation"']:
@@ -130,6 +133,12 @@ expected_offers = {
     "impact-evaluation",
     "research-methods",
 }
+allowed_contact_types = {
+    "Research consulting",
+    "Institutional / NAAC–IQAC advisory",
+    "Impact analytics",
+    "Doctoral methodology support",
+}
 try:
     offer_data = json.loads((ROOT / "site/data/offers.json").read_text(encoding="utf-8"))
     offers = offer_data.get("offers", [])
@@ -138,9 +147,11 @@ try:
         errors.append(f"offers.json: expected exactly four approved offers, found {sorted(str(slug) for slug in found_slugs)}")
     for offer in offers:
         slug = str(offer.get("slug", "unknown"))
-        for key in ["title", "metaDescription", "problem", "inaction", "cta", "subject"]:
+        for key in ["title", "metaDescription", "problem", "inaction", "cta", "subject", "contactType"]:
             if not str(offer.get(key, "")).strip():
                 errors.append(f"offers.json: {slug} missing {key}")
+        if offer.get("contactType") not in allowed_contact_types:
+            errors.append(f"offers.json: {slug} has an unsupported contactType")
         entry = offer.get("entryOffer", {})
         for key in ["name", "scope", "timeline", "investment"]:
             if not isinstance(entry, dict) or not str(entry.get(key, "")).strip():
