@@ -32,6 +32,14 @@ const routes = [
   { name: "people", path: "/people/" },
   { name: "publications", path: "/publications/" },
   { name: "research-tools", path: "/tools/" },
+  { name: "apc-checker", path: "/tools/apc-checker/" },
+  { name: "grant-deadline-tracker", path: "/tools/grant-deadline-tracker/" },
+  { name: "journal-finder", path: "/tools/journal-finder/" },
+  { name: "naac-readiness-scorecard", path: "/tools/naac-readiness-scorecard/" },
+  { name: "phd-timeline-planner", path: "/tools/phd-timeline-planner/" },
+  { name: "predatory-journal-checker", path: "/tools/predatory-journal-checker/" },
+  { name: "reliability-validity-kit", path: "/tools/reliability-validity-kit/" },
+  { name: "sem-sample-size-calculator", path: "/tools/sem-sample-size-calculator/" },
   { name: "resource-centre", path: "/resources/" },
   {
     name: "insights-directory",
@@ -244,6 +252,29 @@ async function verifyEngagementPipeline(page, viewportName) {
   }
 }
 
+async function verifyToolResult(page, viewportName) {
+  const action = page.locator("#calc");
+  const output = page.locator("#out");
+  if ((await action.count()) !== 1 || (await page.locator(".tool-progress").count()) !== 1) {
+    throw new Error(`${viewportName} SEM calculator is missing its enhanced action state`);
+  }
+  await action.click();
+  await output.waitFor({ state: "visible" });
+  await page.waitForTimeout(80);
+  const state = await page.evaluate(() => ({
+    recommended: document.querySelector("#rec")?.textContent?.trim(),
+    resultClass: document.querySelector("#out")?.classList.contains("is-revealed"),
+    processing: document.querySelector(".tool-input-surface")?.classList.contains("is-processing"),
+  }));
+  if (!state.recommended || state.recommended === "—" || !state.resultClass || !state.processing) {
+    throw new Error(`${viewportName} SEM calculator did not expose a complete result state`);
+  }
+  await page.screenshot({
+    path: `${outputDirectory}/${viewportName}--sem-calculator-result.png`,
+    fullPage: true,
+  });
+}
+
 try {
   for (const viewport of viewports) {
     const context = await browser.newContext({
@@ -282,6 +313,9 @@ try {
       if (route.name === "services") {
         await verifyEvidenceDashboard(page, viewport.name);
         await verifyEngagementPipeline(page, viewport.name);
+      }
+      if (route.name === "sem-sample-size-calculator") {
+        await verifyToolResult(page, viewport.name);
       }
 
       const result = {
