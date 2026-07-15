@@ -501,6 +501,26 @@
   var cf = document.getElementById("gcContactForm");
   if (cf) {
     var status = cf.querySelector(".form-status");
+    var serviceOptions = {
+      "research-integrity": { label: "Institutional Research Integrity Diagnostic", type: "Research consulting" },
+      "naac-evidence-readiness": { label: "NAAC Evidence Readiness Diagnostic", type: "Institutional / NAAC–IQAC advisory" },
+      "impact-evaluation": { label: "Impact Evaluation and Analytics", type: "Impact analytics" },
+      "research-methods": { label: "Advanced Research Methods", type: "Doctoral methodology support" }
+    };
+    var params = new URLSearchParams(location.search);
+    var selectedService = serviceOptions[params.get("service")];
+    if (selectedService) {
+      var context = document.getElementById("enquiry-context");
+      var serviceLabel = document.getElementById("enquiry-service");
+      var serviceField = cf.querySelector('[name="service_interest"]');
+      var subjectField = cf.querySelector('[name="_subject"]');
+      var typeField = cf.querySelector('[name="type"]');
+      if (serviceLabel) serviceLabel.textContent = selectedService.label;
+      if (serviceField) serviceField.value = selectedService.label;
+      if (subjectField) subjectField.value = "New " + selectedService.label + " enquiry — gurjas.org";
+      if (typeField) typeField.value = selectedService.type;
+      if (context) context.hidden = false;
+    }
     if (/[?&]sent=1/.test(location.search) && status) {
       status.className = "form-status ok";
       status.textContent = "Thank you — your message has been sent. We usually respond within two working days.";
