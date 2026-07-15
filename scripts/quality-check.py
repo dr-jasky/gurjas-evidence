@@ -222,6 +222,15 @@ if (ROOT / "offers.css").exists():
     errors.append("offers.css: detached offer visual systems are prohibited")
 if homepage.count('id="h-caps"') != 1:
     errors.append("index.html: commercial pathway section must appear exactly once")
+if homepage.count('class="home-tool-group"') != 3:
+    errors.append("index.html: homepage tools must be organised into exactly three expandable groups")
+if homepage.count('class="home-tool-group" open') != 1:
+    errors.append("index.html: exactly one homepage tool group must be expanded by default")
+tools_start = homepage.find('class="home-tool-groups"')
+predatory_start = homepage.find('tools/predatory-journal-checker/', tools_start)
+next_tool_start = homepage.find('class="home-row"', predatory_start + 1)
+if tools_start < 0 or predatory_start < 0 or (next_tool_start >= 0 and predatory_start > next_tool_start):
+    errors.append("index.html: Predatory Journal Checker must remain the first featured tool")
 if not (ROOT / "reviews/session3-visual-contract.md").exists():
     errors.append("session3: visual contract is missing")
 
