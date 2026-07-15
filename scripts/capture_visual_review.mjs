@@ -211,6 +211,39 @@ async function verifyEvidenceDashboard(page, viewportName) {
   }
 }
 
+async function verifyEngagementPipeline(page, viewportName) {
+  const pipeline = page.locator("[data-engagement-pipeline]");
+  const tabs = pipeline.locator('[role="tab"]');
+  const firstPanel = pipeline.locator("#engagement-stage-1");
+  const deliveryPanel = pipeline.locator("#engagement-stage-4");
+  const reviewPanel = pipeline.locator("#engagement-stage-5");
+  if ((await pipeline.count()) !== 1 || (await tabs.count()) !== 5) {
+    throw new Error(`${viewportName} services pipeline is missing its five-stage interface`);
+  }
+  if (!(await firstPanel.isVisible()) || (await deliveryPanel.isVisible())) {
+    throw new Error(`${viewportName} services pipeline did not begin on the diagnostic stage`);
+  }
+
+  const deliveryTab = pipeline.locator("#engagement-tab-4");
+  await deliveryTab.click();
+  if ((await firstPanel.isVisible()) || !(await deliveryPanel.isVisible())) {
+    throw new Error(`${viewportName} services pipeline did not switch to the delivery stage`);
+  }
+  await page.screenshot({
+    path: `${outputDirectory}/${viewportName}--services-engagement-delivery.png`,
+    fullPage: true,
+  });
+
+  await deliveryTab.press("ArrowRight");
+  if (!(await reviewPanel.isVisible())) {
+    throw new Error(`${viewportName} services pipeline arrow-key navigation failed`);
+  }
+  await pipeline.locator("#engagement-tab-5").press("Home");
+  if (!(await firstPanel.isVisible())) {
+    throw new Error(`${viewportName} services pipeline Home-key navigation failed`);
+  }
+}
+
 try {
   for (const viewport of viewports) {
     const context = await browser.newContext({
@@ -248,6 +281,7 @@ try {
       }
       if (route.name === "services") {
         await verifyEvidenceDashboard(page, viewport.name);
+        await verifyEngagementPipeline(page, viewport.name);
       }
 
       const result = {
