@@ -160,6 +160,59 @@
   });
 })();
 
+/* Progressive enhancement for the commercial engagement pipeline. Its anchor
+   links and all five stage panels remain readable when JavaScript is absent. */
+(function () {
+  "use strict";
+  document.querySelectorAll("[data-engagement-pipeline]").forEach(function (pipeline) {
+    var track = pipeline.querySelector(".engagement-track");
+    var tabs = Array.prototype.slice.call(pipeline.querySelectorAll('.engagement-track a[aria-controls]'));
+    var panels = Array.prototype.slice.call(pipeline.querySelectorAll("[data-engagement-panel]"));
+    if (!track || tabs.length !== 5 || panels.length !== tabs.length) return;
+
+    function activate(tab, focus) {
+      tabs.forEach(function (item) {
+        var selected = item === tab;
+        item.setAttribute("aria-selected", String(selected));
+        item.setAttribute("aria-current", selected ? "step" : "false");
+        item.setAttribute("tabindex", selected ? "0" : "-1");
+        var panel = document.getElementById(item.getAttribute("aria-controls"));
+        if (panel) panel.hidden = !selected;
+      });
+      if (focus) tab.focus();
+    }
+
+    track.setAttribute("role", "tablist");
+    tabs.forEach(function (tab) { tab.setAttribute("role", "tab"); });
+    panels.forEach(function (panel) { panel.setAttribute("role", "tabpanel"); });
+    pipeline.classList.add("is-enhanced");
+
+    var hashPanel = window.location.hash ? document.getElementById(window.location.hash.slice(1)) : null;
+    if (hashPanel && !pipeline.contains(hashPanel)) hashPanel = null;
+    var initial = hashPanel ? tabs.find(function (tab) {
+      return tab.getAttribute("aria-controls") === hashPanel.id;
+    }) : null;
+    activate(initial || tabs[0], false);
+
+    tabs.forEach(function (tab, index) {
+      tab.addEventListener("click", function (event) {
+        event.preventDefault();
+        activate(tab, false);
+      });
+      tab.addEventListener("keydown", function (event) {
+        var target = null;
+        if (event.key === "ArrowRight" || event.key === "ArrowDown") target = tabs[(index + 1) % tabs.length];
+        if (event.key === "ArrowLeft" || event.key === "ArrowUp") target = tabs[(index - 1 + tabs.length) % tabs.length];
+        if (event.key === "Home") target = tabs[0];
+        if (event.key === "End") target = tabs[tabs.length - 1];
+        if (!target) return;
+        event.preventDefault();
+        activate(target, true);
+      });
+    });
+  });
+})();
+
 /* ═══════════ Homepage evidence-field background (gold data-points, drifting) ═══════════ */
 (function () {
   "use strict";

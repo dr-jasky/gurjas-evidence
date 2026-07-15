@@ -78,6 +78,9 @@ for required in [
     'data-fact-format',
     'data-fact-format") === "number-western"',
     'document.querySelectorAll("[data-evidence-dashboard]")',
+    'document.querySelectorAll("[data-engagement-pipeline]")',
+    'pipeline.classList.add("is-enhanced")',
+    'event.key === "ArrowDown"',
     'event.key === "ArrowRight"',
     'event.key === "ArrowLeft"',
 ]:
@@ -270,12 +273,33 @@ for prohibited in ["mock dashboard", "mock policy", "guaranteed impact"]:
 for required in [".evidence-dashboard-section", ".evidence-dashboard-panel[hidden]{display:none}", ".evidence-figure svg"]:
     if required not in style:
         errors.append(f"style.css: evidence dashboard is missing responsive visual control {required}")
+for required in [
+    'data-engagement-pipeline',
+    'class="engagement-track"',
+    'id="engagement-stage-1"',
+    'id="engagement-stage-5"',
+    'Decision control',
+    'Handover plus confidential archive or return',
+]:
+    if required not in services:
+        errors.append(f"services/index.html: engagement pipeline is missing {required}")
+for required in [
+    ".engagement-track::before",
+    '.engagement-track a[aria-current="step"]',
+    ".engagement-pipeline.is-enhanced .engagement-stage[hidden]{display:none}",
+    "@media(max-width:620px)",
+]:
+    if required not in style:
+        errors.append(f"style.css: engagement pipeline is missing responsive visual control {required}")
 pages_workflow = (ROOT / ".github/workflows/pages.yml").read_text(encoding="utf-8")
 indexnow_workflow = (ROOT / ".github/workflows/indexnow.yml").read_text(encoding="utf-8")
 visual_review_script = (ROOT / "scripts/capture_visual_review.mjs").read_text(encoding="utf-8")
 for required in ["verifyEvidenceDashboard", "services-evidence-india.png", 'indiaTab.press("ArrowLeft")']:
     if required not in visual_review_script:
         errors.append(f"visual review: evidence dashboard interaction coverage is missing {required}")
+for required in ["verifyEngagementPipeline", "services-engagement-delivery.png", 'deliveryTab.press("ArrowRight")']:
+    if required not in visual_review_script:
+        errors.append(f"visual review: engagement pipeline interaction coverage is missing {required}")
 for slug in sorted(expected_offers):
     route = f"services/{slug}/"
     if route not in homepage:
