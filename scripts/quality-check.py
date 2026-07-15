@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import re
 import sys
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -45,6 +46,8 @@ for path in html_files:
         errors.append(f"{rel}: analytics must not load inline before consent")
     if " novalidate" in text:
         errors.append(f"{rel}: novalidate bypasses native form validation")
+    if "gmail.com" in text.lower():
+        errors.append(f"{rel}: public infrastructure must use the gurjas.org domain, not Gmail")
     if len(re.findall(r'<link\s+rel=["\']canonical["\']', text, re.I)) > 1:
         errors.append(f"{rel}: duplicate canonical link")
     for match in re.finditer(r'<script\s+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', text, re.I | re.S):
@@ -54,6 +57,10 @@ for path in html_files:
             errors.append(f"{rel}: malformed JSON-LD: {exc}")
 
 script = (ROOT / "script.js").read_text(encoding="utf-8")
+if "gmail.com" in script.lower():
+    errors.append("script.js: public infrastructure must use the gurjas.org domain, not Gmail")
+if 'https://formsubmit.co/ajax/support@gurjas.org' not in script:
+    errors.append("script.js: AJAX contact delivery must target support@gurjas.org")
 for required in [
     "cf.checkValidity()",
     "cf.reportValidity()",
@@ -67,6 +74,7 @@ for required in [
     'base.querySelector("[data-cookie-preferences]")',
     'btn.textContent = open ? "Close" : "Menu"',
     'window.matchMedia("(min-width: 961px)")',
+    'document.querySelectorAll("[data-fact]")',
 ]:
     if required not in script:
         errors.append(f"script.js: missing required integrity control: {required}")
@@ -82,6 +90,12 @@ if "@keyframes home-sweep" in style or "animation:home-sweep" in style:
 footer_template = (ROOT / "site/templates/footer.html").read_text(encoding="utf-8")
 if footer_template.count("data-cookie-preferences") != 1 or footer_template.count('id="gurjas-cookie-preferences"') != 1:
     errors.append("footer template: cookie-preferences control must appear exactly once")
+
+contact_page = (ROOT / "contact/index.html").read_text(encoding="utf-8")
+if 'action="https://formsubmit.co/support@gurjas.org"' not in contact_page:
+    errors.append("contact page: form delivery must target support@gurjas.org")
+if "send it to support@gurjas.org" not in contact_page:
+    errors.append("contact page: automated response must route follow-up material to support@gurjas.org")
 
 header_template = (ROOT / "site/templates/header.html").read_text(encoding="utf-8")
 for required in ['class="nav-btn" type="button"', 'aria-label="Open primary navigation"']:
@@ -103,6 +117,10 @@ try:
     facts = json.loads((ROOT / "data/site-facts.json").read_text(encoding="utf-8"))
     if facts.get("toolCount") != 8:
         errors.append("site-facts.json: toolCount must be 8")
+    reviewed = date.fromisoformat(str(facts.get("reviewed", "")))
+    age = (date.today() - reviewed).days
+    if age < 0 or age > 100:
+        errors.append(f"site-facts.json: evidence snapshot is {age} days old; review at least quarterly")
 except Exception as exc:
     errors.append(f"site-facts.json: invalid: {exc}")
 
