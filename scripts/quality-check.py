@@ -76,6 +76,10 @@ for required in [
     'window.matchMedia("(min-width: 961px)")',
     'document.querySelectorAll("[data-fact]")',
     'data-fact-format',
+    'data-fact-format") === "number-western"',
+    'document.querySelectorAll("[data-evidence-dashboard]")',
+    'event.key === "ArrowRight"',
+    'event.key === "ArrowLeft"',
 ]:
     if required not in script:
         errors.append(f"script.js: missing required integrity control: {required}")
@@ -132,6 +136,7 @@ fact_bindings = {
     "journal-verification article signal count": (verification_article, 'data-fact="predatoryCheckerSignals"'),
     "resource-centre SSRN paper count": (resources_page, 'data-fact="metrics.ssrnPublicPapers"'),
     "resource-centre SSRN views": (resources_page, 'data-fact="metrics.ssrnViews"'),
+    "resource-centre global-economy count": (resources_page, 'data-fact="researchAssets.globalFindex.economies"'),
     "publications SSRN paper count": (publications_page, 'data-fact="metrics.ssrnPublicPapers"'),
     "publications SSRN views": (publications_page, 'data-fact="metrics.ssrnViews"'),
     "publications SSRN downloads": (publications_page, 'data-fact="metrics.ssrnDownloads"'),
@@ -174,6 +179,24 @@ try:
     expected_percent = f'{metrics.get("ssrnAuthorRank", 0) / metrics.get("ssrnAuthorPopulation", 1) * 100:.1f}%'
     if metrics.get("ssrnTopPercent") != expected_percent:
         errors.append(f"site-facts.json: ssrnTopPercent must be computed as {expected_percent}")
+    research_assets = facts.get("researchAssets", {})
+    global_findex = research_assets.get("globalFindex", {})
+    aucr_india = research_assets.get("aucrIndia", {})
+    expected_research_assets = {
+        "globalFindex.adults": (global_findex.get("adults"), 101528),
+        "globalFindex.economies": (global_findex.get("economies"), 97),
+        "globalFindex.panel": (global_findex.get("panel"), "2021–2024"),
+        "globalFindex.doi": (global_findex.get("doi"), "10.5281/zenodo.20932393"),
+        "aucrIndia.jurisdictions": (aucr_india.get("jurisdictions"), 36),
+        "aucrIndia.analyticalSample": (aucr_india.get("analyticalSample"), 34),
+        "aucrIndia.pillars": (aucr_india.get("pillars"), 4),
+        "aucrIndia.weightingSchemes": (aucr_india.get("weightingSchemes"), 3),
+        "aucrIndia.robustnessRange": (aucr_india.get("robustnessRange"), "0.89–0.94"),
+        "aucrIndia.doi": (aucr_india.get("doi"), "10.5281/zenodo.20860992"),
+    }
+    for label, (actual, expected) in expected_research_assets.items():
+        if actual != expected:
+            errors.append(f"site-facts.json: researchAssets.{label} must match the public Zenodo deposit")
     evidence = facts.get("evidence", {})
     for source in ["googleScholar", "ssrn", "researchId", "webOfScience"]:
         source_evidence = evidence.get(source, {})
@@ -228,8 +251,31 @@ except Exception as exc:
 homepage = (ROOT / "index.html").read_text(encoding="utf-8")
 services = (ROOT / "services/index.html").read_text(encoding="utf-8")
 sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+
+for required in [
+    'class="evidence-dashboard-section"',
+    'data-evidence-dashboard',
+    'role="tablist"',
+    'id="evidence-panel-global"',
+    'id="evidence-panel-india"',
+    'https://zenodo.org/records/20932393',
+    'https://zenodo.org/records/20860992',
+    'Dataset scale and analytical design are factual; no programme outcome or client result is implied.',
+]:
+    if required not in services:
+        errors.append(f"services/index.html: published-evidence dashboard is missing {required}")
+for prohibited in ["mock dashboard", "mock policy", "guaranteed impact"]:
+    if prohibited in services.lower():
+        errors.append(f"services/index.html: evidence dashboard must not publish {prohibited}")
+for required in [".evidence-dashboard-section", ".evidence-dashboard-panel[hidden]{display:none}", ".evidence-figure svg"]:
+    if required not in style:
+        errors.append(f"style.css: evidence dashboard is missing responsive visual control {required}")
 pages_workflow = (ROOT / ".github/workflows/pages.yml").read_text(encoding="utf-8")
 indexnow_workflow = (ROOT / ".github/workflows/indexnow.yml").read_text(encoding="utf-8")
+visual_review_script = (ROOT / "scripts/capture_visual_review.mjs").read_text(encoding="utf-8")
+for required in ["verifyEvidenceDashboard", "services-evidence-india.png", 'indiaTab.press("ArrowLeft")']:
+    if required not in visual_review_script:
+        errors.append(f"visual review: evidence dashboard interaction coverage is missing {required}")
 for slug in sorted(expected_offers):
     route = f"services/{slug}/"
     if route not in homepage:

@@ -19,6 +19,22 @@
     "wosManuscriptsReviewed": 56,
     "reviewCadence": "Quarterly"
   },
+  "researchAssets": {
+    "globalFindex": {
+      "adults": 101528,
+      "economies": 97,
+      "panel": "2021–2024",
+      "doi": "10.5281/zenodo.20932393"
+    },
+    "aucrIndia": {
+      "jurisdictions": 36,
+      "analyticalSample": 34,
+      "pillars": 4,
+      "weightingSchemes": 3,
+      "robustnessRange": "0.89–0.94",
+      "doi": "10.5281/zenodo.20860992"
+    }
+  },
   "evidence": {
     "googleScholar": {
       "asOf": "2026-07-15",

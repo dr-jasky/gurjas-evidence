@@ -183,6 +183,34 @@ async function verifyCookiePreferences(page, viewportName) {
   await notice.waitFor({ state: "detached" });
 }
 
+async function verifyEvidenceDashboard(page, viewportName) {
+  const dashboard = page.locator("[data-evidence-dashboard]");
+  const tabs = dashboard.locator('[role="tab"]');
+  const globalPanel = dashboard.locator("#evidence-panel-global");
+  const indiaPanel = dashboard.locator("#evidence-panel-india");
+  if ((await dashboard.count()) !== 1 || (await tabs.count()) !== 2) {
+    throw new Error(`${viewportName} services dashboard is missing its two-tab evidence interface`);
+  }
+  if (!(await globalPanel.isVisible()) || (await indiaPanel.isVisible())) {
+    throw new Error(`${viewportName} services dashboard did not begin on the global evidence panel`);
+  }
+
+  const indiaTab = dashboard.locator("#evidence-tab-india");
+  await indiaTab.click();
+  if ((await globalPanel.isVisible()) || !(await indiaPanel.isVisible())) {
+    throw new Error(`${viewportName} services dashboard did not switch to the India evidence panel`);
+  }
+  await page.screenshot({
+    path: `${outputDirectory}/${viewportName}--services-evidence-india.png`,
+    fullPage: true,
+  });
+
+  await indiaTab.press("ArrowLeft");
+  if (!(await globalPanel.isVisible()) || (await indiaPanel.isVisible())) {
+    throw new Error(`${viewportName} services dashboard arrow-key navigation failed`);
+  }
+}
+
 try {
   for (const viewport of viewports) {
     const context = await browser.newContext({
@@ -217,6 +245,9 @@ try {
       if (route.name === "home") {
         await verifySiteGuide(page, viewport.name);
         await verifyCookiePreferences(page, viewport.name);
+      }
+      if (route.name === "services") {
+        await verifyEvidenceDashboard(page, viewport.name);
       }
 
       const result = {
