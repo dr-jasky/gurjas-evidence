@@ -1,0 +1,25 @@
+/* Accessibility corrections loaded after the shared visual system.
+   Keep this file limited to audited, evidence-backed overrides. */
+
+/* The compact stage descriptors previously fell below 4.5:1 on navy. */
+.engagement-track small {
+  color: #a9bcd6;
+}
+
+/* Horizontally scrollable evidence diagrams receive keyboard focus in
+   accessibility.js; make that focus unmistakable without changing layout. */
+.evidence-figure:focus-visible {
+  outline: 3px solid var(--gold-l);
+  outline-offset: -3px;
+}
+
+/* Gold-light is for navy surfaces. Light offer sections require the darker
+   brand gold to preserve text contrast. */
+.offer-label {
+  color: var(--gold-d);
+}
+.offer-entry .offer-label,
+.offer-entry dt,
+.offer-section-dark .offer-label {
+  color: var(--gold-l);
+}
