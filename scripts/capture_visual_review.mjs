@@ -39,6 +39,7 @@ const routes = [
   { name: "phd-timeline-planner", path: "/tools/phd-timeline-planner/" },
   { name: "predatory-journal-checker", path: "/tools/predatory-journal-checker/" },
   { name: "reliability-validity-kit", path: "/tools/reliability-validity-kit/" },
+  { name: "research-readiness-triage", path: "/tools/research-readiness-triage/" },
   { name: "sem-sample-size-calculator", path: "/tools/sem-sample-size-calculator/" },
   { name: "resource-centre", path: "/resources/" },
   {
@@ -275,6 +276,35 @@ async function verifyToolResult(page, viewportName) {
   });
 }
 
+async function verifyResearchReadinessTriage(page, viewportName) {
+  await page.selectOption("#track", "evaluation");
+  await page.selectOption("#stage", { label: "Design and planning" });
+  const controls = page.locator(".triage-item");
+  if ((await controls.count()) !== 8) {
+    throw new Error(`${viewportName} research-readiness triage does not expose eight controls`);
+  }
+  for (let index = 0; index < 8; index += 1) {
+    const state = index < 2 ? "missing" : index < 5 ? "partial" : "evidenced";
+    await controls.nth(index).locator(`input[value="${state}"]`).check();
+  }
+  await page.locator('#triage button[type="submit"]').click();
+  const output = page.locator("#triage-output");
+  await output.waitFor({ state: "visible" });
+  await page.waitForTimeout(80);
+  const state = await page.evaluate(() => ({
+    summary: document.querySelector("#result-summary")?.textContent?.trim(),
+    resultClass: document.querySelector("#triage-output")?.classList.contains("is-revealed"),
+    route: document.querySelector("#route-title")?.textContent?.trim(),
+  }));
+  if (!state.summary?.includes("2 not yet evidenced") || !state.resultClass || !state.route) {
+    throw new Error(`${viewportName} research-readiness triage did not expose the expected result state`);
+  }
+  await page.screenshot({
+    path: `${outputDirectory}/${viewportName}--research-readiness-triage-result.png`,
+    fullPage: true,
+  });
+}
+
 try {
   for (const viewport of viewports) {
     const context = await browser.newContext({
@@ -316,6 +346,9 @@ try {
       }
       if (route.name === "sem-sample-size-calculator") {
         await verifyToolResult(page, viewport.name);
+      }
+      if (route.name === "research-readiness-triage") {
+        await verifyResearchReadinessTriage(page, viewport.name);
       }
 
       const result = {
