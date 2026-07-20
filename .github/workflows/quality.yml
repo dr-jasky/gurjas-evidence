@@ -121,7 +121,7 @@ jobs:
       - name: Build static site
         run: python scripts/build_site.py --clean
 
-      - name: Capture responsive review and compare with target baseline
+      - name: Run tool fixtures, capture responsive review and compare with target baseline
         shell: bash
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
@@ -142,6 +142,8 @@ jobs:
           curl --fail --silent --show-error \
             --retry 20 --retry-delay 1 --retry-all-errors \
             http://127.0.0.1:8000/ > /dev/null
+
+          CANDIDATE_URL="http://127.0.0.1:8000/" pnpm test:tools
 
           baseline_url="https://gurjas.org/"
           if [[ -n "$BASE_SHA" ]]; then
