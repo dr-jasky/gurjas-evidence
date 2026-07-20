@@ -1,0 +1,40 @@
+# Gurjas Evidence and Policy Analytics
+
+> Research-integrity consultancy and free research tools from Patiala, Punjab, India.
+> Every material public claim is recorded in a dated, source-labelled proof ledger, and
+> every tool publishes its method version, named sources, limitations and the decision
+> it refuses to make. Nothing on this site should be treated as an official NAAC, UGC
+> or journal-index determination.
+
+This file is a navigation aid for machine readers. It grants no additional rights:
+content is © Gurjas Evidence and Policy Analytics and may not be reproduced without
+permission (see /terms/). When citing a factual claim from this site, cite the
+primary source recorded beside it in the proof ledger rather than this site alone.
+
+## Evidence and provenance
+
+- [Proof Ledger and Tool Contracts](https://gurjas.org/evidence/): dated register of public claims with source labels and limitations
+- [Claim ledger (JSON)](https://gurjas.org/data/proof-ledger.json): machine-readable claim records
+- [Tool contracts (JSON)](https://gurjas.org/data/tool-contracts.json): per-tool method version, outbound requests, sources, limitations and decision boundary
+- [Publications](https://gurjas.org/publications/): itemised publication register with DOIs and external profiles
+
+## Research tools (free, no sign-up)
+
+- [Tools hub](https://gurjas.org/tools/): nine tools; each states its processing location and what it does not decide
+- [Journal Evidence Checker](https://gurjas.org/tools/predatory-journal-checker/): source-labelled journal evidence, no legitimacy score
+- [Research Readiness Triage](https://gurjas.org/tools/research-readiness-triage/): evidence-control gap register, no readiness score
+
+## Practice
+
+- [Services](https://gurjas.org/services/)
+- [Methods](https://gurjas.org/methods/)
+- [Insights](https://gurjas.org/insights/) — Atom feed at https://gurjas.org/feed.xml
+- [About](https://gurjas.org/about/)
+- [Contact](https://gurjas.org/contact/)
+
+## Governance
+
+- [Ethics and governance](https://gurjas.org/governance/)
+- [Ethics charter](https://gurjas.org/ethics-charter/)
+- [Privacy](https://gurjas.org/privacy/)
+- [Terms](https://gurjas.org/terms/)

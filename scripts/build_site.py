@@ -48,6 +48,7 @@ PUBLIC_ROOT_FILES = {
     "CNAME",
     "favicon.ico",
     "humans.txt",
+    "llms.txt",
     "robots.txt",
     "script.js",
     "site.webmanifest",
@@ -435,6 +436,75 @@ def git_last_modified(source: Path, fallback: str) -> str:
     return fallback
 
 
+def collect_insight_articles() -> list[dict[str, str]]:
+    """Extract dated Article metadata from the insight pages' own structured data."""
+    script_re = re.compile(r'<script type="application/ld\+json">(.*?)</script>', re.DOTALL)
+    date_re = re.compile(r"\d{4}-\d{2}-\d{2}")
+    articles: list[dict[str, str]] = []
+    for path in sorted((ROOT / "insights").glob("*/index.html")):
+        text = path.read_text(encoding="utf-8")
+        article: dict[str, Any] | None = None
+        for block in script_re.findall(text):
+            data = json.loads(block)
+            nodes = data.get("@graph", [data]) if isinstance(data, dict) else []
+            for node in nodes:
+                if isinstance(node, dict) and node.get("@type") == "Article":
+                    article = node
+        if article is None:
+            raise ValueError(f"{path.relative_to(ROOT)}: no Article structured data for the feed")
+        published = article.get("datePublished", "")
+        updated = article.get("dateModified", published)
+        if not (date_re.fullmatch(published) and date_re.fullmatch(updated)):
+            raise ValueError(f"{path.relative_to(ROOT)}: Article dates must be YYYY-MM-DD")
+        articles.append(
+            {
+                "title": article["headline"],
+                "url": f"https://gurjas.org/{path.parent.relative_to(ROOT).as_posix()}/",
+                "published": published,
+                "updated": updated,
+                "summary": article.get("description", ""),
+            }
+        )
+    articles.sort(key=lambda item: (item["published"], item["url"]), reverse=True)
+    return articles
+
+
+def write_feed(output: Path) -> None:
+    """Publish the Insights register as an Atom feed generated from page metadata."""
+    articles = collect_insight_articles()
+    if not articles:
+        raise ValueError("Refusing to publish an empty Insights feed")
+    feed_updated = max(item["updated"] for item in articles)
+    lines = [
+        '<?xml version="1.0" encoding="utf-8"?>',
+        '<feed xmlns="http://www.w3.org/2005/Atom">',
+        "  <title>Gurjas Insights</title>",
+        "  <subtitle>Dated, source-linked articles on research integrity, doctoral method and evidence-led policy.</subtitle>",
+        '  <id>https://gurjas.org/insights/</id>',
+        '  <link href="https://gurjas.org/insights/" rel="alternate" type="text/html"/>',
+        '  <link href="https://gurjas.org/feed.xml" rel="self" type="application/atom+xml"/>',
+        f"  <updated>{feed_updated}T00:00:00Z</updated>",
+        "  <author><name>Gurjas Evidence and Policy Analytics</name><uri>https://gurjas.org/</uri></author>",
+        "  <rights>© Gurjas Evidence and Policy Analytics</rights>",
+    ]
+    for item in articles:
+        lines.extend(
+            [
+                "  <entry>",
+                f"    <title>{html.escape(item['title'])}</title>",
+                f"    <id>{html.escape(item['url'], quote=True)}</id>",
+                f'    <link href="{html.escape(item["url"], quote=True)}" rel="alternate" type="text/html"/>',
+                f"    <published>{item['published']}T00:00:00Z</published>",
+                f"    <updated>{item['updated']}T00:00:00Z</updated>",
+                f"    <summary>{html.escape(item['summary'])}</summary>",
+                "  </entry>",
+            ]
+        )
+    lines.append("</feed>")
+    (output / "feed.xml").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"Published feed.xml with {len(articles)} insight entries")
+
+
 def write_generated_sitemap(output: Path) -> None:
     """Refresh sitemap dates from the actual source history without inventing freshness."""
     source_sitemap = ROOT / "sitemap.xml"
@@ -491,6 +561,7 @@ def build(output: Path, clean: bool) -> int:
         destination.write_text(document, encoding="utf-8")
 
     write_generated_sitemap(output)
+    write_feed(output)
 
     total = len(pages) + len(offers)
     print(f"Built {len(pages)} source pages and {len(offers)} generated offer pages into {output.relative_to(ROOT)}")
