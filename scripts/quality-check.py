@@ -163,6 +163,51 @@ elif 'aria-modal' in script[consent_start:consent_end]:
 finder = (ROOT / "tools/journal-finder/index.html").read_text(encoding="utf-8")
 if 'id="abstractConsent"' not in finder or "sent directly from your browser to OpenAlex" not in finder or "q.length>240" not in finder:
     errors.append("Journal Finder: abstract acknowledgement/disclosure missing")
+for required in [
+    's.type==="journal"',
+    "s.issn&&s.issn.length",
+    "not a submission recommendation",
+    "Method version 0.2-beta",
+]:
+    if required not in finder:
+        errors.append(f"Journal Finder: missing journal-only evidence control: {required}")
+
+journal_checker = (ROOT / "tools/predatory-journal-checker/index.html").read_text(encoding="utf-8")
+for forbidden_phrase in ["||true", "|| true", "Evidence signal score (0–100)", "Probability-style"]:
+    if forbidden_phrase.lower() in journal_checker.lower():
+        errors.append(f"Journal Evidence Checker: unsupported scoring/filter phrase remains: {forbidden_phrase}")
+for required in ["Method version 2.0", "not a probability or journal rating", 's.type==="journal"']:
+    if required not in journal_checker:
+        errors.append(f"Journal Evidence Checker: missing evidence contract: {required}")
+
+apc_lookup = (ROOT / "tools/apc-checker/index.html").read_text(encoding="utf-8")
+for forbidden_phrase in ["OpenAlex and DOAJ", "Likely a normal open-access fee", "Should I pay this APC?"]:
+    if forbidden_phrase.lower() in apc_lookup.lower():
+        errors.append(f"Recorded APC Lookup: unsupported claim remains: {forbidden_phrase}")
+for required in ["Method version 1.1", "per-page=5", 's.type==="journal"', 'id="matches"']:
+    if required not in apc_lookup:
+        errors.append(f"Recorded APC Lookup: missing source or disambiguation control: {required}")
+
+sem_explorer = (ROOT / "tools/sem-sample-size-calculator/index.html").read_text(encoding="utf-8")
+for forbidden_phrase in ["citation-ready justification", "defensible choice under reviewer scrutiny", "a-priori power analysis was conducted"]:
+    if forbidden_phrase.lower() in sem_explorer.lower():
+        errors.append(f"SEM Planning Bounds Explorer: overclaim remains: {forbidden_phrase}")
+for required in ["Method version 1.1", "not a model-specific SEM power analysis", "Largest displayed bound"]:
+    if required not in sem_explorer:
+        errors.append(f"SEM Planning Bounds Explorer: missing method limitation: {required}")
+
+reliability_tool = (ROOT / "tools/reliability-validity-kit/index.html").read_text(encoding="utf-8")
+for required in ["Method version 1.1", "zero or undefined variance", "does not by itself establish unidimensionality"]:
+    if required not in reliability_tool:
+        errors.append(f"Reliability calculator: missing data or interpretation control: {required}")
+
+naac_diagnostic = (ROOT / "tools/naac-readiness-scorecard/index.html").read_text(encoding="utf-8")
+for forbidden_phrase in ["Overall readiness:", "Score my institution", "op+\"%\""]:
+    if forbidden_phrase.lower() in naac_diagnostic.lower():
+        errors.append(f"Institutional Evidence Readiness: unofficial score remains: {forbidden_phrase}")
+for required in ["Legacy RAF evidence structure", "does not reproduce BAF/MBGL scoring", "No accreditation percentage is calculated"]:
+    if required not in naac_diagnostic:
+        errors.append(f"Institutional Evidence Readiness: missing framework limitation: {required}")
 
 home_page = (ROOT / "index.html").read_text(encoding="utf-8")
 resources_page = (ROOT / "resources/index.html").read_text(encoding="utf-8")

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 build_indexes.py — generates the three local lookup indexes for the
-Predatory Journal Risk Checker (gurjas.org) from raw source spreadsheets.
+Journal Evidence Checker (gurjas.org) from raw source spreadsheets.
 
 Corrected version: fixes the two verified bugs found in the earlier
 Node.js draft (Active/Inactive column was being ignored; discontinuation
