@@ -7,7 +7,7 @@ const outputDirectory = process.env.A11Y_REPORT_DIR ?? "accessibility-review";
 const require = createRequire(import.meta.url);
 const axeSource = readFileSync(require.resolve("axe-core/axe.min.js"), "utf8");
 const blockingImpacts = new Set(["serious", "critical"]);
-const wcagTags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
+const wcagTags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22a", "wcag22aa"];
 
 const viewports = [
   { name: "desktop", width: 1440, height: 1100 },
@@ -79,6 +79,12 @@ async function auditDynamicStates(page, axeSource, route, viewport) {
 
   if (route === "/") {
     const guide = page.locator("[data-site-guide]");
+    if (!(await guide.isVisible()) && viewport.name === "mobile") {
+      const menu = page.locator(".nav-btn");
+      if (await menu.isVisible()) {
+        await menu.click();
+      }
+    }
     if (await guide.isVisible()) {
       await guide.click();
       await page.locator("#gurjas-site-guide").waitFor({ state: "visible" });
