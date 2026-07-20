@@ -14,7 +14,18 @@ Already shipped (do not redo): P0 tool-credibility corrections (#35), proof
 ledger + tool contracts (#36), homepage/services compression (#37), Research
 Readiness Triage (#38), Journal Finder v0.3-beta with sample matching papers,
 Atom feed, llms.txt, mobile footer accordions, security-headers runbook,
-research-page proof-surface cleanup.
+research-page proof-surface cleanup, WS4 (`assets/tool-export.js`, wired into
+Research Readiness Triage v1.1), WS5 (`tests/tools/journal-finder.spec.mjs`,
+`pnpm test:tools`), WS2 (Reference & DOI Integrity Checker, tenth tool), WS3
+(APC Invoice Triage, eleventh tool, with `tests/tools/reference-checker.spec.mjs`
+covering WS2), WS9 (embeddable evidence-check badge on the Journal Evidence
+Checker). The tool count is now 11 everywhere (`data/site-facts.json`,
+`data/proof-ledger.json`, `data/tool-contracts.json`, `scripts/quality-check.py`
+pins, `tools/index.html`, `evidence/index.html`) — keep it in sync when adding
+a twelfth. WS0 is still blocked: PR #39 (`agent/accessibility-gate`) has not
+merged to `main` as of this writing, so `tests/accessibility/audit.mjs` does
+not exist on this branch yet; apply WS0's two fixes as a follow-up once it
+merges and this branch is rebased onto it.
 
 ---
 
@@ -96,7 +107,7 @@ These are brand-defining. Violating any of them is worse than shipping nothing.
 
 ---
 
-## WS0 — PR #39 follow-ups (accessibility gate) — READY, small
+## WS0 — PR #39 follow-ups (accessibility gate) — STILL BLOCKED (PR #39 not merged yet)
 
 After PR #39 merges (it needs the `visual-change-approved` label because
 `assets/accessibility.css` makes justified contrast-only color changes):
@@ -148,7 +159,7 @@ a serious integrity failure. Stop and request the file if absent.
 - Decision boundary: "Does not establish any current UGC status, which no
   longer exists, and does not assess journal quality."
 
-## WS2 — Reference & DOI Integrity Checker — READY (flagship next tool)
+## WS2 — Reference & DOI Integrity Checker — SHIPPED (2026-07-20)
 
 **What:** paste a reference list → per-reference DOI resolution and Crossref
 metadata comparison, including retraction/correction signals. Client-side
@@ -200,7 +211,7 @@ candidates, and a 429. CI must not call the live API — follow the mock
 pattern used during the Journal Finder v0.3 verification (route
 `https://api.crossref.org/**`).
 
-## WS3 — APC Invoice Triage — READY
+## WS3 — APC Invoice Triage — SHIPPED (2026-07-20)
 
 **What:** the "I received an invoice — what should I check?" moment. A
 structured local questionnaire that produces a discrepancy register, not a
@@ -231,7 +242,7 @@ whether the user should pay."
 Export via WS4. Sync points, sitemap, tools hub card (group 02),
 evidence-page card, contract record.
 
-## WS4 — Universal audit-record export — READY (do before WS2/WS3 if possible)
+## WS4 — Universal audit-record export — SHIPPED (2026-07-20)
 
 **What:** every tool result becomes a downloadable, self-describing record —
 the mechanism that makes outputs citable and shareable.
@@ -256,7 +267,7 @@ the mechanism that makes outputs citable and shareable.
   `python -c "import hashlib,json,sys;print(hashlib.sha256(open(sys.argv[1],'rb').read()).hexdigest())"`
   against the canonical JSON file.
 
-## WS5 — Journal Finder deterministic fixtures in CI — READY, small
+## WS5 — Journal Finder deterministic fixtures in CI — SHIPPED (2026-07-20)
 
 The v0.3 repository-exclusion behaviour is verified only manually today.
 - Add `tests/tools/journal-finder.spec.mjs` (Playwright + `page.route` on
@@ -301,7 +312,7 @@ quarter in UGC/NAAC/indexing policy; notable retraction data; tool usage
 notes; primary-source links table with retrieval dates). Owner writes the
 content. Do not auto-generate the brief's claims.
 
-## WS9 — Embeddable evidence badge — READY, design-sensitive
+## WS9 — Embeddable evidence badge — SHIPPED (2026-07-20)
 
 A small static SVG + copy-paste snippet on the Journal Evidence Checker page:
 "Checked with the Gurjas Journal Evidence Checker · [date]" linking to the
@@ -328,11 +339,19 @@ subscriber emails anywhere. Preparatory work allowed: none needed.
 
 ## Order of execution
 
-1. WS0 (minutes) → 2. WS4 module (small, unblocks better exports everywhere)
-→ 3. WS5 (locks in v0.3 guarantees) → 4. WS2 (flagship; biggest reach)
-→ 5. WS3 → 6. WS9 → 7. WS6/WS7 repo scaffolding, then hand to owner.
-WS1 starts the moment the owner supplies the snapshot file. WS8/WS10/WS11
-are owner-driven.
+WS4, WS5, WS2, WS3 and WS9 shipped 2026-07-20 (see "Already shipped" above).
+Remaining order: 1. WS0 the moment PR #39 merges (minutes) → 2. WS6/WS7 repo
+scaffolding once the owner is available, then hand back for content → 3. WS1
+starts the moment the owner supplies the UGC-CARE snapshot file. WS8/WS10/WS11
+are owner-driven; no repo prep is currently pending for them.
+
+When a twelfth tool is added, remember every count that must move together:
+`data/site-facts.json` `toolCount`, `data/proof-ledger.json`
+`public-tool-inventory`, `data/tool-contracts.json` (schema-version + count
+check in `scripts/quality-check.py`), the hardcoded `tool_routes` list in
+`scripts/quality-check.py`, `tools/index.html` (H2 count, group `<span>`
+counts, hero paragraph), and `evidence/index.html` (`toolCount` fact display
+and the new tool's contract card).
 
 ## Definition of done — every PR
 
