@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      axe-core:
+        specifier: 4.12.1
+        version: 4.12.1
       pixelmatch:
         specifier: 7.2.0
         version: 7.2.0
@@ -22,6 +25,10 @@ importers:
         version: 26.7.11
 
 packages:
+
+  axe-core@4.12.1:
+    resolution: {integrity: sha512-s7iGf5GaVMxEG0ENN9x+xTr7GFZCb1ZP/1uATUpCEK2X78nDB3RwbtFCo9pGAf9ru+VwoQ464DkaLEeRM08wJA==}
+    engines: {node: '>=4'}
 
   fsevents@2.3.2:
     resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
@@ -52,6 +59,8 @@ packages:
     hasBin: true
 
 snapshots:
+
+  axe-core@4.12.1: {}
 
   fsevents@2.3.2:
     optional: true
