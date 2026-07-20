@@ -494,6 +494,32 @@ if (ROOT / "offers.css").exists():
     errors.append("offers.css: detached offer visual systems are prohibited")
 if homepage.count('id="h-caps"') != 1:
     errors.append("index.html: commercial pathway section must appear exactly once")
+if homepage.count('class="home-section') != 5:
+    errors.append("index.html: decision-focused homepage must remain compressed to five primary sections")
+for duplicate_section in ['id="h-creds"', 'id="h-insights"']:
+    if duplicate_section in homepage:
+        errors.append(f"index.html: duplicated secondary homepage section must not return: {duplicate_section}")
+if services.count('class="priority-offer-card"') != 4:
+    errors.append("services/index.html: services hub must present exactly four priority offers")
+for required in [
+    'starts at ₹1,00,000',
+    '₹1,00,000–₹2,50,000',
+    '₹75,000–₹4,00,000',
+    '₹15,000–₹1,00,000',
+    'id="institutional-advisory"',
+    'id="ngo-csr"',
+]:
+    if required not in services:
+        errors.append(f"services/index.html: compressed offer grid is missing {required}")
+for duplicated_section in ['id="h-lines"', 'id="h-vignettes"', "Illustrative scenarios"]:
+    if duplicated_section in services:
+        errors.append(f"services/index.html: duplicated or hypothetical sales section must not return: {duplicated_section}")
+for route in ["research-integrity", "naac-evidence-readiness", "impact-evaluation", "research-methods"]:
+    if f'https://gurjas.org/services/{route}/' not in services:
+        errors.append(f"services/index.html: structured data must map to visible offer route {route}")
+for stale_schema_fragment in ["#research-consulting", "#policy-evaluation", "#impact-analytics", "#doctoral-support"]:
+    if stale_schema_fragment in services:
+        errors.append(f"services/index.html: stale hidden service schema remains: {stale_schema_fragment}")
 if homepage.count('class="home-proof-group"') != 2:
     errors.append("index.html: proof ribbon requires one accessible group and one seamless duplicate")
 if homepage.count('class="home-proof-group" aria-hidden="true" hidden') != 1 or homepage.count('tabindex="-1"') < 4:
