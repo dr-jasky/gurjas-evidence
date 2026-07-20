@@ -142,6 +142,23 @@
       "userDataStorage": "Each reference's DOI or text goes directly from the browser to Crossref; Gurjas does not receive it."
     },
     {
+      "id": "apc-invoice-triage",
+      "name": "APC Invoice Triage",
+      "url": "/tools/apc-invoice-triage/",
+      "status": "production",
+      "methodVersion": "1.0",
+      "reviewed": "2026-07-20",
+      "purpose": "Turn questionnaire answers about a received APC invoice into a discrepancy register of documented fraud patterns and factual comparisons.",
+      "processing": "local-browser, with one optional direct-third-party request",
+      "outboundRequests": [{"recipient": "OpenAlex", "data": "journal name or ISSN", "trigger": "Look up recorded APC button (optional)", "url": "https://api.openalex.org/"}],
+      "sources": [{"name": "OpenAlex", "url": "https://openalex.org/", "access": "live public API, used only for the optional amount comparison"}],
+      "outputs": ["five-item discrepancy register (payment method, invoice timing, payee match, domain match, quoted-vs-recorded amount)", "fixed next-actions checklist", "downloadable hash-stamped Markdown and JSON audit record"],
+      "notChecked": ["whether the journal itself is legitimate", "the invoice document's authenticity", "anything about the underlying manuscript"],
+      "limitations": "Each register row is Consistent, Discrepancy, Common fraud pattern or Not answered; no combined score or overall verdict is calculated. An invoice preceding acceptance is a documented fraud-pattern signal but is not decisive for publishers with a disclosed upfront-fee model.",
+      "decisionBoundary": "Does not determine whether the invoice is genuine or whether to pay it.",
+      "userDataStorage": "Questionnaire answers remain in the browser. Only an optional journal name or ISSN is ever sent anywhere, and only to OpenAlex."
+    },
+    {
       "id": "naac-readiness-scorecard",
       "name": "Institutional Evidence Readiness",
       "url": "/tools/naac-readiness-scorecard/",

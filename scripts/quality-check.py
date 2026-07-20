@@ -103,6 +103,7 @@ for direct_selector in [".stat > span{", ".alt .stat > span{", ".navy-band .stat
 
 tool_routes = [
     "apc-checker",
+    "apc-invoice-triage",
     "grant-deadline-tracker",
     "journal-finder",
     "naac-readiness-scorecard",
@@ -173,6 +174,21 @@ for required in [
 ]:
     if required not in finder:
         errors.append(f"Journal Finder: missing journal-only evidence control: {required}")
+
+apc_triage = (ROOT / "tools/apc-invoice-triage/index.html").read_text(encoding="utf-8")
+for forbidden_phrase in ["overall score", "legitimacy score", "risk score", "verdict:"]:
+    if forbidden_phrase.lower() in apc_triage.lower():
+        errors.append(f"APC Invoice Triage: unsupported scoring/verdict phrase remains: {forbidden_phrase}")
+for required in [
+    "Method version 1.0",
+    "does not determine whether the invoice is genuine",
+    "No overall verdict is calculated",
+    "COMMON FRAUD PATTERN",
+    "GurjasExport.download",
+    'id="export-triage"',
+]:
+    if required.lower() not in apc_triage.lower():
+        errors.append(f"APC Invoice Triage: missing evidence control: {required}")
 
 reference_checker = (ROOT / "tools/reference-integrity-checker/index.html").read_text(encoding="utf-8")
 for forbidden_phrase in ["not retracted", "verdict", "legitimacy score"]:
@@ -271,8 +287,8 @@ if "Metrics reviewed 15 July 2026" in publications_page:
 
 try:
     facts = json.loads((ROOT / "data/site-facts.json").read_text(encoding="utf-8"))
-    if facts.get("toolCount") != 10:
-        errors.append("site-facts.json: toolCount must be 10")
+    if facts.get("toolCount") != 11:
+        errors.append("site-facts.json: toolCount must be 11")
     if facts.get("predatoryCheckerSignals") != 13:
         errors.append("site-facts.json: predatoryCheckerSignals must match the 13-signal checker")
     metrics = facts.get("metrics", {})
@@ -383,8 +399,8 @@ try:
     contract_data = json.loads((ROOT / "data/tool-contracts.json").read_text(encoding="utf-8"))
     contracts = contract_data.get("tools", [])
     contract_ids = [contract.get("id") for contract in contracts]
-    if contract_data.get("schemaVersion") != "1.0" or len(contracts) != 10:
-        errors.append("tool-contracts.json: expected schema version 1.0 and exactly ten contracts")
+    if contract_data.get("schemaVersion") != "1.0" or len(contracts) != 11:
+        errors.append("tool-contracts.json: expected schema version 1.0 and exactly eleven contracts")
     if set(contract_ids) != set(tool_routes) or len(contract_ids) != len(set(contract_ids)):
         errors.append("tool-contracts.json: contracts must map one-to-one to production tool routes")
     for contract in contracts:
