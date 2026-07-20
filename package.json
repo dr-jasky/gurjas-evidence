@@ -4,11 +4,13 @@
   "type": "module",
   "packageManager": "pnpm@11.13.0",
   "scripts": {
+    "test:a11y": "node tests/accessibility/audit.mjs",
     "test:html": "vnu --errors-only --skip-non-html _site",
     "test:tools": "node tests/tools/journal-finder.spec.mjs && node tests/tools/reference-checker.spec.mjs",
     "test:visual": "node tests/visual/compare.mjs"
   },
   "devDependencies": {
+    "axe-core": "4.12.1",
     "pixelmatch": "7.2.0",
     "playwright": "1.61.1",
     "pngjs": "7.0.0",

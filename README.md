@@ -32,9 +32,13 @@ For page-specific copy, metadata or tool code, edit the relevant existing `index
 
 Any pull request to `main` runs the **Site quality** workflow. It checks JavaScript and Python syntax, source integrity, builds the entire site, regression-tests the output and uploads the generated `_site` directory as a short-lived review artifact.
 
-The workflow also validates generated pages with the Nu HTML Checker, runs deterministic tool fixtures against a locally served build (mocked third-party responses only — never live APIs), captures the homepage, Services hub and four priority offers at desktop and mobile sizes, and runs a deterministic comparison between the pull request and its exact target-branch build. The comparison covers the homepage, Services, People, Tools, Contact and the flagship journal-integrity article at desktop, tablet and mobile sizes. Unexpected differences and horizontal overflow fail the pull request and upload responsive, baseline, candidate and diff screenshots for review. Manual workflow runs compare against live production instead.
+The workflow validates generated pages with the Nu HTML Checker, runs deterministic tool fixtures against a locally served build (mocked third-party responses only — never live APIs), and runs axe-core against every sitemap route plus the 404 page at desktop and mobile widths. It also audits the open site guide, cookie preferences, Services evidence and engagement panels, SEM result and Research Readiness Triage result. Serious or critical WCAG 2.0, 2.1 or 2.2 A/AA violations fail the pull request; JSON and Markdown findings are retained with the visual-review artifact.
 
-Intentional visual work must be reviewed from that artifact before the pull request receives the `visual-change-approved` label. The label records approval; it does not suppress horizontal-overflow failures.
+The workflow also captures the homepage, Services hub and four priority offers at desktop and mobile sizes, and runs a deterministic comparison between the pull request and its exact target-branch build. The comparison covers the homepage, Services, People, Tools, Contact and the flagship journal-integrity article at desktop, tablet and mobile sizes. Unexpected differences and horizontal overflow fail the pull request and upload responsive, baseline, candidate and diff screenshots for review. Manual workflow runs compare against live production.
+
+Intentional visual work must be reviewed from that artifact before the pull request receives the `visual-change-approved` label. The label records approval; it does not suppress horizontal-overflow or accessibility failures.
+
+Automated accessibility testing is a regression gate, not a complete accessibility audit. Keyboard-only, screen-reader, zoom, high-contrast, cognitive-load and user testing remain manual review requirements; see `operations/accessibility-review.md`.
 
 Local quality commands are:
 
@@ -45,6 +49,7 @@ pnpm test:html
 
 # With Chromium installed and the generated site served on port 8000:
 pnpm test:tools
+pnpm test:a11y
 pnpm test:visual
 ```
 
