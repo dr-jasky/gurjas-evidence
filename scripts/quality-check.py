@@ -291,6 +291,104 @@ try:
 except Exception as exc:
     errors.append(f"site-facts.json: invalid: {exc}")
 
+
+def nested_value(record: dict, dotted_path: str):
+    value = record
+    for part in dotted_path.split("."):
+        if not isinstance(value, dict) or part not in value:
+            raise KeyError(dotted_path)
+        value = value[part]
+    return value
+
+
+def leaf_values(value):
+    if isinstance(value, dict):
+        return [leaf for item in value.values() for leaf in leaf_values(item)]
+    if isinstance(value, list):
+        return [leaf for item in value for leaf in leaf_values(item)]
+    return [value]
+
+
+try:
+    ledger = json.loads((ROOT / "data/proof-ledger.json").read_text(encoding="utf-8"))
+    entries = ledger.get("entries", [])
+    if ledger.get("schemaVersion") != "1.0" or len(entries) != 7:
+        errors.append("proof-ledger.json: expected schema version 1.0 and exactly seven registered claims")
+    allowed_statuses = {"external-public-record", "owner-supplied-snapshot", "site-register"}
+    if set(ledger.get("statusDefinitions", {})) != allowed_statuses:
+        errors.append("proof-ledger.json: every evidence status must have a definition")
+    entry_ids = [entry.get("id") for entry in entries]
+    if len(entry_ids) != len(set(entry_ids)):
+        errors.append("proof-ledger.json: claim IDs must be unique")
+    current_facts = json.loads((ROOT / "data/site-facts.json").read_text(encoding="utf-8"))
+    for entry in entries:
+        entry_id = str(entry.get("id", "unknown"))
+        for field in ["claim", "value", "factPaths", "status", "sourceLabel", "sourceUrl", "verifiedAt", "verificationMethod", "limitations"]:
+            if not entry.get(field):
+                errors.append(f"proof-ledger.json: {entry_id}.{field} is required")
+        if entry.get("status") not in allowed_statuses:
+            errors.append(f"proof-ledger.json: {entry_id} has an unsupported evidence status")
+        source_url = str(entry.get("sourceUrl", ""))
+        if not (source_url.startswith("https://") or source_url.startswith("/")):
+            errors.append(f"proof-ledger.json: {entry_id} source must be HTTPS or site-relative")
+        verified = date.fromisoformat(str(entry.get("verifiedAt", "")))
+        if (date.today() - verified).days < 0 or (date.today() - verified).days > 92:
+            errors.append(f"proof-ledger.json: {entry_id} verification date must be current and reviewed at least quarterly")
+        registered_values = leaf_values(entry.get("value"))
+        for fact_path in entry.get("factPaths", []):
+            resolved = nested_value(current_facts, fact_path)
+            if resolved not in registered_values:
+                errors.append(f"proof-ledger.json: {entry_id} value has drifted from site-facts.{fact_path}")
+except Exception as exc:
+    errors.append(f"proof-ledger.json: invalid: {exc}")
+
+try:
+    contract_data = json.loads((ROOT / "data/tool-contracts.json").read_text(encoding="utf-8"))
+    contracts = contract_data.get("tools", [])
+    contract_ids = [contract.get("id") for contract in contracts]
+    if contract_data.get("schemaVersion") != "1.0" or len(contracts) != 8:
+        errors.append("tool-contracts.json: expected schema version 1.0 and exactly eight contracts")
+    if set(contract_ids) != set(tool_routes) or len(contract_ids) != len(set(contract_ids)):
+        errors.append("tool-contracts.json: contracts must map one-to-one to production tool routes")
+    for contract in contracts:
+        contract_id = str(contract.get("id", "unknown"))
+        for field in ["name", "url", "status", "methodVersion", "reviewed", "purpose", "processing", "sources", "outputs", "notChecked", "limitations", "decisionBoundary", "userDataStorage"]:
+            if not contract.get(field):
+                errors.append(f"tool-contracts.json: {contract_id}.{field} is required")
+        if contract.get("url") != f"/tools/{contract_id}/":
+            errors.append(f"tool-contracts.json: {contract_id} URL must match its production route")
+        reviewed = date.fromisoformat(str(contract.get("reviewed", "")))
+        if (date.today() - reviewed).days < 0 or (date.today() - reviewed).days > 92:
+            errors.append(f"tool-contracts.json: {contract_id} review date must be current and reviewed at least quarterly")
+        outbound = contract.get("outboundRequests", [])
+        if contract.get("processing") == "direct-third-party-requests" and not outbound:
+            errors.append(f"tool-contracts.json: {contract_id} must disclose its third-party requests")
+        for request in outbound:
+            for field in ["recipient", "data", "trigger", "url"]:
+                if not request.get(field):
+                    errors.append(f"tool-contracts.json: {contract_id} outbound request is missing {field}")
+            if not str(request.get("url", "")).startswith("https://"):
+                errors.append(f"tool-contracts.json: {contract_id} outbound request must use HTTPS")
+        for source in contract.get("sources", []):
+            if not all(source.get(field) for field in ["name", "url", "access"]):
+                errors.append(f"tool-contracts.json: {contract_id} source entries require name, URL and access")
+            if not (str(source.get("url", "")).startswith("https://") or str(source.get("url", "")).startswith("/")):
+                errors.append(f"tool-contracts.json: {contract_id} source must be HTTPS or site-relative")
+except Exception as exc:
+    errors.append(f"tool-contracts.json: invalid: {exc}")
+
+evidence_page = (ROOT / "evidence/index.html").read_text(encoding="utf-8")
+for required in [
+    'href="../data/proof-ledger.json"',
+    'href="../data/tool-contracts.json"',
+    'id="claims"',
+    'id="contracts"',
+    'data-fact="metrics.googleScholarCitations"',
+    'data-fact="toolCount"',
+]:
+    if required not in evidence_page:
+        errors.append(f"evidence page: public registry is missing {required}")
+
 expected_offers = {
     "research-integrity",
     "naac-evidence-readiness",
