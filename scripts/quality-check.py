@@ -168,7 +168,7 @@ for required in [
     's.type==="journal"',
     "s.issn&&s.issn.length",
     "not a submission recommendation",
-    "Method version 0.2-beta",
+    "Method version 0.3-beta",
 ]:
     if required not in finder:
         errors.append(f"Journal Finder: missing journal-only evidence control: {required}")
