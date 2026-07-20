@@ -122,6 +122,26 @@
       "userDataStorage": "The query goes directly from the browser to OpenAlex; Gurjas does not receive it."
     },
     {
+      "id": "reference-integrity-checker",
+      "name": "Reference and DOI Integrity Checker",
+      "url": "/tools/reference-integrity-checker/",
+      "status": "production",
+      "methodVersion": "1.0",
+      "reviewed": "2026-07-20",
+      "purpose": "Check each pasted reference's DOI against the Crossref registry and surface recorded post-publication updates.",
+      "processing": "direct-third-party-requests",
+      "outboundRequests": [
+        {"recipient": "Crossref", "data": "an extracted DOI, one per recognised reference", "trigger": "Check references button", "url": "https://api.crossref.org/"},
+        {"recipient": "Crossref", "data": "the first 300 characters of a reference with no recognisable DOI", "trigger": "Check references button", "url": "https://api.crossref.org/"}
+      ],
+      "sources": [{"name": "Crossref REST API", "url": "https://www.crossref.org/", "access": "live public API"}],
+      "outputs": ["per-reference DOI resolution state", "title/author/year text-overlap comparison", "recorded post-publication updates", "candidate matches for DOI-less references", "downloadable hash-stamped Markdown and JSON audit record"],
+      "notChecked": ["citation appropriateness in context", "DataCite or mEDRA-registered DOIs", "page numbers", "publisher-site availability"],
+      "limitations": "Comparisons are text-overlap heuristics, not authoritative bibliographic verification. A DOI absent from Crossref is not evidence a work is illegitimate; it may be registered with a different agency.",
+      "decisionBoundary": "Does not certify a reference list as correct or complete; it reports registry evidence for manual verification.",
+      "userDataStorage": "Each reference's DOI or text goes directly from the browser to Crossref; Gurjas does not receive it."
+    },
+    {
       "id": "naac-readiness-scorecard",
       "name": "Institutional Evidence Readiness",
       "url": "/tools/naac-readiness-scorecard/",

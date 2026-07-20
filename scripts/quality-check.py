@@ -108,6 +108,7 @@ tool_routes = [
     "naac-readiness-scorecard",
     "phd-timeline-planner",
     "predatory-journal-checker",
+    "reference-integrity-checker",
     "research-readiness-triage",
     "reliability-validity-kit",
     "sem-sample-size-calculator",
@@ -172,6 +173,21 @@ for required in [
 ]:
     if required not in finder:
         errors.append(f"Journal Finder: missing journal-only evidence control: {required}")
+
+reference_checker = (ROOT / "tools/reference-integrity-checker/index.html").read_text(encoding="utf-8")
+for forbidden_phrase in ["not retracted", "verdict", "legitimacy score"]:
+    if forbidden_phrase.lower() in reference_checker.lower():
+        errors.append(f"Reference and DOI Integrity Checker: unsupported phrase remains: {forbidden_phrase}")
+for required in [
+    "Method version 1.0",
+    "does not certify a reference list as correct or complete",
+    "none is ever auto-selected",
+    "No post-publication updates recorded in Crossref",
+    "GurjasExport.download",
+    'id="export-refs"',
+]:
+    if required.lower() not in reference_checker.lower():
+        errors.append(f"Reference and DOI Integrity Checker: missing evidence control: {required}")
 
 journal_checker = (ROOT / "tools/predatory-journal-checker/index.html").read_text(encoding="utf-8")
 for forbidden_phrase in ["||true", "|| true", "Evidence signal score (0–100)", "Probability-style"]:
@@ -255,8 +271,8 @@ if "Metrics reviewed 15 July 2026" in publications_page:
 
 try:
     facts = json.loads((ROOT / "data/site-facts.json").read_text(encoding="utf-8"))
-    if facts.get("toolCount") != 9:
-        errors.append("site-facts.json: toolCount must be 9")
+    if facts.get("toolCount") != 10:
+        errors.append("site-facts.json: toolCount must be 10")
     if facts.get("predatoryCheckerSignals") != 13:
         errors.append("site-facts.json: predatoryCheckerSignals must match the 13-signal checker")
     metrics = facts.get("metrics", {})
@@ -367,8 +383,8 @@ try:
     contract_data = json.loads((ROOT / "data/tool-contracts.json").read_text(encoding="utf-8"))
     contracts = contract_data.get("tools", [])
     contract_ids = [contract.get("id") for contract in contracts]
-    if contract_data.get("schemaVersion") != "1.0" or len(contracts) != 9:
-        errors.append("tool-contracts.json: expected schema version 1.0 and exactly nine contracts")
+    if contract_data.get("schemaVersion") != "1.0" or len(contracts) != 10:
+        errors.append("tool-contracts.json: expected schema version 1.0 and exactly ten contracts")
     if set(contract_ids) != set(tool_routes) or len(contract_ids) != len(set(contract_ids)):
         errors.append("tool-contracts.json: contracts must map one-to-one to production tool routes")
     for contract in contracts:

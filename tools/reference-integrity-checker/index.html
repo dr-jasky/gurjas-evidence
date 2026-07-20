@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Non-essential analytics load only after explicit consent through script.js. -->
+<title>Reference &amp; DOI Integrity Checker | Crossref Registry Lookup | Gurjas</title>
+<meta name="description" content="Paste a reference list and check each DOI against the Crossref registry: title, author and year comparison, plus any recorded retraction or correction. A registry lookup, not a citation-appropriateness check.">
+<link rel="canonical" href="https://gurjas.org/tools/reference-integrity-checker/">
+<meta name="author" content="Gurjas Evidence and Policy Analytics">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#041226">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Gurjas Evidence and Policy Analytics">
+<meta property="og:title" content="Reference &amp; DOI Integrity Checker | Gurjas">
+<meta property="og:description" content="Check each reference's DOI against Crossref: title, author and year comparison, plus any recorded post-publication update.">
+<meta property="og:url" content="https://gurjas.org/tools/reference-integrity-checker/">
+<meta property="og:image" content="https://gurjas.org/assets/og-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Reference &amp; DOI Integrity Checker | Gurjas">
+<meta name="twitter:description" content="Check each reference's DOI against Crossref, with retraction and correction signals surfaced.">
+<meta name="twitter:image" content="https://gurjas.org/assets/og-preview.png">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<link rel="manifest" href="../../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap" media="print" onload="this.media=&#39;all&#39;">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap"></noscript>
+<link rel="preload" as="style" href="../../style.css?v=12">
+<link rel="stylesheet" href="../../style.css?v=12">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "support@gurjas.org", "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "Research Tools", "item": "https://gurjas.org/tools/"}, {"@type": "ListItem", "position": 3, "name": "Reference & DOI Integrity Checker", "item": "https://gurjas.org/tools/reference-integrity-checker/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Reference and DOI Integrity Checker","url":"https://gurjas.org/tools/reference-integrity-checker/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","softwareVersion":"1.0","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"Checks each reference's DOI against the Crossref registry, comparing title, first author and year, and surfacing any recorded retraction or correction. It does not certify a reference list as correct or complete."}</script>
+</head>
+<body class="tool-page">
+<canvas class="evidence-field" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap head-in">
+    <a class="brand" href="../../" aria-label="Gurjas Evidence and Policy Analytics — home">
+      <img src="../../assets/gurjas-mark.png" alt="" width="44" height="44">
+      <span class="brand-t">Gurjas<em>Evidence &amp; Policy Analytics</em></span>
+    </a>
+    <button class="nav-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" class="site-nav" aria-label="Primary">
+      <ul><li><a href="../../about/">About</a></li><li><a href="../../services/">Services</a></li><li class="has-sub"><button class="sub-btn" type="button" aria-expanded="false" aria-haspopup="true" aria-current="true">Our Work</button><ul class="subnav"><li><a href="../../methods/">Methods</a></li><li><a href="../../research/">Research</a></li><li><a href="../../publications/">Publications</a></li><li><a href="../../insights/">Insights</a></li></ul></li><li><a href="../../tools/" aria-current="page">Tools</a></li><li><a href="../../contact/" class="nav-cta">Contact</a></li></ul>
+      <div class="nav-trust">
+        <span class="nav-trust-h">Verified externally</span>
+        <a href="https://orcid.org/0000-0003-0337-7885" rel="noopener">ORCID ↗</a>
+        <a href="https://scholar.google.com/citations?user=d8Kd4ywAAAAJ" rel="noopener">Google Scholar ↗</a>
+        <a href="https://www.webofscience.com/wos/author/record/IQW-3142-2023" rel="noopener">Web of Science ↗</a>
+      </div>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Free Tool</span>
+    <h1>Reference &amp; DOI Integrity Checker</h1>
+    <p class="lede">Paste a reference list. For each DOI found, the tool checks Crossref's registry record — title, first author and year — against your reference text, and reports any recorded retraction or correction. This reads registry evidence for you to verify; it does not certify that your reference list is correct or complete.</p>
+  </div>
+</div>
+
+<section aria-labelledby="refcheck-title">
+  <div class="wrap" style="max-width:960px">
+    <h2 id="refcheck-title" class="sr-only">Reference list input</h2>
+    <div class="card" style="gap:1rem">
+      <h3 style="margin:0">Paste your reference list</h3>
+      <fieldset style="border:0;padding:0;margin:0">
+        <legend style="font-weight:600;font-size:.9rem;color:var(--navy);margin-bottom:.4rem">How are references separated?</legend>
+        <span style="display:flex;gap:1.2rem;flex-wrap:wrap;font-size:.9rem">
+          <label style="display:flex;gap:.4rem;align-items:center"><input type="radio" name="sep" value="line" checked> One reference per line</label>
+          <label style="display:flex;gap:.4rem;align-items:center"><input type="radio" name="sep" value="blank"> Blank line between references (references may wrap onto several lines)</label>
+        </span>
+      </fieldset>
+      <label for="refs" style="font-weight:600">Reference list</label>
+      <textarea id="refs" rows="10" placeholder="Paste up to 50 references, one per line (or separated by a blank line)…" aria-describedby="refs-privacy" style="width:100%;padding:.7rem;border:1px solid var(--line);border-radius:4px;font-size:.95rem;font-family:inherit;resize:vertical"></textarea>
+      <p id="refs-privacy" class="form-note" style="margin:0">Nothing is sent while you type. When you press <strong>Check references</strong>, each reference's extracted DOI or text is sent directly from your browser to Crossref for that one lookup; Gurjas does not receive or store it. Processing is sequential (about one reference every few hundred milliseconds) to stay within Crossref's shared public rate limits. The first 50 references are checked; anything beyond that is ignored and the count is shown.</p>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap;align-items:center">
+        <button id="go" class="btn btn-solid" style="border:none;cursor:pointer">Check references</button>
+        <span id="status" style="font-size:.9rem;color:var(--muted)" role="status" aria-live="polite"></span>
+      </div>
+    </div>
+
+    <div id="out" hidden>
+      <div class="card" style="margin-top:1.6rem;border-top-color:var(--gold)">
+        <h3 style="margin:0 0 .3rem">Registry check results</h3>
+        <p id="summary" style="margin:0 0 .3rem;font-size:.9rem;color:var(--muted)"></p>
+        <p id="retrieved" style="margin:0;font-size:.85rem;color:var(--muted)"></p>
+      </div>
+      <div id="rows" style="margin-top:1rem"></div>
+      <div class="card" style="margin-top:1.4rem">
+        <div class="cta-row">
+          <button id="export-refs" class="btn btn-ghost" type="button" style="cursor:pointer">Download audit record (.md + .json)</button>
+        </div>
+        <p id="export-status" role="status" aria-live="polite" style="margin:.6rem 0 0;color:var(--muted)"></p>
+      </div>
+      <p class="note" style="margin-top:1.4rem"><strong>How to read this.</strong> A "matches" comparison means the Crossref-recorded field was found in your reference text after normalising case and punctuation — it is a text-overlap check, not proof the citation is otherwise accurate. "Not comparable" means Crossref itself did not supply that field. Absence of a recorded update is reported as exactly that, not as proof nothing was ever corrected or retracted.</p>
+    </div>
+
+    <div class="prose" style="margin-top:2.6rem">
+      <h2>Method and limitations</h2>
+      <p><strong>Method version 1.0 · reviewed 20 July 2026.</strong> DOIs are extracted from your pasted text with a pattern match and looked up directly against the Crossref REST API (<code>api.crossref.org</code>). References without a recognisable DOI are searched by bibliographic text instead, and the top three Crossref results are shown as candidates to verify manually — none is ever auto-selected. Title, author and year comparisons are simple text-overlap heuristics, not authoritative bibliographic verification.</p>
+      <p class="note">Not checked: whether a citation is used appropriately in context, DataCite or mEDRA-registered DOIs (datasets, software and some preprints are frequently registered outside Crossref and may correctly show as not found here), page numbers, or whether the cited work is available on the publisher's site. A DOI absent from Crossref is not evidence the work is illegitimate — check the DOI directly at <a href="https://doi.org/" rel="noopener">doi.org</a> and, for non-Crossref registrars, at <a href="https://search.datacite.org/" rel="noopener">DataCite</a>.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <img src="../../assets/gurjas-mark.png" alt="" width="34" height="34" loading="lazy">
+      <p><strong>Gurjas Evidence and Policy Analytics</strong><br>Evidence-led decisions for institutions, policy and impact.</p>
+      <p class="foot-meta">Registered Micro Enterprise · UDYAM-PB-17-0132009<br>Patiala, Punjab, India · Serving India, Canada &amp; global clients (remote)</p>
+      <p class="foot-meta"><a href="tel:+919877295825" style="color:inherit">+91 98772 95825</a> · <a href="https://wa.me/919877295825" rel="noopener" style="color:inherit">WhatsApp</a> · <a href="mailto:support@gurjas.org" style="color:inherit">support@gurjas.org</a></p>
+    </div>
+    <nav aria-label="Footer — practice"><h2 class="foot-h">Practice</h2><ul>
+      <li><a href="../../about/">About</a></li><li><a href="../../services/">Services</a></li>
+      <li><a href="../../methods/">Methodology</a></li><li><a href="../../research/">Research</a></li>
+      <li><a href="../../publications/">Publications</a></li><li><a href="../../tools/">Research Tools</a></li></ul></nav>
+    <nav aria-label="Footer — organisation"><h2 class="foot-h">Organisation</h2><ul>
+      <li><a href="../../people/">People</a></li><li><a href="../../advisory/">Advisory Board</a></li>
+      <li><a href="../../resources/">Resource Centre</a></li><li><a href="../../contact/">Contact</a></li></ul></nav>
+    <nav aria-label="Footer — governance"><h2 class="foot-h">Governance</h2><ul>
+      <li><a href="../../governance/">Ethics &amp; Governance</a></li>
+      <li><a href="../../ethics-charter/">Ethics Charter</a></li>
+      <li><a href="../../faq/">FAQ</a></li>
+      <li><a href="../../privacy/">Privacy Policy</a></li><li><a href="../../terms/">Terms of Use</a></li></ul></nav>
+  </div>
+  <div class="wrap foot-base">
+    <p>© <span id="yr">2026</span> Gurjas Evidence and Policy Analytics. All rights reserved. Original content, research and tools; text and code may not be copied or reproduced without permission.</p>
+    <p>Our claims are built to be checked. Citations, review record and metrics link to independent third-party sources — <a href="https://orcid.org/0000-0003-0337-7885" rel="noopener">ORCID</a>, <a href="https://scholar.google.com/citations?user=d8Kd4ywAAAAJ" rel="noopener">Google Scholar</a> and <a href="https://www.webofscience.com/wos/author/record/IQW-3142-2023" rel="noopener">Web of Science</a> — that only the named author can hold.</p>
+  </div>
+</footer>
+<script src="../../assets/tool-export.js"></script>
+<script>
+(function(){
+"use strict";
+var MAILTO="&mailto=support@gurjas.org";
+var MAX_REFS=50;
+var GAP_MS=150;
+function esc(s){var d=document.createElement("span");d.textContent=s==null?"":String(s);return d.innerHTML;}
+function normalize(s){return String(s||"").toLowerCase().replace(/[^a-z0-9\s]/g," ").replace(/\s+/g," ").trim();}
+
+var refsEl=document.getElementById("refs"),goEl=document.getElementById("go"),statusEl=document.getElementById("status"),
+  outEl=document.getElementById("out"),rowsEl=document.getElementById("rows"),summaryEl=document.getElementById("summary"),
+  retrievedEl=document.getElementById("retrieved"),exportBtn=document.getElementById("export-refs"),exportStatus=document.getElementById("export-status");
+var lastResults=null;
+
+function splitReferences(raw,mode){
+  var parts=mode==="blank"
+    ? raw.split(/\n\s*\n+/).map(function(s){return s.replace(/\s+/g," ").trim();})
+    : raw.split(/\n+/).map(function(s){return s.trim();});
+  return parts.filter(Boolean);
+}
+
+function extractDoi(text){
+  var m=text.match(/10\.\d{4,9}\/[^\s"<>]+/);
+  if(!m)return null;
+  var doi=m[0];
+  while(doi.length&&/[.,;)\]]/.test(doi.charAt(doi.length-1)))doi=doi.slice(0,-1);
+  return doi;
+}
+
+function titleState(refText,crossrefTitle){
+  if(!crossrefTitle)return "not-comparable";
+  var words=normalize(crossrefTitle).split(" ").filter(function(w){return w.length>3;});
+  if(!words.length)return "not-comparable";
+  var normRef=normalize(refText);
+  var hits=words.filter(function(w){return normRef.indexOf(w)!==-1;}).length;
+  return (hits/words.length)>=0.6?"matches":"differs";
+}
+function authorState(refText,family){
+  if(!family)return "not-comparable";
+  var normFamily=normalize(family);
+  if(!normFamily)return "not-comparable";
+  return normalize(refText).indexOf(normFamily)!==-1?"matches":"differs";
+}
+function yearState(refText,year){
+  if(!year)return "not-comparable";
+  return refText.indexOf(String(year))!==-1?"matches":"differs";
+}
+function fieldLabel(state){
+  return state==="matches"?"Matches your text":state==="differs"?"Differs from your text":"Not comparable (Crossref did not supply this field)";
+}
+
+function delay(ms){return new Promise(function(resolve){setTimeout(resolve,ms);});}
+
+function crossrefWork(doi){
+  return fetch("https://api.crossref.org/works/"+doi+"?"+MAILTO.slice(1)).then(function(r){
+    if(r.status===404)return {state:"not-found"};
+    if(r.status===429)return {state:"rate-limited"};
+    if(!r.ok)return {state:"lookup-error"};
+    return r.json().then(function(d){
+      var msg=d&&d.message||{};
+      var title=(msg.title&&msg.title[0])||null;
+      var family=(msg.author&&msg.author[0]&&msg.author[0].family)||null;
+      var dp=(msg.published&&msg.published["date-parts"]&&msg.published["date-parts"][0])||
+        (msg.issued&&msg.issued["date-parts"]&&msg.issued["date-parts"][0])||
+        (msg["published-print"]&&msg["published-print"]["date-parts"]&&msg["published-print"]["date-parts"][0])||
+        (msg["published-online"]&&msg["published-online"]["date-parts"]&&msg["published-online"]["date-parts"][0])||null;
+      var year=dp&&dp[0]?dp[0]:null;
+      var updates=(msg["update-to"]||[]).map(function(u){
+        var ud=(u.updated&&u.updated["date-parts"]&&u.updated["date-parts"][0])||null;
+        return {
+          type:u.type||"update",
+          label:u.label||u.type||"Update",
+          doi:u.updated&&u.updated.DOI,
+          date:ud?ud.join("-"):null
+        };
+      });
+      return {state:"resolved",title:title,author:family,year:year,updates:updates,crossrefUrl:"https://search.crossref.org/?q="+encodeURIComponent(doi)};
+    });
+  }).catch(function(){return {state:"network-error"};});
+}
+
+function crossrefSearch(text){
+  var q=text.length>300?text.slice(0,300):text;
+  return fetch("https://api.crossref.org/works?query.bibliographic="+encodeURIComponent(q)+"&rows=3"+MAILTO).then(function(r){
+    if(r.status===429)return {state:"rate-limited",candidates:[]};
+    if(!r.ok)return {state:"lookup-error",candidates:[]};
+    return r.json().then(function(d){
+      var items=(d&&d.message&&d.message.items)||[];
+      var candidates=items.map(function(it){
+        var dp=(it.published&&it.published["date-parts"]&&it.published["date-parts"][0])||null;
+        return {
+          title:(it.title&&it.title[0])||"Untitled record",
+          author:(it.author&&it.author[0]&&it.author[0].family)||null,
+          year:dp&&dp[0]?dp[0]:null,
+          doi:it.DOI
+        };
+      });
+      return {state:"searched",candidates:candidates};
+    });
+  }).catch(function(){return {state:"network-error",candidates:[]};});
+}
+
+function nextAction(row){
+  if(row.doi){
+    if(row.lookup.state==="resolved"){
+      if(row.lookup.updates&&row.lookup.updates.length)return "A post-publication update is recorded. Open the update link and review it before citing this work.";
+      var anyDiffers=[row.titleState,row.authorState,row.yearState].indexOf("differs")!==-1;
+      return anyDiffers?"One or more recorded fields differ from your reference text. Verify against the publisher record before citing.":"No discrepancy was found between the recorded fields and your text. Read the source directly before relying on any field.";
+    }
+    if(row.lookup.state==="not-found")return "This DOI did not resolve in Crossref. Confirm it is typed correctly, or check DataCite if this is a dataset, software or preprint DOI registered outside Crossref.";
+    if(row.lookup.state==="rate-limited")return "Crossref rate-limited this request. Wait a moment and re-run the check.";
+    return "The lookup did not complete. Re-run the check; if this persists, verify this reference manually at doi.org.";
+  }
+  if(row.lookup.state==="searched"){
+    return row.lookup.candidates.length
+      ? "No DOI was found in this reference. Candidate matches are shown to inspect manually — none is auto-selected."
+      : "No DOI was found and no candidate matched this text. Verify this reference manually.";
+  }
+  if(row.lookup.state==="rate-limited")return "Crossref rate-limited this request. Wait a moment and re-run the check.";
+  return "The candidate search did not complete. Re-run the check; if this persists, verify this reference manually.";
+}
+
+function stateLabel(row){
+  if(row.doi){
+    return {"resolved":"Resolved in Crossref","not-found":"DOI not found in Crossref (404)","rate-limited":"Rate-limited — try again","network-error":"Network error — try again","lookup-error":"Unexpected response — try again"}[row.lookup.state]||row.lookup.state;
+  }
+  return {"searched":"No DOI found in text","rate-limited":"Rate-limited — try again","network-error":"Network error — try again","lookup-error":"Unexpected response — try again"}[row.lookup.state]||row.lookup.state;
+}
+
+function renderRow(row,index){
+  var accent=row.doi&&row.lookup.state==="resolved"&&row.lookup.updates&&row.lookup.updates.length?"#8a2e2e":"var(--gold)";
+  var html='<article class="card" style="margin-top:1rem;border-top-color:'+accent+'">'
+    +'<div style="display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:baseline">'
+    +'<span style="font-family:var(--mono);color:var(--gold-d);font-size:.85rem">Reference '+(index+1)+'</span>'
+    +'<span style="font-size:.82rem;font-weight:600">'+esc(stateLabel(row))+'</span>'
+    +'</div>'
+    +'<p style="margin:.5rem 0;font-size:.9rem;color:var(--muted)">'+esc(row.text.length>220?row.text.slice(0,220)+"…":row.text)+'</p>';
+  if(row.doi){
+    html+='<p style="margin:.2rem 0"><a href="https://doi.org/'+esc(row.doi)+'" rel="noopener" target="_blank">https://doi.org/'+esc(row.doi)+' ↗</a></p>';
+  }
+  if(row.doi&&row.lookup.state==="resolved"){
+    html+='<div class="grid g3" style="margin-top:.6rem;gap:.6rem">'
+      +'<div class="stat" style="padding:.7rem .8rem"><b style="font-size:.85rem">Title</b><span style="display:block;font-size:.82rem;color:var(--muted)">'+esc(fieldLabel(row.titleState))+'</span></div>'
+      +'<div class="stat" style="padding:.7rem .8rem"><b style="font-size:.85rem">First author</b><span style="display:block;font-size:.82rem;color:var(--muted)">'+esc(fieldLabel(row.authorState))+'</span></div>'
+      +'<div class="stat" style="padding:.7rem .8rem"><b style="font-size:.85rem">Year</b><span style="display:block;font-size:.82rem;color:var(--muted)">'+esc(fieldLabel(row.yearState))+'</span></div>'
+      +'</div>';
+    if(row.lookup.updates&&row.lookup.updates.length){
+      html+='<div class="note" style="margin-top:.7rem;border-color:#8a2e2e;background:#fbeeee">'
+        +'<strong>Post-publication updates recorded in Crossref:</strong><ul style="margin:.4rem 0 0;padding-left:1.2rem">'
+        +row.lookup.updates.map(function(u){
+          return '<li>'+esc(u.label)+(u.date?" · "+esc(u.date):"")+(u.doi?' · <a href="https://doi.org/'+esc(u.doi)+'" rel="noopener" target="_blank">view update ↗</a>':"")+'</li>';
+        }).join("")
+        +'</ul></div>';
+    } else {
+      html+='<p class="note" style="margin-top:.7rem">No post-publication updates recorded in Crossref for this DOI as of this check.</p>';
+    }
+  } else if(row.doi){
+    html+='<p class="note" style="margin-top:.6rem">'+esc(
+      row.lookup.state==="not-found"?"This DOI returned a 404 from Crossref — it is not registered there, or it belongs to another registration agency (for example DataCite for many datasets, software and some preprints).":
+      row.lookup.state==="rate-limited"?"Crossref returned a rate-limit response for this request.":
+      "The lookup for this DOI did not complete."
+    )+'</p>';
+  } else if(row.lookup.state==="searched"){
+    if(row.lookup.candidates.length){
+      html+='<p style="margin:.6rem 0 .3rem;font-size:.85rem;font-weight:600">Possible matches — verify manually, none selected automatically:</p><ul style="margin:0;padding-left:1.2rem;font-size:.88rem">'
+        +row.lookup.candidates.map(function(c){
+          return '<li>'+esc(c.title)+(c.author?" — "+esc(c.author):"")+(c.year?" ("+c.year+")":"")+(c.doi?' · <a href="https://doi.org/'+esc(c.doi)+'" rel="noopener" target="_blank">'+esc(c.doi)+' ↗</a>':"")+'</li>';
+        }).join("")+'</ul>';
+    } else {
+      html+='<p class="note" style="margin-top:.6rem">No DOI was found in this reference, and no candidate matched it in Crossref\'s bibliographic search.</p>';
+    }
+  } else {
+    html+='<p class="note" style="margin-top:.6rem">The candidate search for this reference did not complete.</p>';
+  }
+  html+='<p class="note" style="margin-top:.7rem"><strong>Next:</strong> '+esc(nextAction(row))+'</p>';
+  html+='</article>';
+  var wrapper=document.createElement("div");
+  wrapper.innerHTML=html;
+  rowsEl.appendChild(wrapper.firstChild);
+}
+
+function processOne(text){
+  var doi=extractDoi(text);
+  if(doi){
+    return crossrefWork(doi).then(function(lookup){
+      var row={text:text,doi:doi,lookup:lookup};
+      if(lookup.state==="resolved"){
+        row.titleState=titleState(text,lookup.title);
+        row.authorState=authorState(text,lookup.author);
+        row.yearState=yearState(text,lookup.year);
+      }
+      return row;
+    });
+  }
+  return crossrefSearch(text).then(function(lookup){
+    return {text:text,doi:null,lookup:lookup};
+  });
+}
+
+function processQueue(items,index,results){
+  if(index>=items.length)return Promise.resolve(results);
+  statusEl.textContent="Checking reference "+(index+1)+" of "+items.length+"…";
+  return processOne(items[index]).then(function(row){
+    results.push(row);
+    renderRow(row,index);
+    return delay(GAP_MS).then(function(){return processQueue(items,index+1,results);});
+  });
+}
+
+function run(){
+  var raw=(refsEl.value||"").trim();
+  if(!raw){statusEl.textContent="Paste at least one reference first.";refsEl.focus();return;}
+  var mode=(document.querySelector('input[name="sep"]:checked')||{}).value||"line";
+  var all=splitReferences(raw,mode);
+  if(!all.length){statusEl.textContent="No references were recognised in the pasted text.";return;}
+  var truncatedNote="";
+  var items=all;
+  if(all.length>MAX_REFS){
+    items=all.slice(0,MAX_REFS);
+    truncatedNote=" Only the first "+MAX_REFS+" of "+all.length+" pasted references were checked; the rest were ignored.";
+  }
+  goEl.disabled=true;rowsEl.innerHTML="";outEl.hidden=true;
+  processQueue(items,0,[]).then(function(results){
+    lastResults=results;
+    goEl.disabled=false;
+    statusEl.textContent="Done.";
+    var withDoi=results.filter(function(r){return r.doi;}).length;
+    var resolved=results.filter(function(r){return r.doi&&r.lookup.state==="resolved";}).length;
+    var updates=results.filter(function(r){return r.doi&&r.lookup.state==="resolved"&&r.lookup.updates&&r.lookup.updates.length;}).length;
+    summaryEl.textContent=results.length+" reference"+(results.length===1?"":"s")+" checked · "+withDoi+" had a recognisable DOI · "+resolved+" resolved in Crossref · "+updates+" with a recorded post-publication update."+truncatedNote;
+    retrievedEl.textContent="Checked live against Crossref on "+new Date().toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"})+". Re-run the check for a current view; registry records change continuously.";
+    outEl.hidden=false;
+    outEl.scrollIntoView({behavior:"smooth",block:"start"});
+  });
+}
+goEl.addEventListener("click",run);
+
+exportBtn.addEventListener("click",function(){
+  if(!lastResults){exportStatus.textContent="Run a check first.";return;}
+  if(!window.GurjasExport){exportStatus.textContent="The export module failed to load; copy results manually instead.";return;}
+  var inputs={separatorMode:(document.querySelector('input[name="sep"]:checked')||{}).value||"line",referenceCount:lastResults.length};
+  var results=lastResults.map(function(row,i){
+    return {
+      index:i+1,
+      referenceText:row.text,
+      doi:row.doi,
+      state:stateLabel(row),
+      titleComparison:row.doi&&row.lookup.state==="resolved"?fieldLabel(row.titleState):undefined,
+      authorComparison:row.doi&&row.lookup.state==="resolved"?fieldLabel(row.authorState):undefined,
+      yearComparison:row.doi&&row.lookup.state==="resolved"?fieldLabel(row.yearState):undefined,
+      updates:row.doi&&row.lookup.state==="resolved"?row.lookup.updates:undefined,
+      candidates:!row.doi&&row.lookup.candidates?row.lookup.candidates:undefined,
+      nextAction:nextAction(row)
+    };
+  });
+  window.GurjasExport.download({
+    toolId:"reference-integrity-checker",
+    toolName:"Reference and DOI Integrity Checker",
+    methodVersion:"1.0",
+    inputs:inputs,
+    results:{references:results},
+    limitations:["Title, author and year comparisons are text-overlap heuristics, not authoritative bibliographic verification.","Does not check citation appropriateness in context, DataCite/mEDRA-registered DOIs, page numbers or publisher-site availability.","A DOI absent from Crossref is not evidence the work is illegitimate."],
+    decisionBoundary:"Does not certify a reference list as correct or complete; it reports registry evidence for manual verification."
+  }).then(function(){exportStatus.textContent="Audit record downloaded (.md and .json).";},function(){exportStatus.textContent="The download could not be created in this browser.";});
+});
+
+var y=document.getElementById("yr");if(y)y.textContent=new Date().getFullYear();
+})();
+</script>
+<script src="../../script.js?v=11" defer></script>
+</body>
+</html>
