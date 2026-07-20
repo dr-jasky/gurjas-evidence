@@ -16,7 +16,8 @@
         {"label": "Methods", "path": "methods/", "section": "methods"},
         {"label": "Research", "path": "research/", "section": "research"},
         {"label": "Publications", "path": "publications/", "section": "publications"},
-        {"label": "Insights", "path": "insights/", "section": "insights"}
+        {"label": "Insights", "path": "insights/", "section": "insights"},
+        {"label": "Proof Ledger", "path": "evidence/", "section": "evidence"}
       ]
     },
     {"label": "Tools", "path": "tools/", "section": "tools"},
@@ -45,6 +46,7 @@
         {"label": "People", "path": "people/"},
         {"label": "Advisory Board", "path": "advisory/"},
         {"label": "Resource Centre", "path": "resources/"},
+        {"label": "Proof Ledger", "path": "evidence/"},
         {"label": "Contact", "path": "contact/"}
       ]
     },

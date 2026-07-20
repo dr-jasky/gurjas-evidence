@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "1.0",
+  "published": "2026-07-20",
+  "reviewCadence": "Quarterly for profile metrics; on release for repositories and tools",
+  "statusDefinitions": {
+    "external-public-record": "The cited record is publicly accessible on a third-party platform.",
+    "owner-supplied-snapshot": "The value was transcribed from an authenticated owner export and linked to the corresponding public profile where available.",
+    "site-register": "The value is counted from Gurjas's dated public register or production inventory; it is not an independent third-party attestation."
+  },
+  "entries": [
+    {
+      "id": "published-output",
+      "claim": "The public publications register lists 10 journal articles and 4 book chapters.",
+      "value": {"journalArticles": 10, "bookChapters": 4},
+      "factPaths": ["metrics.journalArticles", "metrics.bookChapters"],
+      "status": "site-register",
+      "sourceLabel": "Gurjas publications register",
+      "sourceUrl": "/publications/",
+      "verifiedAt": "2026-07-15",
+      "verificationMethod": "Counted from the dated publication lists; DOI links are supplied for journal articles where available.",
+      "limitations": "The aggregate count is maintained by Gurjas. Readers should use the item-level DOI and publisher links for independent checks."
+    },
+    {
+      "id": "google-scholar-profile",
+      "claim": "The Google Scholar profile snapshot records 204 citations, an h-index of 8 and an i10-index of 8.",
+      "value": {"citations": 204, "hIndex": 8, "i10Index": 8},
+      "factPaths": ["metrics.googleScholarCitations", "metrics.hIndex", "metrics.i10Index"],
+      "status": "owner-supplied-snapshot",
+      "sourceLabel": "Google Scholar author profile",
+      "sourceUrl": "https://scholar.google.com/citations?user=d8Kd4ywAAAAJ&hl=en",
+      "verifiedAt": "2026-07-15",
+      "verificationMethod": "Transcribed from an owner-supplied profile export and cross-linked to the public author profile.",
+      "limitations": "Citation profiles change continuously and Google Scholar controls its coverage and calculations. The dated snapshot, not a live API, is the source for the displayed values."
+    },
+    {
+      "id": "ssrn-profile",
+      "claim": "The SSRN snapshot records 14 public papers, 6,886 views, 1,300 downloads and an author rank in the top 3.2%.",
+      "value": {"publicPapers": 14, "views": 6886, "downloads": 1300, "topPercent": "3.2%"},
+      "factPaths": ["metrics.ssrnPublicPapers", "metrics.ssrnViews", "metrics.ssrnDownloads", "metrics.ssrnTopPercent"],
+      "status": "owner-supplied-snapshot",
+      "sourceLabel": "SSRN author page",
+      "sourceUrl": "https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=7349141",
+      "verifiedAt": "2026-07-15",
+      "verificationMethod": "Transcribed from an authenticated SSRN My Papers export; public papers were cross-linked to the author page.",
+      "limitations": "Views, downloads and rank change over time and may require authenticated access to reproduce exactly. The percentile is calculated from the recorded rank and population at the snapshot date."
+    },
+    {
+      "id": "peer-review-record",
+      "claim": "The Web of Science snapshot records 63 peer-review records covering 56 manuscripts.",
+      "value": {"reviewRecords": 63, "manuscripts": 56},
+      "factPaths": ["metrics.wosPeerReviewRecords", "metrics.wosManuscriptsReviewed"],
+      "status": "owner-supplied-snapshot",
+      "sourceLabel": "Web of Science researcher profile",
+      "sourceUrl": "https://www.webofscience.com/wos/author/record/IQW-3142-2023",
+      "verifiedAt": "2026-07-15",
+      "verificationMethod": "Transcribed from an owner-supplied Web of Science peer-review records export and linked to the author record.",
+      "limitations": "Review confidentiality prevents public item-level disclosure. Platform totals depend on journals and reviewers contributing or claiming records."
+    },
+    {
+      "id": "global-findex-repository",
+      "claim": "The public Global Findex replication deposit documents 101,528 adults across 97 economies for 2021–2024.",
+      "value": {"adults": 101528, "economies": 97, "panel": "2021–2024", "doi": "10.5281/zenodo.20932393"},
+      "factPaths": ["researchAssets.globalFindex.adults", "researchAssets.globalFindex.economies", "researchAssets.globalFindex.panel", "researchAssets.globalFindex.doi"],
+      "status": "external-public-record",
+      "sourceLabel": "Zenodo record 20932393",
+      "sourceUrl": "https://doi.org/10.5281/zenodo.20932393",
+      "verifiedAt": "2026-07-15",
+      "verificationMethod": "Checked against the DOI-resolved Zenodo record and its deposited documentation.",
+      "limitations": "The deposit documents a research dataset and pipeline; it does not independently validate every analytical decision or finding."
+    },
+    {
+      "id": "aucr-repository",
+      "claim": "The public AUCR deposit covers 36 jurisdictions, with 34 in the analytical sample, 4 pillars and 3 weighting schemes.",
+      "value": {"jurisdictions": 36, "analyticalSample": 34, "pillars": 4, "weightingSchemes": 3, "robustnessRange": "0.89–0.94", "doi": "10.5281/zenodo.20860992"},
+      "factPaths": ["researchAssets.aucrIndia.jurisdictions", "researchAssets.aucrIndia.analyticalSample", "researchAssets.aucrIndia.pillars", "researchAssets.aucrIndia.weightingSchemes", "researchAssets.aucrIndia.robustnessRange", "researchAssets.aucrIndia.doi"],
+      "status": "external-public-record",
+      "sourceLabel": "Zenodo record 20860992",
+      "sourceUrl": "https://doi.org/10.5281/zenodo.20860992",
+      "verifiedAt": "2026-07-15",
+      "verificationMethod": "Checked against the DOI-resolved Zenodo record and its deposited codebook and pipeline.",
+      "limitations": "The robustness range describes rank agreement across disclosed specifications; it is not a confidence interval or causal estimate."
+    },
+    {
+      "id": "public-tool-inventory",
+      "claim": "Eight research planning and evidence tools are publicly available without sign-up.",
+      "value": {"publicTools": 8},
+      "factPaths": ["toolCount"],
+      "status": "site-register",
+      "sourceLabel": "Gurjas tool-contract registry",
+      "sourceUrl": "/data/tool-contracts.json",
+      "verifiedAt": "2026-07-20",
+      "verificationMethod": "Matched the contract registry one-to-one against the eight production tool routes.",
+      "limitations": "Availability is a site inventory, not a claim of fitness for a particular research decision. Each tool has its own decision boundary and limitations."
+    }
+  ]
+}
