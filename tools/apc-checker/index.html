@@ -4,24 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Non-essential analytics load only after explicit consent through script.js. -->
-<title>Should I Pay This APC? Free Fee Checker | Gurjas</title>
-<meta name="description" content="Enter a journal name or ISSN to see its open-access status and any recorded article-processing charge (APC) from OpenAlex and DOAJ — and understand whether the fee is a normal cost or a warning sign.">
+<title>Recorded APC Lookup | OpenAlex Journal Fee Data | Gurjas</title>
+<meta name="description" content="Look up a journal's recorded article-processing charge and open-access fields in OpenAlex. The result is a data lookup, not payment or journal-legitimacy advice.">
 <link rel="canonical" href="https://gurjas.org/tools/apc-checker/">
 <meta name="author" content="Gurjas Evidence and Policy Analytics">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#041226">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Gurjas Evidence and Policy Analytics">
-<meta property="og:title" content="Should I Pay This APC? Free Fee Checker | Gurjas">
-<meta property="og:description" content="See a journal's open-access status and any recorded APC from OpenAlex and DOAJ — and understand whether the fee is a normal cost or a warning sign.">
+<meta property="og:title" content="Recorded APC Lookup | Gurjas">
+<meta property="og:description" content="Look up recorded journal APC and open-access fields in OpenAlex, with source and limitation disclosures.">
 <meta property="og:url" content="https://gurjas.org/tools/apc-checker/">
 <meta property="og:image" content="https://gurjas.org/assets/og-preview.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_IN">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Should I Pay This APC? Free Fee Checker | Gurjas">
-<meta name="twitter:description" content="See a journal's open-access status and any recorded APC — and whether the fee is normal or a warning sign.">
+<meta name="twitter:title" content="Recorded APC Lookup | Gurjas">
+<meta name="twitter:description" content="Look up recorded journal APC and open-access fields in OpenAlex, with source and limitation disclosures.">
 <meta name="twitter:image" content="https://gurjas.org/assets/og-preview.png">
 <link rel="icon" href="../../favicon.ico" sizes="32x32">
 <link rel="icon" href="../../assets/favicon.png" type="image/png">
@@ -34,8 +34,8 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap"></noscript>
 <link rel="preload" as="style" href="../../style.css?v=12">
 <link rel="stylesheet" href="../../style.css?v=12">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "support@gurjas.org", "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "Research Tools", "item": "https://gurjas.org/tools/"}, {"@type": "ListItem", "position": 3, "name": "Should I pay this APC?", "item": "https://gurjas.org/tools/apc-checker/"}]}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"APC Checker — Should I Pay This APC?","url":"https://gurjas.org/tools/apc-checker/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"A free tool that reports a journal's open-access status and recorded article-processing charge from OpenAlex and DOAJ, and explains whether a fee is a normal cost or a warning sign."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "support@gurjas.org", "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "Research Tools", "item": "https://gurjas.org/tools/"}, {"@type": "ListItem", "position": 3, "name": "Recorded APC Lookup", "item": "https://gurjas.org/tools/apc-checker/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Recorded APC Lookup","url":"https://gurjas.org/tools/apc-checker/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","softwareVersion":"1.1","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"A source-labelled lookup of article-processing charge and open-access fields recorded by OpenAlex. It does not determine whether an invoice or journal is legitimate."}</script>
 </head>
 <body class="tool-page">
 <canvas class="evidence-field" aria-hidden="true"></canvas>
@@ -62,8 +62,8 @@
 <div class="hero">
   <div class="wrap">
     <span class="eyebrow">Free Tool</span>
-    <h1>Should I pay this APC?</h1>
-    <p class="lede">Enter a journal name or ISSN. This tool reports its open-access status and any recorded article-processing charge from the open OpenAlex and DOAJ data — and, crucially, helps you read whether a fee is a normal cost of open access or a warning sign. A fee is not the problem; a fee without transparency is.</p>
+    <h1>Recorded APC Lookup</h1>
+    <p class="lede">Enter a journal name or ISSN to inspect article-processing-charge and open-access fields recorded in OpenAlex. This lookup cannot establish the current price, validate an invoice or determine whether a journal is legitimate.</p>
   </div>
 </div>
 
@@ -76,8 +76,9 @@
         <input id="jn" type="text" placeholder="Journal name or ISSN (e.g. 2041-1723)" style="flex:1;min-width:240px;padding:.7rem;border:1px solid var(--line);border-radius:4px;font-size:1rem">
         <button id="go" class="btn btn-solid" style="border:none;cursor:pointer">Check</button>
       </div>
-      <p class="form-note" style="margin:0">When you press <strong>Check</strong>, the journal name or ISSN is sent from your browser to OpenAlex and DOAJ. Gurjas does not receive or store the query.</p>
+      <p class="form-note" style="margin:0">When you press <strong>Check</strong>, the journal name or ISSN is sent from your browser to OpenAlex. Gurjas does not receive or store the query.</p>
       <p id="status" style="margin:0;font-size:.9rem;color:var(--muted)" role="status" aria-live="polite"></p>
+      <div id="matches"></div>
     </div>
 
     <div id="out" hidden>
@@ -85,17 +86,23 @@
         <h3 style="margin:0" id="nm">—</h3>
         <p id="meta" style="margin:.2rem 0 1rem;font-size:.92rem;color:var(--muted)"></p>
         <div class="grid g3">
-          <div class="stat"><b id="oa">—</b><span>Open-access / DOAJ status</span></div>
-          <div class="stat"><b id="apc">—</b><span>Recorded APC (open data)</span></div>
+          <div class="stat"><b id="oa">—</b><span>OpenAlex-recorded OA / DOAJ fields</span></div>
+          <div class="stat"><b id="apc">—</b><span>APC recorded by OpenAlex</span></div>
           <div class="stat"><b id="works">—</b><span>Works recorded</span></div>
         </div>
         <p id="verdict" style="margin:1.3rem 0 0;padding:1rem 1.2rem;border-radius:4px;background:var(--cream);border:1px solid var(--line)"></p>
         <div class="pub-links" style="margin-top:1rem;display:flex;gap:.8rem;flex-wrap:wrap">
           <a id="doajlink" href="https://doaj.org/" rel="noopener" target="_blank">Look up in DOAJ ↗</a>
-          <a href="../predatory-journal-checker/">Run the full legitimacy check →</a>
+          <a href="../predatory-journal-checker/">Open the Journal Evidence Checker →</a>
         </div>
       </div>
-      <p class="note" style="margin-top:1.4rem"><strong>How to read this.</strong> A published, transparent APC on a genuinely indexed, DOAJ-listed journal is a normal part of open-access publishing — not a scam. The real warning signs are a fee that appears only after acceptance, a fee quoted informally by email, or a charge on a journal with no genuine indexing or peer review. Fee data from OpenAlex and DOAJ can be incomplete or out of date, so always confirm the current charge on the journal's own site, and read our guide to <a href="../../insights/how-to-identify-a-predatory-journal/">identifying a predatory or cloned journal</a>.</p>
+      <p class="note" style="margin-top:1.4rem"><strong>How to read this.</strong> A fee record is neither an endorsement nor a warning by itself. Confirm the current amount, currency, waiver rules, payee and payment timing on the genuine journal website. OpenAlex fields can be incomplete, converted or out of date.</p>
+    </div>
+
+    <div class="prose" style="margin-top:2.6rem">
+      <h2>Method and limitations</h2>
+      <p><strong>Method version 1.1 · reviewed 20 July 2026.</strong> This page queries OpenAlex source records and reports selected fields without independently checking the journal website or an invoice. The “in DOAJ” label is an OpenAlex-recorded field; use the direct DOAJ link to verify it.</p>
+      <p class="note">Not checked: quoted invoice amount, journal domain, payee, bank details, acceptance state, waiver eligibility or the current publisher price. Do not make a payment decision from this lookup alone.</p>
     </div>
   </div>
 </section>
@@ -134,7 +141,7 @@ var MAILTO="&mailto=support@gurjas.org";
 function esc(s){var d=document.createElement("span");d.textContent=s==null?"":String(s);return d.innerHTML;}
 function isISSN(s){return /^\d{4}-?\d{3}[\dxX]$/.test(s.trim());}
 function fmtISSN(s){s=s.replace(/[^0-9xX]/g,"");return s.slice(0,4)+"-"+s.slice(4);}
-var jn=document.getElementById("jn"),go=document.getElementById("go"),statusEl=document.getElementById("status"),out=document.getElementById("out");
+var jn=document.getElementById("jn"),go=document.getElementById("go"),statusEl=document.getElementById("status"),matches=document.getElementById("matches"),out=document.getElementById("out");
 function fmtMoney(v,cur){cur=cur||"USD";try{return new Intl.NumberFormat("en",{style:"currency",currency:cur,maximumFractionDigits:0}).format(v);}catch(e){return cur+" "+v;}}
 function show(src){
   var name=src.display_name||"—";
@@ -142,39 +149,43 @@ function show(src){
   var doaj=!!src.is_in_doaj;
   var issnl=src.issn_l||(src.issn&&src.issn[0])||"";
   var works=src.works_count!=null?src.works_count.toLocaleString():"—";
-  var apcVal=null,apcCur="USD";
-  if(src.apc_usd!=null){apcVal=src.apc_usd;apcCur="USD";}
-  else if(src.apc_prices&&src.apc_prices.length){apcVal=src.apc_prices[0].price;apcCur=src.apc_prices[0].currency||"USD";}
+  var prices=(src.apc_prices||[]).filter(function(p){return p&&p.price!=null;});
+  var apcText="Not recorded";
+  if(prices.length){apcText=prices.map(function(p){return fmtMoney(p.price,p.currency||"USD");}).join(" · ");}
+  else if(src.apc_usd!=null){apcText=fmtMoney(src.apc_usd,"USD")+" (USD field)";}
   document.getElementById("nm").textContent=name;
-  document.getElementById("meta").textContent=(pub?pub:"")+(issnl?(pub?" · ":"")+"ISSN-L "+issnl:"");
-  document.getElementById("oa").textContent=doaj?"In DOAJ":(src.is_oa?"Open access":"Not in DOAJ");
-  document.getElementById("apc").textContent=apcVal!=null&&apcVal>0?fmtMoney(apcVal,apcCur):(apcVal===0?"None (free)":"Not recorded");
+  document.getElementById("meta").textContent=(pub?pub:"")+(issnl?(pub?" · ":"")+"ISSN-L "+issnl:"")+(src.updated_date?" · OpenAlex updated "+src.updated_date:"");
+  document.getElementById("oa").textContent=doaj?"Recorded in DOAJ":(src.is_oa?"Recorded open access":"No DOAJ flag");
+  document.getElementById("apc").textContent=apcText;
   document.getElementById("works").textContent=works;
   if(issnl)document.getElementById("doajlink").href="https://doaj.org/search/journals/"+encodeURIComponent(issnl);
-  var v;
-  if(apcVal!=null&&apcVal>0&&doaj){
-    v="<strong>Likely a normal open-access fee.</strong> This journal charges an APC and is listed in DOAJ, which vets journals against published criteria. A transparent APC on a DOAJ-listed, genuinely indexed journal is a standard cost of open-access publishing. Confirm the exact current fee on the journal's own site before paying.";
-  }else if(apcVal!=null&&apcVal>0&&!doaj){
-    v="<strong>Proceed with caution.</strong> This journal appears to charge a fee but is <em>not</em> listed in DOAJ. Charging an APC without DOAJ listing is not proof of anything on its own, but it is a common predatory signal — verify the journal's indexing and peer-review integrity carefully before you pay anything.";
-  }else if((apcVal===0)||(apcVal==null&&doaj)){
-    v="<strong>No fee recorded.</strong> The open data shows no APC"+(doaj?" and the journal is DOAJ-listed":"")+". Many legitimate journals are free to publish in (subscription-funded, or diamond open access). Still confirm on the journal's site — and remember that a fee revealed only <em>after</em> acceptance is a serious warning sign.";
-  }else{
-    v="<strong>No fee found in open data.</strong> This may be a subscription journal with no author charge, or the fee may simply be undisclosed in these sources. Check the journal's own website for its policy, and be wary of any charge that surfaces only after acceptance or is quoted informally by email.";
-  }
+  var v=prices.length||src.apc_usd!=null
+    ?"<strong>A fee field is present.</strong> Compare the recorded value with the current price on the genuine publisher website. Differences can reflect currency conversion, article type, tax, waiver rules or stale metadata."
+    :"<strong>No APC value is recorded.</strong> This means only that this OpenAlex source record supplied no usable APC value; it does not establish that publication is free.";
   document.getElementById("verdict").innerHTML=v;
   out.hidden=false;statusEl.textContent="";out.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
 function run(){
   var q=(jn.value||"").trim();
   if(!q){statusEl.textContent="Enter a journal name or ISSN.";return;}
-  statusEl.textContent="Checking OpenAlex and DOAJ…";go.disabled=true;out.hidden=true;
+  statusEl.textContent="Checking OpenAlex…";go.disabled=true;out.hidden=true;matches.innerHTML="";
   var url;
-  if(isISSN(q))url="https://api.openalex.org/sources/issn:"+fmtISSN(q)+"?"+MAILTO.slice(1);
-  else url="https://api.openalex.org/sources?search="+encodeURIComponent(q)+"&per-page=1"+MAILTO;
+  if(isISSN(q))url="https://api.openalex.org/sources?filter=issn:"+fmtISSN(q)+"&per-page=5"+MAILTO;
+  else url="https://api.openalex.org/sources?search="+encodeURIComponent(q)+"&per-page=5"+MAILTO;
   fetch(url).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
-    var src=d.results?(d.results[0]):d;
-    if(!src||!src.display_name){statusEl.textContent="No journal matched. Try the exact title or the ISSN.";go.disabled=false;return;}
-    show(src);go.disabled=false;
+    var found=(d.results||[]).filter(function(s){return s&&s.type==="journal";});
+    if(!found.length){statusEl.textContent="No journal-type source matched. Try the exact title or ISSN.";go.disabled=false;return;}
+    if(found.length===1){show(found[0]);go.disabled=false;return;}
+    statusEl.textContent="Select the journal you mean:";
+    found.forEach(function(src){
+      var b=document.createElement("button");
+      b.type="button";
+      b.style.cssText="display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:4px;padding:.7rem 1rem;margin:.35rem 0;cursor:pointer;font:inherit";
+      b.textContent=(src.display_name||"Unnamed source")+(src.host_organization_name?" · "+src.host_organization_name:"")+(src.issn_l?" · ISSN "+src.issn_l:"");
+      b.addEventListener("click",function(){matches.innerHTML="";show(src);go.disabled=false;});
+      matches.appendChild(b);
+    });
+    go.disabled=false;
   }).catch(function(){statusEl.textContent="Sorry — the lookup service is unavailable right now. Please try again shortly.";go.disabled=false;});
 }
 go.addEventListener("click",run);

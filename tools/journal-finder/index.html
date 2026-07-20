@@ -4,24 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Non-essential analytics load only after explicit consent through script.js. -->
-<title>Journal Finder by Scope — Free, Field-Aware | Gurjas</title>
-<meta name="description" content="Paste your abstract or keywords and see the journals that actually publish work like yours, ranked from the open OpenAlex database — then verify each one for free. No sign-up.">
+<title>Literature-neighbour Journal Shortlist — Beta | Gurjas</title>
+<meta name="description" content="Build a beta shortlist of journals connected to related literature in OpenAlex. Journal type and ISSN are verified before a source is displayed; every candidate still requires manual scope and indexing checks.">
 <link rel="canonical" href="https://gurjas.org/tools/journal-finder/">
 <meta name="author" content="Gurjas Evidence and Policy Analytics">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#041226">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Gurjas Evidence and Policy Analytics">
-<meta property="og:title" content="Journal Finder by Scope — Free, Field-Aware | Gurjas">
-<meta property="og:description" content="Paste your abstract or keywords and see the journals that actually publish work like yours, ranked from the open OpenAlex database — then verify each one for free.">
+<meta property="og:title" content="Literature-neighbour Journal Shortlist — Beta | Gurjas">
+<meta property="og:description" content="Build a beta shortlist of verified journal-type sources connected to related literature in OpenAlex.">
 <meta property="og:url" content="https://gurjas.org/tools/journal-finder/">
 <meta property="og:image" content="https://gurjas.org/assets/og-preview.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_IN">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Journal Finder by Scope — Free, Field-Aware | Gurjas">
-<meta name="twitter:description" content="Paste your abstract or keywords and see the journals that publish work like yours, from the open OpenAlex database.">
+<meta name="twitter:title" content="Literature-neighbour Journal Shortlist — Beta | Gurjas">
+<meta name="twitter:description" content="Build a beta shortlist of verified journal-type sources connected to related literature in OpenAlex.">
 <meta name="twitter:image" content="https://gurjas.org/assets/og-preview.png">
 <link rel="icon" href="../../favicon.ico" sizes="32x32">
 <link rel="icon" href="../../assets/favicon.png" type="image/png">
@@ -34,8 +34,8 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap"></noscript>
 <link rel="preload" as="style" href="../../style.css?v=12">
 <link rel="stylesheet" href="../../style.css?v=12">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "support@gurjas.org", "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "Research Tools", "item": "https://gurjas.org/tools/"}, {"@type": "ListItem", "position": 3, "name": "Journal Finder by Scope", "item": "https://gurjas.org/tools/journal-finder/"}]}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Journal Finder by Scope","url":"https://gurjas.org/tools/journal-finder/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"A free, field-aware journal finder: paste an abstract or keywords and see the journals that publish similar work, ranked live from the open OpenAlex database."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "support@gurjas.org", "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "Research Tools", "item": "https://gurjas.org/tools/"}, {"@type": "ListItem", "position": 3, "name": "Literature-neighbour Journal Shortlist", "item": "https://gurjas.org/tools/journal-finder/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Literature-neighbour Journal Shortlist","url":"https://gurjas.org/tools/journal-finder/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","softwareVersion":"0.2-beta","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"A beta discovery aid that identifies journal-type, ISSN-bearing OpenAlex sources connected to matching literature. It does not recommend or endorse submission venues."}</script>
 </head>
 <body class="tool-page">
 <canvas class="evidence-field" aria-hidden="true"></canvas>
@@ -61,9 +61,9 @@
 <main id="main">
 <div class="hero">
   <div class="wrap">
-    <span class="eyebrow">Free Tool</span>
-    <h1>Journal Finder by Scope</h1>
-    <p class="lede">Start with a paper title or 5–10 keywords. When you press Find journals, the query is sent to the open OpenAlex database and the results are ranked by matching published papers. Abstract mode is optional and requires an explicit acknowledgement before any abstract text is transmitted.</p>
+    <span class="eyebrow">Beta · Discovery Aid</span>
+    <h1>Literature-neighbour Journal Shortlist</h1>
+    <p class="lede">Start with a paper title or 5–10 keywords. The tool finds OpenAlex sources connected to matching literature, then keeps only records identified as journals with an ISSN. It creates a shortlist to investigate—not a submission recommendation.</p>
   </div>
 </div>
 
@@ -77,18 +77,24 @@
        <p id="query-privacy" class="form-note" style="margin:0">Nothing is sent while you type. When you press <strong>Find journals</strong>, this text is sent directly from your browser to OpenAlex for the lookup; Gurjas does not receive or store it.</p>
        <label style="display:flex;gap:.55rem;align-items:flex-start;font-size:.9rem;line-height:1.5"><input id="abstractConsent" type="checkbox" style="margin-top:.25rem"> <span>I am intentionally submitting an abstract (rather than a short title or keywords) and understand that up to 1,200 characters will be sent to OpenAlex.</span></label>
       <div style="display:flex;gap:.8rem;flex-wrap:wrap;align-items:center">
-        <button id="go" class="btn btn-solid" style="border:none;cursor:pointer">Find journals</button>
+        <button id="go" class="btn btn-solid" style="border:none;cursor:pointer">Build shortlist</button>
         <span id="status" style="font-size:.9rem;color:var(--muted)" role="status" aria-live="polite"></span>
       </div>
     </div>
 
     <div id="out" hidden>
       <div class="card" style="margin-top:1.6rem;border-top-color:var(--gold)">
-        <h3 style="margin:0 0 .3rem">Journals publishing work like yours</h3>
-        <p style="margin:0 0 1rem;font-size:.9rem;color:var(--muted)">Ranked by the number of matching papers in OpenAlex. This reflects where similar work <em>appears</em> — it is a shortlist to research, not an endorsement. Always confirm scope fit and indexing before you submit.</p>
+        <h3 style="margin:0 0 .3rem">Journal-type sources connected to the query</h3>
+        <p style="margin:0 0 1rem;font-size:.9rem;color:var(--muted)">Ranked by matching-work count in OpenAlex after source-type and ISSN checks. This ranking can favour large journals and is not a quality, acceptance-probability or scope-fit score.</p>
         <div id="rows" style="font-size:.96rem;line-height:1.7"></div>
       </div>
-      <p class="note" style="margin-top:1.4rem"><strong>Read this before you rely on the list.</strong> Results come live from the open OpenAlex database and reflect published output, which means very new or niche journals may be under-represented and a journal appearing here is not vouched for. Treat this as a starting shortlist: check each candidate's scope against your paper, and verify its legitimacy and indexing with our <a href="../predatory-journal-checker/">Predatory Journal Risk Checker</a> before submitting.</p>
+      <p class="note" style="margin-top:1.4rem"><strong>Read this before you rely on the list.</strong> OpenAlex coverage and source classification can be incomplete. New, niche and regional journals may be under-represented, while high-volume journals may rank highly. Read recent articles and the journal's official scope, then verify identity and current indexing with the <a href="../predatory-journal-checker/">Journal Evidence Checker</a> before submitting.</p>
+    </div>
+
+    <div class="prose" style="margin-top:2.6rem">
+      <h2>Method and limitations</h2>
+      <p><strong>Method version 0.2-beta · reviewed 20 July 2026.</strong> The tool groups matching OpenAlex works by primary source, retrieves metadata for the leading sources, and displays a source only when OpenAlex classifies it as a journal and supplies an ISSN. Matching-work count is a literature-neighbour signal only.</p>
+      <p class="note">The query is sent to OpenAlex only after you press the button. Gurjas does not receive it. A displayed source is not endorsed, and absence is not evidence that a journal is unsuitable.</p>
     </div>
   </div>
 </section>
@@ -136,17 +142,35 @@ function run(){
   fetch(url).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
     var g=(d&&d.group_by)||[];
     g=g.filter(function(x){return x.key&&x.key_display_name&&!/unknown/i.test(x.key)&&x.key_display_name.toLowerCase()!=="unknown";});
-    if(!g.length){statusEl.textContent="No journals matched. Try broader or different keywords.";goEl.disabled=false;return;}
-    var top=g.slice(0,15);
+    if(!g.length){statusEl.textContent="No sources matched. Try broader or different keywords.";goEl.disabled=false;return null;}
+    var candidates=g.slice(0,40);
+    var ids=candidates.map(function(x){return x.key.split("/").pop();}).filter(Boolean);
+    var sourceUrl="https://api.openalex.org/sources?filter=openalex:"+encodeURIComponent(ids.join("|"))+"&per-page=100"+MAILTO;
+    return fetch(sourceUrl).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(sourceData){
+      var byId={};
+      (sourceData.results||[]).forEach(function(s){byId[(s.id||"").split("/").pop()]=s;});
+      return candidates.map(function(x){
+        var id=x.key.split("/").pop();
+        return {group:x,source:byId[id]};
+      }).filter(function(x){
+        var s=x.source;
+        return s&&s.type==="journal"&&((s.issn&&s.issn.length)||s.issn_l);
+      }).slice(0,15);
+    });
+  }).then(function(top){
+    if(top===null)return;
+    if(!top.length){statusEl.textContent="OpenAlex returned related sources, but none passed the journal-type and ISSN checks. Try a more specific title or keywords.";goEl.disabled=false;outEl.hidden=true;return;}
     var html="";
-    top.forEach(function(x,i){
-      var sid=x.key.split("/").pop();
+    top.forEach(function(item,i){
+      var x=item.group,s=item.source;
+      var sid=(s.id||x.key).split("/").pop();
       var oaUrl="https://openalex.org/"+encodeURIComponent(sid);
       var chk="../predatory-journal-checker/";
+      var issn=s.issn_l||((s.issn||[])[0])||"";
       html+='<div style="display:flex;gap:.7rem;align-items:baseline;padding:.55rem 0;border-bottom:1px solid var(--line)">'
         +'<span style="font-family:var(--mono,monospace);color:var(--gold-d);min-width:1.7rem">'+(i+1)+'</span>'
-        +'<span style="flex:1"><b>'+esc(x.key_display_name)+'</b>'
-        +' <span style="color:var(--muted);font-size:.85rem">· '+x.count+' matching paper'+(x.count===1?"":"s")+'</span><br>'
+        +'<span style="flex:1"><b>'+esc(s.display_name||x.key_display_name)+'</b>'
+        +' <span style="color:var(--muted);font-size:.85rem">· journal · ISSN '+esc(issn)+' · '+x.count+' matching work'+(x.count===1?"":"s")+'</span><br>'
         +'<a href="'+oaUrl+'" rel="noopener" target="_blank" style="font-size:.85rem">View in OpenAlex ↗</a> '
         +'<span style="color:var(--line)">|</span> '
         +'<a href="'+chk+'" style="font-size:.85rem">Verify this journal →</a></span></div>';

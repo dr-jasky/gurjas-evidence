@@ -4,24 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Non-essential analytics load only after explicit consent through script.js. -->
-<title>SEM Sample Size Calculator | A-priori Power Analysis | Gurjas</title>
-<meta name="description" content="Free a-priori sample size calculator for structural equation modeling. Westland lower bound, Fisher-z power analysis and N:q heuristics, with a citation-ready paragraph.">
+<title>SEM Planning Bounds Explorer | Transparent Heuristics | Gurjas</title>
+<meta name="description" content="Compare three disclosed SEM planning approximations without treating them as a study-specific power analysis or universal minimum sample size.">
 <link rel="canonical" href="https://gurjas.org/tools/sem-sample-size-calculator/">
 <meta name="author" content="Gurjas Evidence and Policy Analytics">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#041226">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Gurjas Evidence and Policy Analytics">
-<meta property="og:title" content="SEM Sample Size Calculator | A-priori Power Analysis | Gurjas">
-<meta property="og:description" content="Free a-priori sample size calculator for structural equation modeling. Westland lower bound, Fisher-z power analysis and N:q heuristics, with a citation-ready paragraph.">
+<meta property="og:title" content="SEM Planning Bounds Explorer | Gurjas">
+<meta property="og:description" content="Compare three disclosed SEM planning approximations and their limitations.">
 <meta property="og:url" content="https://gurjas.org/tools/sem-sample-size-calculator/">
 <meta property="og:image" content="https://gurjas.org/assets/og-preview.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_IN">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SEM Sample Size Calculator | A-priori Power Analysis | Gurjas">
-<meta name="twitter:description" content="Free a-priori sample size calculator for structural equation modeling. Westland lower bound, Fisher-z power analysis and N:q heuristics, with a citation-ready paragraph.">
+<meta name="twitter:title" content="SEM Planning Bounds Explorer | Gurjas">
+<meta name="twitter:description" content="Compare three disclosed SEM planning approximations and their limitations.">
 <meta name="twitter:image" content="https://gurjas.org/assets/og-preview.png">
 <link rel="icon" href="../../favicon.ico" sizes="32x32">
 <link rel="icon" href="../../assets/favicon.png" type="image/png">
@@ -34,7 +34,7 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap"></noscript>
 <link rel="preload" as="style" href="../../style.css?v=12">
 <link rel="stylesheet" href="../../style.css?v=12">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "support@gurjas.org", "foundingDate": "2026-06-29", "founder": {"@type": "Person", "name": "Gurpreet Kaur"}, "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}, "identifier": {"@type": "PropertyValue", "propertyID": "Udyam Registration Number", "value": "UDYAM-PB-17-0132009"}, "description": "An independent, women-led research and policy analytics practice providing evidence synthesis, impact evaluation, policy analysis and institutional advisory.", "knowsAbout": ["Financial inclusion", "Digital public infrastructure", "Impact evaluation", "Policy analysis", "Urban poverty", "Research methodology"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "SEM Sample Size Calculator", "item": "https://gurjas.org/tools/sem-sample-size-calculator/"}]}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "support@gurjas.org", "foundingDate": "2026-06-29", "founder": {"@type": "Person", "name": "Gurpreet Kaur"}, "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}, "identifier": {"@type": "PropertyValue", "propertyID": "Udyam Registration Number", "value": "UDYAM-PB-17-0132009"}, "description": "An independent, women-led research and policy analytics practice providing evidence synthesis, impact evaluation, policy analysis and institutional advisory.", "knowsAbout": ["Financial inclusion", "Digital public infrastructure", "Impact evaluation", "Policy analysis", "Urban poverty", "Research methodology"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "SEM Planning Bounds Explorer", "item": "https://gurjas.org/tools/sem-sample-size-calculator/"}]}]}</script>
 </head>
 <body class="tool-page">
 <canvas class="evidence-field" aria-hidden="true"></canvas>
@@ -58,12 +58,12 @@
   </div>
 </header>
 <main id="main">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SEM Sample Size Calculator","url":"https://gurjas.org/tools/sem-sample-size-calculator/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"Free a-priori sample size calculator for structural equation modeling with citation-ready justification."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SEM Planning Bounds Explorer","url":"https://gurjas.org/tools/sem-sample-size-calculator/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","softwareVersion":"1.1","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"An educational comparison of three SEM planning approximations. It is not a study-specific power analysis and does not determine a universally sufficient sample size."}</script>
 <div class="hero">
   <div class="wrap">
     <span class="eyebrow">Free Tool</span>
-    <h1>SEM Sample Size Calculator</h1>
-    <p class="lede">A-priori minimum sample size for structural equation modeling — computed three ways, with a justification paragraph you can paste straight into a methods chapter, references included.</p>
+    <h1>SEM Planning Bounds Explorer</h1>
+    <p class="lede">Compare three published planning approximations and see exactly what each one assumes. These bounds are educational diagnostics—not a model-specific power analysis or a universally sufficient sample size.</p>
   </div>
 </div>
 
@@ -95,22 +95,22 @@
             <option value="0.01">0.01</option>
           </select></label>
       </div>
-      <button id="calc" class="btn btn-solid" style="border:none;cursor:pointer;align-self:start">Calculate minimum sample size</button>
+      <button id="calc" class="btn btn-solid" style="border:none;cursor:pointer;align-self:start">Explore planning bounds</button>
     </div>
 
     <div id="out" hidden>
       <div class="grid g3" style="margin-top:2rem">
-        <div class="stat"><b id="r1">—</b><span>Power-based minimum (Fisher-z, Cohen 1988)</span></div>
-        <div class="stat"><b id="r2">—</b><span>Model-structure lower bound (Westland 2010)</span></div>
-        <div class="stat"><b id="r3">—</b><span>N:q heuristic at 10:1 (Jackson 2003; Kline 2016)</span></div>
+        <div class="stat"><b id="r1">—</b><span>Correlation-detection approximation (Fisher-z)</span></div>
+        <div class="stat"><b id="r2">—</b><span>Westland model-structure expression</span></div>
+        <div class="stat"><b id="r3">—</b><span>10:1 N:q rule-of-thumb</span></div>
       </div>
       <div class="card" style="margin-top:2rem;border-top-color:var(--gold)">
-        <h3 style="margin:0">Recommended minimum: <span id="rec" style="color:var(--gold-d)">—</span></h3>
+        <h3 style="margin:0">Largest displayed bound: <span id="rec" style="color:var(--gold-d)">—</span></h3>
         <p id="recnote" style="margin:0"></p>
       </div>
-      <h2 style="margin:2.6rem 0 1rem">Citation-ready justification</h2>
+      <h2 style="margin:2.6rem 0 1rem">Planning record</h2>
       <div class="card"><p id="para" style="font-family:var(--serif);font-size:1rem;line-height:1.8;color:var(--ink)"></p></div>
-      <p style="margin-top:1rem"><button id="copy" class="btn btn-ghost" style="cursor:pointer">Copy paragraph + references</button> <span id="copied" style="font-size:.85rem;color:var(--gold-d)"></span></p>
+      <p style="margin-top:1rem"><button id="copy" class="btn btn-ghost" style="cursor:pointer">Copy planning record + references</button> <span id="copied" style="font-size:.85rem;color:var(--gold-d)"></span></p>
       <h3 style="margin:2rem 0 .6rem">References (APA 7)</h3>
       <ul id="refs" style="list-style:none;font-size:.92rem;line-height:1.8;color:var(--muted)">
         <li>Bentler, P. M., &amp; Chou, C.-P. (1987). Practical issues in structural modeling. <em>Sociological Methods &amp; Research, 16</em>(1), 78–117.</li>
@@ -123,8 +123,8 @@
 
     <div class="prose" style="margin-top:3rem">
       <h2>How the three estimates work</h2>
-      <p>The power-based minimum applies Cohen's (1988) framework through the Fisher-z transformation: the sample required to detect your anticipated effect size at the chosen power and significance level. Westland's (2010) lower bound reflects model structure — the ratio of observed indicators to latent variables — because complex measurement models need more information regardless of effect size. The N:q heuristic ties sample size to the approximate number of freely estimated parameters, following Jackson (2003) and Kline (2016); this calculator estimates q from your model dimensions. The recommended minimum is the largest of the three — the defensible choice under reviewer scrutiny.</p>
-      <p class="note">This tool provides established a-priori conventions for planning, not a substitute for study-specific power simulation (e.g., Monte Carlo) where model particulars demand it. Need the full measurement model reviewed? That is what we do — <a href="../../contact/">start a conversation</a>.</p>
+      <p>The Fisher-z result concerns detection of a single correlation under the entered effect, power and alpha; it is not a power analysis for the full SEM. The Westland expression uses the entered indicator-to-latent-variable ratio. The N:q result applies a 10:1 ratio to an approximate parameter count. The largest displayed value is shown for comparison only; taking the maximum does not validate any method for a particular model.</p>
+      <p class="note"><strong>Method version 1.1 · reviewed 20 July 2026.</strong> Not represented: estimator, degrees of freedom, target parameter or fit statistic, distribution, missingness, non-independence, convergence or model misspecification. Use a model-specific analytic or Monte Carlo design where these features matter; see the <a href="https://cran.r-project.org/package=semPower" rel="noopener">semPower package ↗</a>. Need the full measurement model reviewed? <a href="../../contact/">Start a conversation</a>.</p>
     </div>
   </div>
 </section>
@@ -150,10 +150,10 @@ document.getElementById("calc").addEventListener("click",function(){
   document.getElementById("r2").textContent="N ≥ "+n2;
   document.getElementById("r3").textContent="N ≥ "+n3;
   document.getElementById("rec").textContent="N = "+rec;
-  document.getElementById("recnote").textContent="The largest of the three estimates, for a model with "+k+" latent variables, "+j+" indicators (≈ "+q+" free parameters), effect size ρ = "+es.toFixed(2)+", power = "+pw.toFixed(2)+", α = "+al+". Bentler and Chou's (1987) 5:1 floor would be N = "+(q*5)+"; Kline's (2016) ideal 20:1 would be N = "+(q*20)+".";
-  var para="An a-priori power analysis was conducted to determine the minimum sample size for the hypothesised structural equation model comprising "+k+" latent variables measured by "+j+" observed indicators. Assuming an anticipated effect size of ρ = "+es.toFixed(2)+", statistical power of "+pw.toFixed(2)+" and α = "+al+", the power-based minimum following Cohen (1988) was N = "+n1+". Westland's (2010) lower-bound procedure, which accounts for model structure through the ratio of indicators to latent variables, indicated N = "+n2+", while the N:q heuristic of approximately ten cases per freely estimated parameter (Jackson, 2003; Kline, 2016) suggested N = "+n3+" for an estimated "+q+" free parameters. The most conservative of these estimates was therefore adopted, and a minimum sample of N = "+rec+" was targeted for the study.";
+  document.getElementById("recnote").textContent="For comparison only: "+k+" latent variables, "+j+" indicators (approximately "+q+" free parameters under this simplified count), entered effect ρ = "+es.toFixed(2)+", power = "+pw.toFixed(2)+", α = "+al+". Do not adopt the largest value automatically; select and justify a method that corresponds to the model and target test.";
+  var para="SEM planning-bounds record (method version 1.1). Inputs: "+k+" latent variables, "+j+" observed indicators, anticipated correlation ρ = "+es.toFixed(2)+", power = "+pw.toFixed(2)+", and α = "+al+". Displayed approximations: Fisher-z correlation-detection N = "+n1+"; Westland model-structure expression N = "+n2+"; 10:1 N:q rule-of-thumb N = "+n3+" using an approximate "+q+" free parameters. Largest displayed bound: N = "+rec+". These heterogeneous approximations are not a model-specific SEM power analysis and do not establish a universally sufficient sample size.";
   document.getElementById("para").textContent=para;
-  lastText=para+"\n\nReferences\nBentler, P. M., & Chou, C.-P. (1987). Practical issues in structural modeling. Sociological Methods & Research, 16(1), 78–117.\nCohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd ed.). Lawrence Erlbaum Associates.\nJackson, D. L. (2003). Revisiting sample size and number of parameter estimates: Some support for the N:q hypothesis. Structural Equation Modeling, 10(1), 128–141.\nKline, R. B. (2016). Principles and practice of structural equation modeling (4th ed.). Guilford Press.\nWestland, J. C. (2010). Lower bounds on sample size in structural equation modeling. Electronic Commerce Research and Applications, 9(6), 476–487.\n\nGenerated with the Gurjas SEM Sample Size Calculator, gurjas.org/tools/sem-sample-size-calculator/";
+  lastText=para+"\n\nReferences\nBentler, P. M., & Chou, C.-P. (1987). Practical issues in structural modeling. Sociological Methods & Research, 16(1), 78–117.\nCohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd ed.). Lawrence Erlbaum Associates.\nJackson, D. L. (2003). Revisiting sample size and number of parameter estimates: Some support for the N:q hypothesis. Structural Equation Modeling, 10(1), 128–141.\nKline, R. B. (2016). Principles and practice of structural equation modeling (4th ed.). Guilford Press.\nWestland, J. C. (2010). Lower bounds on sample size in structural equation modeling. Electronic Commerce Research and Applications, 9(6), 476–487.\n\nGenerated with the Gurjas SEM Planning Bounds Explorer, method version 1.1, gurjas.org/tools/sem-sample-size-calculator/";
   document.getElementById("out").hidden=false;
   document.getElementById("out").scrollIntoView({behavior:"smooth",block:"nearest"});
 });

@@ -4,24 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Non-essential analytics load only after explicit consent through script.js. -->
-<title>Reliability and Validity Kit | Cronbach's Alpha and AVE | Gurjas</title>
-<meta name="description" content="Free calculators for Cronbach's alpha, composite reliability and average variance extracted, with cited interpretation thresholds. Runs entirely in your browser.">
+<title>Reliability and Convergent Validity Calculator | Gurjas</title>
+<meta name="description" content="Calculate Cronbach's alpha, composite reliability and average variance extracted with explicit assumptions, data checks and non-universal reference markers. Runs in your browser.">
 <link rel="canonical" href="https://gurjas.org/tools/reliability-validity-kit/">
 <meta name="author" content="Gurjas Evidence and Policy Analytics">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#041226">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Gurjas Evidence and Policy Analytics">
-<meta property="og:title" content="Reliability and Validity Kit | Cronbach's Alpha and AVE | Gurjas">
-<meta property="og:description" content="Free calculators for Cronbach's alpha, composite reliability and average variance extracted, with cited interpretation thresholds. Runs entirely in your browser.">
+<meta property="og:title" content="Reliability and Convergent Validity Calculator | Gurjas">
+<meta property="og:description" content="Calculate alpha, composite reliability and AVE with explicit assumptions and data checks.">
 <meta property="og:url" content="https://gurjas.org/tools/reliability-validity-kit/">
 <meta property="og:image" content="https://gurjas.org/assets/og-preview.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_IN">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Reliability and Validity Kit | Cronbach's Alpha and AVE | Gurjas">
-<meta name="twitter:description" content="Free calculators for Cronbach's alpha, composite reliability and average variance extracted, with cited interpretation thresholds. Runs entirely in your browser.">
+<meta name="twitter:title" content="Reliability and Convergent Validity Calculator | Gurjas">
+<meta name="twitter:description" content="Calculate alpha, composite reliability and AVE with explicit assumptions and data checks.">
 <meta name="twitter:image" content="https://gurjas.org/assets/og-preview.png">
 <link rel="icon" href="../../favicon.ico" sizes="32x32">
 <link rel="icon" href="../../assets/favicon.png" type="image/png">
@@ -34,7 +34,7 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap"></noscript>
 <link rel="preload" as="style" href="../../style.css?v=12">
 <link rel="stylesheet" href="../../style.css?v=12">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "support@gurjas.org", "foundingDate": "2026-06-29", "founder": {"@type": "Person", "name": "Gurpreet Kaur"}, "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}, "identifier": {"@type": "PropertyValue", "propertyID": "Udyam Registration Number", "value": "UDYAM-PB-17-0132009"}, "description": "An independent, women-led research and policy analytics practice providing evidence synthesis, impact evaluation, policy analysis and institutional advisory.", "knowsAbout": ["Financial inclusion", "Digital public infrastructure", "Impact evaluation", "Policy analysis", "Urban poverty", "Research methodology"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "Reliability & Validity Kit", "item": "https://gurjas.org/tools/reliability-validity-kit/"}]}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "support@gurjas.org", "foundingDate": "2026-06-29", "founder": {"@type": "Person", "name": "Gurpreet Kaur"}, "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}, "identifier": {"@type": "PropertyValue", "propertyID": "Udyam Registration Number", "value": "UDYAM-PB-17-0132009"}, "description": "An independent, women-led research and policy analytics practice providing evidence synthesis, impact evaluation, policy analysis and institutional advisory.", "knowsAbout": ["Financial inclusion", "Digital public infrastructure", "Impact evaluation", "Policy analysis", "Urban poverty", "Research methodology"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "Reliability and Convergent Validity Calculator", "item": "https://gurjas.org/tools/reliability-validity-kit/"}]}]}</script>
 </head>
 <body class="tool-page">
 <canvas class="evidence-field" aria-hidden="true"></canvas>
@@ -58,12 +58,12 @@
   </div>
 </header>
 <main id="main">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Reliability & Validity Quick Kit","url":"https://gurjas.org/tools/reliability-validity-kit/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"Free Cronbach's alpha, composite reliability and AVE calculators with cited interpretation thresholds."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Reliability and Convergent Validity Calculator","url":"https://gurjas.org/tools/reliability-validity-kit/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","softwareVersion":"1.1","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"Browser-based Cronbach's alpha, composite reliability and average variance extracted calculations with explicit assumptions and limitations."}</script>
 <div class="hero">
   <div class="wrap">
     <span class="eyebrow">Free Tool</span>
-    <h1>Reliability &amp; Validity Quick Kit</h1>
-    <p class="lede">Composite reliability, AVE and Cronbach's alpha — computed in your browser, interpreted against the cited thresholds reviewers actually check.</p>
+    <h1>Reliability &amp; Convergent Validity Calculator</h1>
+    <p class="lede">Calculate composite reliability, AVE and Cronbach's alpha in your browser. Results are descriptive evidence under stated assumptions—not a universal pass/fail decision about an instrument.</p>
   </div>
 </div>
 
@@ -72,13 +72,13 @@
     <h2 id="measurement-calculators-title" class="sr-only">Reliability and validity calculators</h2>
     <div class="card" style="gap:1rem">
       <h3 style="margin:0">1 · Composite Reliability &amp; AVE from loadings</h3>
-      <p style="margin:0;font-size:.92rem;color:var(--muted)">Paste your standardised factor loadings for one construct, one per line (e.g. 0.78).</p>
+      <p style="margin:0;font-size:.92rem;color:var(--muted)">Paste positive, standardised factor loadings for one construct, one per line (e.g. 0.78). Reverse-code or align indicators before calculating; this simple form does not estimate a measurement model.</p>
       <textarea id="loads" rows="6" placeholder="0.81&#10;0.77&#10;0.69&#10;0.84" style="width:100%;padding:.7rem;border:1px solid var(--line);border-radius:4px;font-size:1rem;font-family:inherit"></textarea>
       <button id="crbtn" class="btn btn-solid" style="border:none;cursor:pointer;align-self:start">Compute CR &amp; AVE</button>
       <div id="crout" hidden>
         <div class="grid g3">
-          <div class="stat"><b id="crv">—</b><span>Composite reliability (CR) — threshold ≥ .70</span></div>
-          <div class="stat"><b id="avev">—</b><span>AVE — threshold ≥ .50 (Fornell &amp; Larcker, 1981)</span></div>
+          <div class="stat"><b id="crv">—</b><span>Composite reliability (CR) · .70 reference marker</span></div>
+          <div class="stat"><b id="avev">—</b><span>AVE · .50 reference marker</span></div>
           <div class="stat"><b id="crn">—</b><span>Indicators entered</span></div>
         </div>
         <p id="crverdict" class="note" style="margin-top:1.2rem"></p>
@@ -92,17 +92,18 @@
       <button id="albtn" class="btn btn-solid" style="border:none;cursor:pointer;align-self:start">Compute alpha</button>
       <div id="alout" hidden>
         <div class="grid g3">
-          <div class="stat"><b id="alv">—</b><span>Cronbach's alpha — ≥ .70 acceptable (Nunnally, 1978)</span></div>
+          <div class="stat"><b id="alv">—</b><span>Cronbach's alpha · descriptive estimate</span></div>
           <div class="stat"><b id="aln">—</b><span>Respondents × items</span></div>
-          <div class="stat"><b id="alverd">—</b><span>Interpretation</span></div>
+          <div class="stat"><b id="alverd">—</b><span>Reference-marker reading</span></div>
         </div>
+        <p id="alnote" class="note" style="margin-top:1.2rem"></p>
       </div>
     </div>
 
     <div class="prose" style="margin-top:2.6rem">
-      <h2>Thresholds and citations</h2>
-      <p>Composite reliability of .70 or higher indicates acceptable internal consistency for established scales (Hair, Black, Babin, &amp; Anderson, 2019). Average variance extracted of .50 or higher indicates adequate convergent validity; where AVE falls below .50 but CR exceeds .60, convergent validity may still be judged adequate (Fornell &amp; Larcker, 1981). Cronbach's alpha of .70 is the conventional floor for research instruments, with .80+ preferred for applied decisions (Nunnally, 1978). All computation happens in your browser — no data leaves this page.</p>
-      <p class="note">Full measurement-model assessment involves discriminant validity, model fit and invariance — <a href="../../contact/">that is what we do</a>.</p>
+      <h2>Method, reference markers and limits</h2>
+      <p><strong>Method version 1.1 · reviewed 20 July 2026.</strong> The displayed .70 CR/alpha and .50 AVE values are commonly used reference markers, not universal decision rules. Interpret them with the construct, item count, purpose, sample, uncertainty and model fit. Cronbach's alpha alone does not establish reliability; see McNeish (2018), <a href="https://doi.org/10.1037/met0000144" rel="noopener"><em>Thanks Coefficient Alpha, We'll Take It From Here</em> ↗</a>.</p>
+      <p class="note">Not calculated: confidence intervals, omega, ordinal alpha, item-total diagnostics, discriminant validity, HTMT, model fit or invariance. Raw responses remain in your browser. Declare missing-data handling and reverse-coded items before interpreting the result. Full measurement-model assessment requires more evidence — <a href="../../contact/">that is what we do</a>.</p>
     </div>
   </div>
 </section>
@@ -122,27 +123,32 @@ document.getElementById("crbtn").addEventListener("click",function(){
   document.getElementById("avev").textContent=ave.toFixed(3);
   document.getElementById("crn").textContent=L.length;
   var v=[];
-  v.push(cr>=0.7?"CR meets the .70 threshold (Hair et al., 2019)":"CR falls below .70 — consider indicator refinement");
-  v.push(ave>=0.5?"AVE meets the .50 threshold (Fornell & Larcker, 1981)":(cr>=0.6?"AVE below .50, but CR ≥ .60 — convergent validity may still be judged adequate (Fornell & Larcker, 1981)":"AVE below .50 — convergent validity is questionable"));
+  v.push(cr>=0.7?"CR is at or above the .70 reference marker":"CR is below the .70 reference marker");
+  v.push(ave>=0.5?"AVE is at or above the .50 reference marker":"AVE is below the .50 reference marker");
+  v.push("These markers do not establish an instrument-wide pass or fail");
   document.getElementById("crverdict").textContent=v.join(". ")+".";
   document.getElementById("crout").hidden=false;
 });
 document.getElementById("albtn").addEventListener("click",function(){
   var rows=document.getElementById("raw").value.split(/\n+/).map(function(r){return r.trim();}).filter(Boolean)
-    .map(function(r){return r.split(/[\s,;\t]+/).map(parseFloat).filter(function(x){return !isNaN(x);});});
+    .map(function(r){return r.split(/[\s,;\t]+/).map(function(x){return Number(x);});});
   if(rows.length<3){alert("Enter at least three respondents (rows).");return;}
   var k=rows[0].length;
   if(k<2||rows.some(function(r){return r.length!==k;})){alert("Each row must contain the same number of items (at least two).");return;}
+  if(rows.some(function(r){return r.some(function(x){return !Number.isFinite(x);});})){alert("Every cell must contain a number. Resolve missing or non-numeric values explicitly before calculating.");return;}
   var n=rows.length;
   function svar(a){var m=a.reduce(function(x,y){return x+y;},0)/a.length;return a.reduce(function(x,y){return x+(y-m)*(y-m);},0)/(a.length-1);}
-  var itemVar=0;
-  for(var i=0;i<k;i++){itemVar+=svar(rows.map(function(r){return r[i];}));}
+  var itemVar=0,itemVars=[];
+  for(var i=0;i<k;i++){var iv=svar(rows.map(function(r){return r[i];}));itemVars.push(iv);itemVar+=iv;}
+  if(itemVars.some(function(v){return !Number.isFinite(v)||v===0;})){alert("At least one item has zero or undefined variance. Remove or investigate constant items before calculating alpha.");return;}
   var totals=rows.map(function(r){return r.reduce(function(x,y){return x+y;},0);});
   var tv=svar(totals);
+  if(!Number.isFinite(tv)||tv===0){alert("Total-score variance is zero or undefined, so alpha cannot be calculated.");return;}
   var alpha=(k/(k-1))*(1-itemVar/tv);
   document.getElementById("alv").textContent=alpha.toFixed(3);
   document.getElementById("aln").textContent=n+" × "+k;
-  document.getElementById("alverd").textContent=alpha>=0.9?"Excellent":alpha>=0.8?"Good":alpha>=0.7?"Acceptable":alpha>=0.6?"Questionable":"Poor";
+  document.getElementById("alverd").textContent=alpha<0?"Negative — inspect coding":alpha>=0.7?"At/above .70":"Below .70";
+  document.getElementById("alnote").textContent=(n<30?"Small data warning: "+n+" rows provide an unstable descriptive estimate. ":"")+"Alpha assumes the items are scored in a common direction and does not by itself establish unidimensionality or reliability. Method version 1.1.";
   document.getElementById("alout").hidden=false;
 });
 })();

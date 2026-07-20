@@ -4,24 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Non-essential analytics load only after explicit consent through script.js. -->
-<title>Predatory Journal Risk Checker | Free Guided Verification | Gurjas</title>
-<meta name="description" content="Free predatory journal checker: six automated checks against OpenAlex, Crossref, DOAJ, the Scopus source list, the ABDC Journal Quality List and the Retraction Watch hijacked-journal register, plus a thirteen-signal red-flag assessment with shareable verdicts.">
+<title>Journal Evidence Checker | Identity and Registry Signals | Gurjas</title>
+<meta name="description" content="Inspect journal identity, registration, indexing snapshots and clone alerts across named sources, then document website warning signals. No composite legitimacy score or automatic verdict.">
 <link rel="canonical" href="https://gurjas.org/tools/predatory-journal-checker/">
 <meta name="author" content="Gurjas Evidence and Policy Analytics">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#041226">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Gurjas Evidence and Policy Analytics">
-<meta property="og:title" content="Predatory Journal Risk Checker | Free Guided Verification | Gurjas">
-<meta property="og:description" content="Free predatory journal checker: six automated checks against OpenAlex, Crossref, DOAJ, the Scopus source list, the ABDC Journal Quality List and the Retraction Watch hijacked-journal register, plus a thirteen-signal red-flag assessment with shareable verdicts.">
+<meta property="og:title" content="Journal Evidence Checker | Gurjas">
+<meta property="og:description" content="Inspect journal identity and registry signals across named sources without an unsupported composite legitimacy score.">
 <meta property="og:url" content="https://gurjas.org/tools/predatory-journal-checker/">
 <meta property="og:image" content="https://gurjas.org/assets/og-preview.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_IN">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Predatory Journal Risk Checker | Free Guided Verification | Gurjas">
-<meta name="twitter:description" content="Free predatory journal checker: six automated checks against OpenAlex, Crossref, DOAJ, the Scopus source list, the ABDC Journal Quality List and the Retraction Watch hijacked-journal register, plus a thirteen-signal red-flag assessment with shareable verdicts.">
+<meta name="twitter:title" content="Journal Evidence Checker | Gurjas">
+<meta name="twitter:description" content="Inspect journal identity and registry signals across named sources without an unsupported composite legitimacy score.">
 <meta name="twitter:image" content="https://gurjas.org/assets/og-preview.png">
 <link rel="icon" href="../../favicon.ico" sizes="32x32">
 <link rel="icon" href="../../assets/favicon.png" type="image/png">
@@ -34,7 +34,7 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap"></noscript>
 <link rel="preload" as="style" href="../../style.css?v=12">
 <link rel="stylesheet" href="../../style.css?v=12">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "support@gurjas.org", "foundingDate": "2026-06-29", "founder": {"@type": "Person", "name": "Gurpreet Kaur"}, "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}, "identifier": {"@type": "PropertyValue", "propertyID": "Udyam Registration Number", "value": "UDYAM-PB-17-0132009"}, "description": "An independent, women-led research and policy analytics practice providing evidence synthesis, impact evaluation, policy analysis and institutional advisory.", "knowsAbout": ["Financial inclusion", "Digital public infrastructure", "Impact evaluation", "Policy analysis", "Urban poverty", "Research methodology"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "Predatory Journal Checker", "item": "https://gurjas.org/tools/predatory-journal-checker/"}]}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "support@gurjas.org", "foundingDate": "2026-06-29", "founder": {"@type": "Person", "name": "Gurpreet Kaur"}, "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}, "identifier": {"@type": "PropertyValue", "propertyID": "Udyam Registration Number", "value": "UDYAM-PB-17-0132009"}, "description": "An independent, women-led research and policy analytics practice providing evidence synthesis, impact evaluation, policy analysis and institutional advisory.", "knowsAbout": ["Financial inclusion", "Digital public infrastructure", "Impact evaluation", "Policy analysis", "Urban poverty", "Research methodology"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "Journal Evidence Checker", "item": "https://gurjas.org/tools/predatory-journal-checker/"}]}]}</script>
 </head>
 <body class="tool-page">
 <canvas class="evidence-field" aria-hidden="true"></canvas>
@@ -58,12 +58,12 @@
   </div>
 </header>
 <main id="main">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Predatory Journal Risk Checker","url":"https://gurjas.org/tools/predatory-journal-checker/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"Live journal legitimacy check against OpenAlex, Crossref, DOAJ, the Scopus source list, the ABDC Journal Quality List and the Retraction Watch hijacked-journal register, with a probability-style score, indexing panel and a thirteen-signal red-flag assessment."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Journal Evidence Checker","url":"https://gurjas.org/tools/predatory-journal-checker/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","softwareVersion":"2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"A source-labelled journal identity and registry evidence dossier using OpenAlex, Crossref, DOAJ and dated local snapshots. It does not calculate a legitimacy probability or render a verdict."}</script>
 <div class="hero">
   <div class="wrap">
     <span class="eyebrow">Free Tool</span>
-    <h1>Predatory Journal Risk Checker</h1>
-    <p class="lede">Type a journal name or ISSN. The checker runs six automated checks — OpenAlex, Crossref, DOAJ, the Scopus source list, the ABDC Journal Quality List and the Retraction Watch hijacked-journal register — and returns an evidence score, an indexing panel and the checks that remain yours to make.</p>
+    <h1>Journal Evidence Checker</h1>
+    <p class="lede">Type a journal name or ISSN. The checker assembles identity, registration, indexing-snapshot and clone-alert signals from six named sources, then shows what remains unverified. It does not calculate a legitimacy probability or issue an automatic verdict.</p>
   </div>
 </div>
 
@@ -86,9 +86,9 @@
         <h3 style="margin:0" id="pj-name">—</h3>
         <p id="pj-meta" style="margin:.2rem 0 0;font-size:.92rem;color:var(--muted)"></p>
         <div class="grid g3" style="margin-top:1.2rem">
-          <div class="stat"><b id="score">—</b><span>Evidence signal score (0–100) — a transparent heuristic, not a probability or verdict</span></div>
-          <div class="stat"><b id="scorelabel">—</b><span id="scorenote">Reading</span></div>
-          <div class="stat"><b id="agec">—</b><span>Publication history found</span></div>
+          <div class="stat"><b id="score">—</b><span>OpenAlex identity match</span></div>
+          <div class="stat"><b id="scorelabel">—</b><span id="scorenote">Evidence coverage</span></div>
+          <div class="stat"><b id="agec">—</b><span>OpenAlex publication footprint</span></div>
         </div>
         <h3 style="margin:1.6rem 0 .6rem;font-size:1.05rem">Indexing &amp; registration evidence</h3>
         <div id="idx" style="font-size:.95rem;line-height:2"></div>
@@ -99,7 +99,7 @@
           <a href="https://retractionwatch.com/the-retraction-watch-hijacked-journal-checker/" rel="noopener" target="_blank">Hijacked Journal Checker ↗</a>
         </div>
         <p class="note" style="margin-top:1rem"><strong>On UGC-CARE:</strong> UGC discontinued the CARE journal list with effect from 11 February 2025 and replaced it with Suggestive Parameters (Public Notice, 16 July 2025). There is no current "UGC-CARE approved" status for any journal — a journal advertising one is misrepresenting itself; see Step 2, signal 13.</p>
-        <p class="note" style="margin-top:1.4rem"><strong>Read this before relying on the score.</strong> The evidence signal score is a transparent, hand-weighted heuristic computed from public database signals at the moment of search. It can be wrong: legitimate new journals score low for lack of history; hijacked websites impersonate journals whose genuine records score high; database coverage varies by field. It is evidence to weigh, never a verdict — confirm indexing at the linked sources on the day you submit.</p>
+        <p class="note" style="margin-top:1.4rem"><strong>Read this before relying on the dossier.</strong> Database coverage varies by field and date. A missing record is not proof of misconduct, while a genuine journal record does not prove that the website or invoice in front of you is genuine. Reconcile the title, ISSN, publisher and domain, then confirm current indexing at the official source on the day you submit.</p>
         <p class="note" style="margin-top:1.4rem"><strong>About the reference data.</strong> The offline indexes used here — the Scopus source list (July 2026 edition), the ABDC Journal Quality List and the Retraction Watch hijacked-journal register — are compiled from those publicly available sources and refreshed periodically. Although the data is prepared with care, a compiled snapshot can contain errors or omissions and may lag the official source between updates. Treat these signals as indicative only, and confirm the current status directly at the official source (linked above) on the day you submit.</p>
         <p id="idx-footer" style="margin-top:1rem;font-size:.8rem;color:var(--muted)"></p>
       </div>
@@ -109,17 +109,23 @@
       <h3 style="margin:0 0 .5rem">Step 2 · Thirteen red-flag signals (from the journal's website)</h3>
       <p style="margin:0 0 .8rem;font-size:.92rem;color:var(--muted)">The databases cannot see spam emails or fake editorial boards — you can. Your answers stay in your browser.</p>
       <div id="qs"></div>
-      <button id="verdictbtn" class="btn btn-solid" style="border:none;cursor:pointer;align-self:start;margin-top:.8rem">Get combined verdict</button>
+      <button id="verdictbtn" class="btn btn-solid" style="border:none;cursor:pointer;align-self:start;margin-top:.8rem">Summarise website signals</button>
     </div>
 
     <div id="vout" hidden>
       <div class="card" style="margin-top:2rem;border-top-color:var(--gold)">
-        <h3 style="margin:0">Combined verdict: <span id="vlabel" style="color:var(--gold-d)">—</span></h3>
+        <h3 style="margin:0">Website-signal summary: <span id="vlabel" style="color:var(--gold-d)">—</span></h3>
         <p id="vtext" style="margin:.4rem 0 0"></p>
         <p id="vconf" style="margin:.4rem 0 0;font-size:.88rem;color:var(--muted)"></p>
       </div>
       <p style="margin-top:1rem"><button id="share" class="btn btn-ghost" style="cursor:pointer">Copy shareable link</button> <span id="shared" style="font-size:.85rem;color:var(--gold-d)"></span></p>
-      <p class="note">This tool reports verifiable signals and a documented heuristic evidence score; it maintains no blacklist and renders no judgement on any named journal. Unsure about a specific journal for a specific manuscript? <a href="../../contact/">Journal strategy is part of what we do</a>.</p>
+      <p class="note">This tool reports source-labelled evidence and your own checklist responses; it maintains no blacklist and renders no judgement on any named journal. Unsure about a specific journal for a specific manuscript? <a href="../../contact/">Journal strategy is part of what we do</a>.</p>
+    </div>
+
+    <div class="prose" style="margin-top:2.6rem">
+      <h2>Method and limitations</h2>
+      <p><strong>Method version 2.0 · reviewed 20 July 2026.</strong> Automated rows report whether a matching record was found in each named source. No weighted score is calculated because citation volume, journal age, publisher size and database coverage are not interchangeable measures of legitimacy.</p>
+      <p class="note">Not checked automatically: the website domain currently in your browser, editorial-board identities, peer-review conduct, invoice payee, Web of Science status or whether an email genuinely originated from the publisher. Local Scopus, ABDC and hijacked-journal files are dated snapshots; verify current status at the official source.</p>
     </div>
   </div>
 </section>
@@ -128,7 +134,7 @@
 (function(){
 "use strict";
 var MAILTO="&mailto=support@gurjas.org";
-var dbScore=null;
+var databaseCheckRun=false;
 function esc(s){var d=document.createElement("span");d.textContent=s==null?"":String(s);return d.innerHTML;}
 function isISSN(s){return /^\d{4}-?\d{3}[\dxX]$/.test(s.trim());}
 function fmtISSN(s){s=s.replace("-","");return s.slice(0,4)+"-"+s.slice(4);}
@@ -224,12 +230,14 @@ function search(){
   document.getElementById("status").textContent="Searching OpenAlex…";
   document.getElementById("matches").innerHTML="";
   document.getElementById("panel").hidden=true;
+  var oldAlert=document.getElementById("hijacked-alert");
+  if(oldAlert)oldAlert.remove();
   var url=isISSN(q)
     ? "https://api.openalex.org/sources?filter=issn:"+fmtISSN(q)+"&per-page=5"+MAILTO
     : "https://api.openalex.org/sources?search="+encodeURIComponent(q)+"&per-page=5"+MAILTO;
   J(url).then(function(d){
-    var rs=(d.results||[]).filter(function(s){return s.type==="journal"||s.type==="conference"||true;});
-    if(!rs.length){document.getElementById("status").textContent="No match found in OpenAlex. A journal absent from all major databases is itself a strong caution — use Step 2 and the manual links below.";document.getElementById("panel").hidden=false;renderEmpty();return;}
+    var rs=(d.results||[]).filter(function(s){return s.type==="journal";});
+    if(!rs.length){document.getElementById("status").textContent="No journal-type match was found in OpenAlex. Absence may reflect coverage or naming differences; continue with the other evidence checks.";document.getElementById("panel").hidden=false;renderEmpty();return;}
     document.getElementById("status").textContent="Select the journal you mean:";
     var m=document.getElementById("matches");
     rs.forEach(function(s){
@@ -245,13 +253,13 @@ function search(){
 }
 
 function renderEmpty(){
-  dbScore=8;
+  databaseCheckRun=true;
   var q=document.getElementById("jn").value.trim();
   document.getElementById("pj-name").textContent=q;
   document.getElementById("pj-meta").textContent="Not found in OpenAlex";
-  document.getElementById("score").textContent="≈ 8 / 100";
-  document.getElementById("scorelabel").textContent="Insufficient evidence";
-  document.getElementById("scorenote").textContent="Treat with high caution until verified";
+  document.getElementById("score").textContent="Not found";
+  document.getElementById("scorelabel").textContent="Incomplete";
+  document.getElementById("scorenote").textContent="Continue with ISSN and official-source checks";
   document.getElementById("agec").textContent="—";
   var baseRows=row(false,"OpenAlex record")+row(null,"Crossref registration","not checked — no ISSN found")+row(null,"DOAJ listing","not checked — no ISSN found");
   document.getElementById("idx").innerHTML=baseRows+row(null,"Local indexes","checking…");
@@ -260,7 +268,7 @@ function renderEmpty(){
     applyLocalIndexResults(baseRows,res);
   });
 }
-// Renders local-index rows (Scopus/ABDC/hijacked) and applies the hijacked critical override.
+// Renders local-index rows and distinguishes a known clone alert from the genuine journal identity.
 function applyLocalIndexResults(baseRowsHtml,res){
   var sc=scopusLabel(res.scopus);
   var abdcOk=res.abdc?true:null;
@@ -270,12 +278,11 @@ function applyLocalIndexResults(baseRowsHtml,res){
   var extraRows=row(sc.ok,"Scopus source list",sc.text)+row(abdcOk,"ABDC Journal Quality List",abdcText)+row(hijOk,"Hijacked-journal register",hijText);
   document.getElementById("idx").innerHTML=baseRowsHtml+extraRows;
   if(res.hijacked){
-    dbScore=Math.min(dbScore===null?15:dbScore,15);
-    document.getElementById("score").textContent="≈ "+dbScore+" / 100";
-    document.getElementById("scorelabel").textContent="High risk — hijacked-journal alert";
-    document.getElementById("scorenote").textContent="This ISSN has a known hijacked clone — compare URLs below before doing anything else";
+    document.getElementById("scorelabel").textContent="Clone alert found";
+    document.getElementById("scorenote").textContent="Compare the genuine and suspicious domains; the alert does not condemn the genuine journal";
     var rec=res.hijacked;
     var banner=document.createElement("div");
+    banner.id="hijacked-alert";
     banner.style.cssText="margin:1rem 0;padding:1rem;border:2px solid #993c1d;border-radius:6px;background:#fdf2ee";
     banner.innerHTML="<strong style='color:#993c1d'>🔴 Hijacked-journal match.</strong> "+
       "The Retraction Watch register lists a hijacked clone under this ISSN.<br>"+
@@ -298,6 +305,7 @@ function pick(s){
 }
 
 function render(s,cr,dj){
+  databaseCheckRun=true;
   var st=(s.summary_stats||{});
   var works=s.works_count||0, cited=s.cited_by_count||0;
   var h=st.h_index||0, mc=st["2yr_mean_citedness"]||0;
@@ -306,36 +314,19 @@ function render(s,cr,dj){
   if(s.is_in_doaj) inDoaj=true;
   var crOk=false,doiCount=0,crPub="";
   try{ if(cr&&cr.message){crOk=true;doiCount=(cr.message.counts&&cr.message.counts["total-dois"])||0;crPub=cr.message.publisher||"";} }catch(e){}
-  var majors=["elsevier","springer","wiley","taylor","sage","oxford","cambridge","emerald","ieee","nature","informa","acm","de gruyter","brill","routledge"];
-  var pub=(s.host_organization_name||crPub||"").toLowerCase();
-  var major=majors.some(function(m){return pub.indexOf(m)>=0;});
-  var score=0;
-  score+= inDoaj?25:0;
-  score+= crOk?(doiCount>500?12:8):0;
-  score+= works>100?12:(works>20?6:0);
-  score+= h>=30?14:(h>=10?9:(h>=3?4:0));
-  score+= mc>=1.5?16:(mc>=0.5?10:(mc>0?4:0));
-  score+= major?12:0;
-  score+= cited>5000?9:(cited>500?5:0);
-  score=Math.min(score,95);
-  dbScore=score;
-  var label,note;
-  if(score>=70){label="Strong evidence";note="Consistent with an established, cited, registered journal";}
-  else if(score>=40){label="Mixed evidence";note="Verify indexing manually before submitting";}
-  else{label="Weak evidence";note="High caution — complete every manual check";}
   document.getElementById("pj-name").textContent=s.display_name||"";
   document.getElementById("pj-meta").textContent=(s.host_organization_name||crPub||"Publisher unknown")+(s.issn_l?" · ISSN "+s.issn_l:"")+(s.is_oa?" · Open access":"");
-  document.getElementById("score").textContent="≈ "+score+" / 100";
-  document.getElementById("scorelabel").textContent=label;
-  document.getElementById("scorenote").textContent=note;
+  document.getElementById("score").textContent="Matched";
+  document.getElementById("scorelabel").textContent=(crOk?"Crossref found":"Crossref absent")+" · "+(inDoaj?"DOAJ found":"DOAJ absent");
+  document.getElementById("scorenote").textContent="Read each row; absence can be neutral or coverage-related";
   document.getElementById("agec").textContent=works.toLocaleString()+" works · "+cited.toLocaleString()+" citations";
   var apc="";
   try{ if(doajRec&&doajRec.apc){apc=doajRec.apc.has_apc?"APC declared":"No APC";} }catch(e){}
   var baseRows=
     row(true,"OpenAlex record","h-index "+h+" · 2-yr mean citedness "+(Math.round(mc*100)/100))+
     row(crOk,"Crossref DOI registration",crOk?doiCount.toLocaleString()+" DOIs registered":"no registration found for this ISSN")+
-    row(inDoaj,"DOAJ listing",inDoaj?("vetted open-access directory"+(apc?" · "+apc:"")):"not listed (normal for subscription journals)")+
-    row(major?true:null,"Major publisher name match",major?"":"no match — many legitimate journals have independent publishers");
+    row(inDoaj,"DOAJ listing",inDoaj?("open-access directory record"+(apc?" · "+apc:"")):"not listed (normal for many subscription journals)")+
+    row(s.host_organization_name?true:null,"Publisher field",s.host_organization_name||crPub||"not supplied in the matched records");
   document.getElementById("idx").innerHTML=baseRows+row(null,"Local indexes (Scopus / ABDC / hijacked-journal register)","checking…");
   document.getElementById("status").textContent="";
   document.getElementById("panel").hidden=false;
@@ -385,14 +376,14 @@ document.getElementById("verdictbtn").addEventListener("click",function(){
     if(!good&&v==="no")protect++;
   });
   var label,text;
-  var db=dbScore===null?"no database check run":"database evidence score "+dbScore+"/100";
-  if(risk>=5||(dbScore!==null&&dbScore<25&&risk>=2)){label="High risk";text="Serious red flags"+(dbScore!==null&&dbScore<40?" combined with weak database evidence":"")+". Do not submit before independent verification.";}
-  else if(risk>=2||(dbScore!==null&&dbScore<40)){label="Moderate risk — verify further";text="Warning signals present. Confirm Scopus/WoS/UGC-CARE indexing at the links above and scrutinise recent issues before submitting.";}
-  else if(protect>=4&&dbScore!==null&&dbScore>=70){label="Lower risk on available evidence";text="Database evidence and your verified signals are consistent with a legitimate journal. Indexing confirmed at source remains the decisive test.";}
-  else{label="Inconclusive";text="Not enough signals answered to strengthen the database estimate — complete Step 2 and the manual indexing checks.";}
+  var db=databaseCheckRun?"automated evidence check run":"automated evidence check not run";
+  if(risk>=5){label="Several warning signals reported";text="Your responses contain multiple serious warning signals. Pause before submitting or paying and independently reconcile the journal's identity, domain, indexing and editorial contacts.";}
+  else if(risk>=2){label="Warning signals require review";text="Your responses contain warning signals. Confirm current Scopus or Web of Science status at the official source and scrutinise the genuine journal website and recent issues.";}
+  else if(protect>=4){label="No major warning pattern reported";text="Your responses include several protective signals, but they do not prove legitimacy. Complete the official-source and domain checks before submitting.";}
+  else{label="Inconclusive";text="Too few website signals were answered to support a useful summary. Complete the checklist and the official-source checks.";}
   document.getElementById("vlabel").textContent=label;
   document.getElementById("vtext").textContent=text;
-  document.getElementById("vconf").textContent="Combined from "+db+" and "+answered+" of 12 website signals (risk "+risk+" · protective "+protect+"). Probability-style estimates can be wrong in both directions.";
+  document.getElementById("vconf").textContent="Method version 2.0 · "+db+" · answered "+answered+" of 13 website signals · warning weight "+risk+" · protective count "+protect+". These counts are a checklist summary, not a probability or journal rating.";
   document.getElementById("vout").hidden=false;
   document.getElementById("vout").scrollIntoView({behavior:"smooth",block:"nearest"});
 });
