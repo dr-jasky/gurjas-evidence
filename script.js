@@ -750,3 +750,46 @@
     });
   }
 })();
+
+/* Mobile footer accordions. Below 580px the three footer link groups collapse
+   into accessible button toggles; brand, contact and the legal base line stay
+   visible. Without JavaScript the full lists remain expanded. */
+(function () {
+  "use strict";
+  var groups = Array.prototype.slice.call(document.querySelectorAll(".site-foot .foot-grid nav"));
+  if (!groups.length) return;
+  var compact = window.matchMedia("(max-width: 580px)");
+  var toggles = [];
+
+  groups.forEach(function (group, index) {
+    var heading = group.querySelector(".foot-h");
+    var list = group.querySelector("ul");
+    if (!heading || !list) return;
+    if (!list.id) list.id = "foot-group-" + (index + 1);
+    var button = document.createElement("button");
+    button.type = "button";
+    button.className = "foot-h-toggle";
+    button.setAttribute("aria-expanded", "true");
+    button.setAttribute("aria-controls", list.id);
+    button.textContent = heading.textContent;
+    heading.textContent = "";
+    heading.appendChild(button);
+    button.addEventListener("click", function () {
+      if (!compact.matches) return;
+      var open = button.getAttribute("aria-expanded") === "true";
+      button.setAttribute("aria-expanded", String(!open));
+      list.hidden = open;
+    });
+    toggles.push({ button: button, list: list });
+  });
+
+  function applyViewportState() {
+    toggles.forEach(function (item) {
+      item.button.setAttribute("aria-expanded", String(!compact.matches));
+      item.list.hidden = compact.matches;
+    });
+  }
+  applyViewportState();
+  if (compact.addEventListener) compact.addEventListener("change", applyViewportState);
+  else compact.addListener(applyViewportState);
+})();

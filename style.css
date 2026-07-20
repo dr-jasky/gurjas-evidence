@@ -217,8 +217,19 @@ section{padding:5.5rem 0}
 .foot-base{border-top:1px solid rgba(255,255,255,.1);padding:1.5rem 28px;display:flex;flex-wrap:wrap;gap:.8rem;justify-content:space-between;font-size:.78rem;color:#7d90a9}
 .cookie-preferences{border:0;background:transparent;color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;font:inherit;padding:0;cursor:pointer;transition:color .18s}
 .cookie-preferences:hover{color:#fff}
+.foot-h-toggle{display:inline;background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;text-align:left;cursor:default}
 @media(max-width:960px){.foot-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:580px){.foot-grid{grid-template-columns:1fr}}
+@media(max-width:580px){
+  .foot-grid{grid-template-columns:1fr;gap:0;padding-bottom:1.6rem}
+  .foot-grid .foot-brand{margin-bottom:1.4rem}
+  .foot-grid nav{border-top:1px solid rgba(255,255,255,.1)}
+  .foot-h{margin-bottom:.5rem;padding:.95rem 0 0}
+  .foot-h-toggle{display:flex;width:100%;align-items:center;justify-content:space-between;gap:1rem;cursor:pointer;padding-bottom:.95rem}
+  .foot-h-toggle::after{content:"+";font-family:var(--mono);font-size:1rem;line-height:1;color:var(--gold-l)}
+  .foot-h-toggle[aria-expanded="true"]::after{content:"−"}
+  .foot-h-toggle:focus-visible{outline:2px solid var(--gold-l);outline-offset:3px}
+  .foot-grid nav ul{padding-bottom:1rem}
+}
 
 /* ── Persona router ── */
 .persona{background:#fff;border:1px solid var(--line);border-left:3px solid var(--navy);border-radius:4px;padding:1.8rem;display:flex;flex-direction:column;gap:.9rem;transition:transform .22s,box-shadow .22s,border-color .22s}
