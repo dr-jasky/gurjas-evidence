@@ -143,7 +143,7 @@
       "name": "Research Readiness Triage",
       "url": "/tools/research-readiness-triage/",
       "status": "production",
-      "methodVersion": "1.0",
+      "methodVersion": "1.1",
       "reviewed": "2026-07-20",
       "purpose": "Turn eight self-reported evidence-control states into a gap register and next-control plan.",
       "processing": "local-browser",
@@ -152,7 +152,7 @@
         {"name": "Gurjas Methods", "url": "/methods/", "access": "public first-party methodology"},
         {"name": "Gurjas Ethics Charter", "url": "/ethics-charter/", "access": "public first-party governance framework"}
       ],
-      "outputs": ["not-yet-evidenced control list", "partial-evidence list", "recorded-evidence list", "decision-specific route", "copyable triage record"],
+      "outputs": ["not-yet-evidenced control list", "partial-evidence list", "recorded-evidence list", "decision-specific route", "copyable triage record", "downloadable hash-stamped Markdown and JSON audit record"],
       "notChecked": ["whether a claimed record exists", "domain-specific completeness", "legal or ethics approval", "current regulatory requirements", "statistical adequacy", "evidence quality", "decision-maker acceptance"],
       "limitations": "The inventory is unweighted and self-reported. A not-applicable selection can hide an essential control and must be justified outside the tool.",
       "decisionBoundary": "The output is not a readiness score, verification, ethics decision, risk probability or success prediction.",

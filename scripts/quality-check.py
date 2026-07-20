@@ -212,14 +212,16 @@ for required in ["Legacy RAF evidence structure", "does not reproduce BAF/MBGL s
 
 readiness_triage = (ROOT / "tools/research-readiness-triage/index.html").read_text(encoding="utf-8")
 for required in [
-    "Method version 1.0",
+    "Method version 1.1",
     "unweighted Gurjas control inventory",
     "does not calculate readiness",
     "Nothing is uploaded",
     "No score is shown",
     "navigator.clipboard.writeText",
+    "GurjasExport.download",
     'id="triage-output"',
     'id="copy-plan"',
+    'id="export-plan"',
 ]:
     if required not in readiness_triage:
         errors.append(f"Research Readiness Triage: missing method or decision boundary: {required}")

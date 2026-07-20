@@ -34,7 +34,7 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap"></noscript>
 <link rel="preload" as="style" href="../../style.css?v=24">
 <link rel="stylesheet" href="../../style.css?v=24">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://gurjas.org/#org","name":"Gurjas Evidence and Policy Analytics","url":"https://gurjas.org/"},{"@type":"SoftwareApplication","name":"Research Readiness Triage","url":"https://gurjas.org/tools/research-readiness-triage/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","softwareVersion":"1.0","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"A browser-local, unweighted evidence-control inventory that produces a gap register and next-control plan without a readiness score or automatic verdict."},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://gurjas.org/"},{"@type":"ListItem","position":2,"name":"Research Tools","item":"https://gurjas.org/tools/"},{"@type":"ListItem","position":3,"name":"Research Readiness Triage","item":"https://gurjas.org/tools/research-readiness-triage/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://gurjas.org/#org","name":"Gurjas Evidence and Policy Analytics","url":"https://gurjas.org/"},{"@type":"SoftwareApplication","name":"Research Readiness Triage","url":"https://gurjas.org/tools/research-readiness-triage/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","softwareVersion":"1.1","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"A browser-local, unweighted evidence-control inventory that produces a gap register and next-control plan without a readiness score or automatic verdict."},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://gurjas.org/"},{"@type":"ListItem","position":2,"name":"Research Tools","item":"https://gurjas.org/tools/"},{"@type":"ListItem","position":3,"name":"Research Readiness Triage","item":"https://gurjas.org/tools/research-readiness-triage/"}]}]}</script>
 </head>
 <body class="tool-page">
 <header class="site-head"><nav aria-label="Primary"><a href="../../">Gurjas</a></nav></header>
@@ -150,20 +150,23 @@
         <p class="note" style="margin-top:1rem"><strong>No score is shown.</strong> An item marked “evidenced” is your self-report, not validation. A missing ethics, authority or access control can remain decisive even when every other item exists.</p>
         <div class="cta-row">
           <button id="copy-plan" class="btn btn-solid" type="button" style="border:0;cursor:pointer">Copy triage record</button>
+          <button id="export-plan" class="btn btn-ghost" type="button" style="cursor:pointer">Download audit record (.md + .json)</button>
           <button id="print-plan" class="btn btn-ghost" type="button" style="cursor:pointer">Print / save as PDF</button>
         </div>
         <p id="copy-status" role="status" aria-live="polite" style="margin:.6rem 0 0;color:var(--muted)"></p>
+        <p class="note" style="margin-top:.6rem">The downloaded record includes a SHA-256 integrity hash so a copy can be checked against the original later.</p>
       </div>
     </section>
 
     <div class="prose" style="margin-top:2.6rem">
       <h2>Method and limitations</h2>
-      <p><strong>Method version 1.0 · reviewed 20 July 2026.</strong> This is an unweighted Gurjas control inventory derived from the evidence lifecycle described on our <a href="../../methods/">Methods</a> and <a href="../../ethics-charter/">Ethics Charter</a> pages. It groups self-reported states into a gap register; it does not calculate readiness, risk probability or likely success.</p>
+      <p><strong>Method version 1.1 · reviewed 20 July 2026.</strong> This is an unweighted Gurjas control inventory derived from the evidence lifecycle described on our <a href="../../methods/">Methods</a> and <a href="../../ethics-charter/">Ethics Charter</a> pages. It groups self-reported states into a gap register; it does not calculate readiness, risk probability or likely success.</p>
       <p class="note">Not checked: whether an uploaded or claimed record exists, domain-specific completeness, legal or ethics approval, current regulatory requirements, statistical adequacy, evidence quality or decision-maker acceptance. “Not applicable” answers are listed separately in the copied record and must be justified outside this tool. All selections remain in your browser and are cleared when the page is closed or refreshed.</p>
     </div>
   </div>
 </section>
 
+<script src="../../assets/tool-export.js"></script>
 <script>
 (function(){
 "use strict";
@@ -185,7 +188,7 @@ var routes={
   evaluation:{title:"Fix the evaluation logic before fieldwork",copy:"Use the Impact Evaluation pathway to define the decision, indicators, comparison logic, field evidence and reporting boundary.",href:"../../services/impact-evaluation/"},
   doctoral:{title:"Sequence milestones and eligibility checks",copy:"Use the PhD Timeline Planner for a dated planning sequence, then verify every requirement against the current university or funder source.",href:"../phd-timeline-planner/"}
 };
-var form=document.getElementById("triage"),output=document.getElementById("triage-output"),recordText="";
+var form=document.getElementById("triage"),output=document.getElementById("triage-output"),recordText="",exportState=null;
 function list(el,items,empty){
   el.textContent="";
   if(!items.length){var li=document.createElement("li");li.textContent=empty;el.appendChild(li);return;}
@@ -214,7 +217,11 @@ form.addEventListener("submit",function(event){
   var trackLabel=document.getElementById("track").options[document.getElementById("track").selectedIndex].text;
   var stageLabel=document.getElementById("stage").value;
   var rows=keys.map(function(key){return "- "+controls[key].label+": "+selectedState(key);});
-  recordText="Research Readiness Triage · method version 1.0\nDate: "+new Date().toISOString().slice(0,10)+"\nPathway: "+trackLabel+"\nStage: "+stageLabel+"\n\nEvidence states\n"+rows.join("\n")+"\n\nSummary\n"+summary+"\n\nSuggested route\n"+route.title+" — "+route.copy+"\n\nThis unweighted self-report is not a readiness score, verification, ethics decision or success prediction. Generated at gurjas.org/tools/research-readiness-triage/";
+  recordText="Research Readiness Triage · method version 1.1\nDate: "+new Date().toISOString().slice(0,10)+"\nPathway: "+trackLabel+"\nStage: "+stageLabel+"\n\nEvidence states\n"+rows.join("\n")+"\n\nSummary\n"+summary+"\n\nSuggested route\n"+route.title+" — "+route.copy+"\n\nThis unweighted self-report is not a readiness score, verification, ethics decision or success prediction. Generated at gurjas.org/tools/research-readiness-triage/";
+  exportState={
+    inputs:{pathway:trackLabel,stage:stageLabel,controlStates:keys.map(function(key){return {control:controls[key].label,state:selectedState(key)};})},
+    results:{summary:summary,notYetEvidenced:groups.missing,partialEvidence:groups.partial,evidenceRecorded:groups.evidenced,notApplicable:groups.na,suggestedRoute:route.title+" — "+route.copy}
+  };
   document.getElementById("triage-status").textContent="Gap register built below.";
   output.hidden=false;
   output.classList.add("is-revealed");
@@ -227,6 +234,20 @@ document.getElementById("copy-plan").addEventListener("click",function(){
   navigator.clipboard.writeText(recordText).then(function(){status.textContent="Triage record copied.";},function(){status.textContent="Copy was blocked by the browser; use Print / save as PDF instead.";});
 });
 document.getElementById("print-plan").addEventListener("click",function(){window.print();});
+document.getElementById("export-plan").addEventListener("click",function(){
+  var status=document.getElementById("copy-status");
+  if(!exportState){status.textContent="Build the gap register first.";return;}
+  if(!window.GurjasExport){status.textContent="The export module failed to load; use Copy or Print instead.";return;}
+  window.GurjasExport.download({
+    toolId:"research-readiness-triage",
+    toolName:"Research Readiness Triage",
+    methodVersion:"1.1",
+    inputs:exportState.inputs,
+    results:exportState.results,
+    limitations:["Unweighted, self-reported inventory; a rating is not validation.","A Not applicable answer can hide an essential control and is not itself justified by this tool.","Does not check whether a claimed record exists, its quality, or current regulatory or ethics requirements."],
+    decisionBoundary:"The output is not a readiness score, verification, ethics decision, risk probability or success prediction."
+  }).then(function(){status.textContent="Audit record downloaded (.md and .json).";},function(){status.textContent="The download could not be created in this browser.";});
+});
 })();
 </script>
 </main>
