@@ -108,6 +108,7 @@ tool_routes = [
     "naac-readiness-scorecard",
     "phd-timeline-planner",
     "predatory-journal-checker",
+    "research-readiness-triage",
     "reliability-validity-kit",
     "sem-sample-size-calculator",
 ]
@@ -209,6 +210,24 @@ for required in ["Legacy RAF evidence structure", "does not reproduce BAF/MBGL s
     if required not in naac_diagnostic:
         errors.append(f"Institutional Evidence Readiness: missing framework limitation: {required}")
 
+readiness_triage = (ROOT / "tools/research-readiness-triage/index.html").read_text(encoding="utf-8")
+for required in [
+    "Method version 1.0",
+    "unweighted Gurjas control inventory",
+    "does not calculate readiness",
+    "Nothing is uploaded",
+    "No score is shown",
+    "navigator.clipboard.writeText",
+    'id="triage-output"',
+    'id="copy-plan"',
+]:
+    if required not in readiness_triage:
+        errors.append(f"Research Readiness Triage: missing method or decision boundary: {required}")
+if readiness_triage.count('class="triage-item"') != 8:
+    errors.append("Research Readiness Triage: expected exactly eight unweighted evidence controls")
+if "Overall readiness" in readiness_triage or "readiness percentage" in readiness_triage.lower():
+    errors.append("Research Readiness Triage: unsupported composite readiness result remains")
+
 home_page = (ROOT / "index.html").read_text(encoding="utf-8")
 resources_page = (ROOT / "resources/index.html").read_text(encoding="utf-8")
 publications_page = (ROOT / "publications/index.html").read_text(encoding="utf-8")
@@ -234,8 +253,8 @@ if "Metrics reviewed 15 July 2026" in publications_page:
 
 try:
     facts = json.loads((ROOT / "data/site-facts.json").read_text(encoding="utf-8"))
-    if facts.get("toolCount") != 8:
-        errors.append("site-facts.json: toolCount must be 8")
+    if facts.get("toolCount") != 9:
+        errors.append("site-facts.json: toolCount must be 9")
     if facts.get("predatoryCheckerSignals") != 13:
         errors.append("site-facts.json: predatoryCheckerSignals must match the 13-signal checker")
     metrics = facts.get("metrics", {})
@@ -346,8 +365,8 @@ try:
     contract_data = json.loads((ROOT / "data/tool-contracts.json").read_text(encoding="utf-8"))
     contracts = contract_data.get("tools", [])
     contract_ids = [contract.get("id") for contract in contracts]
-    if contract_data.get("schemaVersion") != "1.0" or len(contracts) != 8:
-        errors.append("tool-contracts.json: expected schema version 1.0 and exactly eight contracts")
+    if contract_data.get("schemaVersion") != "1.0" or len(contracts) != 9:
+        errors.append("tool-contracts.json: expected schema version 1.0 and exactly nine contracts")
     if set(contract_ids) != set(tool_routes) or len(contract_ids) != len(set(contract_ids)):
         errors.append("tool-contracts.json: contracts must map one-to-one to production tool routes")
     for contract in contracts:
@@ -477,6 +496,9 @@ for required in ["verifyEvidenceDashboard", "services-evidence-india.png", 'indi
 for required in ["verifyEngagementPipeline", "services-engagement-delivery.png", 'deliveryTab.press("ArrowRight")']:
     if required not in visual_review_script:
         errors.append(f"visual review: engagement pipeline interaction coverage is missing {required}")
+for required in ["verifyResearchReadinessTriage", "research-readiness-triage-result.png", 'route.name === "research-readiness-triage"']:
+    if required not in visual_review_script:
+        errors.append(f"visual review: research-readiness triage coverage is missing {required}")
 for slug in sorted(expected_offers):
     route = f"services/{slug}/"
     if route not in homepage:

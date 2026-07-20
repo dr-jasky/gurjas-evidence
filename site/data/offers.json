@@ -144,7 +144,7 @@
       ],
       "proof": [
         {"label": "NAAC reform analysis", "path": "../../insights/naac-2025-reforms/"},
-        {"label": "Free readiness scorecard", "path": "../../tools/naac-readiness-scorecard/"},
+        {"label": "Free evidence readiness diagnostic", "path": "../../tools/naac-readiness-scorecard/"},
         {"label": "Institutional advisory scope", "path": "../#institutional-advisory"},
         {"label": "Ethics and governance", "path": "../../governance/"}
       ],

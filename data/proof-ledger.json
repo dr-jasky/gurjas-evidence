@@ -82,14 +82,14 @@
     },
     {
       "id": "public-tool-inventory",
-      "claim": "Eight research planning and evidence tools are publicly available without sign-up.",
-      "value": {"publicTools": 8},
+      "claim": "Nine research planning and evidence tools are publicly available without sign-up.",
+      "value": {"publicTools": 9},
       "factPaths": ["toolCount"],
       "status": "site-register",
       "sourceLabel": "Gurjas tool-contract registry",
       "sourceUrl": "/data/tool-contracts.json",
       "verifiedAt": "2026-07-20",
-      "verificationMethod": "Matched the contract registry one-to-one against the eight production tool routes.",
+      "verificationMethod": "Matched the contract registry one-to-one against the nine production tool routes.",
       "limitations": "Availability is a site inventory, not a claim of fitness for a particular research decision. Each tool has its own decision boundary and limitations."
     }
   ]

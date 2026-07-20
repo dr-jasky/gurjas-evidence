@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Non-essential analytics load only after explicit consent through script.js. -->
+<title>Research Readiness Triage | Evidence Gap Planner | Gurjas</title>
+<meta name="description" content="Build a private, browser-local research evidence gap register and next-control plan. No readiness score, account or data upload.">
+<link rel="canonical" href="https://gurjas.org/tools/research-readiness-triage/">
+<meta name="author" content="Gurjas Evidence and Policy Analytics">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#041226">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Gurjas Evidence and Policy Analytics">
+<meta property="og:title" content="Research Readiness Triage | Gurjas">
+<meta property="og:description" content="Turn eight evidence-control checks into a private gap register and next-control plan—without an invented score.">
+<meta property="og:url" content="https://gurjas.org/tools/research-readiness-triage/">
+<meta property="og:image" content="https://gurjas.org/assets/og-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Research Readiness Triage | Gurjas">
+<meta name="twitter:description" content="A private evidence gap register and next-control plan, with no readiness score.">
+<meta name="twitter:image" content="https://gurjas.org/assets/og-preview.png">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<link rel="manifest" href="../../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap" media="print" onload="this.media=&#39;all&#39;">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap"></noscript>
+<link rel="preload" as="style" href="../../style.css?v=24">
+<link rel="stylesheet" href="../../style.css?v=24">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://gurjas.org/#org","name":"Gurjas Evidence and Policy Analytics","url":"https://gurjas.org/"},{"@type":"SoftwareApplication","name":"Research Readiness Triage","url":"https://gurjas.org/tools/research-readiness-triage/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","softwareVersion":"1.0","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"A browser-local, unweighted evidence-control inventory that produces a gap register and next-control plan without a readiness score or automatic verdict."},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://gurjas.org/"},{"@type":"ListItem","position":2,"name":"Research Tools","item":"https://gurjas.org/tools/"},{"@type":"ListItem","position":3,"name":"Research Readiness Triage","item":"https://gurjas.org/tools/research-readiness-triage/"}]}]}</script>
+</head>
+<body class="tool-page">
+<header class="site-head"><nav aria-label="Primary"><a href="../../">Gurjas</a></nav></header>
+<main id="main">
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Free Tool · Private by Design</span>
+    <h1>Research Readiness Triage</h1>
+    <p class="lede">Turn eight evidence-control checks into a gap register and next-control plan. Nothing is uploaded, no account is required, and no readiness score or automatic “go” decision is produced.</p>
+  </div>
+</div>
+
+<section aria-labelledby="triage-title">
+  <div class="wrap" style="max-width:960px">
+    <div class="card tool-input-surface" style="gap:1.25rem">
+      <div>
+        <span class="eyebrow">Step 1 · Set the decision context</span>
+        <h2 id="triage-title" style="margin:.45rem 0 .4rem">What are you preparing to do?</h2>
+        <p style="margin:0;color:var(--muted)">Choose the closest pathway and current stage. The eight controls remain the same; the recommended route changes.</p>
+      </div>
+      <div class="grid g2" style="gap:1rem">
+        <label style="font-size:.9rem;font-weight:600;color:var(--navy)">Decision pathway
+          <select id="track" style="display:block;width:100%;margin-top:.4rem;padding:.7rem;border:1px solid var(--line);border-radius:4px;font-size:1rem">
+            <option value="study">Design a study or proposal</option>
+            <option value="analysis">Analyse data already collected</option>
+            <option value="publication">Choose or verify a publication venue</option>
+            <option value="institution">Prepare institutional / accreditation evidence</option>
+            <option value="evaluation">Evaluate a programme or policy</option>
+            <option value="doctoral">Plan doctoral work or a grant application</option>
+          </select>
+        </label>
+        <label style="font-size:.9rem;font-weight:600;color:var(--navy)">Current stage
+          <select id="stage" style="display:block;width:100%;margin-top:.4rem;padding:.7rem;border:1px solid var(--line);border-radius:4px;font-size:1rem">
+            <option>Question or idea</option>
+            <option>Design and planning</option>
+            <option>Data or records in hand</option>
+            <option>Analysis or synthesis</option>
+            <option>Writing, reporting or submission</option>
+            <option>Decision is imminent</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <form id="triage" class="card" style="margin-top:1.5rem;gap:0" aria-describedby="triage-help">
+      <div style="margin-bottom:1rem">
+        <span class="eyebrow">Step 2 · Record the evidence state</span>
+        <h2 style="margin:.45rem 0 .4rem">Eight controls before a consequential decision</h2>
+        <p id="triage-help" style="margin:0;color:var(--muted)">Mark <strong>Evidenced</strong> only when the record exists and can be located. “Not applicable” is not a shortcut; use it only when you can explain why the control does not apply.</p>
+      </div>
+
+      <fieldset class="triage-item" data-control="decision" style="border:0;border-top:1px solid var(--line);padding:1rem 0;margin:0">
+        <legend style="font-weight:600;color:var(--navy)">01 · Decision definition</legend>
+        <p style="margin:.35rem 0 .7rem">The question, intended user and decision to be informed are written in one testable statement.</p>
+        <span class="triage-options"><label><input type="radio" name="decision" value="evidenced"> Evidenced</label> <label><input type="radio" name="decision" value="partial"> Partial</label> <label><input type="radio" name="decision" value="missing"> Not yet</label> <label><input type="radio" name="decision" value="na"> Not applicable</label></span>
+      </fieldset>
+      <fieldset class="triage-item" data-control="sources" style="border:0;border-top:1px solid var(--line);padding:1rem 0;margin:0">
+        <legend style="font-weight:600;color:var(--navy)">02 · Authority and source register</legend>
+        <p style="margin:.35rem 0 .7rem">Current rules, definitions, literature or official sources are saved with access dates and ownership.</p>
+        <span class="triage-options"><label><input type="radio" name="sources" value="evidenced"> Evidenced</label> <label><input type="radio" name="sources" value="partial"> Partial</label> <label><input type="radio" name="sources" value="missing"> Not yet</label> <label><input type="radio" name="sources" value="na"> Not applicable</label></span>
+      </fieldset>
+      <fieldset class="triage-item" data-control="ethics" style="border:0;border-top:1px solid var(--line);padding:1rem 0;margin:0">
+        <legend style="font-weight:600;color:var(--navy)">03 · Access, ethics and confidentiality</legend>
+        <p style="margin:.35rem 0 .7rem">Data or record access, consent, ethics approval, confidentiality and permitted use are resolved.</p>
+        <span class="triage-options"><label><input type="radio" name="ethics" value="evidenced"> Evidenced</label> <label><input type="radio" name="ethics" value="partial"> Partial</label> <label><input type="radio" name="ethics" value="missing"> Not yet</label> <label><input type="radio" name="ethics" value="na"> Not applicable</label></span>
+      </fieldset>
+      <fieldset class="triage-item" data-control="definitions" style="border:0;border-top:1px solid var(--line);padding:1rem 0;margin:0">
+        <legend style="font-weight:600;color:var(--navy)">04 · Operational definitions</legend>
+        <p style="margin:.35rem 0 .7rem">Constructs, variables, indicators, evidence fields and exclusions are defined before interpretation.</p>
+        <span class="triage-options"><label><input type="radio" name="definitions" value="evidenced"> Evidenced</label> <label><input type="radio" name="definitions" value="partial"> Partial</label> <label><input type="radio" name="definitions" value="missing"> Not yet</label> <label><input type="radio" name="definitions" value="na"> Not applicable</label></span>
+      </fieldset>
+      <fieldset class="triage-item" data-control="design" style="border:0;border-top:1px solid var(--line);padding:1rem 0;margin:0">
+        <legend style="font-weight:600;color:var(--navy)">05 · Design and coverage logic</legend>
+        <p style="margin:.35rem 0 .7rem">Sampling, comparison, case selection or record-coverage logic—and likely blind spots—are documented.</p>
+        <span class="triage-options"><label><input type="radio" name="design" value="evidenced"> Evidenced</label> <label><input type="radio" name="design" value="partial"> Partial</label> <label><input type="radio" name="design" value="missing"> Not yet</label> <label><input type="radio" name="design" value="na"> Not applicable</label></span>
+      </fieldset>
+      <fieldset class="triage-item" data-control="analysis" style="border:0;border-top:1px solid var(--line);padding:1rem 0;margin:0">
+        <legend style="font-weight:600;color:var(--navy)">06 · Analysis or synthesis plan</legend>
+        <p style="margin:.35rem 0 .7rem">The analysis, verification or synthesis plan was written before inspecting the decisive result.</p>
+        <span class="triage-options"><label><input type="radio" name="analysis" value="evidenced"> Evidenced</label> <label><input type="radio" name="analysis" value="partial"> Partial</label> <label><input type="radio" name="analysis" value="missing"> Not yet</label> <label><input type="radio" name="analysis" value="na"> Not applicable</label></span>
+      </fieldset>
+      <fieldset class="triage-item" data-control="provenance" style="border:0;border-top:1px solid var(--line);padding:1rem 0;margin:0">
+        <legend style="font-weight:600;color:var(--navy)">07 · Provenance and change control</legend>
+        <p style="margin:.35rem 0 .7rem">Files, versions, transformations, decisions and responsible owners can be traced.</p>
+        <span class="triage-options"><label><input type="radio" name="provenance" value="evidenced"> Evidenced</label> <label><input type="radio" name="provenance" value="partial"> Partial</label> <label><input type="radio" name="provenance" value="missing"> Not yet</label> <label><input type="radio" name="provenance" value="na"> Not applicable</label></span>
+      </fieldset>
+      <fieldset class="triage-item" data-control="limits" style="border:0;border-top:1px solid var(--line);padding:1rem 0;margin:0">
+        <legend style="font-weight:600;color:var(--navy)">08 · Interpretation and decision boundary</legend>
+        <p style="margin:.35rem 0 .7rem">Uncertainty, limitations, decision owner and the point for independent review are stated.</p>
+        <span class="triage-options"><label><input type="radio" name="limits" value="evidenced"> Evidenced</label> <label><input type="radio" name="limits" value="partial"> Partial</label> <label><input type="radio" name="limits" value="missing"> Not yet</label> <label><input type="radio" name="limits" value="na"> Not applicable</label></span>
+      </fieldset>
+
+      <button class="btn btn-solid" type="submit" style="border:0;cursor:pointer;align-self:flex-start;margin-top:1rem">Build my gap register</button>
+      <p id="triage-status" role="status" aria-live="polite" style="margin:.8rem 0 0;color:var(--muted)"></p>
+    </form>
+
+    <section id="triage-output" class="tool-result" hidden aria-labelledby="result-title" style="margin-top:1.5rem">
+      <div class="card" style="border-top-color:var(--gold)">
+        <span class="eyebrow">Step 3 · Evidence-control plan</span>
+        <h2 id="result-title" style="margin:.45rem 0 .4rem">Your gap register</h2>
+        <p id="result-summary" class="lede" style="margin:0"></p>
+        <div class="grid g3" style="margin-top:1.4rem">
+          <div class="card"><span class="num">Resolve first</span><h3>Not yet evidenced</h3><ul id="missing-list" style="padding-left:1.2rem"></ul></div>
+          <div class="card"><span class="num">Clarify next</span><h3>Partial evidence</h3><ul id="partial-list" style="padding-left:1.2rem"></ul></div>
+          <div class="card"><span class="num">Preserve</span><h3>Evidence recorded</h3><ul id="ready-list" style="padding-left:1.2rem"></ul></div>
+        </div>
+        <div class="card" style="margin-top:1rem;background:var(--cream)">
+          <span class="num">Decision-specific route</span>
+          <h3 id="route-title" style="margin:.35rem 0"></h3>
+          <p id="route-copy" style="margin:0 0 .8rem"></p>
+          <a id="route-link" href="../../tools/">Open the recommended route →</a>
+        </div>
+        <p class="note" style="margin-top:1rem"><strong>No score is shown.</strong> An item marked “evidenced” is your self-report, not validation. A missing ethics, authority or access control can remain decisive even when every other item exists.</p>
+        <div class="cta-row">
+          <button id="copy-plan" class="btn btn-solid" type="button" style="border:0;cursor:pointer">Copy triage record</button>
+          <button id="print-plan" class="btn btn-ghost" type="button" style="cursor:pointer">Print / save as PDF</button>
+        </div>
+        <p id="copy-status" role="status" aria-live="polite" style="margin:.6rem 0 0;color:var(--muted)"></p>
+      </div>
+    </section>
+
+    <div class="prose" style="margin-top:2.6rem">
+      <h2>Method and limitations</h2>
+      <p><strong>Method version 1.0 · reviewed 20 July 2026.</strong> This is an unweighted Gurjas control inventory derived from the evidence lifecycle described on our <a href="../../methods/">Methods</a> and <a href="../../ethics-charter/">Ethics Charter</a> pages. It groups self-reported states into a gap register; it does not calculate readiness, risk probability or likely success.</p>
+      <p class="note">Not checked: whether an uploaded or claimed record exists, domain-specific completeness, legal or ethics approval, current regulatory requirements, statistical adequacy, evidence quality or decision-maker acceptance. “Not applicable” answers are listed separately in the copied record and must be justified outside this tool. All selections remain in your browser and are cleared when the page is closed or refreshed.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+"use strict";
+var controls={
+  decision:{label:"Decision definition",action:"Write one sentence naming the question, intended user and decision."},
+  sources:{label:"Authority and source register",action:"Save the governing sources, definitions and access dates in one register."},
+  ethics:{label:"Access, ethics and confidentiality",action:"Resolve permission, consent, ethics and permitted-use conditions before proceeding."},
+  definitions:{label:"Operational definitions",action:"Define constructs, variables, indicators, evidence fields and exclusions."},
+  design:{label:"Design and coverage logic",action:"Document sampling, comparison or record coverage and likely blind spots."},
+  analysis:{label:"Analysis or synthesis plan",action:"Freeze the planned checks and interpretation rules before the decisive result."},
+  provenance:{label:"Provenance and change control",action:"Create a file, version, transformation and decision log with owners."},
+  limits:{label:"Interpretation and decision boundary",action:"State uncertainty, limitations, decision owner and independent-review point."}
+};
+var routes={
+  study:{title:"Design before calculation",copy:"Use the Methods hub to align the question, design, sampling, measurement and analysis plan before collecting decisive data.",href:"../../methods/"},
+  analysis:{title:"Inspect design before selecting a model",copy:"Start with Advanced Research Methods if the data already exist but the decision, measurement or analysis plan is incomplete.",href:"../../services/research-methods/"},
+  publication:{title:"Separate discovery from verification",copy:"Use the Journal Evidence Checker for a source-labelled identity dossier; it does not issue a legitimacy verdict.",href:"../predatory-journal-checker/"},
+  institution:{title:"Inventory records without predicting a grade",copy:"Use Institutional Evidence Readiness to record present, partial and missing legacy-RAF evidence without an unofficial score.",href:"../naac-readiness-scorecard/"},
+  evaluation:{title:"Fix the evaluation logic before fieldwork",copy:"Use the Impact Evaluation pathway to define the decision, indicators, comparison logic, field evidence and reporting boundary.",href:"../../services/impact-evaluation/"},
+  doctoral:{title:"Sequence milestones and eligibility checks",copy:"Use the PhD Timeline Planner for a dated planning sequence, then verify every requirement against the current university or funder source.",href:"../phd-timeline-planner/"}
+};
+var form=document.getElementById("triage"),output=document.getElementById("triage-output"),recordText="";
+function list(el,items,empty){
+  el.textContent="";
+  if(!items.length){var li=document.createElement("li");li.textContent=empty;el.appendChild(li);return;}
+  items.forEach(function(item){var li=document.createElement("li");li.textContent=item;el.appendChild(li);});
+}
+function selectedState(name){var checked=form.querySelector('input[name="'+name+'"]:checked');return checked?checked.value:"";}
+form.addEventListener("submit",function(event){
+  event.preventDefault();
+  var keys=Object.keys(controls),unanswered=keys.filter(function(key){return !selectedState(key);});
+  if(unanswered.length){
+    document.getElementById("triage-status").textContent="Answer all eight controls before building the register. "+unanswered.length+" remain.";
+    form.querySelector('input[name="'+unanswered[0]+'"]').focus();
+    return;
+  }
+  var groups={missing:[],partial:[],evidenced:[],na:[]};
+  keys.forEach(function(key){groups[selectedState(key)].push(controls[key].label);});
+  var summary=groups.missing.length+" not yet evidenced · "+groups.partial.length+" partial · "+groups.evidenced.length+" evidenced · "+groups.na.length+" marked not applicable.";
+  document.getElementById("result-summary").textContent=summary;
+  list(document.getElementById("missing-list"),groups.missing.map(function(label){var key=keys.find(function(k){return controls[k].label===label;});return controls[key].action;}),"No control was marked Not yet. Preserve the records and inspect partial or N/A answers.");
+  list(document.getElementById("partial-list"),groups.partial,"No control was marked Partial.");
+  list(document.getElementById("ready-list"),groups.evidenced,"No control was marked Evidenced; do not treat the plan as ready.");
+  var route=routes[document.getElementById("track").value];
+  document.getElementById("route-title").textContent=route.title;
+  document.getElementById("route-copy").textContent=route.copy;
+  document.getElementById("route-link").href=route.href;
+  var trackLabel=document.getElementById("track").options[document.getElementById("track").selectedIndex].text;
+  var stageLabel=document.getElementById("stage").value;
+  var rows=keys.map(function(key){return "- "+controls[key].label+": "+selectedState(key);});
+  recordText="Research Readiness Triage · method version 1.0\nDate: "+new Date().toISOString().slice(0,10)+"\nPathway: "+trackLabel+"\nStage: "+stageLabel+"\n\nEvidence states\n"+rows.join("\n")+"\n\nSummary\n"+summary+"\n\nSuggested route\n"+route.title+" — "+route.copy+"\n\nThis unweighted self-report is not a readiness score, verification, ethics decision or success prediction. Generated at gurjas.org/tools/research-readiness-triage/";
+  document.getElementById("triage-status").textContent="Gap register built below.";
+  output.hidden=false;
+  output.classList.add("is-revealed");
+  output.scrollIntoView({behavior:"smooth",block:"start"});
+});
+document.getElementById("copy-plan").addEventListener("click",function(){
+  var status=document.getElementById("copy-status");
+  if(!recordText){status.textContent="Build the gap register first.";return;}
+  if(!navigator.clipboard){status.textContent="Clipboard access is unavailable; use Print / save as PDF instead.";return;}
+  navigator.clipboard.writeText(recordText).then(function(){status.textContent="Triage record copied.";},function(){status.textContent="Copy was blocked by the browser; use Print / save as PDF instead.";});
+});
+document.getElementById("print-plan").addEventListener("click",function(){window.print();});
+})();
+</script>
+</main>
+<footer class="site-foot"><p><a href="../../privacy/">Privacy</a></p></footer>
+<script src="../../script.js?v=24" defer></script>
+</body>
+</html>
