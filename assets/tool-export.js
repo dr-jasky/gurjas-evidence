@@ -163,6 +163,9 @@
     return build(input).then(function (built) {
       triggerDownload(built.filenameBase + ".md", built.markdown, "text/markdown");
       triggerDownload(built.filenameBase + ".json", built.json, "application/json");
+      if (typeof global.GurjasTrackEvent === "function") {
+        global.GurjasTrackEvent("tool_export", { tool_slug: input.toolId });
+      }
       return built;
     });
   }

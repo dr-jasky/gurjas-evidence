@@ -75,7 +75,7 @@
       <p style="margin:0;font-size:.92rem;color:var(--muted)">Paste positive, standardised factor loadings for one construct, one per line (e.g. 0.78). Reverse-code or align indicators before calculating; this simple form does not estimate a measurement model.</p>
       <textarea id="loads" rows="6" placeholder="0.81&#10;0.77&#10;0.69&#10;0.84" style="width:100%;padding:.7rem;border:1px solid var(--line);border-radius:4px;font-size:1rem;font-family:inherit"></textarea>
       <button id="crbtn" class="btn btn-solid" style="border:none;cursor:pointer;align-self:start">Compute CR &amp; AVE</button>
-      <div id="crout" hidden>
+      <div id="crout" hidden data-tool-result>
         <div class="grid g3">
           <div class="stat"><b id="crv">—</b><span>Composite reliability (CR) · .70 reference marker</span></div>
           <div class="stat"><b id="avev">—</b><span>AVE · .50 reference marker</span></div>
@@ -90,7 +90,7 @@
       <p style="margin:0;font-size:.92rem;color:var(--muted)">Paste raw responses: one respondent per line, items separated by commas, tabs or spaces (same item count per line).</p>
       <textarea id="raw" rows="6" placeholder="4,5,3,4&#10;3,4,4,5&#10;5,5,4,4" style="width:100%;padding:.7rem;border:1px solid var(--line);border-radius:4px;font-size:1rem;font-family:inherit"></textarea>
       <button id="albtn" class="btn btn-solid" style="border:none;cursor:pointer;align-self:start">Compute alpha</button>
-      <div id="alout" hidden>
+      <div id="alout" hidden data-tool-result>
         <div class="grid g3">
           <div class="stat"><b id="alv">—</b><span>Cronbach's alpha · descriptive estimate</span></div>
           <div class="stat"><b id="aln">—</b><span>Respondents × items</span></div>

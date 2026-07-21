@@ -793,3 +793,105 @@
   if (compact.addEventListener) compact.addEventListener("change", applyViewportState);
   else compact.addListener(applyViewportState);
 })();
+
+/* ═══════════ Restrained analytics event taxonomy (2026) ═══════════
+   Every call below is a no-op unless the visitor has already granted
+   analytics consent (window.gtag only exists after that happens — see
+   the consent module above). Parameters are limited to page/tool/service
+   identifiers derived from the URL or DOM structure; user-entered research
+   inputs, tool results and form text are never read or sent. */
+(function () {
+  "use strict";
+
+  function trackEvent(name, params) {
+    if (typeof window.gtag !== "function") return;
+    window.gtag("event", name, params || {});
+  }
+
+  function currentSlug(prefix) {
+    var match = location.pathname.match(new RegExp("/" + prefix + "/([^/]+)/"));
+    return match ? match[1] : null;
+  }
+
+  /* Delegated, markup-free tracking: matches existing link href patterns
+     so no per-page changes are needed as new services, tools or proof
+     links are added. */
+  document.addEventListener("click", function (event) {
+    var link = event.target.closest("a[href]");
+    if (!link) return;
+    var href = link.getAttribute("href") || "";
+
+    if (/^https:\/\/wa\.me\//.test(href)) {
+      trackEvent("whatsapp_click", { link_url: href });
+      return;
+    }
+    if (/^mailto:/i.test(href)) {
+      trackEvent("email_click", { link_url: href });
+      return;
+    }
+    if (/contact\/\?service=/.test(href)) {
+      var match = href.match(/service=([^&]+)/);
+      trackEvent("service_cta_click", { service_slug: match ? decodeURIComponent(match[1]) : null });
+      return;
+    }
+    if (/(orcid\.org|scholar\.google\.com|webofscience\.com|doi\.org|zenodo\.org)/.test(href)) {
+      trackEvent("proof_source_click", { link_url: href, referring_page: location.pathname });
+    }
+  });
+
+  if (document.body.classList.contains("offer")) {
+    trackEvent("service_view", { service_slug: currentSlug("services") });
+  }
+
+  var contactForm = document.getElementById("gcContactForm");
+  if (contactForm) {
+    var startFired = false;
+    contactForm.addEventListener(
+      "focusin",
+      function () {
+        if (startFired) return;
+        startFired = true;
+        trackEvent("contact_form_start", {});
+      },
+      { once: true },
+    );
+    contactForm.addEventListener("submit", function () {
+      trackEvent("contact_form_submit", { service_slug: currentSlug("services") || null });
+    });
+  }
+
+  if (document.body.classList.contains("tool-page")) {
+    var toolSlug = currentSlug("tools");
+    var main = document.getElementById("main");
+    if (main) {
+      var toolStarted = false;
+      main.addEventListener("focusin", function (event) {
+        if (toolStarted) return;
+        var el = event.target;
+        if (el && /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) {
+          toolStarted = true;
+          trackEvent("tool_start", { tool_slug: toolSlug });
+        }
+      });
+
+      var toolCompleted = false;
+      if ("MutationObserver" in window) {
+        var observer = new MutationObserver(function (mutations) {
+          if (toolCompleted) return;
+          for (var i = 0; i < mutations.length; i += 1) {
+            var target = mutations[i].target;
+            if (target.hasAttribute && target.hasAttribute("data-tool-result") && !target.hidden) {
+              toolCompleted = true;
+              trackEvent("tool_complete", { tool_slug: toolSlug });
+              observer.disconnect();
+              break;
+            }
+          }
+        });
+        observer.observe(main, { attributes: true, attributeFilter: ["hidden"], subtree: true });
+      }
+    }
+  }
+
+  window.GurjasTrackEvent = trackEvent;
+})();
