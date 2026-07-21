@@ -644,6 +644,24 @@ else:
     if f"https://gurjas.org/{doctoral_insight_route}" not in sitemap:
         errors.append(f"sitemap.xml: missing {doctoral_insight_route}")
 
+sample_templates = [
+    "methods-design-decision-memo",
+    "source-to-claim-traceability-matrix",
+    "impact-evaluation-indicator-matrix",
+    "research-integrity-risk-register",
+    "reproducibility-and-analysis-audit-pack",
+]
+for slug in sample_templates:
+    sample_path = ROOT / "assets/samples" / f"{slug}.md"
+    if not sample_path.exists():
+        errors.append(f"assets/samples/{slug}.md: expected sample deliverable template is missing")
+        continue
+    sample_text = sample_path.read_text(encoding="utf-8")
+    if "Illustrative structure. No client information. Actual scope and evidence requirements vary" not in sample_text:
+        errors.append(f"assets/samples/{slug}.md: missing the mandatory illustrative-structure disclaimer")
+    if f'href="../assets/samples/{slug}.md" download' not in (ROOT / "resources/index.html").read_text(encoding="utf-8"):
+        errors.append(f"resources/index.html: missing download link for {slug}.md")
+
 if errors:
     print("Quality checks failed:")
     for error in errors:

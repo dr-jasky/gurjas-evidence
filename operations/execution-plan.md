@@ -291,7 +291,7 @@ of the two JSON files with a versioned DOI, then add the DOI to the evidence
 page and the ledger itself. Do not mint or invent a DOI; leave a clearly
 marked placeholder PR comment and stop.
 
-## WS7 — Demonstration dossier — BLOCKED-OWNER (content decisions)
+## WS7 — Demonstration dossier — BLOCKED (owner content, AND confirmed no network access)
 
 Structure work only: create `evidence/dossiers/` route scaffolding with ONE
 dossier built strictly from the already-public Zenodo replication deposits in
@@ -304,6 +304,25 @@ published paper — anything else stays "[owner to supply]" and the page ships
 only after the owner fills or removes those markers. Label prominently:
 "Demonstration dossier based on a public replication deposit — not a client
 engagement."
+
+**Attempted 21 July 2026 and confirmed blocked for a second reason beyond
+owner content:** this sandboxed execution environment has no outbound network
+access to zenodo.org — `WebFetch` on both the record page and the public
+`zenodo.org/api/records/...` REST endpoint returned 403, and a raw `curl`
+timed out with no response; `$HTTPS_PROXY/__agentproxy/status` confirms the
+egress gateway denies most external domains at the policy level, not
+something either Zenodo or the request shape can work around. The repo's own
+`data/proof-ledger.json` and `resources/index.html` already hold verified
+summary facts about both deposits (title, DOI, jurisdiction/economy counts,
+license, version, robustness range) — but the dossier sections this review
+asked for (data dictionary, assumptions log, analysis issue register) need
+methodological detail at a level those 2-3 sentence summaries don't support.
+Writing them anyway would mean inventing specifics to fill the shape of the
+template, which is exactly what the "no fabrication" guardrail exists to
+prevent — a half-real dossier is worse than no dossier. Do not attempt this
+again from a network-restricted session; either run it somewhere with real
+internet access to the deposit content, or have the owner supply the
+missing methodological detail directly.
 
 ## WS8 — Quarterly research-integrity brief — BLOCKED-OWNER (editorial)
 
