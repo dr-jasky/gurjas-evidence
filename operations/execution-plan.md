@@ -353,12 +353,149 @@ check in `scripts/quality-check.py`), the hardcoded `tool_routes` list in
 counts, hero paragraph), and `evidence/index.html` (`toolCount` fact display
 and the new tool's contract card).
 
+---
+
+## Addendum — 21 July 2026 forensic review
+
+A second external review (dated 21 July 2026, scored the site 8.6/10) covered
+production behaviour, not just the repository, and proposed six follow-on PRs
+(41–46). Every factual claim in it was independently checked against the repo
+before acting — two were wrong, most were right. Record both so a future
+session doesn't re-litigate them.
+
+**Claim found FALSE — do not "fix" this:** the review states script.js
+"contains navigation, animation, tool and interaction enhancements but no
+apparent GA4 or Clarity loader." This is incorrect. `script.js` around line
+385 (`GA_ID`, `CLARITY_ID`, `loadAnalytics()`) loads both, gated behind
+`consentChoice() === "granted"` — exactly matching the privacy policy's claim.
+What genuinely does NOT exist is a custom event taxonomy beyond the base
+pageview/config call (see WS12 below) — that part of the review's concern is
+real even though the premise ("no loader") was not.
+
+**Claim likely explained by deploy lag, not a repo bug:** "200+/202 versus
+the current 204+ citation figure." `data/site-facts.json` and every page's
+static fallback (`index.html` line ~109) already agree at 204 with no
+internal drift. If production still shows an older number, that's because
+production hasn't picked up recent merges yet, not a synchronisation bug in
+the repo. Re-check after the next Pages deploy before treating this as an
+action item.
+
+**Claims confirmed true and already fixed in this pass** (small, zero-new-
+facts wording corrections — no owner input needed, already shipped): the
+"Assistive, never generative" heading on `services/index.html` contradicted
+the FAQ's own description of AI-assisted code drafting/editing — reworded to
+"Human-led, disclosed, never substitutive" and linked to the fuller
+`governance/#ai` statement. "Correspondence is confidential" on
+`contact/index.html` overstated the privacy policy's actual (accurate, more
+qualified) disclosure of FormSubmit as a processor — reworded to "treated as
+confidential under our published privacy controls." The contact-form
+`_autoresponse` hidden field literally invited "datasets, drafts or
+institutional guidelines" to be emailed to support@gurjas.org with no
+qualification — reworded to explicitly withhold that invitation for
+confidential datasets/participant-level records while keeping the
+support@gurjas.org route for everything else (a new `quality-check.py` pin
+guards against this regressing). "Site guide" renamed to "Find your route"
+throughout `script.js` (button label, panel title, close-button aria-label,
+footer note) — a pure text change; the `data-site-guide` attribute, panel
+id (`#gurjas-site-guide`) and all other selectors used by
+`tests/accessibility/audit.mjs` were deliberately left unchanged.
+
+**Claim confirmed true, real but NOT fixed here — flagged for the owner:**
+the founder's schema and prose are dramatically thinner than the Principal
+Consultant's. `founder` in the Organization JSON-LD graph
+(present on every page, e.g. `people/index.html` line 37) is a bare
+`{"@type": "Person", "name": "Gurpreet Kaur"}` with no `@id`, `jobTitle`,
+`description` or `sameAs`, while Dr. Jaskirat Singh gets a full Person node.
+The visible prose on `people/index.html` gives the founder one sentence
+("Founder of Gurjas Evidence and Policy Analytics, holding overall
+ownership...") versus a multi-line credentialed profile for the Principal
+Consultant. This is real and matters for the "women-led" claim's substance —
+but fixing it requires real facts about Gurpreet Kaur's operational role,
+governance responsibilities and any independently verifiable profile that
+only the owner can supply. See WS15 below.
+
+### WS12 — Analytics event taxonomy — READY, substantial scope
+
+The loader exists and is correctly consent-gated (see above); what's missing
+is intentional custom events beyond the automatic pageview. Add, gated behind
+the same existing consent check, `gtag("event", ...)` calls for:
+`service_view`, `service_cta_click`, `contact_form_start`,
+`contact_form_submit`, `whatsapp_click`, `email_click`, `tool_start`,
+`tool_complete`, `tool_export`, `proof_source_click`. Parameters: service
+slug, tool slug, referring page only — never form text, pasted abstracts,
+reference lists or calculated tool results (this is a hard guardrail, not a
+suggestion; the existing tool pages already promise "Gurjas does not receive"
+these inputs and an analytics event must not quietly break that promise).
+Centralise the event-firing helper in `script.js` near `loadAnalytics()`
+rather than scattering `gtag()` calls inline across every tool page. This
+touches most pages in the site (every service, every tool, the contact form,
+every proof-source link) — size it as its own PR, not a quick add-on.
+
+### WS13 — Redacted sample deliverables — READY (generic templates, not client work)
+
+The review's "Illustrative structure. No client information." framing makes
+this buildable without owner facts: generic methodology-template structures
+(Methods Design Decision Memo, Source-to-Claim Traceability Matrix, Impact
+Evaluation Indicator Matrix, Research Integrity Risk Register, Reproducibility
+and Analysis Audit Pack) that any research-methods consultancy would produce,
+not derived from any real engagement. Each needs the explicit cover-page
+disclaimer verbatim. Confirm scope/selection with the owner before writing
+five of these — offer to build one first as a sample.
+
+### WS14 — Engagement Evidence Library (`/work/`) — BLOCKED-OWNER (real case content)
+
+Three anonymised case narratives (research design recovery, institutional
+evidence-readiness diagnostic, impact-evaluation design) per the review's
+structure. This cannot be drafted from imagination — an "anonymised" case
+that isn't actually derived from real completed work is a fabricated
+testimonial by another name, directly against guardrail #1. The owner must
+supply the underlying facts (redacted) for each case; only then should this
+be drafted. Do the page-scaffolding and template structure without content
+if asked to prepare ahead of that input.
+
+### WS15 — Founder profile and Person schema — BLOCKED-OWNER (real biographical facts)
+
+Repo part (READY once facts exist): add `@id`, `jobTitle`, `description` and
+`sameAs` to the founder's Person node in every page's JSON-LD graph (mirror
+Dr. Jaskirat Singh's node structure exactly); expand the one-sentence prose
+on `people/index.html`; link the homepage "women-led" proof item directly to
+this section instead of the general About page. Owner part: real facts about
+Gurpreet Kaur's operational authority, governance/confidentiality oversight,
+client-engagement responsibilities, professional background and any
+independently verifiable profile (LinkedIn, professional registration, etc.).
+Do not infer or soften-fabricate any of this from the existing one sentence.
+
+### WS16 — Secure contact intake — BLOCKED-OWNER (hosting/infra decision)
+
+The dataset-emailing warning is already fixed (see addendum above). The
+larger architecture change — replacing FormSubmit with a first-party endpoint
+(Cloudflare Worker or equivalent), Turnstile, a submission reference number,
+a dedicated no-index confirmation page, lead-source and budget-band fields —
+requires the owner to choose and provision hosting/anti-abuse infrastructure
+outside this repo's current GitHub Pages + FormSubmit model. Do not build a
+partial version that silently changes where enquiry data goes without the
+owner explicitly choosing the destination.
+
+### WS17 — Search authority — BLOCKED-OWNER (account access) + READY (content, gated)
+
+GSC/Bing verification, sitemap inspection, coverage review: needs the owner's
+actual Search Console/Webmaster account access — cannot be done from this
+repo. The four content clusters (research methods; NAAC/institutional
+evidence; impact evaluation; research-integrity governance; 3–5 articles each
+under Dr. Jaskirat Singh's byline) are technically writable without owner
+facts, but publishing 8–12 substantive expert-voice articles under a named
+real person's byline without confirming topic selection first is a scope and
+tone decision the owner should make, not one to execute unprompted. Confirm
+the topic list and byline/review process before drafting article one.
+
 ## Definition of done — every PR
 
 - `python scripts/build_site.py --clean && python scripts/check_build.py &&
-  python scripts/quality-check.py` pass; `node --check script.js` passes;
-  `pnpm test:a11y` and `pnpm test:visual` pass once PR #39 is merged (label
-  applied for intentional visual changes, which the PR body enumerates).
+  python scripts/quality-check.py` pass; `node --check` on every touched JS
+  file; `pnpm test:tools`, `pnpm test:a11y` and `pnpm test:visual` all pass
+  (label applied for intentional visual changes, which the PR body
+  enumerates). PR #39 merged 2026-07-20; `tests/accessibility/audit.mjs`
+  exists on `main` — there is no more "once merged" caveat.
 - New/changed tools: all four sync points updated in the same PR; new states
   covered in the a11y audit's dynamic states; fixtures added; no live
   third-party API calls in CI.

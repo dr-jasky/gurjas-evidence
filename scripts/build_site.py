@@ -104,7 +104,7 @@ def render_navigation(site: dict[str, Any], root: str, section: str) -> str:
     guide_control = (
         '<li class="nav-guide-item"><button class="nav-guide" type="button" '
         'aria-haspopup="dialog" aria-expanded="false" aria-controls="gurjas-site-guide" '
-        'data-site-guide><span aria-hidden="true"></span>Site guide</button></li>'
+        'data-site-guide><span aria-hidden="true"></span>Find your route</button></li>'
     )
     guide_added = False
     for item in site["navigation"]:

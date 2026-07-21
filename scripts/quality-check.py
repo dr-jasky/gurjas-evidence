@@ -147,6 +147,8 @@ if 'action="https://formsubmit.co/support@gurjas.org"' not in contact_page:
     errors.append("contact page: form delivery must target support@gurjas.org")
 if "send it to support@gurjas.org" not in contact_page:
     errors.append("contact page: automated response must route follow-up material to support@gurjas.org")
+if "Please do not email confidential datasets" not in contact_page:
+    errors.append("contact page: automated response must not invite unqualified emailing of confidential datasets")
 for required in ['id="enquiry-context"', 'id="enquiry-service"', 'name="service_interest"']:
     if required not in contact_page:
         errors.append(f"contact page: contextual service handoff is missing {required}")

@@ -540,7 +540,7 @@
     if (guideList) {
       var guideItem = document.createElement("li");
       guideItem.className = "nav-guide-item";
-      guideItem.innerHTML = '<button class="nav-guide" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="gurjas-site-guide" data-site-guide><span aria-hidden="true"></span>Site guide</button>';
+      guideItem.innerHTML = '<button class="nav-guide" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="gurjas-site-guide" data-site-guide><span aria-hidden="true"></span>Find your route</button>';
       var contactItem = guideList.querySelector(".nav-cta");
       guideList.insertBefore(guideItem, contactItem ? contactItem.parentElement : null);
       guideButton = guideItem.querySelector("[data-site-guide]");
@@ -554,15 +554,15 @@
   panel.setAttribute("aria-modal", "true");
   panel.setAttribute("aria-labelledby", "gcTitle");
   panel.hidden = true;
-  panel.innerHTML = '<div class="gc-head"><div class="av">G</div><div><b id="gcTitle">Gurjas site guide</b>'
+  panel.innerHTML = '<div class="gc-head"><div class="av">G</div><div><b id="gcTitle">Find your route</b>'
     + '<small>Site navigation, not live chat</small></div>'
-    + '<button class="gc-x" type="button" aria-label="Close site guide">&times;</button></div>'
+    + '<button class="gc-x" type="button" aria-label="Close find your route">&times;</button></div>'
     + '<div class="gc-body" id="gcBody" aria-live="polite"></div>'
     + '<div class="gc-chips" id="gcChips"></div>'
     + '<form class="gc-foot" id="gcForm" autocomplete="off"><label class="sr-only" for="gcIn">Ask about services, tools or publications</label><input id="gcIn" type="text" '
     + 'placeholder="Ask about services, tools, publications…" aria-label="Ask about services, tools or publications">'
     + '<button class="gc-send" type="submit" aria-label="Send question">&#8593;</button></form>'
-    + '<div class="gc-foot-note">Automated site guide · for a person, use email or WhatsApp</div>';
+    + '<div class="gc-foot-note">Automated route finder · for a person, use email or WhatsApp</div>';
   document.body.appendChild(panel);
 
   var body = panel.querySelector("#gcBody");
