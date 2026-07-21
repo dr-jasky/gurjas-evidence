@@ -103,11 +103,13 @@ for direct_selector in [".stat > span{", ".alt .stat > span{", ".navy-band .stat
 
 tool_routes = [
     "apc-checker",
+    "apc-invoice-triage",
     "grant-deadline-tracker",
     "journal-finder",
     "naac-readiness-scorecard",
     "phd-timeline-planner",
     "predatory-journal-checker",
+    "reference-integrity-checker",
     "research-readiness-triage",
     "reliability-validity-kit",
     "sem-sample-size-calculator",
@@ -145,6 +147,8 @@ if 'action="https://formsubmit.co/support@gurjas.org"' not in contact_page:
     errors.append("contact page: form delivery must target support@gurjas.org")
 if "send it to support@gurjas.org" not in contact_page:
     errors.append("contact page: automated response must route follow-up material to support@gurjas.org")
+if "Please do not email confidential datasets" not in contact_page:
+    errors.append("contact page: automated response must not invite unqualified emailing of confidential datasets")
 for required in ['id="enquiry-context"', 'id="enquiry-service"', 'name="service_interest"']:
     if required not in contact_page:
         errors.append(f"contact page: contextual service handoff is missing {required}")
@@ -168,10 +172,40 @@ for required in [
     's.type==="journal"',
     "s.issn&&s.issn.length",
     "not a submission recommendation",
-    "Method version 0.2-beta",
+    "Method version 0.3-beta",
 ]:
     if required not in finder:
         errors.append(f"Journal Finder: missing journal-only evidence control: {required}")
+
+apc_triage = (ROOT / "tools/apc-invoice-triage/index.html").read_text(encoding="utf-8")
+for forbidden_phrase in ["overall score", "legitimacy score", "risk score", "verdict:"]:
+    if forbidden_phrase.lower() in apc_triage.lower():
+        errors.append(f"APC Invoice Triage: unsupported scoring/verdict phrase remains: {forbidden_phrase}")
+for required in [
+    "Method version 1.0",
+    "does not determine whether the invoice is genuine",
+    "No overall verdict is calculated",
+    "COMMON FRAUD PATTERN",
+    "GurjasExport.download",
+    'id="export-triage"',
+]:
+    if required.lower() not in apc_triage.lower():
+        errors.append(f"APC Invoice Triage: missing evidence control: {required}")
+
+reference_checker = (ROOT / "tools/reference-integrity-checker/index.html").read_text(encoding="utf-8")
+for forbidden_phrase in ["not retracted", "verdict", "legitimacy score"]:
+    if forbidden_phrase.lower() in reference_checker.lower():
+        errors.append(f"Reference and DOI Integrity Checker: unsupported phrase remains: {forbidden_phrase}")
+for required in [
+    "Method version 1.0",
+    "does not certify a reference list as correct or complete",
+    "none is ever auto-selected",
+    "No post-publication updates recorded in Crossref",
+    "GurjasExport.download",
+    'id="export-refs"',
+]:
+    if required.lower() not in reference_checker.lower():
+        errors.append(f"Reference and DOI Integrity Checker: missing evidence control: {required}")
 
 journal_checker = (ROOT / "tools/predatory-journal-checker/index.html").read_text(encoding="utf-8")
 for forbidden_phrase in ["||true", "|| true", "Evidence signal score (0–100)", "Probability-style"]:
@@ -212,14 +246,16 @@ for required in ["Legacy RAF evidence structure", "does not reproduce BAF/MBGL s
 
 readiness_triage = (ROOT / "tools/research-readiness-triage/index.html").read_text(encoding="utf-8")
 for required in [
-    "Method version 1.0",
+    "Method version 1.1",
     "unweighted Gurjas control inventory",
     "does not calculate readiness",
     "Nothing is uploaded",
     "No score is shown",
     "navigator.clipboard.writeText",
+    "GurjasExport.download",
     'id="triage-output"',
     'id="copy-plan"',
+    'id="export-plan"',
 ]:
     if required not in readiness_triage:
         errors.append(f"Research Readiness Triage: missing method or decision boundary: {required}")
@@ -253,8 +289,8 @@ if "Metrics reviewed 15 July 2026" in publications_page:
 
 try:
     facts = json.loads((ROOT / "data/site-facts.json").read_text(encoding="utf-8"))
-    if facts.get("toolCount") != 9:
-        errors.append("site-facts.json: toolCount must be 9")
+    if facts.get("toolCount") != 11:
+        errors.append("site-facts.json: toolCount must be 11")
     if facts.get("predatoryCheckerSignals") != 13:
         errors.append("site-facts.json: predatoryCheckerSignals must match the 13-signal checker")
     metrics = facts.get("metrics", {})
@@ -365,8 +401,8 @@ try:
     contract_data = json.loads((ROOT / "data/tool-contracts.json").read_text(encoding="utf-8"))
     contracts = contract_data.get("tools", [])
     contract_ids = [contract.get("id") for contract in contracts]
-    if contract_data.get("schemaVersion") != "1.0" or len(contracts) != 9:
-        errors.append("tool-contracts.json: expected schema version 1.0 and exactly nine contracts")
+    if contract_data.get("schemaVersion") != "1.0" or len(contracts) != 11:
+        errors.append("tool-contracts.json: expected schema version 1.0 and exactly eleven contracts")
     if set(contract_ids) != set(tool_routes) or len(contract_ids) != len(set(contract_ids)):
         errors.append("tool-contracts.json: contracts must map one-to-one to production tool routes")
     for contract in contracts:
@@ -607,6 +643,24 @@ else:
         errors.append(f"insights/index.html: missing route to {doctoral_insight_route}")
     if f"https://gurjas.org/{doctoral_insight_route}" not in sitemap:
         errors.append(f"sitemap.xml: missing {doctoral_insight_route}")
+
+sample_templates = [
+    "methods-design-decision-memo",
+    "source-to-claim-traceability-matrix",
+    "impact-evaluation-indicator-matrix",
+    "research-integrity-risk-register",
+    "reproducibility-and-analysis-audit-pack",
+]
+for slug in sample_templates:
+    sample_path = ROOT / "assets/samples" / f"{slug}.md"
+    if not sample_path.exists():
+        errors.append(f"assets/samples/{slug}.md: expected sample deliverable template is missing")
+        continue
+    sample_text = sample_path.read_text(encoding="utf-8")
+    if "Illustrative structure. No client information. Actual scope and evidence requirements vary" not in sample_text:
+        errors.append(f"assets/samples/{slug}.md: missing the mandatory illustrative-structure disclaimer")
+    if f'href="../assets/samples/{slug}.md" download' not in (ROOT / "resources/index.html").read_text(encoding="utf-8"):
+        errors.append(f"resources/index.html: missing download link for {slug}.md")
 
 if errors:
     print("Quality checks failed:")

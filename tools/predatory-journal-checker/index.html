@@ -81,7 +81,7 @@
       <div id="matches"></div>
     </div>
 
-    <div id="panel" hidden>
+    <div id="panel" hidden data-tool-result>
       <div class="card" style="margin-top:1.6rem;border-top-color:var(--gold)">
         <h3 style="margin:0" id="pj-name">—</h3>
         <p id="pj-meta" style="margin:.2rem 0 0;font-size:.92rem;color:var(--muted)"></p>
@@ -112,7 +112,7 @@
       <button id="verdictbtn" class="btn btn-solid" style="border:none;cursor:pointer;align-self:start;margin-top:.8rem">Summarise website signals</button>
     </div>
 
-    <div id="vout" hidden>
+    <div id="vout" hidden data-tool-result>
       <div class="card" style="margin-top:2rem;border-top-color:var(--gold)">
         <h3 style="margin:0">Website-signal summary: <span id="vlabel" style="color:var(--gold-d)">—</span></h3>
         <p id="vtext" style="margin:.4rem 0 0"></p>
@@ -120,6 +120,36 @@
       </div>
       <p style="margin-top:1rem"><button id="share" class="btn btn-ghost" style="cursor:pointer">Copy shareable link</button> <span id="shared" style="font-size:.85rem;color:var(--gold-d)"></span></p>
       <p class="note">This tool reports source-labelled evidence and your own checklist responses; it maintains no blacklist and renders no judgement on any named journal. Unsure about a specific journal for a specific manuscript? <a href="../../contact/">Journal strategy is part of what we do</a>.</p>
+    </div>
+
+    <div class="card" style="gap:.8rem;margin-top:2rem">
+      <h3 style="margin:0">Disclose that you ran this check</h3>
+      <p style="margin:0;font-size:.92rem;color:var(--muted)">A small, self-contained badge you can embed on a library guide, internal document or your own site to disclose that a check was run with this tool. <strong>The badge states only that a check was performed — never a result.</strong> It is not a rating, certification or endorsement of any journal, and Gurjas does not track who embeds it.</p>
+      <div aria-hidden="true" style="margin-top:.2rem">
+        <svg xmlns="http://www.w3.org/2000/svg" width="360" height="58" viewBox="0 0 360 58" role="img" aria-label="Example: Checked with the Gurjas Journal Evidence Checker">
+          <rect width="360" height="58" rx="4" fill="#041226"></rect>
+          <rect x="0" y="0" width="360" height="3" fill="#b08a35"></rect>
+          <text x="16" y="24" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#f4f0e6" font-weight="600">Checked with the</text>
+          <text x="16" y="40" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#d9b968" font-weight="700">Gurjas Journal Evidence Checker</text>
+          <text x="16" y="52" font-family="Arial, sans-serif" font-size="9" fill="#9fb0c7">[date you checked] · not an endorsement</text>
+        </svg>
+      </div>
+      <p class="form-note" style="margin:0">Example preview only — the copied code below includes an editable date placeholder, not a live claim.</p>
+      <label for="embed-code" style="font-weight:600;font-size:.9rem">Embed code</label>
+      <textarea id="embed-code" readonly rows="6" style="width:100%;padding:.7rem;border:1px solid var(--line);border-radius:4px;font-size:.8rem;font-family:var(--mono,monospace);resize:vertical" onclick="this.select()"><a href="https://gurjas.org/tools/predatory-journal-checker/" target="_blank" rel="noopener" title="A source-labelled evidence check was performed with the Gurjas Journal Evidence Checker. This is not a legitimacy rating or endorsement." style="display:inline-block;text-decoration:none">
+  <svg xmlns="http://www.w3.org/2000/svg" width="360" height="58" viewBox="0 0 360 58" role="img" aria-label="Checked with the Gurjas Journal Evidence Checker on [date you checked]">
+    <rect width="360" height="58" rx="4" fill="#041226"></rect>
+    <rect x="0" y="0" width="360" height="3" fill="#b08a35"></rect>
+    <text x="16" y="24" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#f4f0e6" font-weight="600">Checked with the</text>
+    <text x="16" y="40" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#d9b968" font-weight="700">Gurjas Journal Evidence Checker</text>
+    <text x="16" y="52" font-family="Arial, sans-serif" font-size="9" fill="#9fb0c7">[date you checked] · not an endorsement</text>
+  </svg>
+</a></textarea>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap;align-items:center">
+        <button id="copy-embed" class="btn btn-ghost" type="button" style="cursor:pointer">Copy embed code</button>
+        <span id="embed-copy-status" role="status" aria-live="polite" style="font-size:.85rem;color:var(--gold-d)"></span>
+      </div>
+      <p class="note" style="margin:0">Before publishing, replace <code>[date you checked]</code> (it appears twice) with the date you actually ran the check. Do not remove the linked disclosure or the "not an endorsement" text, and do not present the badge as certification.</p>
     </div>
 
     <div class="prose" style="margin-top:2.6rem">
@@ -393,6 +423,15 @@ document.getElementById("share").addEventListener("click",function(){
     document.getElementById("shared").textContent="Link copied.";
     setTimeout(function(){document.getElementById("shared").textContent="";},2000);
   });
+});
+document.getElementById("copy-embed").addEventListener("click",function(){
+  var status=document.getElementById("embed-copy-status");
+  var code=document.getElementById("embed-code").value;
+  if(!navigator.clipboard){status.textContent="Clipboard access is unavailable; select the text above and copy it manually.";return;}
+  navigator.clipboard.writeText(code).then(function(){
+    status.textContent="Embed code copied. Replace the date placeholder before publishing.";
+    setTimeout(function(){status.textContent="";},4000);
+  },function(){status.textContent="Copy was blocked by the browser; select the text above and copy it manually.";});
 });
 (function restore(){
   var m=location.hash.match(/#q=(.+)/);

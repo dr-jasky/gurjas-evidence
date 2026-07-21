@@ -6,6 +6,7 @@ const baseUrl = process.env.A11Y_BASE_URL ?? "http://127.0.0.1:8000/";
 const outputDirectory = process.env.A11Y_REPORT_DIR ?? "accessibility-review";
 const require = createRequire(import.meta.url);
 const axeSource = readFileSync(require.resolve("axe-core/axe.min.js"), "utf8");
+const axeVersion = require("axe-core/package.json").version;
 const blockingImpacts = new Set(["serious", "critical"]);
 const wcagTags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22a", "wcag22aa"];
 
@@ -69,7 +70,11 @@ async function runAxe(page, axeSource, route, viewport, state) {
 
 async function dismissConsent(page) {
   const decline = page.locator('[data-consent="denied"]');
-  if (await decline.isVisible().catch(() => false)) {
+  const appeared = await decline
+    .waitFor({ state: "visible", timeout: 1500 })
+    .then(() => true)
+    .catch(() => false);
+  if (appeared) {
     await decline.click();
   }
 }
@@ -140,6 +145,17 @@ async function auditDynamicStates(page, axeSource, route, viewport) {
     results.push(await runAxe(page, axeSource, route, viewport, "triage-result"));
   }
 
+  if (route === "/tools/apc-invoice-triage/") {
+    // Only the optional APC lookup calls a live API; the register itself
+    // is entirely local, so this state can be audited deterministically.
+    await page.selectOption("#paymentMethod", "crypto");
+    await page.locator('input[name="acceptance"][value="no"]').check();
+    await page.locator('input[name="payee"][value="no"]').check();
+    await page.click('#triage-form button[type="submit"]');
+    await page.locator("#out").waitFor({ state: "visible" });
+    results.push(await runAxe(page, axeSource, route, viewport, "invoice-register-result"));
+  }
+
   return results;
 }
 
@@ -150,7 +166,7 @@ function markdownReport(results) {
   const lines = [
     "# Gurjas accessibility review",
     "",
-    "- Axe core: 4.12.1 (pinned in the lockfile)",
+    `- Axe core: ${axeVersion} (pinned in the lockfile)`,
     `- Audited states: ${results.length}`,
     `- WCAG rule tags: ${wcagTags.join(", ")}`,
     `- Violations reported: ${totalViolations}`,
