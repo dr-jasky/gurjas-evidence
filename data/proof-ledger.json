@@ -1,11 +1,12 @@
 {
   "schemaVersion": "1.0",
-  "published": "2026-07-20",
-  "reviewCadence": "Quarterly for profile metrics; on release for repositories and tools",
+  "published": "2026-08-01",
+  "reviewCadence": "Quarterly for profile metrics; on release for repositories, tools and experience records",
   "statusDefinitions": {
     "external-public-record": "The cited record is publicly accessible on a third-party platform.",
-    "owner-supplied-snapshot": "The value was transcribed from an authenticated owner export and linked to the corresponding public profile where available.",
-    "site-register": "The value is counted from Gurjas's dated public register or production inventory; it is not an independent third-party attestation."
+    "owner-supplied-snapshot": "The value was transcribed from an authenticated owner export or dated professional record and linked to the corresponding public profile where available.",
+    "site-register": "The value is counted from Gurjas's dated public register or production inventory; it is not an independent third-party attestation.",
+    "founder-attested-pattern": "The statement describes recurring confidential professional enquiries reported by the founder. It is not a formal prevalence estimate, adjudicated finding or independently audited client record."
   },
   "entries": [
     {
@@ -55,6 +56,30 @@
       "verifiedAt": "2026-07-15",
       "verificationMethod": "Transcribed from an owner-supplied Web of Science peer-review records export and linked to the author record.",
       "limitations": "Review confidentiality prevents public item-level disclosure. Platform totals depend on journals and reviewers contributing or claiming records."
+    },
+    {
+      "id": "founder-professional-experience",
+      "claim": "The dated master CV records at least 30 postgraduate and doctoral-level projects guided or evaluated, plus two separate primary field-research programmes with more than 500 respondents each.",
+      "value": {"projectsGuidedOrEvaluatedMinimum": 30, "primaryFieldProgrammes": 2, "respondentsPerProgrammeMinimum": 500},
+      "factPaths": ["experience.projectsGuidedOrEvaluatedMinimum", "experience.primaryFieldProgrammes", "experience.respondentsPerProgrammeMinimum"],
+      "status": "owner-supplied-snapshot",
+      "sourceLabel": "Dr. Jaskirat Singh master academic CV, updated 28 June 2026",
+      "sourceUrl": "/people/#jaskirat-singh",
+      "verifiedAt": "2026-08-01",
+      "verificationMethod": "Cross-checked the dated CV statements against the public principal-consultant profile, publication record and linked professional profiles where applicable.",
+      "limitations": "The project count is a minimum reported in the owner-supplied CV and does not mean 30 paid clients, 30 completed Ph.D. supervisions or 30 Gurjas engagements. The two field programmes are distinct doctoral and postdoctoral research programmes."
+    },
+    {
+      "id": "founder-confidential-enquiry-patterns",
+      "claim": "The founder reports recurring confidential enquiries involving failed outsourced thesis work, uncertain data provenance and journal-identity or indexing claims made through publication intermediaries.",
+      "value": {"patternTypes": ["research-recovery", "data-provenance", "journal-identity-risk"]},
+      "factPaths": [],
+      "status": "founder-attested-pattern",
+      "sourceLabel": "Founder-led experience record",
+      "sourceUrl": "/experience/",
+      "verifiedAt": "2026-08-01",
+      "verificationMethod": "Published as a bounded recurring-pattern account supplied by Dr. Jaskirat Singh, with identities withheld and no formal prevalence estimate.",
+      "limitations": "The reports were not collected as a research dataset or incident register. Payment amounts, intermediary roles and institutional handling were reported by enquirers and are not presented as independently audited findings. No named person or institution is implicated."
     },
     {
       "id": "global-findex-repository",
