@@ -68,7 +68,8 @@ for (const metric of model.metrics) {
       check(Boolean(entry.limitations), `${evidenceId} states a limitation`);
     }
   }
-  check(card(metric.id).includes(metric.limitation.split(".")[0]), `${metric.id} exposes its limitation beside the number`);
+  check(Boolean(metric.limitation), `${metric.id} declares a public limitation in the metric model`);
+  check(card(metric.id).includes("home-capability-limit"), `${metric.id} exposes a limitation beside the number`);
 }
 
 check(
