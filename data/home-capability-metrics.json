@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "1.0",
+  "published": "2026-08-01",
+  "purpose": "Define the four homepage capability metrics, their fact paths, evidence records, attribution classes and public limitations.",
+  "metrics": [
+    {
+      "id": "founder_projects",
+      "display": "30+",
+      "factPaths": [
+        "experience.projectsGuidedOrEvaluatedMinimum"
+      ],
+      "evidenceIds": [
+        "founder-professional-experience"
+      ],
+      "classification": "founder-led-before-gurjas",
+      "destination": "/experience/#capability-title",
+      "limitation": "Does not mean 30 Gurjas clients, 30 completed Ph.D. supervisions or 30 paid engagements."
+    },
+    {
+      "id": "field_programmes",
+      "display": "2 × 500+",
+      "factPaths": [
+        "experience.primaryFieldProgrammes",
+        "experience.respondentsPerProgrammeMinimum"
+      ],
+      "evidenceIds": [
+        "founder-professional-experience"
+      ],
+      "classification": "founder-led-before-gurjas",
+      "destination": "/experience/#capability-title",
+      "limitation": "The programmes are distinct doctoral and postdoctoral research programmes, not one combined sample or Gurjas organisational work."
+    },
+    {
+      "id": "public_tools",
+      "display": "11",
+      "factPaths": [
+        "toolCount"
+      ],
+      "evidenceIds": [
+        "public-tool-inventory"
+      ],
+      "classification": "current-gurjas-infrastructure",
+      "destination": "/tools/",
+      "limitation": "Availability does not establish fitness for a particular research or institutional decision."
+    },
+    {
+      "id": "open_repositories",
+      "display": "2",
+      "factPaths": [
+        "researchAssets.publicRepositoryCount"
+      ],
+      "evidenceIds": [
+        "global-findex-repository",
+        "aucr-repository"
+      ],
+      "classification": "external-public-records",
+      "destination": "/evidence/#claims",
+      "limitation": "The deposits are public research infrastructure, not Gurjas client engagements or independently certified findings."
+    }
+  ],
+  "supportingRecord": {
+    "id": "principal_record",
+    "classification": "principal-consultant-record",
+    "factPaths": [
+      "metrics.journalArticles",
+      "metrics.bookChapters",
+      "metrics.googleScholarCitations",
+      "metrics.hIndex",
+      "metrics.wosPeerReviewRecords",
+      "metrics.wosManuscriptsReviewed",
+      "metrics.ssrnTopPercent"
+    ],
+    "evidenceIds": [
+      "published-output",
+      "author-profile-metrics"
+    ],
+    "reviewed": "2026-07-15",
+    "limitation": "These are the Principal Consultant's dated profile and publication records, not Gurjas organisational performance metrics."
+  }
+}
