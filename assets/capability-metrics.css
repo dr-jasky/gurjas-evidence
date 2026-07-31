@@ -1,0 +1,238 @@
+/* Verified capability metrics — homepage only */
+.home .home-capability{
+  margin-top:clamp(48px,7vw,76px);
+  padding-top:clamp(38px,5vw,56px);
+  border-top:1px solid #d8d2c2;
+}
+.home .home-capability-head{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(260px,.75fr);
+  gap:clamp(24px,4vw,64px);
+  align-items:end;
+  margin-bottom:clamp(28px,4vw,42px);
+}
+.home .home-capability-head .home-kicker{margin-bottom:12px}
+.home .home-capability-head > p{
+  margin:0;
+  color:var(--muted);
+  font-size:clamp(15px,1.5vw,17px);
+  line-height:1.72;
+  max-width:42rem;
+}
+.home .home-capability-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+}
+.home .home-capability-card{
+  position:relative;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  padding:clamp(24px,3vw,34px);
+  background:#fffdf8;
+  border:1px solid #d8d2c2;
+  box-shadow:0 14px 36px rgba(4,18,38,.06);
+}
+.home .home-capability-card::before{
+  content:"";
+  position:absolute;
+  inset:0 auto 0 0;
+  width:3px;
+  background:linear-gradient(180deg,#d8b45b,#9b762a);
+}
+.home .home-capability-top{
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
+  justify-content:space-between;
+  margin-bottom:24px;
+}
+.home .home-capability-value{
+  display:block;
+  color:#06264e;
+  font-family:var(--h-serif);
+  font-size:clamp(42px,5.2vw,68px);
+  font-weight:450;
+  line-height:.9;
+  letter-spacing:-.045em;
+  white-space:nowrap;
+}
+.home .home-capability-class{
+  display:inline-flex;
+  align-items:center;
+  max-width:16rem;
+  color:#6e531d;
+  font-family:var(--h-mono);
+  font-size:10px;
+  font-weight:700;
+  line-height:1.45;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.home .home-capability-card h3{
+  margin:0 0 12px;
+  color:#06264e;
+  font-family:var(--h-serif);
+  font-size:clamp(23px,2.4vw,31px);
+  font-weight:450;
+  line-height:1.12;
+}
+.home .home-capability-card > p{
+  margin:0 0 16px;
+  color:#394252;
+  font-size:15px;
+  line-height:1.7;
+}
+.home .home-capability-card .home-capability-limit{
+  margin-top:auto;
+  padding-top:16px;
+  border-top:1px solid #e6e0d3;
+  color:#596273;
+  font-size:13px;
+  line-height:1.6;
+}
+.home .home-capability-card .home-capability-limit strong{color:#394252}
+.home .home-capability-card > a,
+.home .home-academic-record-head > a{
+  display:inline-flex;
+  width:max-content;
+  max-width:100%;
+  margin-top:4px;
+  color:#765719;
+  font-family:var(--h-mono);
+  font-size:11px;
+  font-weight:700;
+  line-height:1.5;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-underline-offset:4px;
+}
+.home .home-capability-card > a:hover,
+.home .home-capability-card > a:focus-visible,
+.home .home-academic-record-head > a:hover,
+.home .home-academic-record-head > a:focus-visible{
+  color:#06264e;
+}
+.home .home-academic-record{
+  margin-top:18px;
+  padding:clamp(24px,3vw,34px);
+  color:#f7f4ec;
+  background:
+    radial-gradient(circle at 88% 8%,rgba(217,185,104,.16),transparent 26rem),
+    #06264e;
+  border:1px solid rgba(217,185,104,.34);
+}
+.home .home-academic-record-head{
+  display:flex;
+  gap:24px;
+  align-items:flex-end;
+  justify-content:space-between;
+  padding-bottom:22px;
+  border-bottom:1px solid rgba(255,255,255,.15);
+}
+.home .home-academic-record .home-capability-class{color:#d9b968}
+.home .home-academic-record h3{
+  margin:8px 0 0;
+  color:#fffdf8;
+  font-family:var(--h-serif);
+  font-size:clamp(24px,2.7vw,34px);
+  font-weight:420;
+}
+.home .home-academic-record-head > a{color:#f0d98f}
+.home .home-academic-record-head > a:hover,
+.home .home-academic-record-head > a:focus-visible{color:#fff}
+.home .home-academic-metrics{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:0;
+  margin:0;
+  padding:24px 0 18px;
+}
+.home .home-academic-metrics > div{
+  min-width:0;
+  padding:0 18px;
+  border-left:1px solid rgba(255,255,255,.14);
+}
+.home .home-academic-metrics > div:first-child{
+  padding-left:0;
+  border-left:0;
+}
+.home .home-academic-metrics dt{
+  color:#fff;
+  font-family:var(--h-serif);
+  font-size:clamp(27px,3vw,38px);
+  line-height:1;
+}
+.home .home-academic-metrics dd{
+  margin:8px 0 0;
+  color:#c8d0dc;
+  font-size:12px;
+  line-height:1.45;
+}
+.home .home-academic-note{
+  max-width:78rem;
+  margin:0;
+  color:#aeb9c8;
+  font-size:12px;
+  line-height:1.65;
+}
+@media (max-width:980px){
+  .home .home-capability-head{
+    grid-template-columns:1fr;
+    align-items:start;
+  }
+  .home .home-academic-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .home .home-academic-metrics > div:nth-child(4){
+    padding-left:0;
+    border-left:0;
+  }
+  .home .home-academic-metrics > div:nth-child(n+4){margin-top:22px}
+}
+@media (max-width:720px){
+  .home .home-capability{margin-top:42px;padding-top:34px}
+  .home .home-capability-grid{grid-template-columns:1fr;gap:14px}
+  .home .home-capability-card{padding:23px 22px 22px}
+  .home .home-capability-top{
+    display:grid;
+    grid-template-columns:minmax(104px,auto) minmax(0,1fr);
+    gap:16px;
+    align-items:start;
+    margin-bottom:20px;
+  }
+  .home .home-capability-value{font-size:44px}
+  .home .home-capability-class{font-size:9px}
+  .home .home-capability-card h3{font-size:25px}
+  .home .home-capability-card > p{font-size:14.5px;line-height:1.66}
+  .home .home-capability-card > a{
+    width:100%;
+    margin-top:6px;
+    padding:13px 0 2px;
+  }
+  .home .home-academic-record{padding:24px 22px}
+  .home .home-academic-record-head{
+    display:block;
+  }
+  .home .home-academic-record-head > a{
+    width:100%;
+    margin-top:16px;
+  }
+  .home .home-academic-metrics{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    padding-top:20px;
+  }
+  .home .home-academic-metrics > div{
+    padding:0 12px 0 0;
+    border-left:0;
+  }
+  .home .home-academic-metrics > div:nth-child(even){
+    padding-left:14px;
+    border-left:1px solid rgba(255,255,255,.14);
+  }
+  .home .home-academic-metrics > div:nth-child(n+3){margin-top:22px}
+  .home .home-academic-metrics dt{font-size:31px}
+}
+@media (prefers-reduced-motion:reduce){
+  .home .home-capability-card,
+  .home .home-academic-record{scroll-behavior:auto}
+}

@@ -7,7 +7,8 @@
     "test:a11y": "node tests/accessibility/audit.mjs",
     "test:analytics": "node tests/analytics/events.spec.mjs",
     "test:html": "vnu --errors-only --skip-non-html _site",
-    "test:tools": "node tests/tools/journal-finder.spec.mjs && node tests/tools/reference-checker.spec.mjs && node tests/analytics/events.spec.mjs",
+    "test:metrics": "node tests/metrics/home-capability.spec.mjs",
+    "test:tools": "node tests/tools/journal-finder.spec.mjs && node tests/tools/reference-checker.spec.mjs && node tests/analytics/events.spec.mjs && node tests/metrics/home-capability.spec.mjs",
     "test:visual": "node tests/visual/compare.mjs"
   },
   "devDependencies": {
