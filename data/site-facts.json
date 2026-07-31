@@ -1,5 +1,5 @@
 {
-  "reviewed": "2026-07-15",
+  "reviewed": "2026-08-01",
   "brand": "Gurjas Evidence and Policy Analytics",
   "toolCount": 11,
   "predatoryCheckerSignals": 13,
@@ -28,6 +28,7 @@
     "confidentialPatternEvidenceClass": "founder-attested-pattern"
   },
   "researchAssets": {
+    "publicRepositoryCount": 2,
     "globalFindex": {
       "adults": 101528,
       "economies": 97,
