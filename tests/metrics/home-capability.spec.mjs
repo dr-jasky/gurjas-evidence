@@ -86,10 +86,21 @@ check(
   "the repository count is visibly classified as external public evidence"
 );
 
-const productionTools = contracts.tools.filter((tool) => tool.status === "production");
+const publicStatuses = new Set(["production", "beta", "living-resource"]);
+const publicTools = contracts.tools.filter((tool) => publicStatuses.has(tool.status));
 check(
-  facts.toolCount === productionTools.length,
-  `central tool count (${facts.toolCount}) equals production tool contracts (${productionTools.length})`
+  publicTools.length === contracts.tools.length,
+  "every registered tool uses an approved public maturity status"
+);
+check(
+  facts.toolCount === publicTools.length,
+  `central tool count (${facts.toolCount}) equals public tool contracts (${publicTools.length})`
+);
+check(
+  publicTools.filter((tool) => tool.status === "production").length === 9 &&
+  publicTools.filter((tool) => tool.status === "beta").length === 1 &&
+  publicTools.filter((tool) => tool.status === "living-resource").length === 1,
+  "the public inventory preserves nine production, one beta and one living-resource status"
 );
 check(
   !/\bNine free tools\b/i.test(html) && !/data-fact="toolCount">9</.test(html),
