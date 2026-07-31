@@ -24,7 +24,8 @@
     "practiceEstablished": "2026-06-29",
     "projectsGuidedOrEvaluatedMinimum": 30,
     "primaryFieldProgrammes": 2,
-    "respondentsPerProgrammeMinimum": 500
+    "respondentsPerProgrammeMinimum": 500,
+    "confidentialPatternEvidenceClass": "founder-attested-pattern"
   },
   "researchAssets": {
     "globalFindex": {
