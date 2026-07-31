@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "published": "2026-07-20",
-  "reviewCadence": "Quarterly for profile metrics; on release for repositories and tools",
+  "published": "2026-07-31",
+  "reviewCadence": "Quarterly for profile metrics; on release for repositories, tools and experience records",
   "statusDefinitions": {
     "external-public-record": "The cited record is publicly accessible on a third-party platform.",
-    "owner-supplied-snapshot": "The value was transcribed from an authenticated owner export and linked to the corresponding public profile where available.",
+    "owner-supplied-snapshot": "The value was transcribed from an authenticated owner export, dated professional record or explicitly labelled owner-supplied professional account and linked to a public record where available.",
     "site-register": "The value is counted from Gurjas's dated public register or production inventory; it is not an independent third-party attestation."
   },
   "entries": [
@@ -21,40 +21,40 @@
       "limitations": "The aggregate count is maintained by Gurjas. Readers should use the item-level DOI and publisher links for independent checks."
     },
     {
-      "id": "google-scholar-profile",
-      "claim": "The Google Scholar profile snapshot records 204 citations, an h-index of 8 and an i10-index of 8.",
-      "value": {"citations": 204, "hIndex": 8, "i10Index": 8},
-      "factPaths": ["metrics.googleScholarCitations", "metrics.hIndex", "metrics.i10Index"],
+      "id": "author-profile-metrics",
+      "claim": "Dated owner-supplied snapshots record 204 Google Scholar citations, h-index 8, i10-index 8; 14 public SSRN papers, 6,886 views, 1,300 downloads and top 3.2%; and 63 Web of Science review records covering 56 manuscripts.",
+      "value": {"citations": 204, "hIndex": 8, "i10Index": 8, "publicPapers": 14, "views": 6886, "downloads": 1300, "topPercent": "3.2%", "reviewRecords": 63, "manuscripts": 56},
+      "factPaths": ["metrics.googleScholarCitations", "metrics.hIndex", "metrics.i10Index", "metrics.ssrnPublicPapers", "metrics.ssrnViews", "metrics.ssrnDownloads", "metrics.ssrnTopPercent", "metrics.wosPeerReviewRecords", "metrics.wosManuscriptsReviewed"],
       "status": "owner-supplied-snapshot",
-      "sourceLabel": "Google Scholar author profile",
-      "sourceUrl": "https://scholar.google.com/citations?user=d8Kd4ywAAAAJ&hl=en",
+      "sourceLabel": "Google Scholar, SSRN and Web of Science author-profile snapshots",
+      "sourceUrl": "/people/#jaskirat-singh",
       "verifiedAt": "2026-07-15",
-      "verificationMethod": "Transcribed from an owner-supplied profile export and cross-linked to the public author profile.",
-      "limitations": "Citation profiles change continuously and Google Scholar controls its coverage and calculations. The dated snapshot, not a live API, is the source for the displayed values."
+      "verificationMethod": "Transcribed from authenticated or owner-supplied profile exports and cross-linked from the public principal-consultant profile to Google Scholar, SSRN and Web of Science.",
+      "limitations": "Profile metrics change continuously, platform coverage differs and some authenticated totals cannot be reproduced from public pages alone. The dated snapshots—not live APIs—are the source for displayed values."
     },
     {
-      "id": "ssrn-profile",
-      "claim": "The SSRN snapshot records 14 public papers, 6,886 views, 1,300 downloads and an author rank in the top 3.2%.",
-      "value": {"publicPapers": 14, "views": 6886, "downloads": 1300, "topPercent": "3.2%"},
-      "factPaths": ["metrics.ssrnPublicPapers", "metrics.ssrnViews", "metrics.ssrnDownloads", "metrics.ssrnTopPercent"],
+      "id": "founder-professional-experience",
+      "claim": "The dated master CV records at least 30 postgraduate and doctoral-level projects guided or evaluated, plus two separate primary field-research programmes with more than 500 respondents each.",
+      "value": {"projectsGuidedOrEvaluatedMinimum": 30, "primaryFieldProgrammes": 2, "respondentsPerProgrammeMinimum": 500},
+      "factPaths": ["experience.projectsGuidedOrEvaluatedMinimum", "experience.primaryFieldProgrammes", "experience.respondentsPerProgrammeMinimum"],
       "status": "owner-supplied-snapshot",
-      "sourceLabel": "SSRN author page",
-      "sourceUrl": "https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=7349141",
-      "verifiedAt": "2026-07-15",
-      "verificationMethod": "Transcribed from an authenticated SSRN My Papers export; public papers were cross-linked to the author page.",
-      "limitations": "Views, downloads and rank change over time and may require authenticated access to reproduce exactly. The percentile is calculated from the recorded rank and population at the snapshot date."
+      "sourceLabel": "Dr. Jaskirat Singh master academic CV, updated 28 June 2026",
+      "sourceUrl": "/people/#jaskirat-singh",
+      "verifiedAt": "2026-07-31",
+      "verificationMethod": "Cross-checked the dated CV statements against the public principal-consultant profile, publication record and linked professional profiles where applicable.",
+      "limitations": "The project count is a minimum reported in the owner-supplied CV and does not mean 30 paid clients, 30 completed Ph.D. supervisions or 30 Gurjas engagements. The two field programmes are distinct doctoral and postdoctoral research programmes."
     },
     {
-      "id": "peer-review-record",
-      "claim": "The Web of Science snapshot records 63 peer-review records covering 56 manuscripts.",
-      "value": {"reviewRecords": 63, "manuscripts": 56},
-      "factPaths": ["metrics.wosPeerReviewRecords", "metrics.wosManuscriptsReviewed"],
+      "id": "founder-confidential-enquiry-patterns",
+      "claim": "The founder reports recurring confidential enquiries involving failed outsourced thesis work, uncertain data provenance and journal-identity or indexing claims made through publication intermediaries.",
+      "value": {"patternTypes": ["research-recovery", "data-provenance", "journal-identity-risk"], "evidenceClass": "founder-attested-pattern"},
+      "factPaths": ["experience.confidentialPatternEvidenceClass"],
       "status": "owner-supplied-snapshot",
-      "sourceLabel": "Web of Science researcher profile",
-      "sourceUrl": "https://www.webofscience.com/wos/author/record/IQW-3142-2023",
-      "verifiedAt": "2026-07-15",
-      "verificationMethod": "Transcribed from an owner-supplied Web of Science peer-review records export and linked to the author record.",
-      "limitations": "Review confidentiality prevents public item-level disclosure. Platform totals depend on journals and reviewers contributing or claiming records."
+      "sourceLabel": "Founder-led experience record — founder-attested pattern",
+      "sourceUrl": "/experience/",
+      "verifiedAt": "2026-07-31",
+      "verificationMethod": "Published as a bounded owner-supplied recurring-pattern account from Dr. Jaskirat Singh, with identities withheld and no formal prevalence estimate.",
+      "limitations": "The reports were not collected as a research dataset or incident register. Payment amounts, intermediary roles and institutional handling were reported by enquirers and are not presented as independently audited findings. No named person or institution is implicated."
     },
     {
       "id": "global-findex-repository",

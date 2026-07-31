@@ -16,6 +16,7 @@ primary source recorded beside it in the proof ledger rather than this site alon
 - [Proof Ledger and Tool Contracts](https://gurjas.org/evidence/): dated register of public claims with source labels and limitations
 - [Claim ledger (JSON)](https://gurjas.org/data/proof-ledger.json): machine-readable claim records
 - [Tool contracts (JSON)](https://gurjas.org/data/tool-contracts.json): per-tool method version, outbound requests, sources, limitations and decision boundary
+- [Founder-Led Experience](https://gurjas.org/experience/): pre-Gurjas professional experience and confidential recurring patterns, separated by evidence status and attribution
 - [Publications](https://gurjas.org/publications/): itemised publication register with DOIs and external profiles
 
 ## Research tools (free, no sign-up)
