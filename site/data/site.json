@@ -15,6 +15,7 @@
       "children": [
         {"label": "Methods", "path": "methods/", "section": "methods"},
         {"label": "Research", "path": "research/", "section": "research"},
+        {"label": "Experience", "path": "experience/", "section": "experience"},
         {"label": "Publications", "path": "publications/", "section": "publications"},
         {"label": "Insights", "path": "insights/", "section": "insights"},
         {"label": "Proof Ledger", "path": "evidence/", "section": "evidence"}
@@ -44,6 +45,7 @@
       "heading": "Organisation",
       "links": [
         {"label": "People", "path": "people/"},
+        {"label": "Founder-Led Experience", "path": "experience/"},
         {"label": "Advisory Board", "path": "advisory/"},
         {"label": "Resource Centre", "path": "resources/"},
         {"label": "Proof Ledger", "path": "evidence/"},
