@@ -30,6 +30,7 @@ const routes = [
   },
   { name: "advisory-board", path: "/advisory/" },
   { name: "people", path: "/people/" },
+  { name: "founder-led-experience", path: "/experience/" },
   { name: "publications", path: "/publications/" },
   { name: "research-tools", path: "/tools/" },
   { name: "apc-checker", path: "/tools/apc-checker/" },
