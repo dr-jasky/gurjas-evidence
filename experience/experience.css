@@ -146,6 +146,9 @@ body.experience-page{
   height:3px;
   background:var(--gold-l);
 }
+.experience-boundary .experience-card-label{
+  color:var(--gold-l);
+}
 .experience-boundary h2{
   margin:.65rem 0 1.2rem;
   color:#fff;
@@ -362,10 +365,12 @@ body.experience-page{
   gap:clamp(32px,7vw,82px);
   align-items:start;
 }
-.experience-section-navy .experience-section-label{
+.experience-section-navy .experience-section-label,
+.experience-final .experience-section-label{
   color:var(--gold-l);
 }
-.experience-section-navy .experience-section-label::before{
+.experience-section-navy .experience-section-label::before,
+.experience-final .experience-section-label::before{
   background:var(--gold-l);
 }
 .experience-process-intro h2{
