@@ -16,7 +16,8 @@ function check(condition, message) {
 async function newPage(browser, consent = "granted") {
   const context = await browser.newContext();
   await context.addInitScript((choice) => {
-    localStorage.setItem("gurjas.analyticsConsent.v1", choice);
+    if (choice === null) localStorage.removeItem("gurjas.analyticsConsent.v1");
+    else localStorage.setItem("gurjas.analyticsConsent.v1", choice);
     window.__gtagEvents = [];
     window.gtag = function () {
       window.__gtagEvents.push(Array.from(arguments));
@@ -53,6 +54,21 @@ async function testConsentBoundary(browser) {
   check((await events(page, "campaign_landing")).length === 0, "declined analytics produces no campaign event");
   const stored = await page.evaluate(() => sessionStorage.getItem("gurjas.analyticsAttribution.v1"));
   check(stored === null, "declined analytics stores no campaign attribution");
+  await context.close();
+}
+
+async function testAcceptanceAfterLanding(browser) {
+  const { context, page } = await newPage(browser, null);
+  const url = new URL(baseUrl);
+  url.searchParams.set("utm_source", "first-visit");
+  url.searchParams.set("utm_medium", "referral-brief");
+  url.searchParams.set("utm_campaign", "post-consent");
+  await page.goto(url.href, { waitUntil: "domcontentloaded" });
+  check((await events(page, "campaign_landing")).length === 0, "first visit is not measured before a consent choice");
+  await page.click('[data-consent="granted"]');
+  await waitForEvent(page, "campaign_landing");
+  const recorded = (await events(page, "campaign_landing"))[0];
+  check(recorded.campaign_source === "first-visit", "campaign context is measured only after explicit acceptance");
   await context.close();
 }
 
@@ -178,6 +194,7 @@ const browser = await chromium.launch({
 
 try {
   await testConsentBoundary(browser);
+  await testAcceptanceAfterLanding(browser);
   await testCampaignAllowlist(browser);
   await testSuccessfulEnquiry(browser);
   await testFailedDelivery(browser);
