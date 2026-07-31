@@ -4,24 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Non-essential analytics load only after explicit consent through script.js. -->
-<title>SEM Planning Bounds Explorer | Transparent Heuristics | Gurjas</title>
-<meta name="description" content="Compare three disclosed SEM planning approximations without treating them as a study-specific power analysis or universal minimum sample size.">
+<title>SEM Sample Size Calculator | A Priori Planning Bounds | Gurjas</title>
+<meta name="description" content="Estimate three transparent SEM sample-size planning bounds from latent variables, indicators, effect size, power and alpha, with assumptions and limitations disclosed.">
 <link rel="canonical" href="https://gurjas.org/tools/sem-sample-size-calculator/">
 <meta name="author" content="Gurjas Evidence and Policy Analytics">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#041226">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Gurjas Evidence and Policy Analytics">
-<meta property="og:title" content="SEM Planning Bounds Explorer | Gurjas">
-<meta property="og:description" content="Compare three disclosed SEM planning approximations and their limitations.">
+<meta property="og:title" content="SEM Sample Size Calculator | A Priori Planning Bounds | Gurjas">
+<meta property="og:description" content="Compare three disclosed SEM sample-size planning bounds and see the assumptions and limitations behind each result.">
 <meta property="og:url" content="https://gurjas.org/tools/sem-sample-size-calculator/">
 <meta property="og:image" content="https://gurjas.org/assets/og-preview.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_IN">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SEM Planning Bounds Explorer | Gurjas">
-<meta name="twitter:description" content="Compare three disclosed SEM planning approximations and their limitations.">
+<meta name="twitter:title" content="SEM Sample Size Calculator | A Priori Planning Bounds | Gurjas">
+<meta name="twitter:description" content="Compare three disclosed SEM sample-size planning bounds and their limitations.">
 <meta name="twitter:image" content="https://gurjas.org/assets/og-preview.png">
 <link rel="icon" href="../../favicon.ico" sizes="32x32">
 <link rel="icon" href="../../assets/favicon.png" type="image/png">
@@ -34,7 +34,8 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap"></noscript>
 <link rel="preload" as="style" href="../../style.css?v=12">
 <link rel="stylesheet" href="../../style.css?v=12">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://gurjas.org/#org", "name": "Gurjas Evidence and Policy Analytics", "alternateName": "Gurjas", "url": "https://gurjas.org/", "logo": {"@type": "ImageObject", "url": "https://gurjas.org/assets/gurjas-logo.png"}, "email": "support@gurjas.org", "foundingDate": "2026-06-29", "founder": {"@type": "Person", "name": "Gurpreet Kaur"}, "address": {"@type": "PostalAddress", "addressLocality": "Patiala", "addressRegion": "Punjab", "addressCountry": "IN"}, "identifier": {"@type": "PropertyValue", "propertyID": "Udyam Registration Number", "value": "UDYAM-PB-17-0132009"}, "description": "An independent, women-led research and policy analytics practice providing evidence synthesis, impact evaluation, policy analysis and institutional advisory.", "knowsAbout": ["Financial inclusion", "Digital public infrastructure", "Impact evaluation", "Policy analysis", "Urban poverty", "Research methodology"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gurjas.org/"}, {"@type": "ListItem", "position": 2, "name": "SEM Planning Bounds Explorer", "item": "https://gurjas.org/tools/sem-sample-size-calculator/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://gurjas.org/#org","name":"Gurjas Evidence and Policy Analytics","alternateName":"Gurjas","url":"https://gurjas.org/","logo":{"@type":"ImageObject","url":"https://gurjas.org/assets/gurjas-logo.png"},"email":"support@gurjas.org","foundingDate":"2026-06-29","founder":{"@type":"Person","name":"Gurpreet Kaur"},"address":{"@type":"PostalAddress","addressLocality":"Patiala","addressRegion":"Punjab","addressCountry":"IN"},"identifier":{"@type":"PropertyValue","propertyID":"Udyam Registration Number","value":"UDYAM-PB-17-0132009"},"description":"An independent, women-led research and policy analytics practice providing evidence synthesis, impact evaluation, policy analysis and institutional advisory.","knowsAbout":["Structural equation modelling","Statistical power","Research design","Sample-size planning","Research methodology"]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://gurjas.org/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://gurjas.org/tools/"},{"@type":"ListItem","position":3,"name":"SEM Sample Size Calculator","item":"https://gurjas.org/tools/sem-sample-size-calculator/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I calculate sample size for SEM?","acceptedAnswer":{"@type":"Answer","text":"Start by defining the exact inferential target, estimator, model structure, expected effect, alpha, desired power, distribution and missing-data conditions. A model-specific analytic or Monte Carlo power analysis is preferable. This calculator compares three published planning approximations but does not establish a universally sufficient sample size."}},{"@type":"Question","name":"What is the minimum sample size for SEM?","acceptedAnswer":{"@type":"Answer","text":"There is no universal minimum sample size for structural equation modelling. The required sample depends on model complexity, estimator, target parameter or fit statistic, effect size, distribution, missingness, non-independence and convergence behaviour."}},{"@type":"Question","name":"Can the 10-times rule justify an SEM sample size?","acceptedAnswer":{"@type":"Answer","text":"Not by itself. A parameter-ratio rule is a heuristic, not a power analysis, and it does not account for the study's target effect, estimator, distribution, missingness or convergence risk."}},{"@type":"Question","name":"When should I use Monte Carlo power analysis for SEM?","acceptedAnswer":{"@type":"Answer","text":"Use Monte Carlo analysis when the actual measurement and structural model, estimator, target effect, non-normality, missing data, clustering or convergence risk materially affect the design decision."}}]}</script>
 </head>
 <body class="tool-page">
 <canvas class="evidence-field" aria-hidden="true"></canvas>
@@ -58,18 +59,24 @@
   </div>
 </header>
 <main id="main">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SEM Planning Bounds Explorer","url":"https://gurjas.org/tools/sem-sample-size-calculator/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","softwareVersion":"1.1","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"An educational comparison of three SEM planning approximations. It is not a study-specific power analysis and does not determine a universally sufficient sample size."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SEM Sample Size Calculator: A Priori Planning Bounds","url":"https://gurjas.org/tools/sem-sample-size-calculator/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","softwareVersion":"1.1","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@id":"https://gurjas.org/#org"},"description":"An educational calculator comparing three disclosed SEM sample-size planning approximations. It is not a study-specific power analysis and does not determine a universally sufficient sample size."}</script>
 <div class="hero">
   <div class="wrap">
-    <span class="eyebrow">Free Tool</span>
-    <h1>SEM Planning Bounds Explorer</h1>
-    <p class="lede">Compare three published planning approximations and see exactly what each one assumes. These bounds are educational diagnostics—not a model-specific power analysis or a universally sufficient sample size.</p>
+    <span class="eyebrow">Free research method tool</span>
+    <h1>SEM sample size calculator for a priori planning</h1>
+    <p class="lede">Estimate and compare three transparent sample-size planning bounds for structural equation modelling using latent variables, observed indicators, anticipated effect size, desired power and alpha. Every result is labelled as an approximation—not a universal minimum or a substitute for model-specific power analysis.</p>
   </div>
 </div>
 
 <section aria-labelledby="calculator-title">
   <div class="wrap" style="max-width:880px">
-    <h2 id="calculator-title" class="sr-only">Sample-size calculation</h2>
+    <h2 id="calculator-title" class="sr-only">SEM sample-size calculator</h2>
+    <aside class="note" style="margin:0 0 2rem;padding:1.4rem 1.6rem;background:#fff;border:1px solid var(--line);border-left:3px solid var(--gold)">
+      <h2 style="margin:0 0 .8rem">What this calculator can—and cannot—tell you</h2>
+      <p><strong>It compares three published planning approximations.</strong> It does not estimate power for your complete SEM, determine a mandatory minimum sample or account for every condition that affects estimation.</p>
+      <p style="margin:.7rem 0 0">For a defensible study-specific decision, define the target parameter or fit statistic, estimator, distribution, missingness, clustering and convergence conditions, then use an analytic or Monte Carlo design suited to that model.</p>
+    </aside>
+
     <div class="card" style="gap:1.1rem">
       <div class="grid g2" style="gap:1.1rem">
         <label style="font-size:.9rem;font-weight:600;color:var(--navy)">Latent variables (constructs)
@@ -95,7 +102,7 @@
             <option value="0.01">0.01</option>
           </select></label>
       </div>
-      <button id="calc" class="btn btn-solid" style="border:none;cursor:pointer;align-self:start">Explore planning bounds</button>
+      <button id="calc" class="btn btn-solid" style="border:none;cursor:pointer;align-self:start">Calculate SEM planning bounds</button>
     </div>
 
     <div id="out" hidden data-tool-result>
@@ -122,9 +129,31 @@
     </div>
 
     <div class="prose" style="margin-top:3rem">
-      <h2>How the three estimates work</h2>
+      <h2>How do I calculate sample size for SEM?</h2>
+      <p>Begin with the exact inferential target rather than a generic ratio. Specify whether the design must detect a structural path, loading, indirect effect or model-fit departure; choose the estimator; state the expected effect, alpha and power; and represent non-normality, missing data, clustering and convergence risk where relevant. A model-specific analytic or Monte Carlo power analysis is the strongest route. The calculator above is an earlier planning aid: it displays three heterogeneous approximations so their assumptions can be compared rather than hidden.</p>
+
+      <h2>How the three displayed estimates work</h2>
       <p>The Fisher-z result concerns detection of a single correlation under the entered effect, power and alpha; it is not a power analysis for the full SEM. The Westland expression uses the entered indicator-to-latent-variable ratio. The N:q result applies a 10:1 ratio to an approximate parameter count. The largest displayed value is shown for comparison only; taking the maximum does not validate any method for a particular model.</p>
-      <p class="note"><strong>Method version 1.1 · reviewed 20 July 2026.</strong> Not represented: estimator, degrees of freedom, target parameter or fit statistic, distribution, missingness, non-independence, convergence or model misspecification. Use a model-specific analytic or Monte Carlo design where these features matter; see the <a href="https://cran.r-project.org/package=semPower" rel="noopener">semPower package ↗</a>. Need the full measurement model reviewed? <a href="../../contact/">Start a conversation</a>.</p>
+
+      <h2>Is there a minimum sample size for SEM or CFA?</h2>
+      <p><strong>No single minimum applies to every SEM or confirmatory factor analysis.</strong> A smaller, well-behaved model with strong loadings and complete, approximately normal data may require less information than a complex model with weak effects, categorical indicators, missingness or non-independence. CFA and full structural models therefore need design decisions tied to their own target tests and estimation conditions—not a universal cut-off copied from another study.</p>
+
+      <h2>Why the 10-times rule is not a power analysis</h2>
+      <p>A parameter-ratio rule can be a transparent rough check, but it does not model the probability of detecting the target effect. It also ignores estimator choice, effect heterogeneity, distribution, missingness, clustering and convergence. Report it as a heuristic only, never as proof that the proposed sample is statistically sufficient.</p>
+
+      <h2>When should I use Monte Carlo power analysis?</h2>
+      <p>Use Monte Carlo simulation when the actual measurement and structural model matters to the decision—for example, when testing indirect effects, small paths, categorical indicators, non-normal data, missingness, multilevel structure or models at risk of non-convergence. The simulation should reproduce the intended estimator and data-generating assumptions, examine power for the target effect, and report bias, coverage, convergence and admissible-solution rates rather than power alone.</p>
+
+      <div class="card card-feature" style="margin-top:2.6rem">
+        <h2 style="margin:0">Need a defensible, model-specific sample-size justification?</h2>
+        <p>Gurjas can review the measurement model, target effect, estimator, data conditions and proposed power strategy, then document the assumptions and limitations in a reproducible planning record.</p>
+        <div class="cta-row" style="margin-top:1rem">
+          <a class="btn btn-solid" href="../../services/research-methods/">See advanced research methods →</a>
+          <a class="btn btn-ghost" href="../../contact/?service=research-methods">Request an SEM design review</a>
+        </div>
+      </div>
+
+      <p class="note"><strong>Method version 1.1 · reviewed 31 July 2026.</strong> Not represented in the displayed bounds: estimator, degrees of freedom, target parameter or fit statistic, distribution, missingness, non-independence, convergence or model misspecification. Use a model-specific analytic or Monte Carlo design where these features matter; see the <a href="https://cran.r-project.org/package=semPower" rel="noopener">semPower package ↗</a>.</p>
     </div>
   </div>
 </section>
@@ -153,7 +182,7 @@ document.getElementById("calc").addEventListener("click",function(){
   document.getElementById("recnote").textContent="For comparison only: "+k+" latent variables, "+j+" indicators (approximately "+q+" free parameters under this simplified count), entered effect ρ = "+es.toFixed(2)+", power = "+pw.toFixed(2)+", α = "+al+". Do not adopt the largest value automatically; select and justify a method that corresponds to the model and target test.";
   var para="SEM planning-bounds record (method version 1.1). Inputs: "+k+" latent variables, "+j+" observed indicators, anticipated correlation ρ = "+es.toFixed(2)+", power = "+pw.toFixed(2)+", and α = "+al+". Displayed approximations: Fisher-z correlation-detection N = "+n1+"; Westland model-structure expression N = "+n2+"; 10:1 N:q rule-of-thumb N = "+n3+" using an approximate "+q+" free parameters. Largest displayed bound: N = "+rec+". These heterogeneous approximations are not a model-specific SEM power analysis and do not establish a universally sufficient sample size.";
   document.getElementById("para").textContent=para;
-  lastText=para+"\n\nReferences\nBentler, P. M., & Chou, C.-P. (1987). Practical issues in structural modeling. Sociological Methods & Research, 16(1), 78–117.\nCohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd ed.). Lawrence Erlbaum Associates.\nJackson, D. L. (2003). Revisiting sample size and number of parameter estimates: Some support for the N:q hypothesis. Structural Equation Modeling, 10(1), 128–141.\nKline, R. B. (2016). Principles and practice of structural equation modeling (4th ed.). Guilford Press.\nWestland, J. C. (2010). Lower bounds on sample size in structural equation modeling. Electronic Commerce Research and Applications, 9(6), 476–487.\n\nGenerated with the Gurjas SEM Planning Bounds Explorer, method version 1.1, gurjas.org/tools/sem-sample-size-calculator/";
+  lastText=para+"\n\nReferences\nBentler, P. M., & Chou, C.-P. (1987). Practical issues in structural modeling. Sociological Methods & Research, 16(1), 78–117.\nCohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd ed.). Lawrence Erlbaum Associates.\nJackson, D. L. (2003). Revisiting sample size and number of parameter estimates: Some support for the N:q hypothesis. Structural Equation Modeling, 10(1), 128–141.\nKline, R. B. (2016). Principles and practice of structural equation modeling (4th ed.). Guilford Press.\nWestland, J. C. (2010). Lower bounds on sample size in structural equation modeling. Electronic Commerce Research and Applications, 9(6), 476–487.\n\nGenerated with the Gurjas SEM Sample Size Calculator, method version 1.1, gurjas.org/tools/sem-sample-size-calculator/";
   document.getElementById("out").hidden=false;
   document.getElementById("out").scrollIntoView({behavior:"smooth",block:"nearest"});
 });
