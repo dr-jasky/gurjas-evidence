@@ -540,7 +540,7 @@
     if (guideList) {
       var guideItem = document.createElement("li");
       guideItem.className = "nav-guide-item";
-      guideItem.innerHTML = '<button class="nav-guide" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="gurjas-site-guide" data-site-guide><span aria-hidden="true"></span>Site guide</button>';
+      guideItem.innerHTML = '<button class="nav-guide" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="gurjas-site-guide" data-site-guide><span aria-hidden="true"></span>Find your route</button>';
       var contactItem = guideList.querySelector(".nav-cta");
       guideList.insertBefore(guideItem, contactItem ? contactItem.parentElement : null);
       guideButton = guideItem.querySelector("[data-site-guide]");
@@ -554,15 +554,15 @@
   panel.setAttribute("aria-modal", "true");
   panel.setAttribute("aria-labelledby", "gcTitle");
   panel.hidden = true;
-  panel.innerHTML = '<div class="gc-head"><div class="av">G</div><div><b id="gcTitle">Gurjas site guide</b>'
+  panel.innerHTML = '<div class="gc-head"><div class="av">G</div><div><b id="gcTitle">Find your route</b>'
     + '<small>Site navigation, not live chat</small></div>'
-    + '<button class="gc-x" type="button" aria-label="Close site guide">&times;</button></div>'
+    + '<button class="gc-x" type="button" aria-label="Close find your route">&times;</button></div>'
     + '<div class="gc-body" id="gcBody" aria-live="polite"></div>'
     + '<div class="gc-chips" id="gcChips"></div>'
     + '<form class="gc-foot" id="gcForm" autocomplete="off"><label class="sr-only" for="gcIn">Ask about services, tools or publications</label><input id="gcIn" type="text" '
     + 'placeholder="Ask about services, tools, publications…" aria-label="Ask about services, tools or publications">'
     + '<button class="gc-send" type="submit" aria-label="Send question">&#8593;</button></form>'
-    + '<div class="gc-foot-note">Automated site guide · for a person, use email or WhatsApp</div>';
+    + '<div class="gc-foot-note">Automated route finder · for a person, use email or WhatsApp</div>';
   document.body.appendChild(panel);
 
   var body = panel.querySelector("#gcBody");
@@ -749,4 +749,149 @@
       });
     });
   }
+})();
+
+/* Mobile footer accordions. Below 580px the three footer link groups collapse
+   into accessible button toggles; brand, contact and the legal base line stay
+   visible. Without JavaScript the full lists remain expanded. */
+(function () {
+  "use strict";
+  var groups = Array.prototype.slice.call(document.querySelectorAll(".site-foot .foot-grid nav"));
+  if (!groups.length) return;
+  var compact = window.matchMedia("(max-width: 580px)");
+  var toggles = [];
+
+  groups.forEach(function (group, index) {
+    var heading = group.querySelector(".foot-h");
+    var list = group.querySelector("ul");
+    if (!heading || !list) return;
+    if (!list.id) list.id = "foot-group-" + (index + 1);
+    var button = document.createElement("button");
+    button.type = "button";
+    button.className = "foot-h-toggle";
+    button.setAttribute("aria-expanded", "true");
+    button.setAttribute("aria-controls", list.id);
+    button.textContent = heading.textContent;
+    heading.textContent = "";
+    heading.appendChild(button);
+    button.addEventListener("click", function () {
+      if (!compact.matches) return;
+      var open = button.getAttribute("aria-expanded") === "true";
+      button.setAttribute("aria-expanded", String(!open));
+      list.hidden = open;
+    });
+    toggles.push({ button: button, list: list });
+  });
+
+  function applyViewportState() {
+    toggles.forEach(function (item) {
+      item.button.setAttribute("aria-expanded", String(!compact.matches));
+      item.list.hidden = compact.matches;
+    });
+  }
+  applyViewportState();
+  if (compact.addEventListener) compact.addEventListener("change", applyViewportState);
+  else compact.addListener(applyViewportState);
+})();
+
+/* ═══════════ Restrained analytics event taxonomy (2026) ═══════════
+   Every call below is a no-op unless the visitor has already granted
+   analytics consent (window.gtag only exists after that happens — see
+   the consent module above). Parameters are limited to page/tool/service
+   identifiers derived from the URL or DOM structure; user-entered research
+   inputs, tool results and form text are never read or sent. */
+(function () {
+  "use strict";
+
+  function trackEvent(name, params) {
+    if (typeof window.gtag !== "function") return;
+    window.gtag("event", name, params || {});
+  }
+
+  function currentSlug(prefix) {
+    var match = location.pathname.match(new RegExp("/" + prefix + "/([^/]+)/"));
+    return match ? match[1] : null;
+  }
+
+  /* Delegated, markup-free tracking: matches existing link href patterns
+     so no per-page changes are needed as new services, tools or proof
+     links are added. */
+  document.addEventListener("click", function (event) {
+    var link = event.target.closest("a[href]");
+    if (!link) return;
+    var href = link.getAttribute("href") || "";
+
+    if (/^https:\/\/wa\.me\//.test(href)) {
+      trackEvent("whatsapp_click", { link_url: href });
+      return;
+    }
+    if (/^mailto:/i.test(href)) {
+      trackEvent("email_click", { link_url: href });
+      return;
+    }
+    if (/contact\/\?service=/.test(href)) {
+      var match = href.match(/service=([^&]+)/);
+      trackEvent("service_cta_click", { service_slug: match ? decodeURIComponent(match[1]) : null });
+      return;
+    }
+    if (/(orcid\.org|scholar\.google\.com|webofscience\.com|doi\.org|zenodo\.org)/.test(href)) {
+      trackEvent("proof_source_click", { link_url: href, referring_page: location.pathname });
+    }
+  });
+
+  if (document.body.classList.contains("offer")) {
+    trackEvent("service_view", { service_slug: currentSlug("services") });
+  }
+
+  var contactForm = document.getElementById("gcContactForm");
+  if (contactForm) {
+    var startFired = false;
+    contactForm.addEventListener(
+      "focusin",
+      function () {
+        if (startFired) return;
+        startFired = true;
+        trackEvent("contact_form_start", {});
+      },
+      { once: true },
+    );
+    contactForm.addEventListener("submit", function () {
+      trackEvent("contact_form_submit", { service_slug: currentSlug("services") || null });
+    });
+  }
+
+  if (document.body.classList.contains("tool-page")) {
+    var toolSlug = currentSlug("tools");
+    var main = document.getElementById("main");
+    if (main) {
+      var toolStarted = false;
+      main.addEventListener("focusin", function (event) {
+        if (toolStarted) return;
+        var el = event.target;
+        if (el && /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) {
+          toolStarted = true;
+          trackEvent("tool_start", { tool_slug: toolSlug });
+        }
+      });
+
+      var toolCompleted = false;
+      if ("MutationObserver" in window) {
+        var observer = new MutationObserver(function (mutations) {
+          if (toolCompleted) return;
+          for (var i = 0; i < mutations.length; i += 1) {
+            var target = mutations[i].target;
+            if (target.hasAttribute && target.hasAttribute("data-tool-result") && !target.hidden) {
+              toolCompleted = true;
+              trackEvent("tool_complete", { tool_slug: toolSlug });
+              observer.disconnect();
+              break;
+            }
+          }
+        });
+        observer.observe(main, { attributes: true, attributeFilter: ["hidden"], subtree: true });
+      }
+    }
+  }
+
+  window.GurjasTrackEvent = trackEvent;
 })();

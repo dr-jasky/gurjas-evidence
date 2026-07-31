@@ -55,8 +55,11 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           node --check script.js
+          node --check assets/tool-export.js
           node --check scripts/capture_visual_review.mjs
           node --check tests/accessibility/audit.mjs
+          node --check tests/tools/journal-finder.spec.mjs
+          node --check tests/tools/reference-checker.spec.mjs
           node --check tests/visual/compare.mjs
 
       - name: Check Python syntax
@@ -125,7 +128,7 @@ jobs:
       - name: Build static site
         run: python scripts/build_site.py --clean
 
-      - name: Run accessibility gate and capture responsive review
+      - name: Run tool fixtures, accessibility gate and capture responsive review
         shell: bash
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
@@ -146,6 +149,8 @@ jobs:
           curl --fail --silent --show-error \
             --retry 20 --retry-delay 1 --retry-all-errors \
             http://127.0.0.1:8000/ > /dev/null
+
+          CANDIDATE_URL="http://127.0.0.1:8000/" pnpm test:tools
 
           A11Y_BASE_URL="$CANDIDATE_URL" \
             A11Y_REPORT_DIR="accessibility-review" \

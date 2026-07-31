@@ -6,6 +6,7 @@
   "scripts": {
     "test:a11y": "node tests/accessibility/audit.mjs",
     "test:html": "vnu --errors-only --skip-non-html _site",
+    "test:tools": "node tests/tools/journal-finder.spec.mjs && node tests/tools/reference-checker.spec.mjs",
     "test:visual": "node tests/visual/compare.mjs"
   },
   "devDependencies": {
