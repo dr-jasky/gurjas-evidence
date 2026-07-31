@@ -179,6 +179,11 @@
   emitCampaignLanding();
 
   document.addEventListener("click", function (event) {
+    var consentButton = event.target.closest('[data-consent="granted"]');
+    if (consentButton) {
+      window.setTimeout(emitCampaignLanding, 0);
+    }
+
     var link = event.target.closest("a[href]");
     if (link) {
       var href = link.getAttribute("href") || "";
