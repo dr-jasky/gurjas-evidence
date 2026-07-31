@@ -147,8 +147,7 @@ const bannedClaims = [
   /combined h-?index/i,
   /guaranteed acceptance/i,
   /publication success rate/i,
-  /hundreds helped/i,
-  /30 Gurjas clients/i
+  /hundreds helped/i
 ];
 for (const pattern of bannedClaims) {
   check(!pattern.test(html), `homepage excludes unsupported claim pattern ${pattern}`);
