@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "published": "2026-08-01",
+  "published": "2026-07-31",
   "reviewCadence": "Quarterly for profile metrics; on release for repositories, tools and experience records",
   "statusDefinitions": {
     "external-public-record": "The cited record is publicly accessible on a third-party platform.",
@@ -65,19 +65,19 @@
       "status": "owner-supplied-snapshot",
       "sourceLabel": "Dr. Jaskirat Singh master academic CV, updated 28 June 2026",
       "sourceUrl": "/people/#jaskirat-singh",
-      "verifiedAt": "2026-08-01",
+      "verifiedAt": "2026-07-31",
       "verificationMethod": "Cross-checked the dated CV statements against the public principal-consultant profile, publication record and linked professional profiles where applicable.",
       "limitations": "The project count is a minimum reported in the owner-supplied CV and does not mean 30 paid clients, 30 completed Ph.D. supervisions or 30 Gurjas engagements. The two field programmes are distinct doctoral and postdoctoral research programmes."
     },
     {
       "id": "founder-confidential-enquiry-patterns",
       "claim": "The founder reports recurring confidential enquiries involving failed outsourced thesis work, uncertain data provenance and journal-identity or indexing claims made through publication intermediaries.",
-      "value": {"patternTypes": ["research-recovery", "data-provenance", "journal-identity-risk"]},
-      "factPaths": [],
+      "value": {"patternTypes": ["research-recovery", "data-provenance", "journal-identity-risk"], "evidenceClass": "founder-attested-pattern"},
+      "factPaths": ["experience.confidentialPatternEvidenceClass"],
       "status": "founder-attested-pattern",
       "sourceLabel": "Founder-led experience record",
       "sourceUrl": "/experience/",
-      "verifiedAt": "2026-08-01",
+      "verifiedAt": "2026-07-31",
       "verificationMethod": "Published as a bounded recurring-pattern account supplied by Dr. Jaskirat Singh, with identities withheld and no formal prevalence estimate.",
       "limitations": "The reports were not collected as a research dataset or incident register. Payment amounts, intermediary roles and institutional handling were reported by enquirers and are not presented as independently audited findings. No named person or institution is implicated."
     },
