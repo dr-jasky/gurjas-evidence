@@ -1,21 +1,16 @@
 #!/usr/bin/env python3
-"""Build the Gurjas site, then publish the governed advisory-network fragments.
-
-The established builder remains unchanged in build_site_core.py. This focused
-post-build layer keeps the homepage and Advisory page content static, readable
-without JavaScript and independently testable while PR #50 is isolated.
-"""
+"""Build the Gurjas site and apply registered static-page composition."""
 from __future__ import annotations
 
 import argparse
-import re
 import subprocess
 import sys
 from pathlib import Path
 
+from advisory_composition import compose_document, composed_paths
+
 ROOT = Path(__file__).resolve().parents[1]
 CORE = Path(__file__).with_name("build_site_core.py")
-FRAGMENTS = ROOT / "site" / "fragments"
 DEFAULT_OUTPUT = ROOT / "_site"
 
 
@@ -38,80 +33,20 @@ def assert_core_safeguards() -> None:
         raise RuntimeError("Core builder is missing indexing safeguards: " + ", ".join(missing))
 
 
-def ensure_assets(document: str, root: str) -> str:
-    additions: list[str] = []
-    if "advisory-network.css" not in document:
-        additions.append(f'<link rel="stylesheet" href="{root}assets/advisory-network.css?v=1">')
-    if "advisory-network.js" not in document:
-        additions.append(f'<script src="{root}assets/advisory-network.js?v=1" defer></script>')
-    if not additions:
-        return document
-    if "</head>" not in document:
-        raise RuntimeError("Generated page has no closing head element")
-    return document.replace("</head>", "\n".join(additions) + "\n</head>", 1)
-
-
-def replace_meta_description(document: str, description: str) -> str:
-    patterns = (
-        r'(<meta name="description" content=")[^"]*(">)',
-        r'(<meta property="og:description" content=")[^"]*(">)',
-        r'(<meta name="twitter:description" content=")[^"]*(">)',
-    )
-    for pattern in patterns:
-        document, count = re.subn(pattern, rf"\g<1>{description}\g<2>", document, count=1)
-        if count != 1:
-            raise RuntimeError(f"Could not update advisory metadata with pattern: {pattern}")
-    return document
-
-
-def publish_advisory_network(output: Path) -> None:
-    home_fragment = (FRAGMENTS / "home-advisory.html").read_text(encoding="utf-8").strip()
-    advisory_main = (FRAGMENTS / "advisory-main.html").read_text(encoding="utf-8").strip()
-
-    home_path = output / "index.html"
-    home = ensure_assets(home_path.read_text(encoding="utf-8"), "")
-    if "home-advisory-network" not in home:
-        marker = '<section class="home-section home-section--dark" aria-labelledby="h-tools">'
-        if home.count(marker) != 1:
-            raise RuntimeError("Homepage tools marker is missing or ambiguous")
-        home = home.replace(marker, home_fragment + "\n\n" + marker, 1)
-    home_path.write_text(home, encoding="utf-8")
-
-    advisory_path = output / "advisory" / "index.html"
-    advisory = ensure_assets(advisory_path.read_text(encoding="utf-8"), "../")
-    advisory, count = re.subn(
-        r'<main id="main">[\s\S]*?</main>',
-        advisory_main,
-        advisory,
-        count=1,
-    )
-    if count != 1:
-        raise RuntimeError("Advisory page main element is missing or ambiguous")
-    advisory = replace_meta_description(
-        advisory,
-        "Meet Gurjas's honorary, non-executive advisers and the selectively growing international network widening its disciplinary and geographic perspective.",
-    )
-    advisory_path.write_text(advisory, encoding="utf-8")
-
-    about_path = output / "about" / "index.html"
-    about = ensure_assets(about_path.read_text(encoding="utf-8"), "../")
-    about_marker = '<div class="about-advisory" aria-labelledby="about-advisory-title">'
-    if about.count(about_marker) != 1:
-        raise RuntimeError("About-page advisory region is missing or ambiguous")
-    about = about.replace(
-        about_marker,
-        '<div class="about-advisory" role="region" aria-labelledby="about-advisory-title">',
-        1,
-    )
-    about_path.write_text(about, encoding="utf-8")
-
-    print("Published the governed international advisory network on Home, About and Advisory pages")
+def publish_registered_composition(output: Path) -> None:
+    for relative_path in composed_paths():
+        target = output / relative_path
+        if not target.exists():
+            raise RuntimeError(f"Composed public page is missing: {relative_path}")
+        source = target.read_text(encoding="utf-8")
+        target.write_text(compose_document(relative_path, source), encoding="utf-8")
+    print("Published registered advisory composition on Home, About and Advisory pages")
 
 
 def main() -> None:
     assert_core_safeguards()
     subprocess.run([sys.executable, str(CORE), *sys.argv[1:]], cwd=ROOT, check=True)
-    publish_advisory_network(resolved_output(sys.argv[1:]))
+    publish_registered_composition(resolved_output(sys.argv[1:]))
 
 
 if __name__ == "__main__":
