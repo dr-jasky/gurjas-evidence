@@ -95,6 +95,14 @@ def publish_advisory_network(output: Path) -> None:
 
     about_path = output / "about" / "index.html"
     about = ensure_assets(about_path.read_text(encoding="utf-8"), "../")
+    about_marker = '<div class="about-advisory" aria-labelledby="about-advisory-title">'
+    if about.count(about_marker) != 1:
+        raise RuntimeError("About-page advisory region is missing or ambiguous")
+    about = about.replace(
+        about_marker,
+        '<div class="about-advisory" role="region" aria-labelledby="about-advisory-title">',
+        1,
+    )
     about_path.write_text(about, encoding="utf-8")
 
     print("Published the governed international advisory network on Home, About and Advisory pages")
