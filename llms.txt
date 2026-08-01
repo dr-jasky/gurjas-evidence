@@ -13,6 +13,7 @@ primary source recorded beside it in the proof ledger rather than this site alon
 
 ## Evidence and provenance
 
+- [Canonical entity graph (JSON-LD)](https://gurjas.org/data/entity-graph.json): stable identifiers for the practice, named people, priority services, tools and open datasets
 - [Proof Ledger and Tool Contracts](https://gurjas.org/evidence/): dated register of public claims with source labels and limitations
 - [Claim ledger (JSON)](https://gurjas.org/data/proof-ledger.json): machine-readable claim records
 - [Tool contracts (JSON)](https://gurjas.org/data/tool-contracts.json): per-tool method version, outbound requests, sources, limitations and decision boundary
@@ -21,7 +22,7 @@ primary source recorded beside it in the proof ledger rather than this site alon
 
 ## Research tools (free, no sign-up)
 
-- [Tools hub](https://gurjas.org/tools/): nine tools; each states its processing location and what it does not decide
+- [Tools hub](https://gurjas.org/tools/): eleven public tools; each states its processing location and what it does not decide
 - [Journal Evidence Checker](https://gurjas.org/tools/predatory-journal-checker/): source-labelled journal evidence, no legitimacy score
 - [Research Readiness Triage](https://gurjas.org/tools/research-readiness-triage/): evidence-control gap register, no readiness score
 
