@@ -1,0 +1,369 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ImageObject",
+      "@id": "https://gurjas.org/#logo",
+      "url": "https://gurjas.org/assets/gurjas-logo.png",
+      "contentUrl": "https://gurjas.org/assets/gurjas-logo.png",
+      "caption": "Gurjas Evidence and Policy Analytics"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://gurjas.org/#org",
+      "name": "Gurjas Evidence and Policy Analytics",
+      "legalName": "Gurjas Evidence and Policy Analytics",
+      "alternateName": "Gurjas",
+      "url": "https://gurjas.org/",
+      "logo": {
+        "@id": "https://gurjas.org/#logo"
+      },
+      "image": {
+        "@id": "https://gurjas.org/#logo"
+      },
+      "email": "support@gurjas.org",
+      "telephone": "+919877295825",
+      "foundingDate": "2026-06-29",
+      "founder": {
+        "@id": "https://gurjas.org/people/#gurpreet-kaur"
+      },
+      "member": {
+        "@id": "https://gurjas.org/people/#jaskirat-singh"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Patiala",
+        "addressRegion": "Punjab",
+        "addressCountry": "IN"
+      },
+      "areaServed": [
+        {
+          "@type": "Country",
+          "name": "India"
+        },
+        {
+          "@type": "Country",
+          "name": "Canada"
+        },
+        {
+          "@type": "Place",
+          "name": "Worldwide remote engagements"
+        }
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "client enquiries",
+        "email": "support@gurjas.org",
+        "telephone": "+919877295825"
+      },
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "Udyam Registration Number",
+        "value": "UDYAM-PB-17-0132009"
+      },
+      "description": "An independent, women-led research and policy analytics practice providing evidence synthesis, impact evaluation, policy analysis and institutional advisory.",
+      "knowsAbout": [
+        "Research integrity",
+        "Research methodology",
+        "Impact evaluation",
+        "Policy analysis",
+        "Financial inclusion",
+        "Digital public infrastructure",
+        "Higher-education evidence readiness"
+      ],
+      "subjectOf": {
+        "@type": "WebPage",
+        "@id": "https://gurjas.org/evidence/#claims",
+        "url": "https://gurjas.org/evidence/",
+        "name": "Gurjas Proof Ledger"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://gurjas.org/#website",
+      "url": "https://gurjas.org/",
+      "name": "Gurjas Evidence and Policy Analytics",
+      "publisher": {
+        "@id": "https://gurjas.org/#org"
+      },
+      "inLanguage": "en-IN"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://gurjas.org/people/#gurpreet-kaur",
+      "name": "Gurpreet Kaur",
+      "jobTitle": "Founder & Proprietor",
+      "url": "https://gurjas.org/people/#gurpreet-kaur",
+      "worksFor": {
+        "@id": "https://gurjas.org/#org"
+      },
+      "description": "Founder and proprietor of Gurjas Evidence and Policy Analytics, responsible for the practice's ownership, direction, governance and client commitments."
+    },
+    {
+      "@type": "Person",
+      "@id": "https://gurjas.org/people/#jaskirat-singh",
+      "name": "Dr. Jaskirat Singh",
+      "honorificPrefix": "Dr.",
+      "jobTitle": "Principal Consultant & Chief Methodologist",
+      "url": "https://gurjas.org/people/#jaskirat-singh",
+      "worksFor": {
+        "@id": "https://gurjas.org/#org"
+      },
+      "sameAs": [
+        "https://orcid.org/0000-0003-0337-7885",
+        "https://scholar.google.com/citations?user=d8Kd4ywAAAAJ",
+        "https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=7349141",
+        "https://www.webofscience.com/wos/author/record/IQW-3142-2023"
+      ],
+      "knowsAbout": [
+        "Structural equation modelling",
+        "Confirmatory factor analysis",
+        "PLS-SEM",
+        "fsQCA",
+        "Necessary condition analysis",
+        "Econometrics",
+        "Mixed methods",
+        "Evidence synthesis",
+        "Research integrity"
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://gurjas.org/services/research-integrity/#service",
+      "name": "Institutional Research Integrity",
+      "serviceType": "Institutional Research Integrity Advisory",
+      "url": "https://gurjas.org/services/research-integrity/",
+      "provider": {
+        "@id": "https://gurjas.org/#org"
+      },
+      "areaServed": ["India", "Canada", "Worldwide (remote)"]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://gurjas.org/services/naac-evidence-readiness/#service",
+      "name": "NAAC/IQAC Evidence Readiness",
+      "serviceType": "NAAC and IQAC Evidence Readiness Advisory",
+      "url": "https://gurjas.org/services/naac-evidence-readiness/",
+      "provider": {
+        "@id": "https://gurjas.org/#org"
+      },
+      "areaServed": ["India", "Canada", "Worldwide (remote)"]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://gurjas.org/services/impact-evaluation/#service",
+      "name": "Impact Evaluation and Analytics",
+      "serviceType": "Impact Evaluation and Analytics",
+      "url": "https://gurjas.org/services/impact-evaluation/",
+      "provider": {
+        "@id": "https://gurjas.org/#org"
+      },
+      "areaServed": ["India", "Canada", "Worldwide (remote)"]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://gurjas.org/services/research-methods/#service",
+      "name": "Advanced Research Methods",
+      "serviceType": "Advanced Research Methods Advisory",
+      "url": "https://gurjas.org/services/research-methods/",
+      "provider": {
+        "@id": "https://gurjas.org/#org"
+      },
+      "areaServed": ["India", "Canada", "Worldwide (remote)"]
+    },
+    {
+      "@type": "DataCatalog",
+      "@id": "https://gurjas.org/resources/#data-catalog",
+      "name": "Gurjas Open Research Assets",
+      "url": "https://gurjas.org/resources/",
+      "publisher": {
+        "@id": "https://gurjas.org/#org"
+      },
+      "dataset": [
+        {
+          "@id": "https://doi.org/10.5281/zenodo.20932393"
+        },
+        {
+          "@id": "https://doi.org/10.5281/zenodo.20860992"
+        }
+      ]
+    },
+    {
+      "@type": "Dataset",
+      "@id": "https://doi.org/10.5281/zenodo.20932393",
+      "name": "Conversion measures and replication code for the Global Findex resilience analysis (97 economies)",
+      "url": "https://zenodo.org/records/20932393",
+      "identifier": "10.5281/zenodo.20932393",
+      "datePublished": "2026-06-26",
+      "version": "1.0",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "creator": {
+        "@id": "https://gurjas.org/people/#jaskirat-singh"
+      },
+      "includedInDataCatalog": {
+        "@id": "https://gurjas.org/resources/#data-catalog"
+      },
+      "description": "Derived data, codebook and a reproducible Python pipeline for analysis of digital financial inclusion and household resilience across 97 economies."
+    },
+    {
+      "@type": "Dataset",
+      "@id": "https://doi.org/10.5281/zenodo.20860992",
+      "name": "AUCR DPI–Inclusion Conversion Index for India",
+      "url": "https://zenodo.org/records/20860992",
+      "identifier": "10.5281/zenodo.20860992",
+      "datePublished": "2026-06-25",
+      "version": "0.1",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "creator": {
+        "@id": "https://gurjas.org/people/#jaskirat-singh"
+      },
+      "includedInDataCatalog": {
+        "@id": "https://gurjas.org/resources/#data-catalog"
+      },
+      "description": "An open index, codebook and reproducible pipeline measuring how Indian states and union territories convert financial access into use, capability and resilience."
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://gurjas.org/tools/phd-timeline-planner/#application",
+      "name": "PhD Timeline Planner",
+      "url": "https://gurjas.org/tools/phd-timeline-planner/",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any modern web browser",
+      "softwareVersion": "1.0",
+      "isAccessibleForFree": true,
+      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
+      "publisher": {"@id": "https://gurjas.org/#org"},
+      "description": "Turns a registration date and pace choice into a printable milestone sequence."
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://gurjas.org/tools/sem-sample-size-calculator/#application",
+      "name": "SEM Planning Bounds Explorer",
+      "url": "https://gurjas.org/tools/sem-sample-size-calculator/",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any modern web browser",
+      "softwareVersion": "1.1",
+      "isAccessibleForFree": true,
+      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
+      "publisher": {"@id": "https://gurjas.org/#org"},
+      "description": "Compares three disclosed SEM sample-planning approximations."
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://gurjas.org/tools/reliability-validity-kit/#application",
+      "name": "Reliability and Convergent Validity Calculator",
+      "url": "https://gurjas.org/tools/reliability-validity-kit/",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any modern web browser",
+      "softwareVersion": "1.1",
+      "isAccessibleForFree": true,
+      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
+      "publisher": {"@id": "https://gurjas.org/#org"},
+      "description": "Calculates composite reliability, average variance extracted and Cronbach's alpha with explicit data checks."
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://gurjas.org/tools/predatory-journal-checker/#application",
+      "name": "Journal Evidence Checker",
+      "url": "https://gurjas.org/tools/predatory-journal-checker/",
+      "applicationCategory": "ReferenceApplication",
+      "operatingSystem": "Any modern web browser",
+      "softwareVersion": "2.0",
+      "isAccessibleForFree": true,
+      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
+      "publisher": {"@id": "https://gurjas.org/#org"},
+      "description": "Assembles source-labelled journal identity, registration, indexing-snapshot and clone-alert evidence."
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://gurjas.org/tools/journal-finder/#application",
+      "name": "Literature-neighbour Journal Shortlist",
+      "url": "https://gurjas.org/tools/journal-finder/",
+      "applicationCategory": "ReferenceApplication",
+      "operatingSystem": "Any modern web browser",
+      "softwareVersion": "0.3-beta",
+      "isAccessibleForFree": true,
+      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
+      "publisher": {"@id": "https://gurjas.org/#org"},
+      "description": "Finds journal-type, ISSN-bearing OpenAlex sources connected to matching literature."
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://gurjas.org/tools/apc-checker/#application",
+      "name": "Recorded APC Lookup",
+      "url": "https://gurjas.org/tools/apc-checker/",
+      "applicationCategory": "ReferenceApplication",
+      "operatingSystem": "Any modern web browser",
+      "softwareVersion": "1.1",
+      "isAccessibleForFree": true,
+      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
+      "publisher": {"@id": "https://gurjas.org/#org"},
+      "description": "Reports article-processing-charge and open-access fields recorded in OpenAlex."
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://gurjas.org/tools/reference-integrity-checker/#application",
+      "name": "Reference and DOI Integrity Checker",
+      "url": "https://gurjas.org/tools/reference-integrity-checker/",
+      "applicationCategory": "ReferenceApplication",
+      "operatingSystem": "Any modern web browser",
+      "softwareVersion": "1.0",
+      "isAccessibleForFree": true,
+      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
+      "publisher": {"@id": "https://gurjas.org/#org"},
+      "description": "Checks each pasted reference's DOI against the Crossref registry and surfaces recorded post-publication updates."
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://gurjas.org/tools/apc-invoice-triage/#application",
+      "name": "APC Invoice Triage",
+      "url": "https://gurjas.org/tools/apc-invoice-triage/",
+      "applicationCategory": "ReferenceApplication",
+      "operatingSystem": "Any modern web browser",
+      "softwareVersion": "1.0",
+      "isAccessibleForFree": true,
+      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
+      "publisher": {"@id": "https://gurjas.org/#org"},
+      "description": "Turns questionnaire answers about a received APC invoice into a discrepancy register of documented fraud patterns and factual comparisons."
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://gurjas.org/tools/naac-readiness-scorecard/#application",
+      "name": "Institutional Evidence Readiness",
+      "url": "https://gurjas.org/tools/naac-readiness-scorecard/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Any modern web browser",
+      "softwareVersion": "1.1",
+      "isAccessibleForFree": true,
+      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
+      "publisher": {"@id": "https://gurjas.org/#org"},
+      "description": "Inventories present, partial and missing institutional records across the legacy RAF seven-criteria structure."
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://gurjas.org/tools/research-readiness-triage/#application",
+      "name": "Research Readiness Triage",
+      "url": "https://gurjas.org/tools/research-readiness-triage/",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any modern web browser",
+      "softwareVersion": "1.1",
+      "isAccessibleForFree": true,
+      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
+      "publisher": {"@id": "https://gurjas.org/#org"},
+      "description": "Turns eight self-reported evidence-control states into a gap register and next-control plan."
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://gurjas.org/tools/grant-deadline-tracker/#application",
+      "name": "Grant Deadline Tracker",
+      "url": "https://gurjas.org/tools/grant-deadline-tracker/",
+      "applicationCategory": "ReferenceApplication",
+      "operatingSystem": "Any modern web browser",
+      "softwareVersion": "2026-07 snapshot",
+      "isAccessibleForFree": true,
+      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
+      "publisher": {"@id": "https://gurjas.org/#org"},
+      "description": "Keeps selected Indian social-science and interdisciplinary funding calls visible with official links."
+    }
+  ]
+}
