@@ -4,6 +4,7 @@ import path from 'node:path';
 import process from 'node:process';
 
 const ROOT = process.cwd();
+const THIS_TEST = path.normalize('tests/schema/identity-integrity.spec.mjs');
 const VERIFIED_ORCID = '0000-0003-0337-7885';
 const PLACEHOLDER_ORCIDS = [
   '0000-0002-1234-5678',
@@ -33,10 +34,15 @@ const placeholderHits = [];
 const verifiedHits = [];
 
 for (const file of files) {
+  const relativePath = path.normalize(path.relative(ROOT, file));
   const content = await readFile(file, 'utf8');
-  const relativePath = path.relative(ROOT, file);
-  for (const placeholder of PLACEHOLDER_ORCIDS) {
-    if (content.includes(placeholder)) placeholderHits.push(`${relativePath}: ${placeholder}`);
+
+  // The deny-list necessarily appears in this test file itself. Excluding only this
+  // exact path keeps the repository-wide guard strict without creating a self-hit.
+  if (relativePath !== THIS_TEST) {
+    for (const placeholder of PLACEHOLDER_ORCIDS) {
+      if (content.includes(placeholder)) placeholderHits.push(`${relativePath}: ${placeholder}`);
+    }
   }
   if (content.includes(VERIFIED_ORCID)) verifiedHits.push(relativePath);
 }
