@@ -20,6 +20,8 @@ const about = read("about/index.html");
 const advisory = read("site/fragments/advisory-main.html");
 const script = read("assets/advisory-network.js");
 const builder = read("scripts/build_site.py");
+const composition = read("scripts/advisory_composition.py");
+const checker = read("scripts/check_build.py");
 
 check(/home-advisory-network/.test(section), "homepage contains one dedicated advisory-network fragment");
 check(/A growing international <em>advisory network\.<\/em>/i.test(section), "homepage leads with the approved international advisory headline");
@@ -40,8 +42,10 @@ check(/not automatically receive confidential materials/i.test(advisory), "Advis
 check(/do not imply endorsement/i.test(advisory), "Advisory page preserves the non-endorsement boundary");
 check(/Dr\. Sarvjeet Kaur Chatrath/.test(advisory) && /Dr\. Gurdip Singh Batra/.test(advisory) && /Aditya Madan/.test(advisory), "individual names remain confined to the full Advisory Board page");
 
-check(/build_site_core\.py/.test(builder), "the established site builder is retained unchanged behind the focused post-build layer");
-check(/home-advisory\.html/.test(builder) && /advisory-main\.html/.test(builder), "the build publishes both governed static fragments");
+check(/build_site_core\.py/.test(builder), "the established site builder is retained unchanged behind registered composition");
+check(/compose_document/.test(builder) && /composed_paths/.test(builder), "the build applies only the registered page composition");
+check(/home-advisory\.html/.test(composition) && /advisory-main\.html/.test(composition), "one shared module owns both governed static fragments");
+check(/check_build_core/.test(checker) && /compose_document/.test(checker), "the unchanged core checker verifies the same declared composition");
 check(/advisory_network_click/.test(script), "shared analytics defines a dedicated advisory-network event");
 check(/origin_path/.test(script) && /destination_path/.test(script) && /destination_kind/.test(script), "advisory analytics use only safe route-level parameters");
 
