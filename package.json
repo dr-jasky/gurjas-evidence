@@ -11,7 +11,8 @@
     "test:identity": "node tests/schema/identity-integrity.spec.mjs",
     "test:metrics": "node tests/metrics/home-capability.spec.mjs",
     "test:schema": "node tests/schema/entity-graph.spec.mjs && node tests/schema/identity-integrity.spec.mjs",
-    "test:tools": "node tests/tools/journal-finder.spec.mjs && node tests/tools/reference-checker.spec.mjs && node tests/analytics/events.spec.mjs && node tests/metrics/home-capability.spec.mjs && node tests/schema/entity-graph.spec.mjs && node tests/schema/identity-integrity.spec.mjs && node tests/governance/advisory-network.spec.mjs",
+    "test:security": "node tests/security/contact-form.spec.mjs",
+    "test:tools": "node tests/tools/journal-finder.spec.mjs && node tests/tools/reference-checker.spec.mjs && node tests/analytics/events.spec.mjs && node tests/metrics/home-capability.spec.mjs && node tests/schema/entity-graph.spec.mjs && node tests/schema/identity-integrity.spec.mjs && node tests/governance/advisory-network.spec.mjs && node tests/security/contact-form.spec.mjs",
     "test:visual": "node tests/visual/compare.mjs"
   },
   "devDependencies": {
