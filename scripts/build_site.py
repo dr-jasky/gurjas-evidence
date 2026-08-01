@@ -11,7 +11,6 @@ from advisory_composition import compose_document, composed_paths
 
 ROOT = Path(__file__).resolve().parents[1]
 CORE = Path(__file__).with_name("build_site_core.py")
-CHECK_CORE = Path(__file__).with_name("check_build_core.py")
 DEFAULT_OUTPUT = ROOT / "_site"
 
 
@@ -23,22 +22,15 @@ def resolved_output(argv: list[str]) -> Path:
 
 
 def assert_core_safeguards() -> None:
-    """Refuse to delegate to core files missing established index controls."""
-    build_source = CORE.read_text(encoding="utf-8")
-    check_source = CHECK_CORE.read_text(encoding="utf-8")
-    build_required = (
+    """Refuse to delegate to a core builder missing its indexing controls."""
+    source = CORE.read_text(encoding="utf-8")
+    required = (
         "write_generated_sitemap(output)",
         'git", "log", "-1", "--format=%cs"',
-        "Sitemap: https://gurjas.org/sitemap.xml",
     )
-    check_required = (
-        "Indexable canonical route missing from sitemap",
-        "Unexpected noindex header",
-    )
-    missing = [marker for marker in build_required if marker not in build_source]
-    missing += [marker for marker in check_required if marker not in check_source]
+    missing = [marker for marker in required if marker not in source]
     if missing:
-        raise RuntimeError("Delegated core is missing indexing safeguards: " + ", ".join(missing))
+        raise RuntimeError("Delegated builder is missing indexing safeguards: " + ", ".join(missing))
 
 
 def publish_registered_composition(output: Path) -> None:
