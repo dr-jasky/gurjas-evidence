@@ -15,14 +15,13 @@ function read(relativePath) {
   return fs.readFileSync(path.join(root, relativePath), "utf8");
 }
 
-const home = read("index.html");
+const section = read("site/fragments/home-advisory.html");
 const about = read("about/index.html");
-const advisory = read("advisory/index.html");
+const advisory = read("site/fragments/advisory-main.html");
 const script = read("assets/advisory-network.js");
-const sectionMatch = home.match(/<section class="home-section home-advisory-network"[\s\S]*?<\/section>/);
-const section = sectionMatch ? sectionMatch[0] : "";
+const builder = read("scripts/build_site.py");
 
-check(Boolean(section), "homepage contains one dedicated advisory-network section");
+check(/home-advisory-network/.test(section), "homepage contains one dedicated advisory-network fragment");
 check(/A growing international <em>advisory network\.<\/em>/i.test(section), "homepage leads with the approved international advisory headline");
 check(/additional countries and disciplinary settings/i.test(section), "homepage states the intended geographic and disciplinary expansion");
 check(/selective growth/i.test(section) && /not merely a prominent affiliation/i.test(section), "homepage frames expansion as selective rather than decorative");
@@ -41,12 +40,25 @@ check(/not automatically receive confidential materials/i.test(advisory), "Advis
 check(/do not imply endorsement/i.test(advisory), "Advisory page preserves the non-endorsement boundary");
 check(/Dr\. Sarvjeet Kaur Chatrath/.test(advisory) && /Dr\. Gurdip Singh Batra/.test(advisory) && /Aditya Madan/.test(advisory), "individual names remain confined to the full Advisory Board page");
 
+check(/build_site_core\.py/.test(builder), "the established site builder is retained unchanged behind the focused post-build layer");
+check(/home-advisory\.html/.test(builder) && /advisory-main\.html/.test(builder), "the build publishes both governed static fragments");
 check(/advisory_network_click/.test(script), "shared analytics defines a dedicated advisory-network event");
 check(/origin_path/.test(script) && /destination_path/.test(script) && /destination_kind/.test(script), "advisory analytics use only safe route-level parameters");
 
 async function browserChecks() {
   const browser = await chromium.launch({ headless: true, executablePath: process.env.PLAYWRIGHT_CHROMIUM_PATH || undefined });
   try {
+    const staticContext = await browser.newContext({ javaScriptEnabled: false });
+    const staticHome = await staticContext.newPage();
+    await staticHome.goto(baseUrl, { waitUntil: "domcontentloaded" });
+    check(await staticHome.locator(".home-advisory-network").count() === 1, "homepage advisory network is present without JavaScript");
+    check(await staticHome.locator(".home-advisory-network").isVisible(), "homepage advisory network remains visible without JavaScript");
+    check(!/Sarvjeet|Gurdip|Aditya Madan/i.test(await staticHome.locator(".home-advisory-network").innerText()), "no-script homepage still withholds individual adviser names");
+    const staticAdvisory = await staticContext.newPage();
+    await staticAdvisory.goto(new URL("advisory/", baseUrl).href, { waitUntil: "domcontentloaded" });
+    check(await staticAdvisory.locator("#international-expansion").isVisible(), "international expansion principles are static and visible without JavaScript");
+    await staticContext.close();
+
     const context = await browser.newContext();
     await context.addInitScript(() => {
       localStorage.setItem("gurjas.analyticsConsent.v1", "granted");
