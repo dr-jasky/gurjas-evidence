@@ -18,7 +18,7 @@ function read(relativePath) {
 const home = read("index.html");
 const about = read("about/index.html");
 const advisory = read("advisory/index.html");
-const script = read("script.js");
+const script = read("assets/advisory-network.js");
 const sectionMatch = home.match(/<section class="home-section home-advisory-network"[\s\S]*?<\/section>/);
 const section = sectionMatch ? sectionMatch[0] : "";
 
