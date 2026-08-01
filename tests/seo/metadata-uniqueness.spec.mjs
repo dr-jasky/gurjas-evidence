@@ -56,7 +56,7 @@ const indexable = [];
 for (const file of pages) {
   const html = await readFile(file, 'utf8');
   const relativePath = path.relative(SITE, file);
-  const robots = html.match(/<meta\s+name=["']robots["']\s+content=["']([^"']+)["']/i)?.[1] ?? '';
+  const robots = html.match(/<meta\s+name="robots"\s+content="([^"]+)"/i)?.[1] ?? '';
   if (/\bnoindex\b/i.test(robots)) continue;
 
   indexable.push({
@@ -64,13 +64,13 @@ for (const file of pages) {
     title: capture(html, /<title>([^<]+)<\/title>/i, 'a title', relativePath),
     description: capture(
       html,
-      /<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i,
+      /<meta\s+name="description"\s+content="([^"]+)"/i,
       'a meta description',
       relativePath,
     ),
     canonical: capture(
       html,
-      /<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i,
+      /<link\s+rel="canonical"\s+href="([^"]+)"/i,
       'a canonical URL',
       relativePath,
     ),
