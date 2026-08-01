@@ -26,6 +26,18 @@ def resolved_output(argv: list[str]) -> Path:
     return (args.output if args.output.is_absolute() else ROOT / args.output).resolve()
 
 
+def assert_core_safeguards() -> None:
+    """Refuse to delegate to a core builder missing established index controls."""
+    source = CORE.read_text(encoding="utf-8")
+    required = (
+        "write_generated_sitemap(output)",
+        'git", "log", "-1", "--format=%cs"',
+    )
+    missing = [marker for marker in required if marker not in source]
+    if missing:
+        raise RuntimeError("Core builder is missing indexing safeguards: " + ", ".join(missing))
+
+
 def ensure_assets(document: str, root: str) -> str:
     additions: list[str] = []
     if "advisory-network.css" not in document:
@@ -89,6 +101,7 @@ def publish_advisory_network(output: Path) -> None:
 
 
 def main() -> None:
+    assert_core_safeguards()
     subprocess.run([sys.executable, str(CORE), *sys.argv[1:]], cwd=ROOT, check=True)
     publish_advisory_network(resolved_output(sys.argv[1:]))
 
