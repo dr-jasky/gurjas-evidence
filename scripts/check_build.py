@@ -8,6 +8,7 @@ while allowing reviewed static fragments to function as first-class source.
 """
 from __future__ import annotations
 
+import inspect
 import sys
 from pathlib import Path
 
@@ -17,7 +18,16 @@ import check_build_core
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def assert_core_check_safeguards() -> None:
+    source = inspect.getsource(check_build_core)
+    required = ("Indexable canonical route missing from sitemap",)
+    missing = [marker for marker in required if marker not in source]
+    if missing:
+        raise RuntimeError("Delegated checker is missing indexing safeguards: " + ", ".join(missing))
+
+
 def check_registered_build() -> list[str]:
+    assert_core_check_safeguards()
     originals: dict[Path, str] = {}
     try:
         for relative_path in composed_paths():
