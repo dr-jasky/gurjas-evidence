@@ -140,7 +140,8 @@ for (const id of [logo["@id"], org["@id"], website["@id"]]) {
   check(template.includes(id), `global template embeds ${id}`);
 }
 
-const sourceTextFiles = walkFiles(root, (file) => /\.(?:html|json|js|mjs|py|md|txt)$/i.test(file));
+const schemaTestPath = path.join(root, "tests", "schema", "entity-graph.spec.mjs");
+const sourceTextFiles = walkFiles(root, (file) => file !== schemaTestPath && /\.(?:html|json|js|mjs|py|md|txt)$/i.test(file));
 const deprecatedHits = sourceTextFiles.filter((file) => read(path.relative(root, file)).includes("ProfessionalService"));
 check(deprecatedHits.length === 0, "source contains no deprecated ProfessionalService markup or recommendation");
 
