@@ -27,6 +27,14 @@ def ensure_assets(document: str, root: str) -> str:
     return document.replace("</head>", "\n".join(additions) + "\n</head>", 1)
 
 
+def ensure_stylesheet(document: str, href: str) -> str:
+    if href in document:
+        return document
+    if "</head>" not in document:
+        raise RuntimeError("Composed page has no closing head element")
+    return document.replace("</head>", f'<link rel="stylesheet" href="{href}">\n</head>', 1)
+
+
 def replace_meta_description(document: str, description: str) -> str:
     patterns = (
         r'(<meta name="description" content=")[^"]*(">)',
@@ -78,6 +86,7 @@ def compose_document(relative_path: str, document: str) -> str:
         return document
 
     if normalized == "services/index.html":
+        document = ensure_stylesheet(document, "../assets/services-clinic.css?v=1")
         marker = '<section class="evidence-dashboard-section" aria-labelledby="evidence-dashboard-title">'
         fragment_marker = "services-clinic-note"
         if fragment_marker not in document:
