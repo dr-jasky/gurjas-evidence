@@ -1,0 +1,57 @@
+/* Interaction and navigation polish.
+   Loaded after the core visual system so these rules can stay focused,
+   reversible and independent of page-specific composition. */
+
+/* Sticky navigation should never cover an anchored heading or deep-linked
+   evidence record. The offset scales with the shared header rather than
+   relying on page-specific margins. */
+html {
+  scroll-padding-top: 7rem;
+}
+
+[id] {
+  scroll-margin-top: 7rem;
+}
+
+/* Keep keyboard focus legible on both light and dark surfaces. */
+.site-head :focus-visible,
+.hero :focus-visible,
+.navy-band :focus-visible,
+.site-footer :focus-visible {
+  outline-color: var(--gold-l);
+  box-shadow: 0 0 0 3px rgba(4, 18, 38, .72);
+}
+
+/* Improve tap reliability without inflating the desktop layout. */
+@media (pointer: coarse) {
+  .nav-btn,
+  .site-nav a,
+  .sub-btn,
+  .btn,
+  .home-btn,
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"] {
+    min-height: 44px;
+  }
+}
+
+/* Reserve hover elevation for devices that actually support hover, avoiding
+   sticky or accidental card states on touch screens. */
+@media (hover: none) {
+  .card:hover,
+  .home-audience:hover,
+  .home-capability-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 960px) {
+  html,
+  [id] {
+    scroll-padding-top: 6.25rem;
+    scroll-margin-top: 6.25rem;
+  }
+}
