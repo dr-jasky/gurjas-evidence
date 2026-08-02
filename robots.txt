@@ -1,12 +1,12 @@
 # Gurjas Evidence and Policy Analytics — https://gurjas.org
-# All crawlers are welcome, including AI / large-language-model crawlers.
-# Generative Engine Optimization (GEO): we explicitly allow AI answer engines
-# (ChatGPT, Claude, Perplexity, Gemini, Bing/Copilot) to read and cite this site.
+# Public content is available to standard search and answer-engine crawlers.
+# These directives express crawl permission only; indexing, citation, model use,
+# and search inclusion remain decisions of each external service.
 
 User-agent: *
 Allow: /
 
-# --- OpenAI / ChatGPT ---
+# --- OpenAI ---
 User-agent: GPTBot
 Allow: /
 
@@ -16,7 +16,7 @@ Allow: /
 User-agent: ChatGPT-User
 Allow: /
 
-# --- Anthropic / Claude ---
+# --- Anthropic ---
 User-agent: ClaudeBot
 Allow: /
 
@@ -36,22 +36,22 @@ Allow: /
 User-agent: Perplexity-User
 Allow: /
 
-# --- Google (Gemini / AI Overviews training signal) ---
+# --- Google ---
 User-agent: Google-Extended
 Allow: /
 
-# --- Microsoft Bing (powers Copilot and ChatGPT web search) ---
+# --- Microsoft Bing ---
 User-agent: Bingbot
 Allow: /
 
-# --- Apple Intelligence ---
+# --- Apple ---
 User-agent: Applebot
 Allow: /
 
 User-agent: Applebot-Extended
 Allow: /
 
-# --- Common Crawl (dataset used by many LLMs) ---
+# --- Common Crawl ---
 User-agent: CCBot
 Allow: /
 
