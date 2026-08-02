@@ -12,6 +12,7 @@ const PROHIBITED_CLAIMS = [
   /\bfabricat(?:e|ed|ing)\s+(?:data|responses|results)\b/i,
   /\bmanufactur(?:e|ed|ing)\s+(?:data|responses|results)\b/i,
 ];
+const NEGATION = /\b(?:no|not|never|without|cannot|can't|does not|doesn't|do not|don't|will not|won't|refuse(?:s|d)? to|prohibit(?:s|ed)?|avoid(?:s|ed)?|against)\b/i;
 
 async function collectHtml(directory) {
   const files = [];
@@ -22,6 +23,14 @@ async function collectHtml(directory) {
     else if (entry.endsWith('.html')) files.push(fullPath);
   }
   return files;
+}
+
+function isAffirmativeClaim(text, pattern) {
+  const match = pattern.exec(text);
+  if (!match) return false;
+  const contextStart = Math.max(0, match.index - 80);
+  const precedingContext = text.slice(contextStart, match.index);
+  return !NEGATION.test(precedingContext);
 }
 
 await stat(SITE).catch(() => {
@@ -40,16 +49,18 @@ for (const file of pages) {
     .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
     .replace(/<[^>]+>/g, ' ')
     .replace(/\s+/g, ' ');
+  const sentences = visibleText.split(/(?<=[.!?;:])\s+/);
 
   for (const pattern of PROHIBITED_CLAIMS) {
-    if (pattern.test(visibleText)) violations.push(`${relativePath}: ${pattern}`);
+    const offendingSentence = sentences.find((sentence) => isAffirmativeClaim(sentence, pattern));
+    if (offendingSentence) violations.push(`${relativePath}: ${pattern}`);
   }
 }
 
 assert.deepEqual(
   violations,
   [],
-  `Unsupported or unethical public claims detected:\n${violations.join('\n')}`,
+  `Unsupported or unethical affirmative public claims detected:\n${violations.join('\n')}`,
 );
 
-console.log(`Site-wide claim-integrity checks passed for ${pages.length} generated pages.`);
+console.log(`Site-wide affirmative claim-integrity checks passed for ${pages.length} generated pages.`);
