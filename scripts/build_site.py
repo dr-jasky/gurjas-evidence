@@ -40,7 +40,7 @@ def publish_registered_composition(output: Path) -> None:
             raise RuntimeError(f"Composed public page is missing: {relative_path}")
         source = target.read_text(encoding="utf-8")
         target.write_text(compose_document(relative_path, source), encoding="utf-8")
-    print("Published registered advisory composition on Home, About and Advisory pages")
+    print("Published registered composition on Home, About, Advisory and Services pages")
 
 
 def main() -> None:
