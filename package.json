@@ -5,6 +5,7 @@
   "packageManager": "pnpm@11.13.0",
   "scripts": {
     "test:a11y": "node tests/accessibility/audit.mjs",
+    "test:a11y:headings": "node tests/accessibility/heading-integrity.spec.mjs",
     "test:a11y:landmarks": "node tests/accessibility/landmark-integrity.spec.mjs",
     "test:advisory": "node tests/governance/advisory-network.spec.mjs",
     "test:analytics": "node tests/analytics/events.spec.mjs",
@@ -14,7 +15,7 @@
     "test:schema": "node tests/schema/entity-graph.spec.mjs && node tests/schema/identity-integrity.spec.mjs",
     "test:security": "node tests/security/contact-form.spec.mjs && node tests/security/external-link-integrity.spec.mjs",
     "test:seo": "node tests/seo/metadata-uniqueness.spec.mjs",
-    "test:tools": "node tests/tools/journal-finder.spec.mjs && node tests/tools/reference-checker.spec.mjs && node tests/analytics/events.spec.mjs && node tests/metrics/home-capability.spec.mjs && node tests/schema/entity-graph.spec.mjs && node tests/schema/identity-integrity.spec.mjs && node tests/governance/advisory-network.spec.mjs && node tests/security/contact-form.spec.mjs && node tests/security/external-link-integrity.spec.mjs && node tests/seo/metadata-uniqueness.spec.mjs && node tests/accessibility/landmark-integrity.spec.mjs",
+    "test:tools": "node tests/tools/journal-finder.spec.mjs && node tests/tools/reference-checker.spec.mjs && node tests/analytics/events.spec.mjs && node tests/metrics/home-capability.spec.mjs && node tests/schema/entity-graph.spec.mjs && node tests/schema/identity-integrity.spec.mjs && node tests/governance/advisory-network.spec.mjs && node tests/security/contact-form.spec.mjs && node tests/security/external-link-integrity.spec.mjs && node tests/seo/metadata-uniqueness.spec.mjs && node tests/accessibility/landmark-integrity.spec.mjs && node tests/accessibility/heading-integrity.spec.mjs",
     "test:visual": "node tests/visual/compare.mjs"
   },
   "devDependencies": {
