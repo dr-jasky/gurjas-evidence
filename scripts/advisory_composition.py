@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Registered static-page composition for the international advisory network.
+"""Registered static-page composition for governed site additions.
 
 Both the build pipeline and the output-integrity checker import this module.
-That keeps the permitted transformation explicit, deterministic and testable;
+That keeps permitted transformations explicit, deterministic and testable;
 all unregistered changes to page-specific main content continue to fail CI.
 """
 from __future__ import annotations
@@ -25,6 +25,14 @@ def ensure_assets(document: str, root: str) -> str:
     if "</head>" not in document:
         raise RuntimeError("Composed page has no closing head element")
     return document.replace("</head>", "\n".join(additions) + "\n</head>", 1)
+
+
+def ensure_stylesheet(document: str, href: str) -> str:
+    if href in document:
+        return document
+    if "</head>" not in document:
+        raise RuntimeError("Composed page has no closing head element")
+    return document.replace("</head>", f'<link rel="stylesheet" href="{href}">\n</head>', 1)
 
 
 def replace_meta_description(document: str, description: str) -> str:
@@ -77,8 +85,19 @@ def compose_document(relative_path: str, document: str) -> str:
             raise RuntimeError("About-page advisory region is missing")
         return document
 
+    if normalized == "services/index.html":
+        document = ensure_stylesheet(document, "../assets/services-clinic.css?v=1")
+        marker = '<section class="evidence-dashboard-section" aria-labelledby="evidence-dashboard-title">'
+        fragment_marker = "services-clinic-note"
+        if fragment_marker not in document:
+            if document.count(marker) != 1:
+                raise RuntimeError("Services evidence-dashboard marker is missing or ambiguous")
+            fragment = (FRAGMENTS / "services-integrity-clinic.html").read_text(encoding="utf-8").strip()
+            document = document.replace(marker, fragment + "\n\n" + marker, 1)
+        return document
+
     return document
 
 
 def composed_paths() -> tuple[str, ...]:
-    return ("index.html", "about/index.html", "advisory/index.html")
+    return ("index.html", "about/index.html", "advisory/index.html", "services/index.html")

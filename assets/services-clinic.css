@@ -1,0 +1,37 @@
+.services-clinic-note {
+  margin: 0;
+  padding: clamp(2rem, 5vw, 4rem) max(5vw, calc((100vw - 1180px) / 2));
+  background: #f6f0e4;
+  border-block: 1px solid rgba(6, 38, 78, 0.14);
+}
+
+.services-clinic-note .eyebrow {
+  color: #6b4b08;
+}
+
+.services-clinic-note h2 {
+  max-width: 24ch;
+  margin: 0.45rem 0 0.75rem;
+  color: #06264e;
+}
+
+.services-clinic-note p {
+  max-width: 70ch;
+  color: #1b2531;
+}
+
+.services-clinic-note .btn {
+  margin-top: 0.75rem;
+}
+
+.services-clinic-note .btn-ghost {
+  color: #ffffff;
+  background: #06264e;
+  border-color: #06264e;
+}
+
+.services-clinic-note .btn-ghost:hover,
+.services-clinic-note .btn-ghost:focus-visible {
+  color: #06264e;
+  background: #ffffff;
+}
