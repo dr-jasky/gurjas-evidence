@@ -1,0 +1,40 @@
+name: Notify search engines
+
+on:
+  workflow_run:
+    workflows: ["Deploy generated site to Pages"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: search-discovery-production
+  cancel-in-progress: true
+
+jobs:
+  indexnow:
+    name: Submit live sitemap to IndexNow
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out current production source
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Wait for the public deployment to settle
+        run: sleep 20
+
+      - name: Submit canonical production URLs
+        run: python scripts/submit_indexnow.py
