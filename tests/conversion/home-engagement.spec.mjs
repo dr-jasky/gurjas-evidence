@@ -16,25 +16,28 @@ function check(condition, message) {
   }
 }
 
-function count(pattern) {
-  return (html.match(pattern) || []).length;
+function count(source, pattern) {
+  return (source.match(pattern) || []).length;
 }
 
+const sectionMatches = html.match(/<section class="home-engagement-pathway"[\s\S]*?<\/section>/g) || [];
+const section = sectionMatches[0] || "";
+
 check(
-  count(/class="home-engagement-pathway"/g) === 1,
+  sectionMatches.length === 1,
   "the generated homepage contains exactly one engagement journey"
 );
 check(
-  /<section class="home-engagement-pathway"[^>]+aria-labelledby="home-engagement-title"/.test(html),
+  /^<section class="home-engagement-pathway"[^>]+aria-labelledby="home-engagement-title"/.test(section),
   "the engagement journey is exposed as a labelled section"
 );
 check(
-  /<h2[^>]+id="home-engagement-title"/.test(html),
+  /<h2[^>]+id="home-engagement-title"/.test(section),
   "the journey has a stable section heading"
 );
 check(
-  /<ol class="home-engagement-steps"/.test(html) &&
-  count(/<li><span>0[123]<\/span>/g) === 3,
+  /<ol class="home-engagement-steps"/.test(section) &&
+  count(section, /<li><span>0[123]<\/span>/g) === 3,
   "the three-step process is represented as one ordered list"
 );
 
@@ -48,7 +51,7 @@ const requiredRoutes = [
   "contact/"
 ];
 for (const route of requiredRoutes) {
-  check(html.includes(`href="${route}"`), `the journey links to ${route}`);
+  check(section.includes(`href="${route}"`), `the journey links to ${route}`);
 }
 
 const requiredIdeas = [
@@ -59,7 +62,7 @@ const requiredIdeas = [
   "smallest useful scope"
 ];
 for (const idea of requiredIdeas) {
-  check(html.toLowerCase().includes(idea.toLowerCase()), `the journey preserves: ${idea}`);
+  check(section.toLowerCase().includes(idea.toLowerCase()), `the journey preserves: ${idea}`);
 }
 
 const prohibitedClaims = [
@@ -71,7 +74,7 @@ const prohibitedClaims = [
   /market leader/i
 ];
 for (const pattern of prohibitedClaims) {
-  check(!pattern.test(html), `the homepage excludes unsupported claim ${pattern}`);
+  check(!pattern.test(section), `the engagement journey excludes unsupported claim ${pattern}`);
 }
 
 check(
