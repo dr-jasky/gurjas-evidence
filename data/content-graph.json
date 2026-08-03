@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "nodes": {
+    "services": {
+      "type": "Service guide",
+      "title": "Choose a defensible engagement route",
+      "description": "Compare Gurjas offers, scope boundaries, required inputs and decision-ready outputs.",
+      "path": "services/"
+    },
+    "methods": {
+      "type": "Methods",
+      "title": "Inspect the methodological standard",
+      "description": "Review how research design, measurement, modelling and interpretation are governed.",
+      "path": "methods/"
+    },
+    "research": {
+      "type": "Research",
+      "title": "Explore the research programme",
+      "description": "See the substantive questions, datasets and evidence programmes behind the practice.",
+      "path": "research/"
+    },
+    "publications": {
+      "type": "Publications",
+      "title": "Verify the published record",
+      "description": "Search journal articles, chapters, working papers and externally hosted research profiles.",
+      "path": "publications/"
+    },
+    "insights": {
+      "type": "Insights",
+      "title": "Read practical evidence guidance",
+      "description": "Use detailed guidance on research integrity, journals, accreditation and policy evidence.",
+      "path": "insights/"
+    },
+    "tools": {
+      "type": "Open tools",
+      "title": "Use the research utilities",
+      "description": "Apply free, no-sign-up tools with explicit sources, limitations and decision boundaries.",
+      "path": "tools/"
+    },
+    "resources": {
+      "type": "Resources",
+      "title": "Find reusable research resources",
+      "description": "Access open guides, references and practical materials for evidence work.",
+      "path": "resources/"
+    },
+    "evidence": {
+      "type": "Proof ledger",
+      "title": "Audit the public evidence",
+      "description": "Inspect the source, verification date, method and limitation behind public claims.",
+      "path": "evidence/"
+    },
+    "ethics": {
+      "type": "Governance",
+      "title": "Review the Ethics Charter",
+      "description": "Understand the boundaries on authorship, data, publication claims and responsible assistance.",
+      "path": "ethics-charter/"
+    },
+    "contact": {
+      "type": "Enquiry",
+      "title": "Start with a bounded diagnostic",
+      "description": "Share the decision, available evidence, deadline and review audience for an initial fit assessment.",
+      "path": "contact/"
+    }
+  },
+  "relationships": {
+    "services/index.html": ["methods", "evidence", "tools", "contact"],
+    "methods/index.html": ["research", "publications", "tools", "ethics"],
+    "research/index.html": ["publications", "methods", "evidence", "insights"],
+    "publications/index.html": ["research", "methods", "insights", "evidence"],
+    "insights/index.html": ["tools", "methods", "publications", "services"],
+    "tools/index.html": ["insights", "methods", "resources", "services"],
+    "resources/index.html": ["tools", "insights", "methods", "ethics"],
+    "evidence/index.html": ["publications", "research", "ethics", "services"]
+  }
+}
