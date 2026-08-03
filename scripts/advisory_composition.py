@@ -125,7 +125,8 @@ def compose_document(relative_path: str, document: str) -> str:
                     raise RuntimeError(f"Publication heading is missing or ambiguous: {marker}")
                 document = document.replace(marker, replacement, 1)
         marker = '<section>\n  <div class="wrap prose" style="max-width:56em">\n    <h2 id="journal-articles">'
-        if "publication-discovery" not in document:
+        fragment_marker = '<section class="publication-discovery" aria-labelledby="publication-discovery-title">'
+        if fragment_marker not in document:
             if document.count(marker) != 1:
                 raise RuntimeError("Publication list marker is missing or ambiguous")
             fragment = (FRAGMENTS / "publication-discovery.html").read_text(encoding="utf-8").strip()
