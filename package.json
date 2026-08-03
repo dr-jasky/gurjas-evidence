@@ -2,7 +2,7 @@
   "name": "gurjas-site-quality",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@11.13.0",
+  "packageManager": "pnpm@11.12.0",
   "scripts": {
     "test:a11y": "node tests/accessibility/audit.mjs",
     "test:a11y:documents": "node tests/accessibility/document-basics-integrity.spec.mjs",
