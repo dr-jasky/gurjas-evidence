@@ -35,6 +35,14 @@ def ensure_stylesheet(document: str, href: str) -> str:
     return document.replace("</head>", f'<link rel="stylesheet" href="{href}">\n</head>', 1)
 
 
+def ensure_script(document: str, src: str) -> str:
+    if src in document:
+        return document
+    if "</head>" not in document:
+        raise RuntimeError("Composed page has no closing head element")
+    return document.replace("</head>", f'<script src="{src}" defer></script>\n</head>', 1)
+
+
 def replace_meta_description(document: str, description: str) -> str:
     patterns = (
         r'(<meta name="description" content=")[^"]*(">)',
@@ -102,8 +110,30 @@ def compose_document(relative_path: str, document: str) -> str:
             document = document.replace(marker, fragment + "\n\n" + marker, 1)
         return document
 
+    if normalized == "publications/index.html":
+        document = ensure_stylesheet(document, "../assets/publication-discovery.css?v=1")
+        document = ensure_script(document, "../assets/publication-discovery.js?v=1")
+        heading_map = {
+            "<h2>Journal articles</h2>": '<h2 id="journal-articles">Journal articles</h2>',
+            "<h2>Book chapters</h2>": '<h2 id="book-chapters">Book chapters</h2>',
+            "<h2>Working papers &amp; under review</h2>": '<h2 id="working-papers">Working papers &amp; under review</h2>',
+            "<h2>Research profiles</h2>": '<h2 id="research-profiles">Research profiles</h2>',
+        }
+        for marker, replacement in heading_map.items():
+            if replacement not in document:
+                if document.count(marker) != 1:
+                    raise RuntimeError(f"Publication heading is missing or ambiguous: {marker}")
+                document = document.replace(marker, replacement, 1)
+        marker = '<section>\n  <div class="wrap prose" style="max-width:56em">\n    <h2 id="journal-articles">'
+        if "publication-discovery" not in document:
+            if document.count(marker) != 1:
+                raise RuntimeError("Publication list marker is missing or ambiguous")
+            fragment = (FRAGMENTS / "publication-discovery.html").read_text(encoding="utf-8").strip()
+            document = document.replace(marker, fragment + "\n\n" + marker, 1)
+        return document
+
     return document
 
 
 def composed_paths() -> tuple[str, ...]:
-    return ("index.html", "about/index.html", "advisory/index.html", "services/index.html")
+    return ("index.html", "about/index.html", "advisory/index.html", "services/index.html", "publications/index.html")
