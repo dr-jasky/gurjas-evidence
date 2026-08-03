@@ -1,0 +1,116 @@
+.home-engagement-pathway {
+  padding: clamp(4rem, 8vw, 7rem) max(5vw, calc((100vw - 1180px) / 2));
+  background:
+    radial-gradient(circle at 88% 12%, rgba(183, 137, 41, .12), transparent 28rem),
+    #f4efe5;
+  border-block: 1px solid rgba(6, 38, 78, .12);
+}
+
+.home-engagement-shell {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+.home-engagement-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(17rem, .9fr);
+  gap: clamp(1.5rem, 5vw, 5rem);
+  align-items: end;
+}
+
+.home-engagement-intro .home-h2 {
+  max-width: 18ch;
+  margin: .45rem 0 0;
+  color: #06264e;
+}
+
+.home-engagement-intro > p:last-child {
+  max-width: 60ch;
+  margin: 0;
+  color: #354151;
+  font-size: clamp(1rem, 1.4vw, 1.12rem);
+  line-height: 1.75;
+}
+
+.home-engagement-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 1px;
+  list-style: none;
+  background: rgba(6, 38, 78, .14);
+  border: 1px solid rgba(6, 38, 78, .08);
+}
+
+.home-engagement-steps li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  min-height: 100%;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  background: rgba(255, 255, 255, .76);
+}
+
+.home-engagement-steps span {
+  color: #8b6418;
+  font-family: "Spline Sans Mono", monospace;
+  font-size: .76rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+}
+
+.home-engagement-steps h3 {
+  margin: 0 0 .7rem;
+  color: #06264e;
+  font-family: "Archivo", sans-serif;
+  font-size: 1rem;
+  letter-spacing: -.01em;
+}
+
+.home-engagement-steps p {
+  margin: 0;
+  color: #4b5664;
+  line-height: 1.65;
+}
+
+.home-engagement-action {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(6, 38, 78, .16);
+}
+
+.home-engagement-action strong {
+  display: block;
+  margin-bottom: .35rem;
+  color: #06264e;
+  font-family: "Archivo", sans-serif;
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.home-engagement-action p {
+  max-width: 62ch;
+  margin: 0;
+  color: #4b5664;
+}
+
+.home-engagement-action .home-btn {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 840px) {
+  .home-engagement-intro,
+  .home-engagement-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .home-engagement-action {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
