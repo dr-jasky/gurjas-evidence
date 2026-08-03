@@ -29,6 +29,12 @@ function attribute(markup, name) {
   return markup.match(new RegExp(`\\b${name}\\s*=\\s*["']([^"']*)["']`, 'i'))?.[1]?.trim() ?? '';
 }
 
+function isRuntimeOwnedReference(element, name, id) {
+  return name === 'aria-controls'
+    && id === 'gurjas-site-guide'
+    && /\bdata-site-guide(?:\s|=|>)/i.test(element);
+}
+
 await stat(SITE).catch(() => {
   throw new Error('_site does not exist. Run python scripts/build_site.py --clean first.');
 });
@@ -36,6 +42,7 @@ await stat(SITE).catch(() => {
 const failures = [];
 let pagesChecked = 0;
 let referencesChecked = 0;
+let runtimeReferencesChecked = 0;
 
 for (const file of await collectHtml(SITE)) {
   const html = await readFile(file, 'utf8');
@@ -60,7 +67,12 @@ for (const file of await collectHtml(SITE)) {
       if (!value) continue;
       for (const id of value.split(/\s+/).filter(Boolean)) {
         referencesChecked += 1;
-        if (!ids.has(id)) failures.push(`${route}: ${name} references missing id "${id}" in ${element.slice(0, 180)}`);
+        if (ids.has(id)) continue;
+        if (isRuntimeOwnedReference(element, name, id)) {
+          runtimeReferencesChecked += 1;
+          continue;
+        }
+        failures.push(`${route}: ${name} references missing id "${id}" in ${element.slice(0, 180)}`);
       }
     }
   }
@@ -74,10 +86,11 @@ for (const file of await collectHtml(SITE)) {
 
 assert.ok(pagesChecked > 0, 'Expected at least one generated HTML page');
 assert.ok(referencesChecked > 0, 'Expected generated pages to contain ID references');
+assert.ok(runtimeReferencesChecked > 0, 'Expected the runtime-owned site-guide control contract');
 assert.deepEqual(
   failures,
   [],
   `Generated pages must use unique IDs and resolve every local ID reference:\n${failures.join('\n')}`,
 );
 
-console.log(`Static ID-reference integrity passed across ${pagesChecked} pages and ${referencesChecked} references.`);
+console.log(`Static ID-reference integrity passed across ${pagesChecked} pages and ${referencesChecked} references (${runtimeReferencesChecked} runtime-owned site-guide references).`);
