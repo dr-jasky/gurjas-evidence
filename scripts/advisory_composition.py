@@ -54,12 +54,18 @@ def compose_document(relative_path: str, document: str) -> str:
 
     if normalized == "index.html":
         document = ensure_assets(document, "")
+        document = ensure_stylesheet(document, "assets/home-engagement.css?v=1")
+        tools_marker = '<section class="home-section home-section--dark" aria-labelledby="h-tools">'
         if "home-advisory-network" not in document:
-            marker = '<section class="home-section home-section--dark" aria-labelledby="h-tools">'
-            if document.count(marker) != 1:
+            if document.count(tools_marker) != 1:
                 raise RuntimeError("Homepage tools marker is missing or ambiguous")
             fragment = (FRAGMENTS / "home-advisory.html").read_text(encoding="utf-8").strip()
-            document = document.replace(marker, fragment + "\n\n" + marker, 1)
+            document = document.replace(tools_marker, fragment + "\n\n" + tools_marker, 1)
+        if "home-engagement-pathway" not in document:
+            if document.count(tools_marker) != 1:
+                raise RuntimeError("Homepage tools marker is missing or ambiguous")
+            fragment = (FRAGMENTS / "home-engagement.html").read_text(encoding="utf-8").strip()
+            document = document.replace(tools_marker, fragment + "\n\n" + tools_marker, 1)
         return document
 
     if normalized == "advisory/index.html":
