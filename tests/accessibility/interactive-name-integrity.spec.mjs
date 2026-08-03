@@ -28,6 +28,10 @@ function attribute(markup, name) {
   return markup.match(new RegExp(`\\b${name}\\s*=\\s*["']([^"']*)["']`, 'i'))?.[1]?.trim() ?? '';
 }
 
+function hasBooleanAttribute(markup, name) {
+  return new RegExp(`(?:^|\\s)${name}(?:\\s|=|>|$)`, 'i').test(markup);
+}
+
 function decodeEntities(value) {
   return value
     .replaceAll('&nbsp;', ' ')
@@ -84,7 +88,7 @@ for (const file of await collectHtml(SITE)) {
     const openingTag = `<${tag}${match[2]}>`;
     const innerHtml = match[3];
     if (attribute(openingTag, 'aria-hidden').toLowerCase() === 'true') continue;
-    if (attribute(openingTag, 'hidden') || /\bhidden\b/i.test(match[2])) continue;
+    if (hasBooleanAttribute(openingTag, 'hidden')) continue;
 
     checked += 1;
     if (hasProgrammaticName(openingTag, innerHtml)) continue;
