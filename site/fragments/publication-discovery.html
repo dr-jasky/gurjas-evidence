@@ -1,0 +1,37 @@
+<section class="publication-discovery" aria-labelledby="publication-discovery-title">
+  <div class="wrap publication-discovery__shell">
+    <div class="publication-discovery__intro">
+      <div>
+        <span class="eyebrow">Research output finder</span>
+        <h2 id="publication-discovery-title">Find a publication by topic or output type.</h2>
+      </div>
+      <p>Search the complete bibliography below without losing the original citation order. The full list remains available when scripting is unavailable.</p>
+    </div>
+    <form class="publication-finder" data-publication-finder role="search">
+      <div class="publication-finder__field">
+        <label for="publication-query">Search titles, journals, authors or keywords</label>
+        <input id="publication-query" name="publication-query" type="search" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="publication-finder__field">
+        <label for="publication-type">Output type</label>
+        <select id="publication-type" name="publication-type">
+          <option value="all">All outputs</option>
+          <option value="journal-articles">Journal articles</option>
+          <option value="book-chapters">Book chapters</option>
+          <option value="working-papers">Working papers and under review</option>
+        </select>
+      </div>
+      <div class="publication-finder__actions">
+        <button class="btn" type="submit">Apply filters</button>
+        <button class="publication-finder__reset" type="button" data-publication-reset>Reset</button>
+      </div>
+    </form>
+    <p class="publication-finder__status" data-publication-status role="status" aria-live="polite">Showing the complete publication record.</p>
+    <nav class="publication-jump" aria-label="Jump to publication type">
+      <a href="#journal-articles">Journal articles</a>
+      <a href="#book-chapters">Book chapters</a>
+      <a href="#working-papers">Working papers</a>
+      <a href="#research-profiles">Research profiles</a>
+    </nav>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+.publication-discovery{padding:clamp(3.5rem,7vw,6rem) 0;background:#f4efe5;border-block:1px solid rgba(6,38,78,.12)}
+.publication-discovery__shell{display:grid;gap:1.5rem}
+.publication-discovery__intro{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(18rem,.9fr);gap:clamp(1.5rem,5vw,4rem);align-items:end}
+.publication-discovery__intro h2{max-width:17ch;margin:.45rem 0 0;color:var(--navy)}
+.publication-discovery__intro p{max-width:60ch;margin:0;color:var(--muted);line-height:1.7}
+.publication-finder{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(13rem,.7fr) auto;gap:1rem;align-items:end;padding:clamp(1.25rem,3vw,2rem);background:rgba(255,255,255,.78);border:1px solid rgba(6,38,78,.14)}
+.publication-finder__field{display:grid;gap:.45rem}.publication-finder label{font:600 .76rem/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--navy)}
+.publication-finder input,.publication-finder select{min-height:48px;width:100%;padding:.75rem .9rem;border:1px solid rgba(6,38,78,.32);background:#fff;color:var(--ink);font:400 1rem/1.4 var(--sans)}
+.publication-finder input:focus-visible,.publication-finder select:focus-visible,.publication-finder button:focus-visible,.publication-jump a:focus-visible{outline:3px solid #b78929;outline-offset:3px}
+.publication-finder__actions{display:flex;gap:.75rem;align-items:center}.publication-finder__reset{min-height:44px;border:0;background:transparent;color:var(--navy);font:600 .86rem/1 var(--sans);text-decoration:underline;text-underline-offset:.2em;cursor:pointer}
+.publication-finder__status{margin:0;color:var(--muted);font:500 .92rem/1.5 var(--sans)}
+.publication-jump{display:flex;flex-wrap:wrap;gap:.65rem}.publication-jump a{display:inline-flex;align-items:center;min-height:40px;padding:.55rem .8rem;border:1px solid rgba(6,38,78,.16);background:rgba(255,255,255,.55);color:var(--navy);font:600 .82rem/1.2 var(--sans);text-decoration:none}
+.publication-jump a:hover{background:#fff}.pub-list li[hidden]{display:none}.publication-section-empty{color:var(--muted);font-style:italic}
+@media(max-width:860px){.publication-discovery__intro,.publication-finder{grid-template-columns:1fr}.publication-finder__actions{align-items:flex-start}}
+@media(prefers-reduced-motion:no-preference){.publication-jump a{transition:background-color .18s ease,border-color .18s ease}}
