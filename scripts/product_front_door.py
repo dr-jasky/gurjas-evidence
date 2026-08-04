@@ -147,11 +147,11 @@ def compose_product_front_door(document: str) -> str:
     document = ensure_script(document, "assets/product-front-door.js?v=1")
     document = replace_metadata(document)
 
-    nav_marker = '<li><a href="tools/">Tools</a></li><li><a href="contact/" class="nav-cta">Contact</a></li>'
-    nav_replacement = '<li><a href="tools/">Tools</a></li><li><a href="knowledge/">Research Library</a></li><li><a href="contact/" class="nav-cta">Contact</a></li>'
-    if nav_replacement not in document:
+    nav_marker = '<li><a href="tools/">Tools</a></li>'
+    nav_replacement = nav_marker + '<li><a href="knowledge/">Research Library</a></li>'
+    if '<a href="knowledge/">Research Library</a>' not in document:
         if document.count(nav_marker) != 1:
-            raise RuntimeError("Homepage navigation marker is missing or ambiguous")
+            raise RuntimeError("Homepage tools navigation marker is missing or ambiguous")
         document = document.replace(nav_marker, nav_replacement, 1)
 
     front_door = render_front_door(contract)
