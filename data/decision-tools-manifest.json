@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "1.0",
+  "frameworkVersion": "1.0.0",
+  "reviewed": "2026-08-05",
+  "processing": "browser-local",
+  "persistence": "download-only",
+  "analyticsBoundary": "No workflow answer, free text, result, or decision record may be transmitted through analytics.",
+  "recordFields": [
+    "question",
+    "context",
+    "user_inputs",
+    "rules_applied",
+    "sources_used",
+    "assumptions",
+    "uncertainties",
+    "excluded_options",
+    "recommended_next_steps",
+    "generated_at",
+    "tool_version"
+  ],
+  "tools": [
+    {
+      "id": "research-design-selector",
+      "name": "Research Design Selector",
+      "version": "1.0.0-alpha.1",
+      "status": "framework-ready",
+      "route": "/tools/research-design-selector/",
+      "purpose": "Group defensible research-design routes from stated intent, evidence maturity, feasibility and constraints.",
+      "humanReviewTriggers": ["causal attribution", "immature measurement", "unresolved feasibility conflict", "high-stakes institutional decision"]
+    },
+    {
+      "id": "journal-evaluation-workflow",
+      "name": "Journal Evaluation Workflow",
+      "version": "1.0.0-alpha.1",
+      "status": "framework-ready",
+      "route": "/tools/journal-evaluation-workflow/",
+      "purpose": "Structure evidence checks without producing unsupported safe-or-unsafe allegations.",
+      "humanReviewTriggers": ["identity mismatch", "possible cloned journal", "payment decision", "reputational allegation"]
+    },
+    {
+      "id": "evidence-pathway-navigator",
+      "name": "Evidence Pathway Navigator",
+      "version": "1.0.0-alpha.1",
+      "status": "framework-ready",
+      "route": "/tools/evidence-pathway-navigator/",
+      "purpose": "Sequence an institutional evidence workflow while preserving ownership, governance and limitations.",
+      "humanReviewTriggers": ["compliance determination", "sensitive institutional data", "unclear evidence ownership", "insufficient evidence for requested output"]
+    }
+  ]
+}
