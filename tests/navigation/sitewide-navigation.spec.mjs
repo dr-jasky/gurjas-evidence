@@ -13,7 +13,7 @@ const expected = [
 ];
 
 assert.equal(site.navigationVersion, 2, 'sitewide navigation must expose governed version 2');
-assert.equal(site.assetVersion, '31', 'shared navigation release requires a fresh asset version');
+assert.equal(site.assetVersion, '30', 'navigation must not disturb the established shared analytics asset contract');
 assert.deepEqual(site.navigation, expected, 'site data must define the exact six approved destinations');
 assert.ok(site.navigation.every((item) => !item.children), 'sitewide navigation must contain no dropdown children');
 
