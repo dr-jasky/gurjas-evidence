@@ -1,0 +1,46 @@
+name: Production deployment audit
+
+on:
+  schedule:
+    - cron: "47 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-deployment-audit
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Verify canonical production deployment
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          python scripts/verify_production.py \
+            --base-url https://gurjas.org/ \
+            --expected-sha "$EXPECTED_SHA" \
+            --attempts 8 \
+            --delay 15 \
+            --report production-audit.json
+
+      - name: Upload production audit report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: gurjas-production-audit
+          path: production-audit.json
+          if-no-files-found: error
+          retention-days: 30
