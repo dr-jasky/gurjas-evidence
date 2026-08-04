@@ -59,7 +59,7 @@ for (const eventName of eventNames) {
   assert.match(governorSource, new RegExp(`${eventName}: \\[`), `${eventName} must also be registered by the global governor`);
 }
 
-for (const legacyEvent of [
+for (const existingEvent of [
   "whatsapp_click",
   "email_click",
   "proof_source_click",
@@ -69,9 +69,22 @@ for (const legacyEvent of [
   "contact_form_submit",
   "tool_start",
   "tool_complete",
+  "advisory_network_click",
+  "capability_metric_click",
 ]) {
-  assert.match(governorSource, new RegExp(`${legacyEvent}: \\[`), `${legacyEvent} must be governed rather than bypassing the new contract`);
+  assert.match(governorSource, new RegExp(`${existingEvent}: \\[`), `${existingEvent} must be governed rather than bypassing the new contract`);
 }
+
+assert.match(
+  governorSource,
+  /advisory_network_click: \["origin_path", "destination_path", "destination_kind"\]/,
+  "advisory network clicks must retain only route-level fields",
+);
+assert.match(
+  governorSource,
+  /capability_metric_click: \["metric_id", "destination_type", "source_path", "destination_path"\]/,
+  "capability clicks must retain only governed metric and route fields",
+);
 
 for (const requiredEvent of [
   "library_view",
@@ -123,4 +136,4 @@ assert.match(documentation, /submit attempt alone is never counted as success/i,
 assert.match(documentation, /Missing events cannot be interpreted as absence of demand/i, "documentation must explain the consent denominator limitation");
 assert.match(documentation, /must not be used to infer an individual's identity/i, "documentation must prohibit individual profiling");
 
-console.log(`Privacy-safe measurement baseline passed for ${eventNames.size} governed journey events across ${stageIds.length} stages, with legacy events covered by the global governor.`);
+console.log(`Privacy-safe measurement baseline passed for ${eventNames.size} governed journey events across ${stageIds.length} stages, with existing site events covered by the global governor.`);
