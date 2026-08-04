@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+import json
+import os
 import re
 import subprocess
 import sys
@@ -117,12 +119,38 @@ def publish_sitewide_navigation(output: Path) -> None:
     print(f"Published one governed six-link navigation across {checked} generated pages")
 
 
+def git_value(*args: str) -> str:
+    return subprocess.check_output(["git", *args], cwd=ROOT, text=True).strip()
+
+
+def publish_release_manifest(output: Path) -> None:
+    """Expose deterministic provenance so production can prove its exact source commit."""
+    source_commit = os.environ.get("GITHUB_SHA", "").strip().lower()
+    if not re.fullmatch(r"[0-9a-f]{40}", source_commit):
+        source_commit = git_value("rev-parse", "HEAD").lower()
+    source_date = git_value("show", "-s", "--format=%cI", source_commit)
+    source_ref = os.environ.get("GITHUB_REF_NAME", "").strip() or git_value("rev-parse", "--abbrev-ref", "HEAD")
+    site_data = json.loads((ROOT / "site" / "data" / "site.json").read_text(encoding="utf-8"))
+    manifest = {
+        "schemaVersion": 1,
+        "site": "https://gurjas.org/",
+        "sourceCommit": source_commit,
+        "sourceDate": source_date,
+        "sourceRef": source_ref,
+        "navigationVersion": site_data.get("navigationVersion"),
+        "buildSystem": "scripts/build_site.py",
+    }
+    (output / "release.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    print(f"Published release provenance for source commit {source_commit}")
+
+
 def main() -> None:
     assert_core_safeguards()
     subprocess.run([sys.executable, str(CORE), *sys.argv[1:]], cwd=ROOT, check=True)
     output = resolved_output(sys.argv[1:])
     publish_registered_composition(output)
     publish_sitewide_navigation(output)
+    publish_release_manifest(output)
 
 
 if __name__ == "__main__":
