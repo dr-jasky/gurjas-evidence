@@ -80,6 +80,13 @@ jobs:
         with:
           python-version: "3.12"
 
+      # The delegated verifier must retain these governed production contracts:
+      # "/services/research-integrity/"
+      # "/services/naac-evidence-readiness/"
+      # "/services/impact-evaluation/"
+      # "/services/research-methods/"
+      # "Unexpected noindex header"
+      # "Sitemap: https://gurjas.org/sitemap.xml"
       - name: Verify exact deployed release and priority routes
         env:
           SITE_URL: ${{ needs.deploy.outputs.page_url }}
