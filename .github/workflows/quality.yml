@@ -56,9 +56,11 @@ jobs:
         run: |
           node --check script.js
           node --check assets/tool-export.js
+          node --check assets/decision-tools.js
           node --check scripts/capture_visual_review.mjs
           node --check tests/accessibility/audit.mjs
           node --check tests/deployment/production-audit.spec.mjs
+          node --check tests/decision-tools/decision-record.spec.mjs
           node --check tests/tools/journal-finder.spec.mjs
           node --check tests/tools/reference-checker.spec.mjs
           node --check tests/visual/compare.mjs
@@ -68,6 +70,9 @@ jobs:
 
       - name: Run source integrity checks
         run: python scripts/quality-check.py
+
+      - name: Run governed decision-framework fixtures
+        run: pnpm test:decision-tools
 
       - name: Build static site
         run: python scripts/build_site.py --clean
