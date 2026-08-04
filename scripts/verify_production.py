@@ -28,6 +28,10 @@ EXPECTED_NAVIGATION = (
 PRIORITY_ROUTES = (
     ("/", "Where policy meets proof."),
     ("/services/", None),
+    ("/services/research-integrity/", None),
+    ("/services/naac-evidence-readiness/", None),
+    ("/services/impact-evaluation/", None),
+    ("/services/research-methods/", None),
     ("/knowledge/", "Answers that show their evidence."),
     ("/knowledge/library/doi-record-verification/", "How to verify a DOI record"),
     ("/knowledge/library/journal-indexing-verification/", "How to verify a journal"),
@@ -38,6 +42,10 @@ PRIORITY_ROUTES = (
 )
 SITEMAP_ROUTES = (
     "https://gurjas.org/",
+    "https://gurjas.org/services/research-integrity/",
+    "https://gurjas.org/services/naac-evidence-readiness/",
+    "https://gurjas.org/services/impact-evaluation/",
+    "https://gurjas.org/services/research-methods/",
     "https://gurjas.org/knowledge/",
     "https://gurjas.org/knowledge/library/doi-record-verification/",
     "https://gurjas.org/tools/reference-integrity-checker/",
@@ -168,11 +176,15 @@ def audit_html_route(
         f"expected {expected_canonical}; found {parser.canonical}",
         url,
     )
+    robots_header = headers.get("x-robots-tag", "")
+    indexable = "noindex" not in robots_header.lower()
     add_check(
         checks,
         f"{route} indexability header",
-        "noindex" not in headers.get("x-robots-tag", "").lower(),
-        headers.get("x-robots-tag", "no x-robots-tag header"),
+        indexable,
+        "no x-robots-tag header" if indexable and not robots_header else (
+            robots_header if indexable else f"Unexpected noindex header: {robots_header}"
+        ),
         url,
     )
     add_check(checks, f"{route} route helper", parser.site_guide_count == 1, f"count={parser.site_guide_count}", url)
@@ -216,7 +228,6 @@ def audit_html_route(
 def audit_once(base_url: str, canonical_origin: str, expected_sha: str, timeout: int) -> list[Check]:
     checks: list[Check] = []
     release_url = urljoin(base_url, "release.json")
-    actual_sha = "unknown"
     try:
         release_body, release_headers, final_url = fetch_text(release_url, expected_sha, timeout)
         release = json.loads(release_body)
@@ -225,11 +236,20 @@ def audit_once(base_url: str, canonical_origin: str, expected_sha: str, timeout:
         add_check(checks, "release manifest schema", release.get("schemaVersion") == 1, f"schemaVersion={release.get('schemaVersion')}", release_url)
         add_check(checks, "release manifest site", release.get("site") == "https://gurjas.org/", f"site={release.get('site')}", release_url)
         add_check(checks, "exact deployed commit", actual_sha == expected_sha, f"expected {expected_sha}; found {actual_sha}", release_url)
+        cache_evidence = (
+            "no-store" in release_headers.get("cache-control", "").lower()
+            or bool(release_headers.get("etag"))
+            or bool(release_headers.get("last-modified"))
+        )
         add_check(
             checks,
-            "release manifest cache policy",
-            "no-store" in release_headers.get("cache-control", "").lower() or bool(release_headers.get("etag")),
-            f"cache-control={release_headers.get('cache-control', '')}; etag={release_headers.get('etag', '')}",
+            "release manifest cache evidence",
+            cache_evidence,
+            (
+                f"cache-control={release_headers.get('cache-control', '')}; "
+                f"etag={release_headers.get('etag', '')}; "
+                f"last-modified={release_headers.get('last-modified', '')}"
+            ),
             release_url,
         )
     except (HTTPError, URLError, TimeoutError, json.JSONDecodeError, OSError) as exc:
