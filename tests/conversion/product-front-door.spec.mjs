@@ -61,7 +61,7 @@ assert.ok(!html.includes('aria-labelledby="h-tools"'), 'the lower duplicate tool
 assert.ok(html.indexOf('product-front-door') < html.indexOf('home-ledger'), 'tools and knowledge must appear before audience and capability proof');
 assert.ok(html.indexOf('product-front-door') < html.indexOf('home-principal-profile'), 'Principal Consultant metrics must remain secondary to the product front door');
 
-const primaryNav = html.match(/<nav id="nav" class="site-nav" aria-label="Primary">\s*(<ul>[\s\S]*?<\/ul>)\s*<div class="nav-trust">/)?.[1] || '';
+const primaryNav = html.match(/<nav id="nav" class="site-nav" aria-label="Primary">\s*(<ul>[\s\S]*?<\/ul>)/)?.[1] || '';
 assert.ok(primaryNav, 'homepage must expose one deterministic primary-navigation list');
 assert.equal((primaryNav.match(/<li>/g) || []).length, 6, 'homepage navigation must contain exactly six clean top-level destinations');
 for (const [path, label] of [
@@ -75,8 +75,11 @@ for (const [path, label] of [
   assert.ok(primaryNav.includes(`href="${path}"`), `${label} must remain directly available in the homepage navigation`);
 }
 assert.ok(!primaryNav.includes('Our Work'), 'homepage navigation must remove the crowded Our Work dropdown');
-assert.ok(!primaryNav.includes('Find your route'), 'homepage navigation must remove the redundant route-finder control');
+assert.ok(!primaryNav.includes('Find your route'), 'homepage navigation list must not include the route-finder label');
 assert.ok(!primaryNav.includes('Research Library'), 'homepage navigation must use the concise Library label');
+assert.equal((html.match(/data-site-guide/g) || []).length, 1, 'homepage must preserve exactly one governed route helper');
+assert.ok(html.includes('class="nav-guide nav-guide--compact"'), 'route helper must render as a separate compact utility');
+assert.ok(html.indexOf('</ul>') < html.indexOf('nav-guide--compact'), 'compact route helper must sit outside the six-link navigation list');
 
 assert.equal(proof.version, 1, 'homepage proof system must expose its governed version');
 assert.equal(proof.status, 'pilot', 'proof-system refinement must remain explicitly classified as a pilot');
@@ -116,6 +119,7 @@ assert.ok(profilePanel.includes('not Gurjas organisational performance metrics')
 
 assert.ok(html.includes('assets/product-front-door.css?v=2'), 'homepage must load the cache-busted front-door stylesheet');
 assert.ok(html.includes('assets/home-proof-refinement.css?v=1'), 'homepage must load the governed motion and proof stylesheet');
+assert.ok(html.includes('assets/home-nav-compact.css?v=1'), 'homepage must load the compact route-utility stylesheet');
 assert.ok(html.includes('assets/product-front-door.js?v=1'), 'homepage must load the local-only task filter');
 assert.ok(!html.includes('assets/capability-metrics.css?v=1'), 'generated homepage must not load the superseded capability-card stylesheet');
 assert.match(html, /<title>Free Research Tools and Reviewed Research Library \| Gurjas<\/title>/, 'homepage title must describe the product front door');
