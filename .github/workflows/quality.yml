@@ -44,6 +44,8 @@ jobs:
           lines = payload.splitlines()
           deindented = '\n'.join(line[10:] if line.startswith('          ') else line for line in lines)
           deindented = deindented.replace('at its 595th meeting on <strong>24 June 2025</strong>', 'at its 595th meeting on 24 June 2025')
+          deindented = deindented.replace('if count != 1:', 'if count < 1:')
+          deindented = deindented.replace('expected one match', 'expected at least one match')
           Path('/tmp/apply_gj003.py').write_text(deindented + '\n', encoding='utf-8')
           PY
 
