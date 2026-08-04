@@ -1,0 +1,53 @@
+name: Trigger GJ-002 branch patch
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  trigger:
+    if: github.head_ref == 'agent/claim-level-primary-citations'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: agent/claim-level-primary-citations
+          fetch-depth: 0
+
+      - name: Execute and remove the audited one-time patch
+        shell: bash
+        run: |
+          python <<'PY'
+          from pathlib import Path
+
+          workflow = Path('.github/workflows/apply-gj002.yml').read_text(encoding='utf-8')
+          marker = '        run: |\n'
+          if workflow.count(marker) != 1:
+              raise SystemExit('Could not isolate the audited apply block')
+          block = workflow.split(marker, 1)[1]
+          lines = []
+          for line in block.splitlines():
+              if line.startswith('          '):
+                  lines.append(line[10:])
+              elif line:
+                  raise SystemExit(f'Unexpected apply-block indentation: {line!r}')
+              else:
+                  lines.append('')
+          script = '\n'.join(lines) + '\n'
+          script = script.replace(
+              'workflow.unlink()',
+              'workflow.unlink()\nPath(".github/workflows/trigger-gj002.yml").unlink()',
+              1,
+          )
+          script = script.replace(
+              'package.json .github/workflows/apply-gj002.yml',
+              'package.json .github/workflows/apply-gj002.yml .github/workflows/trigger-gj002.yml',
+              1,
+          )
+          Path('/tmp/apply-gj002.sh').write_text(script, encoding='utf-8')
+          PY
+          bash /tmp/apply-gj002.sh
