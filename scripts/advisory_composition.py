@@ -7,11 +7,14 @@ all unregistered changes to page-specific main content continue to fail CI.
 """
 from __future__ import annotations
 
+import html
+import json
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 FRAGMENTS = ROOT / "site" / "fragments"
+CONTENT_GRAPH = ROOT / "data" / "content-graph.json"
 
 
 def ensure_assets(document: str, root: str) -> str:
@@ -54,6 +57,63 @@ def replace_meta_description(document: str, description: str) -> str:
         if count != 1:
             raise RuntimeError(f"Could not update advisory metadata with pattern: {pattern}")
     return document
+
+
+def page_root(relative_path: str) -> str:
+    depth = max(0, len(Path(relative_path).parts) - 1)
+    return "../" * depth
+
+
+def load_content_graph() -> dict:
+    graph = json.loads(CONTENT_GRAPH.read_text(encoding="utf-8"))
+    if graph.get("version") != 1:
+        raise RuntimeError("Unsupported contextual knowledge graph version")
+    return graph
+
+
+def render_contextual_navigation(relative_path: str, root: str, graph: dict) -> str:
+    nodes = graph["nodes"]
+    related_ids = graph["relationships"][relative_path]
+    cards: list[str] = []
+    for node_id in related_ids:
+        if node_id not in nodes:
+            raise RuntimeError(f"Contextual graph references unknown node: {node_id}")
+        node = nodes[node_id]
+        href = root + node["path"]
+        cards.append(
+            '<li><a class="contextual-knowledge__card" '
+            f'href="{html.escape(href, quote=True)}">'
+            f'<span class="contextual-knowledge__type">{html.escape(node["type"])}</span>'
+            f'<strong>{html.escape(node["title"])}</strong>'
+            f'<p>{html.escape(node["description"])}</p>'
+            '<em>Continue exploring →</em></a></li>'
+        )
+    return (
+        '<section class="contextual-knowledge" aria-labelledby="contextual-knowledge-title">'
+        '<div class="wrap contextual-knowledge__shell">'
+        '<div class="contextual-knowledge__head"><div>'
+        '<span class="eyebrow">Connected evidence</span>'
+        '<h2 id="contextual-knowledge-title">Continue through the evidence system.</h2>'
+        '</div><p>These links are editorially mapped to this page so you can move between '
+        'methods, research, tools, outputs and public verification without returning to the main menu.</p></div>'
+        f'<nav aria-label="Related Gurjas evidence and resources"><ul class="contextual-knowledge__grid">{"".join(cards)}</ul></nav>'
+        '</div></section>'
+    )
+
+
+def add_contextual_navigation(relative_path: str, document: str) -> str:
+    graph = load_content_graph()
+    if relative_path not in graph["relationships"]:
+        return document
+    marker = '<section class="contextual-knowledge" aria-labelledby="contextual-knowledge-title">'
+    if marker in document:
+        return document
+    if document.count("</main>") != 1:
+        raise RuntimeError(f"Contextual page has missing or ambiguous main close: {relative_path}")
+    root = page_root(relative_path)
+    document = ensure_stylesheet(document, f"{root}assets/contextual-knowledge.css?v=1")
+    fragment = render_contextual_navigation(relative_path, root, graph)
+    return document.replace("</main>", fragment + "\n</main>", 1)
 
 
 def compose_document(relative_path: str, document: str) -> str:
@@ -108,7 +168,7 @@ def compose_document(relative_path: str, document: str) -> str:
                 raise RuntimeError("Services evidence-dashboard marker is missing or ambiguous")
             fragment = (FRAGMENTS / "services-integrity-clinic.html").read_text(encoding="utf-8").strip()
             document = document.replace(marker, fragment + "\n\n" + marker, 1)
-        return document
+        return add_contextual_navigation(normalized, document)
 
     if normalized == "publications/index.html":
         document = ensure_stylesheet(document, "../assets/publication-discovery.css?v=1")
@@ -131,10 +191,18 @@ def compose_document(relative_path: str, document: str) -> str:
                 raise RuntimeError("Publication list marker is missing or ambiguous")
             fragment = (FRAGMENTS / "publication-discovery.html").read_text(encoding="utf-8").strip()
             document = document.replace(marker, fragment + "\n\n" + marker, 1)
-        return document
+        return add_contextual_navigation(normalized, document)
 
-    return document
+    return add_contextual_navigation(normalized, document)
 
 
 def composed_paths() -> tuple[str, ...]:
-    return ("index.html", "about/index.html", "advisory/index.html", "services/index.html", "publications/index.html")
+    existing = {
+        "index.html",
+        "about/index.html",
+        "advisory/index.html",
+        "services/index.html",
+        "publications/index.html",
+    }
+    graph_paths = set(load_content_graph()["relationships"])
+    return tuple(sorted(existing | graph_paths))
