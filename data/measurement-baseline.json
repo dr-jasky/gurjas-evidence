@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "status": "baseline-only",
+  "purpose": "Measure whether people move from research discovery to evidence, practical tools and legitimate service handoffs without collecting personal or research content.",
+  "reviewed": "2026-08-05",
+  "privacy": {
+    "consentRequired": true,
+    "unknownEventsRejected": true,
+    "unknownParametersRejected": true,
+    "forbiddenData": [
+      "name",
+      "email",
+      "phone number",
+      "organisation name",
+      "free-text enquiry",
+      "research input",
+      "tool result",
+      "document content"
+    ]
+  },
+  "stages": [
+    {
+      "id": "discovery",
+      "events": ["campaign_landing", "library_view"],
+      "interpretation": "A consented visit reaches a governed research surface."
+    },
+    {
+      "id": "evidence",
+      "events": ["library_entry_view", "tool_evidence_open"],
+      "interpretation": "A visitor reads an evidence note or opens the evidence supporting a tool."
+    },
+    {
+      "id": "practical-use",
+      "events": ["tool_view", "library_to_practical", "tool_action"],
+      "interpretation": "A visitor reaches a practical resource and initiates a recognised task."
+    },
+    {
+      "id": "output",
+      "events": ["tool_export"],
+      "interpretation": "A visitor copies, prints or downloads a planning output."
+    },
+    {
+      "id": "service-handoff",
+      "events": ["service_handoff", "contact_channel_click"],
+      "interpretation": "A visitor intentionally moves from a public resource toward direct assistance."
+    },
+    {
+      "id": "qualified-enquiry",
+      "events": ["contact_form_success", "clinic_enquiry_success"],
+      "interpretation": "The contact service confirms successful delivery; a submit attempt alone never counts."
+    }
+  ],
+  "funnels": [
+    {
+      "id": "library-to-tool",
+      "sequence": ["library_entry_view", "library_to_practical", "tool_action"],
+      "question": "Do evidence readers move into practical use?"
+    },
+    {
+      "id": "tool-to-evidence",
+      "sequence": ["tool_view", "tool_evidence_open", "library_entry_view"],
+      "question": "Do tool users inspect the reasoning and limits behind an output?"
+    },
+    {
+      "id": "utility-to-enquiry",
+      "sequence": ["tool_view|library_entry_view", "service_handoff", "contact_form_success"],
+      "question": "Do public utilities create legitimate service demand?"
+    }
+  ],
+  "reportingRules": [
+    "Report event counts and consented-session rates separately.",
+    "Do not infer demand from raw page views alone.",
+    "Do not publish conversion percentages before a complete baseline window exists.",
+    "Do not interpret missing events as absence of demand when analytics consent was not granted.",
+    "Review event definitions before changing interfaces, routes or calls to action."
+  ]
+}
