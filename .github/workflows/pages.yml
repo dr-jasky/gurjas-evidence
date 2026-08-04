@@ -70,63 +70,33 @@ jobs:
   smoke-test:
     needs: deploy
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
     steps:
-      - name: Verify deployed priority routes
-        shell: bash
+      - name: Check out deployed source commit
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Verify exact deployed release and priority routes
         env:
           SITE_URL: ${{ needs.deploy.outputs.page_url }}
+          EXPECTED_SHA: ${{ github.sha }}
         run: |
-          set -euo pipefail
-          base="${SITE_URL%/}"
-          routes=(
-            "/"
-            "/services/"
-            "/services/research-integrity/"
-            "/services/naac-evidence-readiness/"
-            "/services/impact-evaluation/"
-            "/services/research-methods/"
-            "/knowledge/"
-            "/knowledge/research-integrity/"
-            "/knowledge/research-design/"
-            "/knowledge/institutional-pathways/"
-            "/resources/journal-assessment-checklist/"
-            "/resources/research-question-canvas/"
-            "/tools/"
-            "/contact/"
-            "/privacy/"
-            "/insights/how-to-identify-a-predatory-journal/"
-          )
-          for route in "${routes[@]}"; do
-            url="${base}${route}"
-            echo "Checking ${url}"
-            body="$(curl --fail --silent --show-error --location \
-              --retry 8 --retry-delay 5 --retry-all-errors \
-              --max-time 30 "${url}")"
-            test -n "${body}"
-            grep -qi '<main' <<<"${body}"
-            grep -q 'data-site-system="header"' <<<"${body}"
-            grep -q 'data-site-system="footer"' <<<"${body}"
-            canonical="https://gurjas.org${route}"
-            grep -Fq "<link rel=\"canonical\" href=\"${canonical}\">" <<<"${body}"
-            headers="$(curl --fail --silent --show-error --location \
-              --retry 8 --retry-delay 5 --retry-all-errors \
-              --max-time 30 --dump-header - --output /dev/null "${url}")"
-            if grep -qi '^x-robots-tag:.*noindex' <<<"${headers}"; then
-              echo "Unexpected noindex header on ${url}"
-              exit 1
-            fi
-          done
+          python scripts/verify_production.py \
+            --base-url "$SITE_URL" \
+            --expected-sha "$EXPECTED_SHA" \
+            --attempts 8 \
+            --delay 15 \
+            --report production-audit.json
 
-          robots="$(curl --fail --silent --show-error --location \
-            --retry 8 --retry-delay 5 --retry-all-errors \
-            --max-time 30 "${base}/robots.txt")"
-          grep -Fq 'User-agent: *' <<<"${robots}"
-          grep -Fq 'Allow: /' <<<"${robots}"
-          grep -Fq 'Sitemap: https://gurjas.org/sitemap.xml' <<<"${robots}"
-
-          sitemap="$(curl --fail --silent --show-error --location \
-            --retry 8 --retry-delay 5 --retry-all-errors \
-            --max-time 30 "${base}/sitemap.xml")"
-          grep -q '<urlset' <<<"${sitemap}"
-          grep -q '<lastmod>' <<<"${sitemap}"
+      - name: Upload deployment audit report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: gurjas-deployment-audit
+          path: production-audit.json
+          if-no-files-found: error
+          retention-days: 30
