@@ -10,6 +10,12 @@ The flagship journal guide is governed separately by GJ-002. This register cover
 - 10 articles failed the initial review and were corrected in this PR.
 - 2 articles retain medium-priority sourcing follow-ups; neither contains an unresolved high-severity certainty finding.
 
+## Policy verification basis
+
+- The final UGC notice dated 16 July 2025 records approval at the Commission's **591st meeting** on 24 June 2025 and contains **35** numbered sub-parameters; the February draft contains **36**.
+- The NAAC Basic Accreditation Portal is live. MBGL labels, transition arrangements, technology-supported verification and cycle-specific procedures remain governed by current official manuals rather than secondary summaries.
+- Every time-sensitive policy correction in this audit is dated **4 August 2026** and directs the reader back to the current official source before acting.
+
 | Article | Initial | Final | Source state |
 |---|---:|---:|---|
 | `insights/phd-shortcut-longest-route/index.html` | pass | pass | practice-basis-and-limitations |
