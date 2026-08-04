@@ -5,11 +5,13 @@ import path from 'node:path';
 const registry = JSON.parse(fs.readFileSync('data/library-entries.json', 'utf8'));
 const taxonomy = JSON.parse(fs.readFileSync('data/knowledge-taxonomy.json', 'utf8'));
 const indexHtml = fs.readFileSync('_site/knowledge/index.html', 'utf8');
+const loopCss = fs.readFileSync('assets/tool-evidence-loop.css', 'utf8');
 const allowedTypes = new Set(taxonomy.contentTypes);
 const activePillars = new Set(taxonomy.pillars.filter((pillar) => pillar.status === 'active').map((pillar) => pillar.id));
 const ids = new Set();
 const paths = new Set();
 const pillarCounts = new Map();
+const evidenceByDestination = new Map();
 
 assert.equal(registry.version, 1, 'library registry must use governed version 1');
 assert.equal(registry.publicLabel, 'Research Library', 'registry must preserve the public label');
@@ -33,6 +35,9 @@ for (const entry of registry.entries) {
   assert.ok(entry.sourceCount >= 2, `${entry.id} requires at least two primary or official sources`);
 
   pillarCounts.set(entry.pillar, (pillarCounts.get(entry.pillar) || 0) + 1);
+  const destinationEntries = evidenceByDestination.get(entry.relatedTool) || [];
+  destinationEntries.push(entry);
+  evidenceByDestination.set(entry.relatedTool, destinationEntries);
 
   const outputPath = path.join('_site', entry.path, 'index.html');
   assert.ok(fs.existsSync(outputPath), `${entry.id} must build to its canonical route`);
@@ -52,6 +57,35 @@ for (const entry of registry.entries) {
   assert.ok(!/guaranteed|100% accurate|definitive blacklist|always sufficient/i.test(html), `${entry.id} contains an unsupported certainty claim`);
 }
 
+assert.equal(evidenceByDestination.size, 5, 'six launch entries must resolve to five practical destinations');
+for (const [destination, entries] of evidenceByDestination) {
+  const outputPath = path.join('_site', destination, 'index.html');
+  assert.ok(fs.existsSync(outputPath), `${destination} must exist as an evidence-linked practical route`);
+  const html = fs.readFileSync(outputPath, 'utf8');
+  const depth = destination.split('/').filter(Boolean).length;
+  const root = '../'.repeat(depth);
+
+  assert.equal((html.match(/class="tool-evidence-loop"/g) || []).length, 1, `${destination} must expose one evidence loop`);
+  assert.equal((html.match(/class="tool-evidence-loop__card"/g) || []).length, entries.length, `${destination} must expose every registered evidence card`);
+  assert.ok(html.includes(`${root}assets/tool-evidence-loop.css?v=1`), `${destination} must load the local evidence-loop stylesheet`);
+  assert.ok(html.includes('Evidence behind this tool'), `${destination} must label the evidence relationship`);
+  assert.ok(html.includes('Use the result. Check the reasoning.'), `${destination} must explain the reciprocal workflow`);
+  assert.ok(html.includes('not an automatic verdict'), `${destination} must preserve the decision-aid boundary`);
+  assert.ok(html.includes('quality, validity, eligibility, acceptance or institutional approval'), `${destination} must disclose what tool output cannot establish`);
+  assert.ok(!/guaranteed|certified result|institutionally approved/i.test(html), `${destination} contains an unsupported outcome claim`);
+
+  for (const entry of entries) {
+    assert.ok(html.includes(entry.title), `${destination} must name ${entry.id}`);
+    assert.ok(html.includes(`href="${root}${entry.path}"`), `${destination} must link back to ${entry.id}`);
+    assert.ok(html.includes(`${entry.type} · v${entry.version}`), `${destination} must expose ${entry.id} version metadata`);
+    assert.ok(html.includes(`${entry.sourceCount} cited sources · reviewed ${entry.reviewed}`), `${destination} must expose ${entry.id} source and review metadata`);
+  }
+}
+
+assert.match(loopCss, /body:not\(\.home\):not\(\.offer\) main section\.tool-evidence-loop/, 'evidence loop must outrank the global non-home section background');
+assert.match(loopCss, /@media \(prefers-reduced-motion: no-preference\)/, 'evidence loop motion must be opt-in');
+assert.match(loopCss, /@media \(forced-colors: active\)/, 'evidence loop must support forced colours');
+
 assert.equal(pillarCounts.get('research-integrity'), 3, 'research integrity must launch with three entries');
 assert.equal(pillarCounts.get('research-design'), 3, 'research design must launch with three entries');
 assert.equal((indexHtml.match(/class="library-card" href="library\//g) || []).length, 6, 'library index must expose all six entry routes');
@@ -59,4 +93,4 @@ assert.ok(indexHtml.includes('Answers that show their evidence.'), 'library inde
 assert.ok(indexHtml.includes('Six flagship entries are live.'), 'library index must state the bounded launch corpus');
 assert.ok(!indexHtml.includes('<input'), 'the six-entry launch must not add premature search controls');
 
-console.log('Research Library contract passed for six governed entries across two active pillars.');
+console.log('Research Library contract passed for six governed entries and five reciprocal practical evidence routes.');
