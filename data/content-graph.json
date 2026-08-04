@@ -1,6 +1,12 @@
 {
   "version": 1,
   "nodes": {
+    "knowledge": {
+      "type": "Knowledge hub",
+      "title": "Navigate the governed knowledge system",
+      "description": "Choose a research-integrity, method, evaluation or policy evidence route without scanning the entire site.",
+      "path": "knowledge/"
+    },
     "services": {
       "type": "Service guide",
       "title": "Choose a defensible engagement route",
@@ -63,13 +69,14 @@
     }
   },
   "relationships": {
-    "services/index.html": ["methods", "evidence", "tools", "contact"],
-    "methods/index.html": ["research", "publications", "tools", "ethics"],
-    "research/index.html": ["publications", "methods", "evidence", "insights"],
-    "publications/index.html": ["research", "methods", "insights", "evidence"],
-    "insights/index.html": ["tools", "methods", "publications", "services"],
-    "tools/index.html": ["insights", "methods", "resources", "services"],
-    "resources/index.html": ["tools", "insights", "methods", "ethics"],
-    "evidence/index.html": ["publications", "research", "ethics", "services"]
+    "knowledge/index.html": ["insights", "methods", "tools", "services"],
+    "services/index.html": ["knowledge", "evidence", "tools", "contact"],
+    "methods/index.html": ["knowledge", "research", "tools", "ethics"],
+    "research/index.html": ["knowledge", "publications", "evidence", "insights"],
+    "publications/index.html": ["knowledge", "research", "insights", "evidence"],
+    "insights/index.html": ["knowledge", "tools", "publications", "services"],
+    "tools/index.html": ["knowledge", "methods", "resources", "services"],
+    "resources/index.html": ["knowledge", "tools", "methods", "ethics"],
+    "evidence/index.html": ["knowledge", "publications", "ethics", "services"]
   }
 }
