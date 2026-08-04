@@ -1,0 +1,243 @@
+{
+  "schemaVersion": "1.0.0",
+  "reviewedOn": "2026-08-04",
+  "reviewSeries": "GJ-003",
+  "scope": {
+    "expectedArticles": 16,
+    "excluded": [
+      "insights/how-to-identify-a-predatory-journal/index.html"
+    ],
+    "criteria": [
+      "source traceability",
+      "certainty calibration",
+      "time-sensitive policy status",
+      "legal/integrity qualification",
+      "discovery-copy alignment"
+    ]
+  },
+  "articles": [
+    {
+      "path": "insights/phd-shortcut-longest-route/index.html",
+      "cluster": "doctoral-research",
+      "initialResult": "pass",
+      "finalResult": "pass",
+      "sourcing": "practice-basis-and-limitations",
+      "findings": [
+        "Composite pattern is explicitly non-identifying and not presented as a client case."
+      ],
+      "corrections": []
+    },
+    {
+      "path": "insights/doaj-cope-oaspa-memberships/index.html",
+      "cluster": "research-integrity",
+      "initialResult": "fail",
+      "finalResult": "corrected",
+      "sourcing": "direct-official-links-added",
+      "findings": [
+        "Headline and body overstated what membership certifies.",
+        "Named sources were previously unlinked."
+      ],
+      "corrections": [
+        "Reframed membership as a bounded signal.",
+        "Added official directories, access date and verification warning."
+      ]
+    },
+    {
+      "path": "insights/cloned-hijacked-journals/index.html",
+      "cluster": "research-integrity",
+      "initialResult": "fail",
+      "finalResult": "corrected",
+      "sourcing": "direct-authoritative-links-added",
+      "findings": [
+        "Complete-protection and decisive single-check language.",
+        "DOI/Crossref statement was overbroad."
+      ],
+      "corrections": [
+        "Replaced verdicts with identity-gap and stop-and-verify language.",
+        "Qualified DOI registration and mismatch evidence."
+      ]
+    },
+    {
+      "path": "insights/fake-impact-factors/index.html",
+      "cluster": "research-integrity",
+      "initialResult": "fail",
+      "finalResult": "corrected",
+      "sourcing": "direct-primary-links-added",
+      "findings": [
+        "Universal recognition and confession language overstated the evidence.",
+        "Generic unlinked source note."
+      ],
+      "corrections": [
+        "Reframed around provenance, method and independent verifiability.",
+        "Added direct metric-source links and access date."
+      ]
+    },
+    {
+      "path": "insights/published-in-predatory-journal-what-to-do/index.html",
+      "cluster": "research-integrity",
+      "initialResult": "fail",
+      "finalResult": "corrected",
+      "sourcing": "direct-guidance-links-added",
+      "findings": [
+        "Copyright, republication and institutional-outcome advice was too categorical."
+      ],
+      "corrections": [
+        "Qualified rights and duplicate-publication guidance.",
+        "Added explicit institutional and professional-advice boundaries."
+      ]
+    },
+    {
+      "path": "insights/ugc-care-discontinued/index.html",
+      "cluster": "ugc-policy",
+      "initialResult": "pass",
+      "finalResult": "pass",
+      "sourcing": "direct-official-policy-links",
+      "findings": [
+        "Dated policy review and controlling UGC documents are visible."
+      ],
+      "corrections": []
+    },
+    {
+      "path": "insights/phd-publication-requirement-india-2026/index.html",
+      "cluster": "doctoral-policy",
+      "initialResult": "fail",
+      "finalResult": "follow_up_required",
+      "sourcing": "named-policy-sources-unlinked",
+      "findings": [
+        "Core conclusion is institution-dependent and appropriately caveated.",
+        "The UGC 2022 regulation should be linked directly at claim level."
+      ],
+      "corrections": [],
+      "followUp": {
+        "owner": "editorial-policy",
+        "dueBefore": "next substantive edit",
+        "severity": "medium",
+        "action": "Add the official UGC 2022 regulation and institution-policy retrieval date without changing the bounded conclusion."
+      }
+    },
+    {
+      "path": "insights/ugc-suggestive-parameters-explained/index.html",
+      "cluster": "ugc-policy",
+      "initialResult": "pass",
+      "finalResult": "pass",
+      "sourcing": "direct-official-policy-links",
+      "findings": [
+        "Final 35-check annexure and 36-item draft are distinguished and linked."
+      ],
+      "corrections": []
+    },
+    {
+      "path": "insights/verify-a-journal-2026/index.html",
+      "cluster": "research-integrity",
+      "initialResult": "fail",
+      "finalResult": "corrected",
+      "sourcing": "direct-official-policy-links-added",
+      "findings": [
+        "Incorrect 595th meeting reference; official notice says 591st.",
+        "35/36 status was left unresolved despite a controlling final annexure.",
+        "Several certainty and resilience claims were absolute."
+      ],
+      "corrections": [
+        "Aligned meeting number and final/draft counts to official notices.",
+        "Replaced verdict language and removed Wikipedia as a policy source."
+      ]
+    },
+    {
+      "path": "insights/scopus-publication-guide/index.html",
+      "cluster": "publishing",
+      "initialResult": "fail",
+      "finalResult": "corrected",
+      "sourcing": "direct-primary-links-added",
+      "findings": [
+        "Scopus presented as the benchmark that matters.",
+        "Scope fit and fast timelines were framed as conclusive."
+      ],
+      "corrections": [
+        "Bounded indexing and acceptance claims.",
+        "Changed speed from proof to a material warning requiring verification."
+      ]
+    },
+    {
+      "path": "insights/scopus-wos-abdc-compared/index.html",
+      "cluster": "publishing",
+      "initialResult": "fail",
+      "finalResult": "corrected",
+      "sourcing": "direct-primary-links-added",
+      "findings": [
+        "Scopus and Web of Science were described as interchangeable quality benchmarks."
+      ],
+      "corrections": [
+        "Distinguished database coverage from institutional acceptance and journal quality."
+      ]
+    },
+    {
+      "path": "insights/journal-quartiles-citescore/index.html",
+      "cluster": "publishing-metrics",
+      "initialResult": "pass",
+      "finalResult": "pass",
+      "sourcing": "direct-primary-links",
+      "findings": [
+        "Metric, category, year and source limitations are explicit."
+      ],
+      "corrections": []
+    },
+    {
+      "path": "insights/can-a-scopus-journal-be-predatory/index.html",
+      "cluster": "research-integrity",
+      "initialResult": "fail",
+      "finalResult": "corrected",
+      "sourcing": "direct-primary-links-added",
+      "findings": [
+        "Indexing was called the strongest/best signal and the live record was treated as dispositive."
+      ],
+      "corrections": [
+        "Reframed current coverage as one signal among identity, provenance and conduct."
+      ]
+    },
+    {
+      "path": "insights/naac-2025-reforms/index.html",
+      "cluster": "naac-policy",
+      "initialResult": "fail",
+      "finalResult": "corrected",
+      "sourcing": "direct-current-official-links-added",
+      "findings": [
+        "Transition and legacy workflow language blurred settled and provisional procedures."
+      ],
+      "corrections": [
+        "Distinguished the live basic portal from cycle-specific and evolving MBGL procedures."
+      ]
+    },
+    {
+      "path": "insights/naac-binary-mbgl-2026/index.html",
+      "cluster": "naac-policy",
+      "initialResult": "fail",
+      "finalResult": "corrected",
+      "sourcing": "direct-current-official-links-added",
+      "findings": [
+        "AI, data integration, adoption target and level labels were stated as fully operational.",
+        "Structured data repeated the categorical claim."
+      ],
+      "corrections": [
+        "Bounded implementation claims to current official manuals and portal.",
+        "Aligned visible copy and Article metadata."
+      ]
+    },
+    {
+      "path": "insights/digital-money-urban-slums/index.html",
+      "cluster": "financial-inclusion",
+      "initialResult": "fail",
+      "finalResult": "follow_up_required",
+      "sourcing": "publication-page-link-only",
+      "findings": [
+        "Research interpretation is identifiable, but material empirical claims are not linked directly to the supporting DOI records."
+      ],
+      "corrections": [],
+      "followUp": {
+        "owner": "research-editor",
+        "dueBefore": "next substantive edit",
+        "severity": "medium",
+        "action": "Add claim-level DOI links and distinguish study findings from broader policy interpretation."
+      }
+    }
+  ]
+}
