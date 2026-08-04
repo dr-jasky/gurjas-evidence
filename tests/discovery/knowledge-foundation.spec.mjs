@@ -52,10 +52,12 @@ assert.ok(html.includes('CollectionPage'), 'Research Library must expose conserv
 assert.ok(!html.includes('Search the Research Library'), 'search must not launch before the corpus warrants it');
 assert.ok(!/guaranteed|market leader|best consultancy/i.test(html), 'Research Library must avoid unsupported promotional claims');
 
-assert.ok(html.includes('research-library-contrast.css?v=1'), 'Library index must load the cache-safe contrast guard');
-assert.match(contrastCss, /\.library-hero,[\s\S]*background-color:\s*#041226/i, 'contrast guard must force a navy hero surface');
+assert.ok(html.includes('research-library-contrast.css?v=1'), 'Library index must load the contrast guard as a separately cacheable asset');
+assert.match(contrastCss, /body:not\(\.home\):not\(\.offer\) main section\.library-hero/, 'contrast guard must outrank the global non-home section selector');
+assert.match(contrastCss, /background-color:\s*#041226\s*!important/i, 'contrast guard must force a navy hero surface');
+assert.match(contrastCss, /background-size:\s*auto\s*!important/i, 'contrast guard must remove the inherited dotted section background sizing');
 assert.match(contrastCss, /\.library-hero h1,[\s\S]*color:\s*#ffffff\s*!important/i, 'contrast guard must force a white Library heading');
 assert.match(contrastCss, /\.library-hero \.lede,[\s\S]*rgba\(255,\s*255,\s*255,\s*\.84\)\s*!important/i, 'contrast guard must preserve readable supporting copy');
 assert.match(contrastCss, /@media \(forced-colors: active\)/, 'contrast guard must retain forced-colors support');
 
-console.log('Research Library foundation version 3 passed for six entries, two active pillars, four planned areas, two governed resources and the cache-safe contrast contract.');
+console.log('Research Library foundation version 3 passed for six entries, two active pillars, four planned areas, two governed resources and the high-specificity contrast contract.');
