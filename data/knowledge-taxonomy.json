@@ -1,0 +1,78 @@
+{
+  "version": 2,
+  "contentTypes": ["Guide", "Method note", "Checklist", "Evidence brief", "Template", "Tool"],
+  "dateFields": ["published", "reviewed", "updated"],
+  "pillars": [
+    {
+      "id": "research-integrity",
+      "title": "Research integrity and scholarly communication",
+      "status": "active",
+      "hub": "knowledge/research-integrity/",
+      "summary": "Journal assessment, publication ethics, authorship, disclosure, correction and institutional integrity systems.",
+      "entryPoints": [
+        "knowledge/research-integrity/",
+        "insights/how-to-identify-a-predatory-journal/",
+        "tools/reference-integrity-checker/",
+        "resources/journal-assessment-checklist/"
+      ]
+    },
+    {
+      "id": "research-design",
+      "title": "Research design and methods",
+      "status": "active",
+      "hub": "knowledge/research-design/",
+      "summary": "Study design, measurement, sampling, qualitative and mixed methods, SEM, fsQCA and econometric decisions.",
+      "entryPoints": [
+        "knowledge/research-design/",
+        "methods/",
+        "tools/sem-sample-size-calculator/",
+        "resources/research-question-canvas/"
+      ]
+    },
+    {
+      "id": "impact-evaluation",
+      "title": "Impact evaluation and measurement",
+      "status": "planned",
+      "summary": "Theory of change, indicators, baseline and endline design, contribution analysis and decision-ready evaluation.",
+      "entryPoints": ["services/impact-evaluation/", "research/"]
+    },
+    {
+      "id": "policy-evidence",
+      "title": "Policy evidence and decision support",
+      "status": "planned",
+      "summary": "Evidence synthesis, policy appraisal, financial inclusion, development economics and public decision support.",
+      "entryPoints": ["research/", "publications/"]
+    },
+    {
+      "id": "higher-education-quality",
+      "title": "Higher-education quality and accreditation",
+      "status": "planned",
+      "summary": "NAAC, IQAC, evidence readiness, institutional reporting and quality-assurance systems.",
+      "entryPoints": ["services/naac-evidence-readiness/", "tools/naac-readiness-scorecard/"]
+    },
+    {
+      "id": "responsible-ai",
+      "title": "Responsible research and AI governance",
+      "status": "planned",
+      "summary": "Responsible AI use, disclosure, research governance, institutional policy and evidence integrity.",
+      "entryPoints": ["ethics-charter/", "services/research-integrity/"]
+    }
+  ],
+  "institutionalPathways": "knowledge/institutional-pathways/",
+  "resources": [
+    {
+      "id": "journal-assessment-checklist",
+      "type": "Checklist",
+      "version": "1.0",
+      "path": "resources/journal-assessment-checklist/",
+      "pillar": "research-integrity"
+    },
+    {
+      "id": "research-question-canvas",
+      "type": "Template",
+      "version": "1.0",
+      "path": "resources/research-question-canvas/",
+      "pillar": "research-design"
+    }
+  ]
+}
