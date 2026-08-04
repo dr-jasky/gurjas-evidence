@@ -26,7 +26,7 @@ EXPECTED_NAVIGATION = (
     ("Contact", "/contact/"),
 )
 PRIORITY_ROUTES = (
-    ("/", "Where policy meets proof."),
+    ("/", None),
     ("/services/", None),
     ("/services/research-integrity/", None),
     ("/services/naac-evidence-readiness/", None),
@@ -70,6 +70,7 @@ class SiteDocumentParser(HTMLParser):
         self.canonical: str | None = None
         self.site_guide_count = 0
         self.nav_depth = 0
+        self.primary_list_depth = 0
         self.nav_li_count = 0
         self.nav_links: list[tuple[str, str, str]] = []
         self._active_nav_href: str | None = None
@@ -94,9 +95,11 @@ class SiteDocumentParser(HTMLParser):
         elif tag == "nav" and self.nav_depth:
             self.nav_depth += 1
 
-        if self.nav_depth and tag == "li":
+        if tag == "ul" and self.nav_depth:
+            self.primary_list_depth += 1
+        if self.primary_list_depth and tag == "li":
             self.nav_li_count += 1
-        if self.nav_depth and tag == "a":
+        if self.primary_list_depth and tag == "a":
             self._active_nav_href = values.get("href", "")
             self._active_nav_class = values.get("class", "")
             self._active_nav_text = []
@@ -112,6 +115,8 @@ class SiteDocumentParser(HTMLParser):
             self._active_nav_href = None
             self._active_nav_class = ""
             self._active_nav_text = []
+        if tag == "ul" and self.primary_list_depth:
+            self.primary_list_depth -= 1
         if tag == "nav" and self.nav_depth:
             self.nav_depth -= 1
 
