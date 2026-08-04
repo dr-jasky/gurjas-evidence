@@ -1,0 +1,339 @@
+.product-front-door {
+  --pfd-ink: #071426;
+  --pfd-ink-soft: #10243d;
+  --pfd-paper: #fbfaf5;
+  --pfd-line: rgba(255, 255, 255, 0.17);
+  --pfd-accent: #f4be5b;
+  position: relative;
+  overflow: hidden;
+  padding: clamp(72px, 9vw, 124px) 0 clamp(58px, 8vw, 104px);
+  color: #fff;
+  background:
+    radial-gradient(circle at 82% 4%, rgba(244, 190, 91, 0.18), transparent 30%),
+    radial-gradient(circle at 8% 42%, rgba(108, 168, 205, 0.14), transparent 32%),
+    linear-gradient(145deg, var(--pfd-ink), var(--pfd-ink-soft));
+}
+
+.product-front-door::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image: linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, #000, transparent 68%);
+}
+
+.product-front-door__shell {
+  position: relative;
+  z-index: 1;
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.product-front-door__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
+  gap: clamp(34px, 7vw, 88px);
+  align-items: end;
+}
+
+.product-front-door__eyebrow,
+.product-front-door__kicker {
+  margin: 0 0 18px;
+  font: 700 0.74rem/1.2 "Spline Sans Mono", monospace;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--pfd-accent);
+}
+
+.product-front-door h1 {
+  max-width: 12ch;
+  margin: 0;
+  color: #fff;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(3.25rem, 7vw, 6.7rem);
+  font-weight: 340;
+  line-height: .94;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+
+.product-front-door h1 em {
+  color: var(--pfd-accent);
+  font-weight: 380;
+}
+
+.product-front-door__summary {
+  max-width: 42rem;
+  margin: 28px 0 0;
+  font-size: clamp(1.08rem, 1.65vw, 1.32rem);
+  line-height: 1.65;
+  color: rgba(255,255,255,.78);
+}
+
+.product-front-door__search {
+  padding: 24px;
+  border: 1px solid var(--pfd-line);
+  border-radius: 20px;
+  background: rgba(255,255,255,.075);
+  box-shadow: 0 24px 80px rgba(0,0,0,.18);
+  backdrop-filter: blur(15px);
+}
+
+.product-front-door__search label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.product-front-door__search-row {
+  display: flex;
+  gap: 10px;
+}
+
+.product-front-door__search input {
+  width: 100%;
+  min-width: 0;
+  padding: 15px 16px;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 12px;
+  color: var(--pfd-ink);
+  background: #fff;
+  font: inherit;
+}
+
+.product-front-door__search button {
+  padding: 0 16px;
+  border: 1px solid rgba(255,255,255,.24);
+  border-radius: 12px;
+  color: #fff;
+  background: transparent;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.product-front-door__search input:focus-visible,
+.product-front-door__search button:focus-visible,
+.product-front-door a:focus-visible {
+  outline: 3px solid var(--pfd-accent);
+  outline-offset: 3px;
+}
+
+.product-front-door__status {
+  margin: 12px 0 0;
+  font-size: .88rem;
+  color: rgba(255,255,255,.68);
+}
+
+.product-front-door__trust {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: clamp(38px, 5vw, 62px) 0 0;
+  padding: 0;
+  border-block: 1px solid var(--pfd-line);
+  list-style: none;
+}
+
+.product-front-door__trust li {
+  padding: 17px 20px;
+  border-right: 1px solid var(--pfd-line);
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .015em;
+  color: rgba(255,255,255,.78);
+}
+
+.product-front-door__trust li:last-child { border-right: 0; }
+
+.product-front-door__tools {
+  margin-top: clamp(44px, 6vw, 72px);
+  padding: clamp(24px, 4vw, 42px);
+  border-radius: 28px;
+  color: var(--pfd-ink);
+  background: var(--pfd-paper);
+  box-shadow: 0 32px 100px rgba(0,0,0,.24);
+}
+
+.product-front-door__tools-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  align-items: end;
+  margin-bottom: 26px;
+}
+
+.product-front-door__tools h2,
+.product-front-door__library h2 {
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(2.15rem, 4vw, 3.7rem);
+  font-weight: 380;
+  line-height: 1;
+  letter-spacing: -.035em;
+}
+
+.product-front-door__tools h2 { color: var(--pfd-ink); }
+.product-front-door__library h2 { color: #fff; }
+
+.product-front-door__tools-head p {
+  max-width: 35rem;
+  margin: 0;
+  line-height: 1.6;
+  color: #556274;
+}
+
+.product-front-door__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 13px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.product-front-door__card {
+  min-width: 0;
+}
+
+.product-front-door__card[hidden] { display: none; }
+
+.product-front-door__card a {
+  display: flex;
+  min-height: 176px;
+  height: 100%;
+  flex-direction: column;
+  padding: 21px;
+  border: 1px solid #dde2e8;
+  border-radius: 16px;
+  color: inherit;
+  background: #fff;
+  text-decoration: none;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.product-front-door__card a:hover {
+  transform: translateY(-2px);
+  border-color: #b3bdc9;
+  box-shadow: 0 15px 35px rgba(7,20,38,.09);
+}
+
+.product-front-door__category {
+  display: block;
+  margin-bottom: 15px;
+  font: 700 .68rem/1.25 "Spline Sans Mono", monospace;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: #647386;
+}
+
+.product-front-door__card strong {
+  display: block;
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+.product-front-door__card p {
+  margin: 10px 0 18px;
+  font-size: .88rem;
+  line-height: 1.55;
+  color: #5e6978;
+}
+
+.product-front-door__go {
+  margin-top: auto;
+  color: #172a43;
+  font-weight: 800;
+}
+
+.product-front-door__empty {
+  margin: 22px 0 0;
+  padding: 18px;
+  border: 1px dashed #aeb7c2;
+  border-radius: 14px;
+  color: #4b596a;
+  background: #fff;
+}
+
+.product-front-door__library {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, .65fr);
+  gap: clamp(30px, 6vw, 80px);
+  align-items: center;
+  margin-top: 18px;
+  padding: clamp(28px, 5vw, 52px);
+  border: 1px solid var(--pfd-line);
+  border-radius: 24px;
+  background: rgba(255,255,255,.07);
+}
+
+.product-front-door__library p {
+  margin: 18px 0 0;
+  line-height: 1.65;
+  color: rgba(255,255,255,.72);
+}
+
+.product-front-door__library-links {
+  display: grid;
+  gap: 10px;
+}
+
+.product-front-door__library-links a,
+.product-front-door__enterprise a {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  padding: 15px 17px;
+  border: 1px solid var(--pfd-line);
+  border-radius: 12px;
+  color: #fff;
+  text-decoration: none;
+  background: rgba(255,255,255,.055);
+}
+
+.product-front-door__library-links a:hover,
+.product-front-door__enterprise a:hover { background: rgba(255,255,255,.11); }
+
+.product-front-door__enterprise {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  margin-top: 18px;
+  padding: 20px 22px;
+  border-top: 1px solid var(--pfd-line);
+}
+
+.product-front-door__enterprise p { margin: 0; color: rgba(255,255,255,.72); }
+.product-front-door__enterprise a { flex: 0 0 auto; }
+
+@media (max-width: 920px) {
+  .product-front-door__hero,
+  .product-front-door__library { grid-template-columns: 1fr; }
+  .product-front-door__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .product-front-door__trust { grid-template-columns: repeat(2, 1fr); }
+  .product-front-door__trust li:nth-child(2) { border-right: 0; }
+  .product-front-door__trust li:nth-child(-n+2) { border-bottom: 1px solid var(--pfd-line); }
+}
+
+@media (max-width: 620px) {
+  .product-front-door__shell { width: min(100% - 24px, 1180px); }
+  .product-front-door h1 { font-size: clamp(3rem, 15vw, 4.7rem); }
+  .product-front-door__search-row,
+  .product-front-door__tools-head,
+  .product-front-door__enterprise { align-items: stretch; flex-direction: column; }
+  .product-front-door__search button { min-height: 48px; }
+  .product-front-door__trust,
+  .product-front-door__grid { grid-template-columns: 1fr; }
+  .product-front-door__trust li { border-right: 0; border-bottom: 1px solid var(--pfd-line); }
+  .product-front-door__trust li:last-child { border-bottom: 0; }
+  .product-front-door__card a { min-height: 0; }
+  .product-front-door__enterprise a { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-front-door__card a { transition: none; }
+}

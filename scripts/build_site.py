@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 
 from advisory_composition import compose_document, composed_paths
+from product_front_door import compose_product_front_door
 
 ROOT = Path(__file__).resolve().parents[1]
 CORE = Path(__file__).with_name("build_site_core.py")
@@ -39,8 +40,11 @@ def publish_registered_composition(output: Path) -> None:
         if not target.exists():
             raise RuntimeError(f"Composed public page is missing: {relative_path}")
         source = target.read_text(encoding="utf-8")
-        target.write_text(compose_document(relative_path, source), encoding="utf-8")
-    print("Published registered composition on Home, About, Advisory and Services pages")
+        composed = compose_document(relative_path, source)
+        if relative_path == "index.html":
+            composed = compose_product_front_door(composed)
+        target.write_text(composed, encoding="utf-8")
+    print("Published registered composition, including the homepage product front door")
 
 
 def main() -> None:

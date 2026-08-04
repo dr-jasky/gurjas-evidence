@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "status": "pilot",
+  "reviewed": "2026-08-04",
+  "hero": {
+    "eyebrow": "Free research tools · Reviewed knowledge · No sign-up to start",
+    "title": "Every research task. One verified toolkit.",
+    "summary": "Start with a transparent tool, then continue into reviewed research guidance, primary sources and institutional support when the decision requires it."
+  },
+  "library": {
+    "publicLabel": "Research Library",
+    "path": "knowledge/",
+    "summary": "Reviewed guidance for research integrity and research design, with four additional evidence domains developing under the same governance standard.",
+    "activePillars": [
+      {
+        "label": "Research integrity",
+        "path": "knowledge/research-integrity/"
+      },
+      {
+        "label": "Research design and methods",
+        "path": "knowledge/research-design/"
+      }
+    ]
+  },
+  "trustItems": [
+    "11 public tools",
+    "Versioned evidence contracts",
+    "Two active Research Library pillars",
+    "Independent, women-led practice"
+  ],
+  "tools": [
+    {
+      "id": "journal-evidence-checker",
+      "label": "Check a journal",
+      "category": "Publishing integrity",
+      "description": "Review identity, registry, indexing-snapshot and clone-alert evidence without an invented legitimacy score.",
+      "path": "tools/predatory-journal-checker/",
+      "keywords": ["predatory journal", "legitimacy", "indexing", "clone", "ISSN"]
+    },
+    {
+      "id": "journal-shortlist",
+      "label": "Find candidate journals",
+      "category": "Publishing integrity",
+      "description": "Build a literature-neighbour shortlist of journal-type, ISSN-bearing OpenAlex sources for further investigation.",
+      "path": "tools/journal-finder/",
+      "keywords": ["journal finder", "abstract", "OpenAlex", "shortlist", "submission"]
+    },
+    {
+      "id": "recorded-apc-lookup",
+      "label": "Look up a recorded APC",
+      "category": "Publishing integrity",
+      "description": "Inspect source-labelled APC and open-access fields recorded in OpenAlex without treating missing data as advice.",
+      "path": "tools/apc-checker/",
+      "keywords": ["APC", "article processing charge", "open access", "journal fee"]
+    },
+    {
+      "id": "reference-integrity",
+      "label": "Check references and DOIs",
+      "category": "Publishing integrity",
+      "description": "Compare reference details with Crossref records and surface recorded corrections or retractions for manual review.",
+      "path": "tools/reference-integrity-checker/",
+      "keywords": ["DOI", "reference", "citation", "Crossref", "retraction"]
+    },
+    {
+      "id": "apc-invoice-triage",
+      "label": "Triage an APC invoice",
+      "category": "Publishing integrity",
+      "description": "Turn a questionable publication invoice into a factual discrepancy register without issuing a fraud verdict.",
+      "path": "tools/apc-invoice-triage/",
+      "keywords": ["invoice", "APC payment", "publisher", "fraud", "bank details"]
+    },
+    {
+      "id": "research-readiness",
+      "label": "Audit research readiness",
+      "category": "Research design",
+      "description": "Convert eight self-reported evidence-control states into a gap register and next-control plan.",
+      "path": "tools/research-readiness-triage/",
+      "keywords": ["research readiness", "gap analysis", "doctoral", "evidence controls"]
+    },
+    {
+      "id": "sem-planning-bounds",
+      "label": "Plan an SEM sample",
+      "category": "Research design",
+      "description": "Compare three disclosed planning approximations and their limitations before undertaking model-specific power analysis.",
+      "path": "tools/sem-sample-size-calculator/",
+      "keywords": ["SEM", "sample size", "power", "structural equation modelling"]
+    },
+    {
+      "id": "reliability-validity",
+      "label": "Check reliability and validity",
+      "category": "Research design",
+      "description": "Calculate alpha, composite reliability and AVE with explicit data checks and non-universal reference markers.",
+      "path": "tools/reliability-validity-kit/",
+      "keywords": ["Cronbach alpha", "AVE", "composite reliability", "validity", "measurement"]
+    },
+    {
+      "id": "institutional-evidence",
+      "label": "Map NAAC evidence",
+      "category": "Institutional readiness",
+      "description": "Inventory present, partial and missing records across the legacy seven-criteria structure without generating a score.",
+      "path": "tools/naac-readiness-scorecard/",
+      "keywords": ["NAAC", "IQAC", "accreditation", "evidence", "institution"]
+    },
+    {
+      "id": "phd-timeline",
+      "label": "Plan a PhD timeline",
+      "category": "Research planning",
+      "description": "Create a printable milestone plan aligned to the UGC PhD Regulations 2022 timeframes and honest sequencing.",
+      "path": "tools/phd-timeline-planner/",
+      "keywords": ["PhD", "timeline", "doctoral", "UGC", "milestones"]
+    },
+    {
+      "id": "grant-deadlines",
+      "label": "Track research grants",
+      "category": "Research planning",
+      "description": "Review ICSSR, ANRF and allied funding calls with every listed opportunity linked to its official source.",
+      "path": "tools/grant-deadline-tracker/",
+      "keywords": ["grant", "ICSSR", "ANRF", "funding", "deadline"]
+    }
+  ],
+  "prohibitedClaims": [
+    "240,000+ journals tracked",
+    "300+ entries",
+    "users served",
+    "countries reached",
+    "guaranteed publication",
+    "guaranteed accreditation"
+  ]
+}
