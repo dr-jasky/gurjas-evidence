@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Homepage-only placement for the governed site-guide control."""
+"""Compatibility safeguard for the governed compact site-guide control."""
 from __future__ import annotations
 
 
-STYLESHEET = "assets/home-nav-compact.css?v=1"
+STYLESHEET = "assets/site-nav-compact.css?v=1"
 
 
 def ensure_stylesheet(document: str) -> str:
@@ -19,7 +19,7 @@ def ensure_stylesheet(document: str) -> str:
 
 
 def restore_compact_site_guide(document: str) -> str:
-    """Restore one accessible guide trigger outside the six-link homepage list."""
+    """Require one accessible route helper outside the six-link list."""
     count = document.count("data-site-guide")
     if count == 1:
         return ensure_stylesheet(document)
