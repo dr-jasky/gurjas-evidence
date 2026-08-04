@@ -20,6 +20,10 @@ LEGACY_GUIDE_ITEM_RE = re.compile(
     r'\s*<li class="nav-guide-item"><button[\s\S]*?data-site-guide[\s\S]*?</button></li>',
     re.IGNORECASE,
 )
+COMPACT_GUIDE_RE = re.compile(
+    r'\s*<button class="nav-guide nav-guide--compact"[\s\S]*?data-site-guide[\s\S]*?</button>',
+    re.IGNORECASE,
+)
 PRIMARY_NAV_RE = re.compile(
     r'<nav id="nav" class="site-nav" aria-label="Primary">[\s\S]*?<ul>(?P<items>[\s\S]*?)</ul>',
     re.IGNORECASE,
@@ -66,6 +70,9 @@ def publish_registered_composition(output: Path) -> None:
         composed = compose_tool_evidence_loop(relative_path, source)
         composed = compose_document(relative_path, composed)
         if relative_path == "index.html":
+            composed, removed = COMPACT_GUIDE_RE.subn("", composed, count=1)
+            if removed != 1:
+                raise RuntimeError("Homepage shared route helper is missing before composition")
             composed = compose_product_front_door(composed)
             composed = restore_compact_site_guide(composed)
         target.write_text(composed, encoding="utf-8")
