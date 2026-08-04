@@ -29,6 +29,7 @@ const expected = [
   "insights/naac-binary-mbgl-2026/index.html",
   "insights/digital-money-urban-slums/index.html",
 ];
+const flagshipPath = "insights/how-to-identify-a-predatory-journal/index.html";
 
 check(registry.schemaVersion === "1.0.0", "registry has a governed schema version");
 check(registry.reviewedOn === "2026-08-04", "registry records the review date");
@@ -64,7 +65,10 @@ const prohibited = [
   /default check/i,
   /595th meeting/i,
 ];
-const publicText = expected.concat(["insights/index.html"]).map((file) => fs.readFileSync(path.join(root, file), "utf8")).join("\n");
+const publicText = expected
+  .concat(["insights/index.html", flagshipPath])
+  .map((file) => fs.readFileSync(path.join(root, file), "utf8"))
+  .join("\n");
 for (const pattern of prohibited) {
   check(!pattern.test(publicText), `public insight copy excludes ${pattern}`);
 }
@@ -72,6 +76,11 @@ for (const pattern of prohibited) {
 const verifyGuide = fs.readFileSync(path.join(root, "insights/verify-a-journal-2026/index.html"), "utf8");
 check(/591st meeting/.test(verifyGuide), "older UGC guide uses the official 591st meeting number");
 check(/final 16 July 2025 annexure is the controlling reference/i.test(verifyGuide), "older UGC guide distinguishes the 35-item final annexure from the 36-item draft");
+
+const flagship = fs.readFileSync(path.join(root, flagshipPath), "utf8");
+check(/591st meeting/.test(flagship), "flagship guide uses the official 591st meeting number");
+check(/6124898_Public-Notice-CARE-Journals\.pdf/.test(flagship), "flagship UGC claim links the final official notice");
+check(/ugccare\.unipune\.ac\.in\/Apps1\/Home\/Index/.test(flagship), "flagship retains the reference-only CARE portal link");
 
 const naacShort = fs.readFileSync(path.join(root, "insights/naac-binary-mbgl-2026/index.html"), "utf8");
 check(/transitioning from letter grades toward binary basic accreditation/i.test(naacShort), "short NAAC guide states a transition rather than completed universal replacement");
