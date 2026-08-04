@@ -4,6 +4,7 @@ import fs from 'node:fs';
 const taxonomy = JSON.parse(fs.readFileSync('data/knowledge-taxonomy.json', 'utf8'));
 const registry = JSON.parse(fs.readFileSync('data/library-entries.json', 'utf8'));
 const html = fs.readFileSync('_site/knowledge/index.html', 'utf8');
+const contrastCss = fs.readFileSync('assets/research-library-contrast.css', 'utf8');
 const active = taxonomy.pillars.filter((pillar) => pillar.status === 'active');
 const planned = taxonomy.pillars.filter((pillar) => pillar.status === 'planned');
 const pillarIds = new Set(taxonomy.pillars.map((pillar) => pillar.id));
@@ -39,7 +40,7 @@ for (const resource of taxonomy.resources) {
   assert.match(resource.version, /^\d+\.\d+$/, `${resource.id} must expose a semantic resource version`);
   assert.ok(pillarIds.has(resource.pillar), `${resource.id} must reference a governed pillar`);
   assert.ok(!resourceIds.has(resource.id), `${resource.id} must be unique`);
-  assert.ok(!resourcePaths.has(resource.path), `${resource.path} must be unique`);
+  assert.ok(!resourcePaths.has(resource.path), `${resource.id} must be unique`);
   resourceIds.add(resource.id);
   resourcePaths.add(resource.path);
 }
@@ -51,4 +52,17 @@ assert.ok(html.includes('CollectionPage'), 'Research Library must expose conserv
 assert.ok(!html.includes('Search the Research Library'), 'search must not launch before the corpus warrants it');
 assert.ok(!/guaranteed|market leader|best consultancy/i.test(html), 'Research Library must avoid unsupported promotional claims');
 
-console.log('Research Library foundation version 3 passed for six entries, two active pillars, four planned areas and two governed resources.');
+assert.ok(html.includes('research-library-contrast.css?v=1'), 'Library index must load the contrast guard as a separately cacheable asset');
+for (const entry of registry.entries) {
+  const entryHtml = fs.readFileSync(`_site/${entry.path}index.html`, 'utf8');
+  assert.ok(entryHtml.includes('class="library-entry-hero"'), `${entry.id} must retain the governed Library entry hero`);
+  assert.ok(entryHtml.includes('research-library-contrast.css?v=1'), `${entry.id} must receive the composed contrast guard`);
+}
+assert.match(contrastCss, /body:not\(\.home\):not\(\.offer\) main section\.library-hero/, 'contrast guard must outrank the global non-home section selector');
+assert.match(contrastCss, /background-color:\s*#041226\s*!important/i, 'contrast guard must force a navy hero surface');
+assert.match(contrastCss, /background-size:\s*auto\s*!important/i, 'contrast guard must remove the inherited dotted section background sizing');
+assert.match(contrastCss, /\.library-hero h1,[\s\S]*color:\s*#ffffff\s*!important/i, 'contrast guard must force a white Library heading');
+assert.match(contrastCss, /\.library-hero \.lede,[\s\S]*rgba\(255,\s*255,\s*255,\s*\.84\)\s*!important/i, 'contrast guard must preserve readable supporting copy');
+assert.match(contrastCss, /@media \(forced-colors: active\)/, 'contrast guard must retain forced-colors support');
+
+console.log('Research Library foundation version 3 passed for six entries, two active pillars, four planned areas, two governed resources and the composed high-specificity contrast contract.');

@@ -15,6 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 FRAGMENTS = ROOT / "site" / "fragments"
 CONTENT_GRAPH = ROOT / "data" / "content-graph.json"
+LIBRARY_REGISTRY = ROOT / "data" / "library-entries.json"
 
 
 def ensure_assets(document: str, root: str) -> str:
@@ -71,6 +72,19 @@ def load_content_graph() -> dict:
     return graph
 
 
+def load_library_paths() -> set[str]:
+    registry = json.loads(LIBRARY_REGISTRY.read_text(encoding="utf-8"))
+    if registry.get("version") != 1:
+        raise RuntimeError("Unsupported Research Library registry version")
+    paths = {"knowledge/index.html"}
+    for entry in registry.get("entries", []):
+        route = entry.get("path", "")
+        if not route.startswith("knowledge/library/") or not route.endswith("/"):
+            raise RuntimeError(f"Invalid Research Library route in registry: {route}")
+        paths.add(f"{route}index.html")
+    return paths
+
+
 def render_contextual_navigation(relative_path: str, root: str, graph: dict) -> str:
     nodes = graph["nodes"]
     related_ids = graph["relationships"][relative_path]
@@ -119,6 +133,11 @@ def add_contextual_navigation(relative_path: str, document: str) -> str:
 def compose_document(relative_path: str, document: str) -> str:
     """Return the declared source composition for one public page."""
     normalized = relative_path.replace("\\", "/")
+
+    if normalized in load_library_paths():
+        root = page_root(normalized)
+        document = ensure_stylesheet(document, f"{root}assets/research-library-contrast.css?v=1")
+        return add_contextual_navigation(normalized, document)
 
     if normalized == "index.html":
         document = ensure_assets(document, "")
@@ -205,4 +224,5 @@ def composed_paths() -> tuple[str, ...]:
         "publications/index.html",
     }
     graph_paths = set(load_content_graph()["relationships"])
-    return tuple(sorted(existing | graph_paths))
+    library_paths = load_library_paths()
+    return tuple(sorted(existing | graph_paths | library_paths))
