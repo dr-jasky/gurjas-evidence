@@ -12,6 +12,12 @@ const ids = new Set();
 const paths = new Set();
 const pillarCounts = new Map();
 const evidenceByDestination = new Map();
+const escapeHtml = (value) => value
+  .replaceAll('&', '&amp;')
+  .replaceAll('<', '&lt;')
+  .replaceAll('>', '&gt;')
+  .replaceAll('"', '&quot;')
+  .replaceAll("'", '&#x27;');
 
 assert.equal(registry.version, 1, 'library registry must use governed version 1');
 assert.equal(registry.publicLabel, 'Research Library', 'registry must preserve the public label');
@@ -75,7 +81,7 @@ for (const [destination, entries] of evidenceByDestination) {
   assert.ok(!/guaranteed|certified result|institutionally approved/i.test(html), `${destination} contains an unsupported outcome claim`);
 
   for (const entry of entries) {
-    assert.ok(html.includes(entry.title), `${destination} must name ${entry.id}`);
+    assert.ok(html.includes(escapeHtml(entry.title)), `${destination} must name ${entry.id}`);
     assert.ok(html.includes(`href="${root}${entry.path}"`), `${destination} must link back to ${entry.id}`);
     assert.ok(html.includes(`${entry.type} · v${entry.version}`), `${destination} must expose ${entry.id} version metadata`);
     assert.ok(html.includes(`${entry.sourceCount} cited sources · reviewed ${entry.reviewed}`), `${destination} must expose ${entry.id} source and review metadata`);
