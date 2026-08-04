@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "status": "pilot",
+  "reviewed": "2026-08-04",
+  "motion": {
+    "ariaLabel": "Where policy meets proof",
+    "lead": "Policy",
+    "connector": "meets",
+    "accent": "proof"
+  },
+  "section": {
+    "eyebrow": "Selected institutional proof",
+    "title": "Credibility, compressed.",
+    "summary": "A concise view of the research appointments, advanced training and governed infrastructure behind Gurjas. Detailed personal metrics remain available on demand rather than dominating the institutional story."
+  },
+  "signals": [
+    {
+      "id": "icssr-research-role",
+      "icon": "institution",
+      "label": "Current research appointment",
+      "title": "ICSSR (MoE) Minor Research Project",
+      "detail": "The Principal Consultant serves as Research Associate on an externally sponsored research project.",
+      "classification": "Principal Consultant record",
+      "path": "people/#jaskirat-singh"
+    },
+    {
+      "id": "iit-innovation-role",
+      "icon": "network",
+      "label": "Innovation ecosystem experience",
+      "title": "Former Senior Project Associate · iHub-AWaDH, IIT Ropar",
+      "detail": "National R&D coordination experience within a DST NM-ICPS Technology Innovation Hub.",
+      "classification": "Principal Consultant record",
+      "path": "experience/#capability-title"
+    },
+    {
+      "id": "advanced-research-training",
+      "icon": "award",
+      "label": "Advanced research formation",
+      "title": "ICSSR Postdoctoral Fellow · UGC-NET JRF/SRF",
+      "detail": "Doctoral, postdoctoral and fellowship-backed methodological training underpins the practice.",
+      "classification": "Principal Consultant record",
+      "path": "people/#jaskirat-singh"
+    },
+    {
+      "id": "governed-public-infrastructure",
+      "icon": "system",
+      "label": "Current Gurjas infrastructure",
+      "title": "11 governed tools · DOI-linked research assets",
+      "detail": "Public utilities, explicit decision boundaries and reproducible research deposits support inspection before engagement.",
+      "classification": "Gurjas organisational record",
+      "path": "evidence/#claims"
+    }
+  ],
+  "profile": {
+    "eyebrow": "Principal Consultant evidence",
+    "title": "Open the verified academic and field-research record",
+    "hint": "Metrics, dates and boundaries",
+    "roles": [
+      "Research Associate · ICSSR (MoE) Minor Research Project",
+      "Former Senior Project Associate · iHub-AWaDH, IIT Ropar",
+      "Former ICSSR Postdoctoral Fellow",
+      "Former UGC-NET JRF/SRF"
+    ],
+    "metrics": [
+      {"factPath": "metrics.journalArticles", "fallback": "10", "label": "journal articles"},
+      {"factPath": "metrics.bookChapters", "fallback": "4", "label": "book chapters"},
+      {"factPath": "metrics.googleScholarCitations", "fallback": "204", "label": "Google Scholar citations"},
+      {"factPath": "metrics.hIndex", "fallback": "8", "label": "h-index"},
+      {"factPath": "metrics.wosPeerReviewRecords", "fallback": "63", "label": "Web of Science review records"},
+      {"factPath": "metrics.wosManuscriptsReviewed", "fallback": "56", "label": "manuscripts reviewed"},
+      {"factPath": "metrics.ssrnTopPercent", "fallback": "3.2%", "label": "SSRN top-percent snapshot"}
+    ],
+    "experience": [
+      {
+        "value": "30+",
+        "factPaths": ["experience.projectsGuidedOrEvaluatedMinimum"],
+        "label": "postgraduate and doctoral projects guided or evaluated",
+        "boundary": "Founder-led professional record; not Gurjas client engagements, completed Ph.D. supervisions or paid assignments."
+      },
+      {
+        "value": "2 × 500+",
+        "factPaths": ["experience.primaryFieldProgrammes", "experience.respondentsPerProgrammeMinimum"],
+        "label": "distinct primary field-research programmes",
+        "boundary": "Separate doctoral and postdoctoral programmes; not one combined sample or a Gurjas client portfolio."
+      }
+    ],
+    "note": "Profile snapshots reviewed 15 July 2026. Platform coverage, totals and rankings change over time; these are the Principal Consultant's records, not Gurjas organisational performance metrics.",
+    "profilePath": "people/#jaskirat-singh",
+    "evidencePath": "evidence/#claims"
+  }
+}

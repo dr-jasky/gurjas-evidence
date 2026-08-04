@@ -14,6 +14,7 @@ import sys
 from pathlib import Path
 
 from advisory_composition import compose_document, composed_paths
+from home_navigation_utility import restore_compact_site_guide
 from product_front_door import compose_product_front_door
 import check_build_core
 
@@ -38,6 +39,7 @@ def check_registered_build() -> list[str]:
             composed = compose_document(relative_path, originals[source])
             if relative_path == "index.html":
                 composed = compose_product_front_door(composed)
+                composed = restore_compact_site_guide(composed)
             source.write_text(composed, encoding="utf-8")
         return check_build_core.check()
     finally:

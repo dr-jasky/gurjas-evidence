@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 
 from advisory_composition import compose_document, composed_paths
+from home_navigation_utility import restore_compact_site_guide
 from product_front_door import compose_product_front_door
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -43,6 +44,7 @@ def publish_registered_composition(output: Path) -> None:
         composed = compose_document(relative_path, source)
         if relative_path == "index.html":
             composed = compose_product_front_door(composed)
+            composed = restore_compact_site_guide(composed)
         target.write_text(composed, encoding="utf-8")
     print("Published registered composition, including the homepage product front door")
 

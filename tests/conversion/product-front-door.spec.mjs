@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 
 const contract = JSON.parse(fs.readFileSync('data/product-front-door.json', 'utf8'));
+const proof = JSON.parse(fs.readFileSync('data/home-proof-system.json', 'utf8'));
 const taxonomy = JSON.parse(fs.readFileSync('data/knowledge-taxonomy.json', 'utf8'));
 const html = fs.readFileSync('_site/index.html', 'utf8');
 
@@ -35,6 +36,8 @@ const frontDoor = sectionMatch[0];
 
 assert.ok(frontDoor.includes('Every research task.'), 'homepage must lead with the approved task-first proposition');
 assert.ok(frontDoor.includes('One verified toolkit.'), 'homepage must retain the governed verification promise');
+assert.ok(frontDoor.includes('aria-label="Where policy meets proof"'), 'the earlier policy-to-proof identity must return as an accessible kinetic motif');
+assert.ok(frontDoor.includes('product-front-door__motion-line'), 'policy-to-proof motion must have a dedicated decorative signal track');
 assert.ok(frontDoor.includes('data-product-search'), 'front door must expose a progressively enhanced task search');
 assert.ok(frontDoor.includes('aria-live="polite"'), 'task-search result count must be announced accessibly');
 assert.equal((frontDoor.match(/data-product-tool/g) || []).length, 11, 'all eleven tool cards must be present in the opening product section');
@@ -56,10 +59,69 @@ for (const pillar of contract.library.activePillars) {
 assert.ok(!frontDoor.includes('href="library/"'), 'front door must not create a duplicate library architecture');
 assert.ok(!html.includes('aria-labelledby="h-tools"'), 'the lower duplicate tool section must be removed from generated output');
 assert.ok(html.indexOf('product-front-door') < html.indexOf('home-ledger'), 'tools and knowledge must appear before audience and capability proof');
-assert.ok(html.indexOf('product-front-door') < html.indexOf('home-academic-record'), 'founder academic metrics must no longer be the homepage front door');
-assert.ok(html.includes('<a href="knowledge/">Research Library</a>'), 'homepage navigation must expose the Research Library label');
-assert.ok(html.includes('assets/product-front-door.css?v=1'), 'homepage must load the governed front-door stylesheet');
+assert.ok(html.indexOf('product-front-door') < html.indexOf('home-principal-profile'), 'Principal Consultant metrics must remain secondary to the product front door');
+
+const primaryNav = html.match(/<nav id="nav" class="site-nav" aria-label="Primary">\s*(<ul>[\s\S]*?<\/ul>)/)?.[1] || '';
+assert.ok(primaryNav, 'homepage must expose one deterministic primary-navigation list');
+assert.equal((primaryNav.match(/<li>/g) || []).length, 6, 'homepage navigation must contain exactly six clean top-level destinations');
+for (const [path, label] of [
+  ['about/', 'About'],
+  ['services/', 'Services'],
+  ['tools/', 'Tools'],
+  ['knowledge/', 'Library'],
+  ['insights/', 'Insights'],
+  ['contact/', 'Contact'],
+]) {
+  assert.ok(primaryNav.includes(`href="${path}"`), `${label} must remain directly available in the homepage navigation`);
+}
+assert.ok(!primaryNav.includes('Our Work'), 'homepage navigation must remove the crowded Our Work dropdown');
+assert.ok(!primaryNav.includes('Find your route'), 'homepage navigation list must not include the route-finder label');
+assert.ok(!primaryNav.includes('Research Library'), 'homepage navigation must use the concise Library label');
+assert.equal((html.match(/data-site-guide/g) || []).length, 1, 'homepage must preserve exactly one governed route helper');
+assert.ok(html.includes('class="nav-guide nav-guide--compact"'), 'route helper must render as a separate compact utility');
+assert.ok(html.indexOf('</ul>') < html.indexOf('nav-guide--compact'), 'compact route helper must sit outside the six-link navigation list');
+
+assert.equal(proof.version, 1, 'homepage proof system must expose its governed version');
+assert.equal(proof.status, 'pilot', 'proof-system refinement must remain explicitly classified as a pilot');
+assert.equal(proof.signals.length, 4, 'compact proof band must expose exactly four high-signal items');
+assert.equal(new Set(proof.signals.map((signal) => signal.id)).size, 4, 'proof signal IDs must be unique');
+
+const proofMatch = html.match(/<div class="home-proof-system"[\s\S]*?<\/details><\/div>/);
+assert.ok(proofMatch, 'generated homepage must contain the compact institutional proof system');
+const proofSystem = proofMatch[0];
+const proofBand = proofSystem.split('<details class="home-principal-profile">')[0];
+const profilePanel = proofSystem.slice(proofSystem.indexOf('<details class="home-principal-profile">'));
+
+assert.equal((proofBand.match(/data-proof-signal=/g) || []).length, 4, 'proof band must render four infographic signals');
+for (const signal of proof.signals) {
+  assert.ok(proofBand.includes(`data-proof-signal="${signal.id}"`), `${signal.id} must render in the compact proof band`);
+  assert.ok(proofBand.includes(signal.title), `${signal.id} must use its governed public title`);
+  assert.ok(proofBand.includes(`href="${signal.path}"`), `${signal.id} must link to inspectable evidence`);
+}
+assert.ok(!proofBand.includes('30+'), 'the compact institutional proof band must not lead with the modest founder-project count');
+assert.ok(!proofBand.includes('h-index'), 'the compact institutional proof band must not lead with personal bibliometric metrics');
+assert.ok(!html.includes('home-capability-card'), 'oversized legacy evidence cards must be removed from generated output');
+assert.ok(!html.includes('home-academic-record'), 'legacy always-open academic strip must be removed from generated output');
+
+assert.ok(profilePanel.startsWith('<details class="home-principal-profile">'), 'Principal Consultant evidence must use a native expandable disclosure');
+assert.ok(!profilePanel.startsWith('<details class="home-principal-profile" open'), 'Principal Consultant detail must remain collapsed by default');
+for (const role of proof.profile.roles) {
+  assert.ok(profilePanel.includes(role), `expanded profile must preserve verified role: ${role}`);
+}
+for (const metric of proof.profile.metrics) {
+  assert.ok(profilePanel.includes(`data-fact="${metric.factPath}"`), `expanded profile must preserve governed metric ${metric.factPath}`);
+}
+for (const item of proof.profile.experience) {
+  assert.ok(profilePanel.includes(item.value), `expanded profile must preserve contextual experience value ${item.value}`);
+  assert.ok(profilePanel.includes(item.boundary), `expanded profile must expose the boundary for ${item.value}`);
+}
+assert.ok(profilePanel.includes('not Gurjas organisational performance metrics'), 'expanded metrics must remain separated from organisational performance');
+
+assert.ok(html.includes('assets/product-front-door.css?v=2'), 'homepage must load the cache-busted front-door stylesheet');
+assert.ok(html.includes('assets/home-proof-refinement.css?v=1'), 'homepage must load the governed motion and proof stylesheet');
+assert.ok(html.includes('assets/home-nav-compact.css?v=1'), 'homepage must load the compact route-utility stylesheet');
 assert.ok(html.includes('assets/product-front-door.js?v=1'), 'homepage must load the local-only task filter');
+assert.ok(!html.includes('assets/capability-metrics.css?v=1'), 'generated homepage must not load the superseded capability-card stylesheet');
 assert.match(html, /<title>Free Research Tools and Reviewed Research Library \| Gurjas<\/title>/, 'homepage title must describe the product front door');
 
 for (const claim of contract.prohibitedClaims) {
@@ -67,4 +129,4 @@ for (const claim of contract.prohibitedClaims) {
 }
 assert.ok(!/₹499|pro subscription|five uses per day|5 uses\/day|create an account/i.test(frontDoor), 'pilot front door must not introduce unvalidated monetisation or account gates');
 
-console.log('Product front-door contract passed for eleven tools, the governed Research Library and evidence-bounded homepage positioning.');
+console.log('Product front-door, compact navigation, kinetic policy/proof motif and governed proof system passed.');
