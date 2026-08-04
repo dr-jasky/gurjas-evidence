@@ -321,6 +321,7 @@ def compose_product_front_door(document: str) -> str:
     proof = load_proof_system()
     document = remove_legacy_capability_stylesheet(document)
     document = ensure_stylesheet(document, "assets/product-front-door.css?v=2")
+    document = ensure_stylesheet(document, "assets/home-proof-refinement.css?v=1")
     document = ensure_script(document, "assets/product-front-door.js?v=1")
     document = replace_metadata(document)
     document = simplify_home_navigation(document)
