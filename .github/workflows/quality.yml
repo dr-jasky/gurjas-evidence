@@ -11,59 +11,13 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: site-quality-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  apply-flagship-ugc-hotfix:
-    if: github.event_name == 'pull_request' && github.head_ref == 'agent/remaining-insight-audit'
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: Check out audit branch
-        uses: actions/checkout@v7
-        with:
-          ref: agent/remaining-insight-audit
-          fetch-depth: 0
-
-      - name: Correct flagship UGC record
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          path = Path('insights/how-to-identify-a-predatory-journal/index.html')
-          text = path.read_text(encoding='utf-8')
-          old_meeting = 'at its 595th meeting on <strong>24 June 2025</strong>'
-          new_meeting = 'at its 591st meeting on <strong>24 June 2025</strong>'
-          old_source = '<li id="source-ugc"><a href="https://ugccare.unipune.ac.in/Apps1/Home/Index" rel="noopener">University Grants Commission, Consortium for Academic and Research Ethics</a> — official notices and the reference-only status of the former UGC-CARE list. <span>Accessed 4 August 2026.</span></li>'
-          new_source = '<li id="source-ugc"><a href="https://www.ugc.gov.in/pdfnews/6124898_Public-Notice-CARE-Journals.pdf" rel="noopener">University Grants Commission, final notice dated 16 July 2025</a>, with the <a href="https://ugccare.unipune.ac.in/Apps1/Home/Index" rel="noopener">CARE portal</a> retained for the reference-only list. <span>Accessed 4 August 2026.</span></li>'
-          if text.count(old_meeting) != 1:
-              raise SystemExit(f'Expected one outdated meeting reference, found {text.count(old_meeting)}')
-          if text.count(old_source) != 1:
-              raise SystemExit(f'Expected one original UGC source entry, found {text.count(old_source)}')
-          text = text.replace(old_meeting, new_meeting).replace(old_source, new_source)
-          path.write_text(text, encoding='utf-8')
-          PY
-
-          node tests/governance/claim-level-citations.spec.mjs
-          python scripts/build_site.py --clean
-          git diff --check
-
-      - name: Commit hotfix and restore workflow
-        shell: bash
-        run: |
-          git fetch origin main
-          git checkout origin/main -- .github/workflows/quality.yml
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add insights/how-to-identify-a-predatory-journal/index.html .github/workflows/quality.yml
-          git commit -m "Correct flagship UGC meeting citation"
-          git push origin HEAD:agent/remaining-insight-audit
-
   integrity:
     runs-on: ubuntu-latest
     timeout-minutes: 10
