@@ -119,7 +119,7 @@ assert.ok(profilePanel.includes('not Gurjas organisational performance metrics')
 
 assert.ok(html.includes('assets/product-front-door.css?v=2'), 'homepage must load the cache-busted front-door stylesheet');
 assert.ok(html.includes('assets/home-proof-refinement.css?v=1'), 'homepage must load the governed motion and proof stylesheet');
-assert.ok(html.includes('assets/home-nav-compact.css?v=1'), 'homepage must load the compact route-utility stylesheet');
+assert.ok(html.includes('assets/site-nav-compact.css?v=1'), 'homepage must load the shared compact route-utility stylesheet');
 assert.ok(html.includes('assets/product-front-door.js?v=1'), 'homepage must load the local-only task filter');
 assert.ok(!html.includes('assets/capability-metrics.css?v=1'), 'generated homepage must not load the superseded capability-card stylesheet');
 assert.match(html, /<title>Free Research Tools and Reviewed Research Library \| Gurjas<\/title>/, 'homepage title must describe the product front door');
