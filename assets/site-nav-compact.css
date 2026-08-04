@@ -1,0 +1,76 @@
+/* Sitewide governed navigation: six direct destinations plus one compact route helper. */
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-guide--compact {
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  justify-content: center;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(217,185,104,.34);
+  border-radius: 50%;
+  color: #d9b968;
+  background: rgba(217,185,104,.055);
+  font-size: 0;
+  line-height: 1;
+}
+
+.nav-guide--compact:hover,
+.nav-guide--compact:focus-visible,
+.nav-guide--compact[aria-expanded="true"] {
+  border-color: #d9b968;
+  color: #fff;
+  background: rgba(217,185,104,.12);
+}
+
+.nav-guide--compact > .nav-guide__glyph {
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  color: currentColor;
+  background: none;
+  box-shadow: none;
+  font-size: .92rem;
+  transform: rotate(45deg);
+}
+
+@media (max-width: 960px) {
+  .site-nav {
+    display: none;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .site-nav.open {
+    display: block;
+  }
+
+  .nav-guide--compact {
+    width: calc(100% - 56px);
+    height: auto;
+    margin: 0 28px .85rem;
+    justify-content: flex-start;
+    gap: .65rem;
+    padding: .78rem 1rem;
+    border-radius: 4px;
+    font-size: .82rem;
+  }
+
+  .nav-guide--compact::after {
+    content: "Find your route";
+    font-family: var(--sans);
+    font-size: .82rem;
+    font-weight: 600;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+
+  .nav-guide--compact > .nav-guide__glyph {
+    font-size: .82rem;
+  }
+}
