@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "publicLabel": "Research Library",
+  "reviewPolicy": {
+    "published": "First public release date",
+    "reviewed": "Most recent substantive evidence and editorial check",
+    "updated": "Most recent material change to the entry"
+  },
+  "entries": [
+    {
+      "id": "doi-record-verification",
+      "title": "How to verify a DOI record",
+      "pillar": "research-integrity",
+      "type": "Guide",
+      "version": "1.0",
+      "path": "knowledge/library/doi-record-verification/",
+      "published": "2026-08-04",
+      "reviewed": "2026-08-04",
+      "updated": null,
+      "relatedTool": "tools/reference-integrity-checker/",
+      "sourceCount": 2
+    },
+    {
+      "id": "journal-indexing-verification",
+      "title": "How to verify a journal's indexing status",
+      "pillar": "research-integrity",
+      "type": "Guide",
+      "version": "1.0",
+      "path": "knowledge/library/journal-indexing-verification/",
+      "published": "2026-08-04",
+      "reviewed": "2026-08-04",
+      "updated": null,
+      "relatedTool": "tools/journal-finder/",
+      "sourceCount": 3
+    },
+    {
+      "id": "publication-update-status",
+      "title": "How to check corrections, retractions and updates",
+      "pillar": "research-integrity",
+      "type": "Checklist",
+      "version": "1.0",
+      "path": "knowledge/library/publication-update-status/",
+      "published": "2026-08-04",
+      "reviewed": "2026-08-04",
+      "updated": null,
+      "relatedTool": "tools/reference-integrity-checker/",
+      "sourceCount": 2
+    },
+    {
+      "id": "reporting-guideline-boundary",
+      "title": "Reporting guideline versus study-design decision",
+      "pillar": "research-design",
+      "type": "Method note",
+      "version": "1.0",
+      "path": "knowledge/library/reporting-guideline-boundary/",
+      "published": "2026-08-04",
+      "reviewed": "2026-08-04",
+      "updated": null,
+      "relatedTool": "resources/research-question-canvas/",
+      "sourceCount": 2
+    },
+    {
+      "id": "reliability-validity-distinction",
+      "title": "Reliability does not establish validity",
+      "pillar": "research-design",
+      "type": "Method note",
+      "version": "1.0",
+      "path": "knowledge/library/reliability-validity-distinction/",
+      "published": "2026-08-04",
+      "reviewed": "2026-08-04",
+      "updated": null,
+      "relatedTool": "tools/reliability-validity-kit/",
+      "sourceCount": 2
+    },
+    {
+      "id": "sem-sample-size-planning",
+      "title": "SEM sample size requires model-specific planning",
+      "pillar": "research-design",
+      "type": "Method note",
+      "version": "1.0",
+      "path": "knowledge/library/sem-sample-size-planning/",
+      "published": "2026-08-04",
+      "reviewed": "2026-08-04",
+      "updated": null,
+      "relatedTool": "tools/sem-sample-size-calculator/",
+      "sourceCount": 2
+    }
+  ]
+}
