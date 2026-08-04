@@ -5,23 +5,14 @@
     "strapline": "Evidence & Policy Analytics",
     "footerLine": "Evidence-led decisions for institutions, policy and impact."
   },
-  "assetVersion": "30",
+  "assetVersion": "31",
+  "navigationVersion": 2,
   "navigation": [
     {"label": "About", "path": "about/", "section": "about"},
     {"label": "Services", "path": "services/", "section": "services"},
-    {
-      "label": "Our Work",
-      "section": "work",
-      "children": [
-        {"label": "Methods", "path": "methods/", "section": "methods"},
-        {"label": "Research", "path": "research/", "section": "research"},
-        {"label": "Experience", "path": "experience/", "section": "experience"},
-        {"label": "Publications", "path": "publications/", "section": "publications"},
-        {"label": "Insights", "path": "insights/", "section": "insights"},
-        {"label": "Proof Ledger", "path": "evidence/", "section": "evidence"}
-      ]
-    },
     {"label": "Tools", "path": "tools/", "section": "tools"},
+    {"label": "Library", "path": "knowledge/", "section": "knowledge"},
+    {"label": "Insights", "path": "insights/", "section": "insights"},
     {"label": "Contact", "path": "contact/", "section": "contact", "cta": true}
   ],
   "verificationProfiles": [
