@@ -1,7 +1,10 @@
 {
-  "version": 2,
+  "version": 3,
+  "publicLabel": "Research Library",
   "contentTypes": ["Guide", "Method note", "Checklist", "Evidence brief", "Template", "Tool"],
   "dateFields": ["published", "reviewed", "updated"],
+  "libraryRegistry": "data/library-entries.json",
+  "libraryEntryCount": 6,
   "pillars": [
     {
       "id": "research-integrity",
@@ -11,6 +14,9 @@
       "summary": "Journal assessment, publication ethics, authorship, disclosure, correction and institutional integrity systems.",
       "entryPoints": [
         "knowledge/research-integrity/",
+        "knowledge/library/doi-record-verification/",
+        "knowledge/library/journal-indexing-verification/",
+        "knowledge/library/publication-update-status/",
         "insights/how-to-identify-a-predatory-journal/",
         "tools/reference-integrity-checker/",
         "resources/journal-assessment-checklist/"
@@ -24,6 +30,9 @@
       "summary": "Study design, measurement, sampling, qualitative and mixed methods, SEM, fsQCA and econometric decisions.",
       "entryPoints": [
         "knowledge/research-design/",
+        "knowledge/library/reporting-guideline-boundary/",
+        "knowledge/library/reliability-validity-distinction/",
+        "knowledge/library/sem-sample-size-planning/",
         "methods/",
         "tools/sem-sample-size-calculator/",
         "resources/research-question-canvas/"
