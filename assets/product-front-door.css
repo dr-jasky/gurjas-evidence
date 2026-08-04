@@ -51,6 +51,7 @@
 .product-front-door h1 {
   max-width: 12ch;
   margin: 0;
+  color: #fff;
   font-family: "Fraunces", Georgia, serif;
   font-size: clamp(3.25rem, 7vw, 6.7rem);
   font-weight: 340;
@@ -173,6 +174,9 @@
   line-height: 1;
   letter-spacing: -.035em;
 }
+
+.product-front-door__tools h2 { color: var(--pfd-ink); }
+.product-front-door__library h2 { color: #fff; }
 
 .product-front-door__tools-head p {
   max-width: 35rem;
