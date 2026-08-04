@@ -4,8 +4,8 @@
 The core checker is preserved unchanged. For the duration of verification, the
 declared source pages are materialised exactly as the build composes them, then
 restored byte-for-byte. This keeps the source/output equality guarantee while
-allowing reviewed static fragments and the governed homepage product front door
-to function as first-class source.
+allowing reviewed static fragments, the governed homepage product front door
+and the registry-driven tool evidence loop to function as first-class source.
 """
 from __future__ import annotations
 
@@ -16,9 +16,14 @@ from pathlib import Path
 from advisory_composition import compose_document, composed_paths
 from home_navigation_utility import restore_compact_site_guide
 from product_front_door import compose_product_front_door
+from tool_evidence_loop import compose_tool_evidence_loop, tool_evidence_paths
 import check_build_core
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def registered_paths() -> tuple[str, ...]:
+    return tuple(sorted(set(composed_paths()) | set(tool_evidence_paths())))
 
 
 def assert_core_check_safeguards() -> None:
@@ -33,10 +38,11 @@ def check_registered_build() -> list[str]:
     assert_core_check_safeguards()
     originals: dict[Path, str] = {}
     try:
-        for relative_path in composed_paths():
+        for relative_path in registered_paths():
             source = ROOT / relative_path
             originals[source] = source.read_text(encoding="utf-8")
-            composed = compose_document(relative_path, originals[source])
+            composed = compose_tool_evidence_loop(relative_path, originals[source])
+            composed = compose_document(relative_path, composed)
             if relative_path == "index.html":
                 composed = compose_product_front_door(composed)
                 composed = restore_compact_site_guide(composed)
