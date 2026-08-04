@@ -33,14 +33,17 @@
     phone_click: ["origin_path"],
     whatsapp_click: ["link_url"],
     email_click: ["link_url"],
-    proof_source_click: ["link_url", "referring_page"]
+    proof_source_click: ["link_url", "referring_page"],
+    advisory_network_click: ["origin_path", "destination_path", "destination_kind"],
+    capability_metric_click: ["metric_id", "destination_type", "source_path", "destination_path"]
   };
 
   var PATH_PARAMS = {
     landing_path: true,
     origin_path: true,
     destination_path: true,
-    referring_page: true
+    referring_page: true,
+    source_path: true
   };
 
   function consentGranted() {
