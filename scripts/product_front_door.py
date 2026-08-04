@@ -127,7 +127,7 @@ def render_tool_cards(contract: dict) -> str:
 def render_motion(proof: dict) -> str:
     motion = proof["motion"]
     return (
-        '<div class="product-front-door__motion" '
+        '<div class="product-front-door__motion" role="img" '
         f'aria-label="{html.escape(motion["ariaLabel"], quote=True)}">'
         f'<span>{html.escape(motion["lead"])}</span>'
         '<span class="product-front-door__motion-line" aria-hidden="true">'
