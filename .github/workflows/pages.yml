@@ -33,13 +33,19 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Check JavaScript syntax
-        run: node --check script.js
+        run: |
+          node --check script.js
+          node --check assets/decision-tools.js
+          node --check tests/decision-tools/decision-record.spec.mjs
 
       - name: Check Python syntax
         run: python -m py_compile scripts/*.py
 
       - name: Run source integrity checks
         run: python scripts/quality-check.py
+
+      - name: Run governed decision-framework fixtures
+        run: node tests/decision-tools/decision-record.spec.mjs
 
       - name: Build static site
         run: python scripts/build_site.py --clean
