@@ -111,7 +111,7 @@ def render_front_door(contract: dict) -> str:
         '</form>'
         '</div>'
         f'<ul class="product-front-door__trust" aria-label="Why researchers can inspect Gurjas">{trust}</ul>'
-        '<div class="product-front-door__tools" aria-labelledby="product-tools-title">'
+        '<div class="product-front-door__tools" role="region" aria-labelledby="product-tools-title">'
         '<div class="product-front-door__tools-head">'
         '<div><p class="product-front-door__kicker">Start the task now</p>'
         '<h2 id="product-tools-title">Eleven tools. No detour.</h2></div>'
