@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "reviewed": "2026-08-05",
+  "products": [
+    {
+      "id": "aucr-dpi-inclusion-benchmark",
+      "name": "AUCR DPI–Inclusion Benchmark",
+      "status": "methodology-preview",
+      "path": "research/benchmarks/aucr-dpi-inclusion/",
+      "source": {
+        "type": "Dataset",
+        "doi": "10.5281/zenodo.20860992",
+        "record": "https://zenodo.org/records/20860992",
+        "version": "0.1",
+        "license": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "scope": "A reproducible benchmark framework for examining how Indian states and union territories convert digital-public-infrastructure and financial-access conditions into use, capability and resilience outcomes.",
+      "unitOfAnalysis": "Indian state or union territory as represented in the deposited dataset release",
+      "dimensions": [
+        "access",
+        "use",
+        "capability",
+        "resilience"
+      ],
+      "releaseRules": {
+        "requiresDepositedInputs": true,
+        "requiresReproduciblePipeline": true,
+        "requiresVersionedMethodology": true,
+        "requiresSourceAndTransformationLedger": true,
+        "requiresUncertaintyAndMissingnessDisclosure": true,
+        "requiresHumanReviewBeforePublicRanking": true
+      },
+      "claimBoundary": "The benchmark may describe results generated from the deposited data and disclosed method. It must not certify institutional quality, causality, policy success, eligibility or future performance, and it must not publish a ranking until the exact release inputs and transformation pipeline have been independently reproduced.",
+      "privacy": "Uses only aggregate, deposited research data. It accepts no private institutional, respondent-level or client research data.",
+      "nextReleaseGate": "Reproduce the deposited release from its codebook and pipeline, reconcile every output against the DOI record, and publish a versioned result table with limitations before adding comparative scores to the public page."
+    }
+  ]
+}
