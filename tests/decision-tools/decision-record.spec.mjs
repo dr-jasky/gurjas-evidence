@@ -22,7 +22,7 @@ assert.deepEqual(
 );
 assert.equal(new Set(manifest.tools.map((tool) => tool.route)).size, 3);
 for (const tool of manifest.tools) {
-  const expectedStatus = tool.id === "research-design-selector" ? "engine-ready" : "framework-ready";
+  const expectedStatus = tool.id === "evidence-pathway-navigator" ? "framework-ready" : "engine-ready";
   assert.equal(tool.status, expectedStatus);
   assert.match(tool.version, /^\d+\.\d+\.\d+-alpha\.\d+$/);
   assert.match(tool.route, /^\/tools\/[a-z0-9-]+\/$/);
@@ -210,16 +210,18 @@ for (const prohibited of [
 const packageData = JSON.parse(fs.readFileSync("package.json", "utf8"));
 assert.equal(
   packageData.scripts["test:decision-tools"],
-  "node tests/decision-tools/decision-record.spec.mjs && node tests/decision-tools/research-design-selector.spec.mjs",
+  "node tests/decision-tools/decision-record.spec.mjs && node tests/decision-tools/research-design-selector.spec.mjs && node tests/decision-tools/journal-evaluation-workflow.spec.mjs",
 );
-assert.ok(
-  packageData.scripts["test:tools"].includes("tests/decision-tools/decision-record.spec.mjs"),
-  "authoritative tool suite must execute the governed decision-record fixture",
-);
-assert.ok(
-  packageData.scripts["test:tools"].includes("tests/decision-tools/research-design-selector.spec.mjs"),
-  "authoritative tool suite must execute the research-design selector fixture",
-);
+for (const fixture of [
+  "tests/decision-tools/decision-record.spec.mjs",
+  "tests/decision-tools/research-design-selector.spec.mjs",
+  "tests/decision-tools/journal-evaluation-workflow.spec.mjs",
+]) {
+  assert.ok(
+    packageData.scripts["test:tools"].includes(fixture),
+    `authoritative tool suite must execute ${fixture}`,
+  );
+}
 const qualityWorkflow = fs.readFileSync(".github/workflows/quality.yml", "utf8");
 assert.ok(qualityWorkflow.includes("node --check assets/decision-tools.js"));
 assert.ok(qualityWorkflow.includes("pnpm test:decision-tools"));
