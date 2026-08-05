@@ -3,7 +3,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { chromium } from "playwright";
 
 const baseUrl = process.env.CANDIDATE_URL ?? "http://127.0.0.1:8000/";
-const outputDirectory = "tests/visual/artifacts/doi-benchmark";
+const outputDirectory = "visual-review/doi-benchmark";
 const route = "/research/benchmarks/aucr-dpi-inclusion/";
 const viewports = [
   { name: "desktop", width: 1440, height: 1100 },
