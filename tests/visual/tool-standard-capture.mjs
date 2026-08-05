@@ -1,11 +1,11 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 import { chromium } from 'playwright';
 
 const candidateRoot = new URL(process.env.CANDIDATE_URL || 'http://127.0.0.1:8000/');
-const contracts = JSON.parse(await (await import('node:fs/promises')).readFile('data/tool-contracts.json', 'utf8'));
-const outputDirectory = path.resolve('tests/visual/artifacts/tool-standard-panels');
+const contracts = JSON.parse(await readFile('data/tool-contracts.json', 'utf8'));
+const outputDirectory = path.resolve('visual-review/tool-standard-panels');
 const viewports = [
   { name: 'desktop', width: 1440, height: 1100 },
   { name: 'mobile', width: 390, height: 844 },
