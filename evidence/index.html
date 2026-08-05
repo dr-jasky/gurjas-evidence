@@ -32,12 +32,16 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap" media="print" onload="this.media=&#39;all&#39;">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,340;0,9..144,420;0,9..144,450;0,9..144,550;1,9..144,320;1,9..144,380;1,9..144,450&family=Newsreader:ital,wght@1,300..600&family=Spline+Sans+Mono:wght@400;500;700&display=swap"></noscript>
-<link rel="preload" as="style" href="../style.css?v=24">
-<link rel="stylesheet" href="../style.css?v=24">
+<link rel="preload" as="style" href="../style.css?v=30">
+<link rel="stylesheet" href="../style.css?v=30">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://gurjas.org/#org","name":"Gurjas Evidence and Policy Analytics","url":"https://gurjas.org/"},{"@type":"CollectionPage","@id":"https://gurjas.org/evidence/#page","url":"https://gurjas.org/evidence/","name":"Gurjas Proof Ledger and Tool Contracts","description":"A dated, source-labelled register of public claims and research-tool decision boundaries.","isPartOf":{"@id":"https://gurjas.org/#website"},"publisher":{"@id":"https://gurjas.org/#org"},"dateModified":"2026-07-20"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://gurjas.org/"},{"@type":"ListItem","position":2,"name":"Proof Ledger","item":"https://gurjas.org/evidence/"}]}]}</script>
+<link rel="stylesheet" href="../assets/contextual-knowledge.css?v=1">
 </head>
 <body>
-<header class="site-head"><nav aria-label="Primary"><a href="../">Gurjas</a></nav></header>
+<a class="skip" href="#main">Skip to content</a>
+<canvas class="evidence-field" aria-hidden="true"></canvas>
+<header class="site-head"></header>
+
 <main id="main">
 <div class="hero">
   <div class="wrap">
@@ -86,6 +90,8 @@
   </div>
 </section>
 
+<section id="decision-workflows" aria-labelledby="decision-workflows-evidence-title"><div class="wrap"><div class="section-h"><span class="eyebrow">Decision workflow manifest</span><h2 id="decision-workflows-evidence-title">Three public-beta workflows, one governed record contract.</h2><p class="lede">The separate <a href="../data/decision-tools-manifest.json">decision-tools manifest</a> records versions, local processing, download-only persistence, record fields and human-review triggers.</p></div><div class="grid g3"><article class="card"><span class="num">v1.0.0-alpha.2 · browser local</span><h3><a href="../tools/research-design-selector/">Research Design Selector</a></h3><p>Does not approve a protocol, certify measurement validity, select a final estimator or establish causal attribution.</p></article><article class="card"><span class="num">v1.0.0-alpha.2 · browser local</span><h3><a href="../tools/journal-evaluation-workflow/">Journal Evaluation Workflow</a></h3><p>Does not decide whether a journal is legitimate, safe, predatory, indexed or suitable for submission.</p></article><article class="card"><span class="num">v1.0.0-alpha.2 · browser local</span><h3><a href="../tools/evidence-pathway-navigator/">Evidence Pathway Navigator</a></h3><p>Does not determine compliance, authorise sensitive-record access or infer quality from document possession.</p></article></div></div></section>
+
 <section id="contracts" aria-labelledby="contracts-title">
   <div class="wrap">
     <div class="section-h">
@@ -109,8 +115,11 @@
     <p class="note"><strong>Found a mismatch?</strong> Send the claim or tool name, the source you checked and the date to <a href="mailto:support@gurjas.org?subject=Evidence%20registry%20correction">support@gurjas.org</a>. Corrections are reviewed against the cited record before publication.</p>
   </div>
 </section>
+<section class="contextual-knowledge" aria-labelledby="contextual-knowledge-title"><div class="wrap contextual-knowledge__shell"><div class="contextual-knowledge__head"><div><span class="eyebrow">Connected evidence</span><h2 id="contextual-knowledge-title">Continue through the evidence system.</h2></div><p>These links are editorially mapped to this page so you can move between methods, research, tools, outputs and public verification without returning to the main menu.</p></div><nav aria-label="Related Gurjas evidence and resources"><ul class="contextual-knowledge__grid"><li><a class="contextual-knowledge__card" href="../knowledge/"><span class="contextual-knowledge__type">Knowledge hub</span><strong>Navigate the governed knowledge system</strong><p>Choose a research-integrity, method, evaluation or policy evidence route without scanning the entire site.</p><em>Continue exploring →</em></a></li><li><a class="contextual-knowledge__card" href="../publications/"><span class="contextual-knowledge__type">Publications</span><strong>Verify the published record</strong><p>Search journal articles, chapters, working papers and externally hosted research profiles.</p><em>Continue exploring →</em></a></li><li><a class="contextual-knowledge__card" href="../ethics-charter/"><span class="contextual-knowledge__type">Governance</span><strong>Review the Ethics Charter</strong><p>Understand the boundaries on authorship, data, publication claims and responsible assistance.</p><em>Continue exploring →</em></a></li><li><a class="contextual-knowledge__card" href="../services/"><span class="contextual-knowledge__type">Service guide</span><strong>Choose a defensible engagement route</strong><p>Compare Gurjas offers, scope boundaries, required inputs and decision-ready outputs.</p><em>Continue exploring →</em></a></li></ul></nav></div></section>
 </main>
-<footer class="site-foot"><p><a href="../privacy/">Privacy</a></p></footer>
-<script src="../script.js?v=24" defer></script>
+<footer class="site-foot"></footer>
+
+
+<script src="../script.js?v=30" defer></script>
 </body>
 </html>
