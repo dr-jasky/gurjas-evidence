@@ -110,6 +110,25 @@ async function assertAccessible(page, label) {
   assert.deepEqual(blocking, [], `${label} must have no serious or critical axe violations`);
 }
 
+async function assertGovernanceSurface(page, label) {
+  const governance = page.locator(".decision-tool__governance");
+  assert.equal(await governance.count(), 1, `${label} must expose one decision-boundary panel`);
+  const styles = await governance.evaluate((section) => {
+    const heading = section.querySelector("h2");
+    const paragraph = section.querySelector("p");
+    return {
+      backgroundColor: getComputedStyle(section).backgroundColor,
+      headingColor: getComputedStyle(heading).color,
+      paragraphColor: getComputedStyle(paragraph).color,
+    };
+  });
+  assert.deepEqual(styles, {
+    backgroundColor: "rgb(4, 26, 55)",
+    headingColor: "rgb(255, 255, 255)",
+    paragraphColor: "rgb(216, 225, 236)",
+  }, `${label} governance panel must preserve its explicit dark-surface contrast contract`);
+}
+
 mkdirSync(outputDirectory, { recursive: true });
 const browser = await chromium.launch({ headless: true });
 
@@ -148,6 +167,7 @@ try {
       await settleDocument(page);
       await assertNoOverflow(page, `${viewport.name} ${workflow.id} initial`);
       await assertAccessible(page, `${viewport.name} ${workflow.id} initial`);
+      await assertGovernanceSurface(page, `${viewport.name} ${workflow.id} initial`);
       await page.screenshot({
         path: `${outputDirectory}/${viewport.name}--${workflow.id}--initial.png`,
         fullPage: true,
