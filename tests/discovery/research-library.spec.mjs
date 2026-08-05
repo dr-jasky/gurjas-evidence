@@ -21,7 +21,7 @@ const escapeHtml = (value) => value
 
 assert.equal(registry.version, 1, 'library registry must use governed version 1');
 assert.equal(registry.publicLabel, 'Research Library', 'registry must preserve the public label');
-assert.equal(registry.entries.length, 6, 'launch registry must contain exactly six flagship entries');
+assert.equal(registry.entries.length, 12, 'governed registry must contain exactly twelve substantive entries');
 assert.ok(registry.reviewPolicy?.published && registry.reviewPolicy?.reviewed && registry.reviewPolicy?.updated, 'review policy must define all three date fields');
 
 for (const entry of registry.entries) {
@@ -53,7 +53,7 @@ for (const entry of registry.entries) {
   assert.ok(html.includes('<strong>Direct answer</strong>'), `${entry.id} requires a direct answer`);
   assert.ok(html.includes('Evidence boundary'), `${entry.id} requires an explicit evidence boundary`);
   assert.ok(html.includes('Primary source') || html.includes('Official source') || html.includes('Primary research'), `${entry.id} requires a visible source section`);
-  assert.ok(html.includes('Retrieved 4 August 2026') || entry.id === 'sem-sample-size-planning', `${entry.id} must date web-source retrieval or provide DOI-linked primary research`);
+  assert.ok(/Retrieved (4|5) August 2026/.test(html) || html.includes('doi.org/'), `${entry.id} must date web-source retrieval or provide DOI-linked primary research`);
   assert.ok(html.includes('data-copy-citation'), `${entry.id} requires a copyable citation`);
   assert.ok(html.includes('data-print-entry'), `${entry.id} requires a print control`);
   assert.ok(html.includes('../../../assets/research-library.js?v=1'), `${entry.id} must load the governed local interaction script`);
@@ -63,7 +63,7 @@ for (const entry of registry.entries) {
   assert.ok(!/guaranteed|100% accurate|definitive blacklist|always sufficient/i.test(html), `${entry.id} contains an unsupported certainty claim`);
 }
 
-assert.equal(evidenceByDestination.size, 5, 'six launch entries must resolve to five practical destinations');
+assert.equal(evidenceByDestination.size, 8, 'twelve governed entries must resolve to eight practical destinations');
 for (const [destination, entries] of evidenceByDestination) {
   const outputPath = path.join('_site', destination, 'index.html');
   assert.ok(fs.existsSync(outputPath), `${destination} must exist as an evidence-linked practical route`);
@@ -92,11 +92,11 @@ assert.match(loopCss, /body:not\(\.home\):not\(\.offer\) main section\.tool-evid
 assert.match(loopCss, /@media \(prefers-reduced-motion: no-preference\)/, 'evidence loop motion must be opt-in');
 assert.match(loopCss, /@media \(forced-colors: active\)/, 'evidence loop must support forced colours');
 
-assert.equal(pillarCounts.get('research-integrity'), 3, 'research integrity must launch with three entries');
-assert.equal(pillarCounts.get('research-design'), 3, 'research design must launch with three entries');
-assert.equal((indexHtml.match(/class="library-card" href="library\//g) || []).length, 6, 'library index must expose all six entry routes');
+assert.equal(pillarCounts.get('research-integrity'), 6, 'research integrity must contain six governed entries');
+assert.equal(pillarCounts.get('research-design'), 6, 'research design must contain six governed entries');
+assert.equal((indexHtml.match(/class="library-card" href="library\//g) || []).length, 12, 'library index must expose all twelve entry routes');
 assert.ok(indexHtml.includes('Answers that show their evidence.'), 'library index must lead with the evidence-first proposition');
-assert.ok(indexHtml.includes('Six flagship entries are live.'), 'library index must state the bounded launch corpus');
-assert.ok(!indexHtml.includes('<input'), 'the six-entry launch must not add premature search controls');
+assert.ok(indexHtml.includes('Twelve governed entries are live.'), 'library index must state the bounded twelve-entry corpus');
+assert.ok(!indexHtml.includes('<input'), 'the twelve-entry release must not add premature search controls');
 
-console.log('Research Library contract passed for six governed entries and five reciprocal practical evidence routes.');
+console.log('Research Library contract passed for twelve governed entries and eight reciprocal practical evidence routes.');
