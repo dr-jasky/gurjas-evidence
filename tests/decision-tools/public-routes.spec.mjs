@@ -43,7 +43,7 @@ for (const route of routes) {
   assert.ok(html.includes('<body class="tool-page">'));
   assert.ok(html.includes(`id="${route.form}"`));
   assert.ok(html.includes(`id="${route.output}"`));
-  assert.ok(html.includes(`id="${route.record}"`));
+  assert.ok(html.includes(`id="${route.record}" role="region" aria-label="Generated decision record"`));
   assert.ok(html.includes(`id="${route.download}"`));
   assert.ok(html.includes('class="decision-tool__output" hidden tabindex="-1"'));
   assert.ok(html.includes("renderDecisionRecord"));
@@ -73,6 +73,15 @@ for (const route of routes) {
   }
 }
 
+const journalHtml = fs.readFileSync("tools/journal-evaluation-workflow/index.html", "utf8");
+assert.ok(journalHtml.includes('class="decision-tool__manual-links" role="region" aria-label="Manual primary-record checks"'));
+for (const name of ["identity", "indexing", "editorial", "policies", "payment"]) {
+  assert.ok(
+    journalHtml.includes(`<select name="${name}" required><option value="">Choose one</option>`),
+    `${name} must require an explicit evidence-state choice`,
+  );
+}
+
 assert.match(stylesheet, /@media\(max-width:800px\)/);
 assert.match(stylesheet, /@media print/);
 assert.match(stylesheet, /prefers-reduced-motion:reduce/);
@@ -81,4 +90,4 @@ assert.match(toolsHub, /Eleven established tools, three public-beta workflows/);
 assert.match(toolsHub, /Connected governed decision workflows/);
 assert.match(evidenceHub, /Three public-beta workflows, one governed record contract/);
 
-console.log("Three public decision workflows passed release, privacy, discovery, manifest and export wiring checks.");
+console.log("Three public decision workflows passed release, privacy, semantics, discovery, manifest and export wiring checks.");
