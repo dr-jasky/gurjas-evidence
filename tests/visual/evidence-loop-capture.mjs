@@ -115,7 +115,8 @@ try {
     });
 
     const referencePage = await context.newPage();
-    const referenceResponse = await referencePage.goto(new URL("/tools/reference-integrity-checker/", baseUrl), { waitUntil: "networkidle" });
+    const referenceRoute = new URL("/tools/reference-integrity-checker/", baseUrl);
+    const referenceResponse = await referencePage.goto(referenceRoute.href, { waitUntil: "networkidle" });
     assert.equal(referenceResponse?.status(), 200, `${viewport.name} reference checker must load`);
     await dismissConsent(referencePage);
     const panel = referencePage.locator(".tool-evidence-loop");
@@ -132,7 +133,7 @@ try {
     for (const workflow of workflows) {
       const page = await context.newPage();
       const route = new URL(`/tools/${workflow.id}/`, baseUrl);
-      const response = await page.goto(route, { waitUntil: "networkidle" });
+      const response = await page.goto(route.href, { waitUntil: "networkidle" });
       assert.equal(response?.status(), 200, `${viewport.name} ${workflow.id} must load`);
       await dismissConsent(page);
       await page.evaluate(() => document.fonts.ready);
