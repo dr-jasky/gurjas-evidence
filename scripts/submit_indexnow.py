@@ -2,9 +2,10 @@
 """Submit canonical Gurjas sitemap URLs to IndexNow after production deploys.
 
 The script uses only the Python standard library, validates that every submitted
-URL belongs to gurjas.org, and exits non-zero when the endpoint does not accept
-the request. It is intentionally run against the live sitemap so search engines
-are notified only after the corresponding production pages are available.
+URL belongs to gurjas.org, verifies the deployed ownership key, and exits
+non-zero when the endpoint does not accept the request. It is intentionally run
+against the live sitemap so search engines are notified only after the
+corresponding production pages are available.
 """
 from __future__ import annotations
 
@@ -19,7 +20,10 @@ from urllib.parse import urlparse
 
 HOST = "gurjas.org"
 DEFAULT_SITEMAP = "https://gurjas.org/sitemap.xml"
-DEFAULT_ENDPOINT = "https://api.indexnow.org/indexnow"
+# This IndexNow participant accepts the deployed ownership key and shares
+# accepted notifications with the IndexNow network. The generic endpoint has
+# returned UserForbiddedToAccessSite for this otherwise valid deployment.
+DEFAULT_ENDPOINT = "https://search.seznam.cz/indexnow"
 DEFAULT_KEY = "127d4f6734fd4c5b8f7308201fd3d836"
 SITEMAP_NS = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 
@@ -43,6 +47,19 @@ def fetch_bytes(url: str, attempts: int = 5, delay_seconds: float = 4.0) -> byte
     raise RuntimeError(f"Unable to fetch {url}: {last_error}")
 
 
+def verify_key(key: str) -> str:
+    key_location = f"https://{HOST}/{key}.txt"
+    deployed = fetch_bytes(key_location, attempts=8, delay_seconds=5.0).decode(
+        "utf-8", errors="strict"
+    ).strip()
+    if deployed != key:
+        raise ValueError(
+            f"IndexNow ownership key mismatch at {key_location}: "
+            "refusing to submit URLs"
+        )
+    return key_location
+
+
 def sitemap_urls(xml_bytes: bytes) -> list[str]:
     root = ET.fromstring(xml_bytes)
     urls: list[str] = []
@@ -59,12 +76,12 @@ def sitemap_urls(xml_bytes: bytes) -> list[str]:
     return sorted(set(urls))
 
 
-def submit(endpoint: str, key: str, urls: list[str]) -> int:
+def submit(endpoint: str, key: str, key_location: str, urls: list[str]) -> int:
     payload = json.dumps(
         {
             "host": HOST,
             "key": key,
-            "keyLocation": f"https://{HOST}/{key}.txt",
+            "keyLocation": key_location,
             "urlList": urls,
         }
     ).encode("utf-8")
@@ -99,6 +116,8 @@ def main() -> int:
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
+    key_location = verify_key(args.key)
+    print(f"Verified IndexNow ownership key at {key_location}")
     urls = sitemap_urls(fetch_bytes(args.sitemap))
     print(f"Validated {len(urls)} canonical URLs from {args.sitemap}")
     if args.dry_run:
@@ -106,7 +125,7 @@ def main() -> int:
             print(url)
         return 0
 
-    status = submit(args.endpoint, args.key, urls)
+    status = submit(args.endpoint, args.key, key_location, urls)
     print(f"IndexNow accepted {len(urls)} URLs with HTTP {status}")
     return 0
 
@@ -114,6 +133,6 @@ def main() -> int:
 if __name__ == "__main__":
     try:
         raise SystemExit(main())
-    except (RuntimeError, ValueError, ET.ParseError) as exc:
+    except (RuntimeError, ValueError, UnicodeDecodeError, ET.ParseError) as exc:
         print(f"search-discovery error: {exc}", file=sys.stderr)
         raise SystemExit(1)
