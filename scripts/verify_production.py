@@ -37,6 +37,9 @@ PRIORITY_ROUTES = (
     ("/knowledge/library/journal-indexing-verification/", "How to verify a journal"),
     ("/tools/", "Transparent research tools"),
     ("/tools/reference-integrity-checker/", "Evidence behind this tool"),
+    ("/tools/research-design-selector/", "Research Design Selector"),
+    ("/tools/journal-evaluation-workflow/", "Journal Evaluation Workflow"),
+    ("/tools/evidence-pathway-navigator/", "Evidence Pathway Navigator"),
     ("/contact/", None),
     ("/privacy/", None),
 )
@@ -49,6 +52,9 @@ SITEMAP_ROUTES = (
     "https://gurjas.org/knowledge/",
     "https://gurjas.org/knowledge/library/doi-record-verification/",
     "https://gurjas.org/tools/reference-integrity-checker/",
+    "https://gurjas.org/tools/research-design-selector/",
+    "https://gurjas.org/tools/journal-evaluation-workflow/",
+    "https://gurjas.org/tools/evidence-pathway-navigator/",
     "https://gurjas.org/contact/",
 )
 

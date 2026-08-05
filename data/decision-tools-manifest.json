@@ -26,7 +26,14 @@
       "status": "engine-ready",
       "route": "/tools/research-design-selector/",
       "purpose": "Group defensible research-design routes from stated intent, evidence maturity, feasibility and constraints.",
-      "humanReviewTriggers": ["causal attribution", "immature measurement", "unresolved feasibility conflict", "high-stakes institutional decision"]
+      "humanReviewTriggers": [
+        "causal attribution",
+        "immature measurement",
+        "unresolved feasibility conflict",
+        "high-stakes institutional decision"
+      ],
+      "releaseStatus": "public-beta",
+      "released": "2026-08-05"
     },
     {
       "id": "journal-evaluation-workflow",
@@ -35,7 +42,14 @@
       "status": "engine-ready",
       "route": "/tools/journal-evaluation-workflow/",
       "purpose": "Structure evidence checks without producing unsupported safe-or-unsafe allegations.",
-      "humanReviewTriggers": ["identity mismatch", "possible cloned journal", "payment decision", "reputational allegation"]
+      "humanReviewTriggers": [
+        "identity mismatch",
+        "possible cloned journal",
+        "payment decision",
+        "reputational allegation"
+      ],
+      "releaseStatus": "public-beta",
+      "released": "2026-08-05"
     },
     {
       "id": "evidence-pathway-navigator",
@@ -44,7 +58,14 @@
       "status": "engine-ready",
       "route": "/tools/evidence-pathway-navigator/",
       "purpose": "Sequence an institutional evidence workflow while preserving ownership, governance and limitations.",
-      "humanReviewTriggers": ["compliance determination", "sensitive institutional data", "unclear evidence ownership", "insufficient evidence for requested output"]
+      "humanReviewTriggers": [
+        "compliance determination",
+        "sensitive institutional data",
+        "unclear evidence ownership",
+        "insufficient evidence for requested output"
+      ],
+      "releaseStatus": "public-beta",
+      "released": "2026-08-05"
     }
   ]
 }
