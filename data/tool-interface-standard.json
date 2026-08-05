@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "1.0",
+  "publicLabel": "Gurjas Tool Standard",
+  "reviewed": "2026-08-05",
+  "scope": "All public tools registered in data/tool-contracts.json",
+  "requiredContractFields": [
+    "id",
+    "name",
+    "url",
+    "status",
+    "methodVersion",
+    "reviewed",
+    "purpose",
+    "processing",
+    "outboundRequests",
+    "sources",
+    "outputs",
+    "notChecked",
+    "limitations",
+    "decisionBoundary",
+    "userDataStorage"
+  ],
+  "allowedMaturity": ["production", "beta", "living-resource"],
+  "versionRules": {
+    "production": "semantic-version",
+    "beta": "semantic-version",
+    "living-resource": "dated-snapshot"
+  },
+  "requiredPageSignals": {
+    "canonical": "Every tool page must expose one canonical URL.",
+    "purpose": "The page must state what the tool does.",
+    "methodBoundary": "The page must state what the result cannot establish.",
+    "privacy": "The page must state where user inputs are processed and whether any data leaves the browser.",
+    "evidence": "The page must identify the evidence source or first-party method basis.",
+    "maturity": "The page or registry must expose a governed maturity status.",
+    "version": "Computational tools must expose a semantic method version; living resources must expose a YYYY-MM snapshot tied to their ISO review date.",
+    "export": "Any export must be local, inspectable and must not imply certification. A tool without export remains conformant when its outputs are reproducible or printable."
+  },
+  "privacyRules": [
+    "No private research data is collected by Gurjas.",
+    "Third-party requests occur only after a disclosed user action.",
+    "Recipients and transmitted fields are named in the tool contract.",
+    "No account is required for a public tool."
+  ],
+  "claimRules": [
+    "No tool may guarantee acceptance, publication, accreditation, legitimacy, eligibility or payment safety.",
+    "Scores and labels must be bounded by disclosed evidence and method limitations.",
+    "Database absence must not be presented as proof of misconduct or illegitimacy."
+  ],
+  "exportRules": {
+    "permitted": ["printable view", "copyable note", "local Markdown", "local JSON"],
+    "prohibited": ["remote storage by default", "undisclosed upload", "certification language", "hidden scoring rationale"]
+  }
+}
