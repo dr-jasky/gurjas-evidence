@@ -1,72 +1,18 @@
 {
   "version": 1,
   "nodes": {
-    "knowledge": {
-      "type": "Knowledge hub",
-      "title": "Navigate the governed knowledge system",
-      "description": "Choose a research-integrity, method, evaluation or policy evidence route without scanning the entire site.",
-      "path": "knowledge/"
-    },
-    "services": {
-      "type": "Service guide",
-      "title": "Choose a defensible engagement route",
-      "description": "Compare Gurjas offers, scope boundaries, required inputs and decision-ready outputs.",
-      "path": "services/"
-    },
-    "methods": {
-      "type": "Methods",
-      "title": "Inspect the methodological standard",
-      "description": "Review how research design, measurement, modelling and interpretation are governed.",
-      "path": "methods/"
-    },
-    "research": {
-      "type": "Research",
-      "title": "Explore the research programme",
-      "description": "See the substantive questions, datasets and evidence programmes behind the practice.",
-      "path": "research/"
-    },
-    "publications": {
-      "type": "Publications",
-      "title": "Verify the published record",
-      "description": "Search journal articles, chapters, working papers and externally hosted research profiles.",
-      "path": "publications/"
-    },
-    "insights": {
-      "type": "Insights",
-      "title": "Read practical evidence guidance",
-      "description": "Use detailed guidance on research integrity, journals, accreditation and policy evidence.",
-      "path": "insights/"
-    },
-    "tools": {
-      "type": "Open tools",
-      "title": "Use the research utilities",
-      "description": "Apply free, no-sign-up tools with explicit sources, limitations and decision boundaries.",
-      "path": "tools/"
-    },
-    "resources": {
-      "type": "Resources",
-      "title": "Find reusable research resources",
-      "description": "Access open guides, references and practical materials for evidence work.",
-      "path": "resources/"
-    },
-    "evidence": {
-      "type": "Proof ledger",
-      "title": "Audit the public evidence",
-      "description": "Inspect the source, verification date, method and limitation behind public claims.",
-      "path": "evidence/"
-    },
-    "ethics": {
-      "type": "Governance",
-      "title": "Review the Ethics Charter",
-      "description": "Understand the boundaries on authorship, data, publication claims and responsible assistance.",
-      "path": "ethics-charter/"
-    },
-    "contact": {
-      "type": "Enquiry",
-      "title": "Start with a bounded diagnostic",
-      "description": "Share the decision, available evidence, deadline and review audience for an initial fit assessment.",
-      "path": "contact/"
-    }
+    "knowledge": {"type":"Knowledge hub","title":"Navigate the governed knowledge system","description":"Choose a research-integrity, method, evaluation or policy evidence route without scanning the entire site.","path":"knowledge/"},
+    "services": {"type":"Service guide","title":"Choose a defensible engagement route","description":"Compare Gurjas offers, scope boundaries, required inputs and decision-ready outputs.","path":"services/"},
+    "methods": {"type":"Methods","title":"Inspect the methodological standard","description":"Review how research design, measurement, modelling and interpretation are governed.","path":"methods/"},
+    "research": {"type":"Research","title":"Explore the research programme","description":"See the substantive questions, datasets and evidence programmes behind the practice.","path":"research/"},
+    "publications": {"type":"Publications","title":"Verify the published record","description":"Search journal articles, chapters, working papers and externally hosted research profiles.","path":"publications/"},
+    "insights": {"type":"Insights","title":"Read practical evidence guidance","description":"Use detailed guidance on research integrity, journals, accreditation and policy evidence.","path":"insights/"},
+    "tools": {"type":"Open tools","title":"Use the research utilities","description":"Apply free, no-sign-up tools with explicit sources, limitations and decision boundaries.","path":"tools/"},
+    "decision-workflows": {"type":"Decision workflows","title":"Build a governed decision record","description":"Use three browser-local workflows for research design, journal evidence and institutional evidence pathways.","path":"tools/research-design-selector/"},
+    "resources": {"type":"Resources","title":"Find reusable research resources","description":"Access open guides, references and practical materials for evidence work.","path":"resources/"},
+    "evidence": {"type":"Proof ledger","title":"Audit the public evidence","description":"Inspect the source, verification date, method and limitation behind public claims.","path":"evidence/"},
+    "ethics": {"type":"Governance","title":"Review the Ethics Charter","description":"Understand the boundaries on authorship, data, publication claims and responsible assistance.","path":"ethics-charter/"},
+    "contact": {"type":"Enquiry","title":"Start with a bounded diagnostic","description":"Share the decision, available evidence, deadline and review audience for an initial fit assessment.","path":"contact/"}
   },
   "relationships": {
     "knowledge/index.html": ["insights", "methods", "tools", "services"],
@@ -75,7 +21,10 @@
     "research/index.html": ["knowledge", "publications", "evidence", "insights"],
     "publications/index.html": ["knowledge", "research", "insights", "evidence"],
     "insights/index.html": ["knowledge", "tools", "publications", "services"],
-    "tools/index.html": ["knowledge", "methods", "resources", "services"],
+    "tools/index.html": ["decision-workflows", "knowledge", "resources", "services"],
+    "tools/research-design-selector/index.html": ["tools", "methods", "ethics", "resources"],
+    "tools/journal-evaluation-workflow/index.html": ["tools", "insights", "ethics", "resources"],
+    "tools/evidence-pathway-navigator/index.html": ["tools", "knowledge", "ethics", "services"],
     "resources/index.html": ["knowledge", "tools", "methods", "ethics"],
     "evidence/index.html": ["knowledge", "publications", "ethics", "services"]
   }
