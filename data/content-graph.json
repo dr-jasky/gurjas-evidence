@@ -69,14 +69,77 @@
     }
   },
   "relationships": {
-    "knowledge/index.html": ["insights", "methods", "tools", "services"],
-    "services/index.html": ["knowledge", "evidence", "tools", "contact"],
-    "methods/index.html": ["knowledge", "research", "tools", "ethics"],
-    "research/index.html": ["knowledge", "publications", "evidence", "insights"],
-    "publications/index.html": ["knowledge", "research", "insights", "evidence"],
-    "insights/index.html": ["knowledge", "tools", "publications", "services"],
-    "tools/index.html": ["knowledge", "methods", "resources", "services"],
-    "resources/index.html": ["knowledge", "tools", "methods", "ethics"],
-    "evidence/index.html": ["knowledge", "publications", "ethics", "services"]
+    "knowledge/index.html": [
+      "insights",
+      "methods",
+      "tools",
+      "services"
+    ],
+    "services/index.html": [
+      "knowledge",
+      "evidence",
+      "tools",
+      "contact"
+    ],
+    "methods/index.html": [
+      "knowledge",
+      "research",
+      "tools",
+      "ethics"
+    ],
+    "research/index.html": [
+      "knowledge",
+      "publications",
+      "evidence",
+      "insights"
+    ],
+    "publications/index.html": [
+      "knowledge",
+      "research",
+      "insights",
+      "evidence"
+    ],
+    "insights/index.html": [
+      "knowledge",
+      "tools",
+      "publications",
+      "services"
+    ],
+    "tools/index.html": [
+      "knowledge",
+      "methods",
+      "resources",
+      "services"
+    ],
+    "resources/index.html": [
+      "knowledge",
+      "tools",
+      "methods",
+      "ethics"
+    ],
+    "evidence/index.html": [
+      "knowledge",
+      "publications",
+      "ethics",
+      "services"
+    ],
+    "tools/research-design-selector/index.html": [
+      "knowledge",
+      "methods",
+      "resources",
+      "ethics"
+    ],
+    "tools/journal-evaluation-workflow/index.html": [
+      "knowledge",
+      "insights",
+      "tools",
+      "ethics"
+    ],
+    "tools/evidence-pathway-navigator/index.html": [
+      "knowledge",
+      "methods",
+      "services",
+      "ethics"
+    ]
   }
 }
