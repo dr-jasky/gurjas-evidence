@@ -22,8 +22,8 @@
     {
       "id": "research-design-selector",
       "name": "Research Design Selector",
-      "version": "1.0.0-alpha.1",
-      "status": "framework-ready",
+      "version": "1.0.0-alpha.2",
+      "status": "engine-ready",
       "route": "/tools/research-design-selector/",
       "purpose": "Group defensible research-design routes from stated intent, evidence maturity, feasibility and constraints.",
       "humanReviewTriggers": ["causal attribution", "immature measurement", "unresolved feasibility conflict", "high-stakes institutional decision"]
