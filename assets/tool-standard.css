@@ -1,0 +1,25 @@
+.tool-standard{background:#f7f4ec;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tool-standard .wrap{padding-top:clamp(3rem,6vw,5rem);padding-bottom:clamp(3rem,6vw,5rem)}
+.tool-standard__head{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(18rem,.75fr);gap:2rem;align-items:end;margin-bottom:2rem}
+.tool-standard__head h2{margin:.35rem 0 0;max-width:14ch}
+.tool-standard__meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0;border:1px solid var(--line);background:#fff}
+.tool-standard__meta div{padding:1rem;border-right:1px solid var(--line)}
+.tool-standard__meta div:last-child{border-right:0}
+.tool-standard__meta dt{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tool-standard__meta dd{margin:.25rem 0 0;font-weight:700;color:var(--navy)}
+.tool-standard__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.tool-standard__grid article{background:#fff;border:1px solid var(--line);padding:1.35rem}
+.tool-standard__grid h3{font-size:1rem;margin:0 0 .55rem;color:var(--navy)}
+.tool-standard__grid h3:not(:first-child){margin-top:1.25rem}
+.tool-standard__grid p,.tool-standard__grid li{font-size:.92rem;line-height:1.55}
+.tool-standard__grid ul{padding-left:1.1rem;margin:.5rem 0 0}
+.tool-standard__sources{list-style:none;padding-left:0!important}
+.tool-standard__sources li{margin-bottom:.7rem}
+.tool-standard__sources span{display:block;color:var(--muted);font-size:.82rem}
+.tool-standard__requests{margin-top:1rem;padding-top:1rem;border-top:1px solid var(--line)}
+.tool-standard__boundary{margin-top:1rem;background:#071a33;color:#fff;padding:1.35rem;border-left:4px solid var(--gold)}
+.tool-standard__boundary p{margin:.4rem 0 0;color:rgba(255,255,255,.88)}
+.tool-standard__boundary .note{color:rgba(255,255,255,.7)}
+@media(max-width:900px){.tool-standard__head,.tool-standard__grid{grid-template-columns:1fr}.tool-standard__meta{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){.tool-standard__meta{grid-template-columns:1fr}.tool-standard__meta div{border-right:0;border-bottom:1px solid var(--line)}.tool-standard__meta div:last-child{border-bottom:0}}
+@media print{.tool-standard{break-inside:avoid}.tool-standard__boundary{background:#fff;color:#000;border:1px solid #000}.tool-standard__boundary p,.tool-standard__boundary .note{color:#000}}
