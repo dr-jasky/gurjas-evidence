@@ -3,11 +3,19 @@ import fs from 'node:fs';
 
 const standard = JSON.parse(fs.readFileSync('data/tool-interface-standard.json', 'utf8'));
 const contracts = JSON.parse(fs.readFileSync('data/tool-contracts.json', 'utf8'));
+const buildSource = fs.readFileSync('scripts/build_site.py', 'utf8');
+const composerSource = fs.readFileSync('scripts/tool_standard_composition.py', 'utf8');
+const panelCss = fs.readFileSync('assets/tool-standard.css', 'utf8');
 
 assert.equal(standard.schemaVersion, '1.0', 'tool standard must expose a stable schema version');
 assert.equal(contracts.tools.length, 11, 'the public inventory must retain exactly eleven governed tools');
 assert.deepEqual(new Set(contracts.tools.map((tool) => tool.id)).size, 11, 'tool IDs must be unique');
 assert.deepEqual(new Set(contracts.tools.map((tool) => tool.url)).size, 11, 'tool URLs must be unique');
+assert.ok(buildSource.includes('compose_tool_standard'), 'the authoritative builder must compose the visible tool standard');
+assert.ok(buildSource.includes('standard_count != 11'), 'the build must fail closed unless all eleven panels are composed');
+assert.ok(composerSource.includes('data-tool-standard="1"'), 'the composer requires one stable public panel marker');
+assert.ok(panelCss.includes('.tool-standard__boundary'), 'the shared stylesheet must expose the decision boundary visibly');
+assert.ok(panelCss.includes('@media print'), 'the shared standard must remain printable');
 
 const allowedMaturity = new Set(standard.allowedMaturity);
 const semanticVersion = /^\d+(?:\.\d+)+(?:-[a-z0-9.-]+)?$/i;
@@ -55,6 +63,17 @@ for (const tool of contracts.tools) {
   for (const source of tool.sources) {
     assert.ok(source.name && source.url && source.access, `${tool.id} evidence sources require name, URL and access mode`);
   }
+
+  const generatedPath = `_site${tool.url}index.html`;
+  if (fs.existsSync(generatedPath)) {
+    const page = fs.readFileSync(generatedPath, 'utf8');
+    assert.equal((page.match(/data-tool-standard="1"/g) || []).length, 1, `${tool.id} must render exactly one governed standard panel`);
+    assert.ok(page.includes('tool-standard.css?v=1'), `${tool.id} must load the shared standard stylesheet`);
+    assert.ok(page.includes(tool.methodVersion), `${tool.id} must expose its governed version`);
+    assert.ok(page.includes(tool.reviewed), `${tool.id} must expose its review date`);
+    assert.ok(page.includes('Decision boundary'), `${tool.id} must expose its decision boundary`);
+    assert.ok(page.includes('Privacy and processing'), `${tool.id} must expose privacy and processing`);
+  }
 }
 
 assert.equal(standard.privacyRules.length, 4, 'privacy standard must remain explicit and compact');
@@ -62,4 +81,4 @@ assert.ok(standard.claimRules.length >= 3, 'claim standard must prohibit unsuppo
 assert.ok(standard.exportRules.permitted.includes('local JSON'), 'inspectable local JSON export must remain permitted');
 assert.ok(standard.exportRules.prohibited.includes('remote storage by default'), 'remote default storage must remain prohibited');
 
-console.log('Gurjas Tool Standard passed for eleven governed tools, including maturity-aware versions, evidence, privacy, limitations, decisions and export boundaries.');
+console.log('Gurjas Tool Standard passed for eleven governed tools and their shared visible method, evidence, privacy and decision-boundary panels.');
