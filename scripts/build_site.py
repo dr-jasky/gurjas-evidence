@@ -38,6 +38,23 @@ EXPECTED_NAVIGATION = (
     ("insights/", "Insights"),
     ("contact/", "Contact"),
 )
+DECISION_WORKFLOW_SEMANTICS = {
+    "tools/research-design-selector/index.html": {
+        "record_id": "design-record",
+        "selects": (),
+        "manual_region": False,
+    },
+    "tools/journal-evaluation-workflow/index.html": {
+        "record_id": "journal-record",
+        "selects": ("identity", "indexing", "editorial", "policies", "payment"),
+        "manual_region": True,
+    },
+    "tools/evidence-pathway-navigator/index.html": {
+        "record_id": "pathway-record",
+        "selects": (),
+        "manual_region": False,
+    },
+}
 
 
 def resolved_output(argv: list[str]) -> Path:
@@ -61,6 +78,55 @@ def assert_core_safeguards() -> None:
     missing = [marker for marker in required if marker not in source]
     if missing:
         raise RuntimeError("Delegated builder is missing indexing safeguards: " + ", ".join(missing))
+
+
+def normalize_once(source: str, legacy: str, normalized: str, context: str) -> str:
+    """Apply one governed authoring-to-production semantic normalization."""
+    if source.count(normalized) == 1:
+        return source
+    if source.count(legacy) != 1:
+        raise RuntimeError(f"{context}: expected exactly one authoring marker")
+    return source.replace(legacy, normalized, 1)
+
+
+def publish_decision_workflow_semantics(output: Path) -> None:
+    """Convert strict workflow authoring markers into valid generated HTML semantics."""
+    for relative_path, contract in DECISION_WORKFLOW_SEMANTICS.items():
+        target = output / relative_path
+        if not target.exists():
+            raise RuntimeError(f"Decision workflow page is missing: {relative_path}")
+        source = target.read_text(encoding="utf-8")
+        record_id = contract["record_id"]
+        legacy_record = (
+            f'class="decision-tool__record" id="{record_id}" '
+            'aria-label="Generated decision record"'
+        )
+        normalized_record = (
+            f'class="decision-tool__record" id="{record_id}" role="region" '
+            'aria-label="Generated decision record"'
+        )
+        source = normalize_once(source, legacy_record, normalized_record, f"{relative_path} record region")
+
+        if contract["manual_region"]:
+            source = normalize_once(
+                source,
+                'class="decision-tool__manual-links" aria-label="Manual primary-record checks"',
+                'class="decision-tool__manual-links" role="region" aria-label="Manual primary-record checks"',
+                f"{relative_path} manual-check region",
+            )
+
+        for name in contract["selects"]:
+            select_marker = f'<select name="{name}" required>'
+            placeholder = select_marker + '<option value="">Choose one</option>'
+            if source.count(placeholder) == 1:
+                continue
+            if source.count(select_marker) != 1:
+                raise RuntimeError(f"{relative_path}: expected exactly one required {name} select")
+            source = source.replace(select_marker, placeholder, 1)
+
+        target.write_text(source, encoding="utf-8")
+
+    print("Published valid named regions and explicit decision-workflow select states")
 
 
 def publish_registered_composition(output: Path) -> None:
@@ -148,6 +214,7 @@ def main() -> None:
     assert_core_safeguards()
     subprocess.run([sys.executable, str(CORE), *sys.argv[1:]], cwd=ROOT, check=True)
     output = resolved_output(sys.argv[1:])
+    publish_decision_workflow_semantics(output)
     publish_registered_composition(output)
     publish_sitewide_navigation(output)
     publish_release_manifest(output)
