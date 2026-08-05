@@ -94,3 +94,5 @@ assert.ok(record.recommended_next_steps.length >= 0);
 
 assert.throws(() => navigateEvidencePathway({}), TypeError);
 console.log("evidence pathway navigator fixtures passed");
+
+await import("./public-routes.spec.mjs");
