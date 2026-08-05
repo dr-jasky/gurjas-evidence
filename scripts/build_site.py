@@ -11,6 +11,7 @@ import sys
 from pathlib import Path
 
 from advisory_composition import compose_document, composed_paths
+from home_command_bridge import apply_home_command_bridge
 from home_navigation_utility import restore_compact_site_guide
 from product_front_door import compose_product_front_door
 from tool_evidence_loop import compose_tool_evidence_loop, tool_evidence_paths
@@ -80,6 +81,7 @@ def publish_registered_composition(output: Path) -> None:
             if removed != 1:
                 raise RuntimeError("Homepage shared route helper is missing before composition")
             composed = compose_product_front_door(composed)
+            composed = apply_home_command_bridge(composed)
             composed = restore_compact_site_guide(composed)
         target.write_text(composed, encoding="utf-8")
     print(
