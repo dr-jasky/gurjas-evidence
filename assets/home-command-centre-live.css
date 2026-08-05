@@ -1,0 +1,360 @@
+@import url("./home-premium.css?v=109");
+@import url("./living-evidence.css?v=109");
+@import url("./home-story.css?v=109");
+@import url("./home-command-centre.css?v=109");
+
+/* Generated homepage bridge — makes the governed product front door visibly structural. */
+.home .product-front-door{
+  position:relative;
+  z-index:1;
+  overflow:hidden;
+  padding:clamp(84px,10vw,138px) 0 clamp(64px,8vw,108px);
+  color:#eef5ff;
+  background:
+    radial-gradient(1000px 640px at 10% 5%,rgba(31,121,255,.24),transparent 70%),
+    radial-gradient(760px 620px at 92% 32%,rgba(118,104,255,.20),transparent 74%),
+    linear-gradient(135deg,#02091a 0%,#04152f 44%,#071f47 100%);
+  border-bottom:1px solid rgba(129,202,255,.18);
+}
+.home .product-front-door::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.34;
+  background-image:
+    linear-gradient(rgba(131,203,255,.065) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(131,203,255,.065) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:linear-gradient(to bottom,black,transparent 86%);
+}
+.home .product-front-door::after{
+  content:"";
+  position:absolute;
+  width:min(54vw,760px);
+  aspect-ratio:1;
+  right:-16vw;
+  top:-22vw;
+  border:1px solid rgba(151,214,255,.13);
+  border-radius:50%;
+  box-shadow:0 0 0 80px rgba(91,167,255,.025),0 0 0 170px rgba(91,167,255,.018);
+  pointer-events:none;
+}
+.home .product-front-door__shell{
+  position:relative;
+  z-index:2;
+  width:min(calc(100% - 48px),1440px);
+  margin:0 auto;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+}
+.home .product-front-door__hero{
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(420px,.92fr);
+  gap:clamp(44px,7vw,108px);
+  align-items:center;
+  min-height:540px;
+  padding:0 0 clamp(52px,7vw,84px);
+  border-bottom:1px solid rgba(151,214,255,.20);
+}
+.home .product-front-door__eyebrow{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin:0 0 24px;
+  color:#9fd6ff;
+  font:700 10px/1.5 var(--mono);
+  letter-spacing:.22em;
+  text-transform:uppercase;
+}
+.home .product-front-door__eyebrow::before{
+  content:"";
+  width:44px;
+  height:1px;
+  background:linear-gradient(90deg,#7fcaff,transparent);
+}
+.home .product-front-door__motion{
+  justify-content:flex-start;
+  margin:0 0 20px;
+  color:#dcecff;
+}
+.home .product-front-door__motion-line{
+  width:clamp(72px,10vw,150px);
+  background:linear-gradient(90deg,#63b9ff,#8d88ff);
+  box-shadow:0 0 24px rgba(91,173,255,.42);
+}
+.home .product-front-door__hero h1{
+  max-width:10ch;
+  margin:0;
+  color:#fff;
+  font-family:var(--disp);
+  font-size:clamp(52px,7.2vw,104px);
+  font-weight:320;
+  line-height:.94;
+  letter-spacing:-.045em;
+}
+.home .product-front-door__hero h1 em{
+  display:block;
+  margin-top:.08em;
+  color:#9fd6ff;
+  font-weight:380;
+  text-shadow:0 0 40px rgba(94,177,255,.18);
+}
+.home .product-front-door__summary{
+  max-width:38rem;
+  margin:28px 0 0;
+  color:#b8c9df;
+  font-family:var(--serif);
+  font-size:clamp(17px,1.7vw,21px);
+  line-height:1.7;
+}
+.home .product-front-door__search{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  min-height:430px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:clamp(30px,4vw,52px);
+  background:
+    radial-gradient(circle at 72% 20%,rgba(76,164,255,.20),transparent 36%),
+    linear-gradient(145deg,rgba(11,47,94,.90),rgba(4,21,50,.84));
+  border:1px solid rgba(143,207,255,.26);
+  border-radius:26px;
+  box-shadow:0 42px 120px rgba(0,5,20,.48),inset 0 1px rgba(255,255,255,.06);
+  backdrop-filter:blur(16px);
+}
+.home .product-front-door__search::before{
+  content:"Evidence command centre";
+  position:absolute;
+  left:clamp(30px,4vw,52px);
+  top:30px;
+  color:#9fd6ff;
+  font:700 10px/1.4 var(--mono);
+  letter-spacing:.20em;
+  text-transform:uppercase;
+}
+.home .product-front-door__search::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  width:300px;
+  aspect-ratio:1;
+  top:34px;
+  right:-76px;
+  border:1px solid rgba(143,207,255,.22);
+  border-radius:50%;
+  box-shadow:0 0 0 42px rgba(143,207,255,.035),0 0 0 84px rgba(143,207,255,.022);
+}
+.home .product-front-door__search label{
+  color:#fff;
+  font-family:var(--disp);
+  font-size:clamp(28px,3.2vw,42px);
+  font-weight:380;
+  line-height:1.1;
+}
+.home .product-front-door__search-row{
+  margin-top:26px;
+  padding:7px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;
+}
+.home .product-front-door__search-row input{
+  min-height:58px;
+  color:#fff;
+  background:rgba(2,13,31,.58);
+  border:1px solid rgba(143,207,255,.18);
+  border-radius:10px;
+}
+.home .product-front-door__search-row input::placeholder{color:#879ab4}
+.home .product-front-door__search-row button{
+  min-width:86px;
+  color:#031226;
+  background:#9fd6ff;
+  border-radius:9px;
+}
+.home .product-front-door__status{
+  margin-top:14px;
+  color:#91a6c1;
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.03em;
+}
+.home .product-front-door__status strong{color:#cce9ff}
+.home .product-front-door__trust{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:1px;
+  margin:0;
+  padding:0;
+  list-style:none;
+  background:rgba(151,214,255,.18);
+  border:1px solid rgba(151,214,255,.18);
+}
+.home .product-front-door__trust li{
+  min-height:108px;
+  display:flex;
+  align-items:flex-end;
+  padding:24px;
+  color:#dbeaff;
+  background:rgba(4,20,48,.74);
+  font-family:var(--mono);
+  font-size:11px;
+  line-height:1.55;
+  letter-spacing:.10em;
+  text-transform:uppercase;
+}
+.home .product-front-door__trust li::before{
+  content:"";
+  width:8px;
+  height:8px;
+  margin:0 12px 5px 0;
+  border-radius:50%;
+  background:#81c9ff;
+  box-shadow:0 0 0 5px rgba(129,201,255,.10),0 0 18px rgba(129,201,255,.38);
+}
+.home .product-front-door__tools{
+  margin-top:clamp(58px,8vw,92px);
+  padding:clamp(38px,5vw,68px);
+  color:#17243a;
+  background:#f7f4ec;
+  border-radius:30px;
+  box-shadow:0 36px 110px rgba(0,6,22,.28);
+}
+.home .product-front-door__tools-head{
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(280px,.65fr);
+  gap:32px;
+  align-items:end;
+  margin-bottom:38px;
+}
+.home .product-front-door__kicker{
+  color:#8c641d;
+  font-family:var(--mono);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.home .product-front-door__tools-head h2{
+  max-width:12ch;
+  color:#06264e;
+  font-size:clamp(38px,5vw,68px);
+  font-weight:340;
+  line-height:1;
+}
+.home .product-front-door__tools-head>p{
+  color:#5c6675;
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.7;
+}
+.home .product-front-door__grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+.home .product-front-door__card{
+  min-height:250px;
+  background:#fff;
+  border:1px solid #ddd6c7;
+  border-radius:18px;
+  box-shadow:0 16px 36px rgba(5,27,59,.06);
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+}
+.home .product-front-door__card:first-child{
+  grid-column:span 2;
+  min-height:300px;
+  background:
+    radial-gradient(circle at 88% 16%,rgba(83,166,255,.18),transparent 35%),
+    linear-gradient(145deg,#06264e,#0a3970);
+  border-color:#18528d;
+}
+.home .product-front-door__card:first-child a,
+.home .product-front-door__card:first-child strong,
+.home .product-front-door__card:first-child p{color:#fff}
+.home .product-front-door__card:first-child .product-front-door__category,
+.home .product-front-door__card:first-child .product-front-door__go{color:#9fd6ff}
+.home .product-front-door__card:nth-child(5){grid-row:span 2}
+.home .product-front-door__card:hover{
+  transform:translateY(-6px);
+  border-color:#8bb8dc;
+  box-shadow:0 26px 54px rgba(5,27,59,.14);
+}
+.home .product-front-door__card a{padding:28px}
+.home .product-front-door__card strong{
+  color:#06264e;
+  font-family:var(--disp);
+  font-size:clamp(22px,2vw,30px);
+  font-weight:450;
+  line-height:1.15;
+}
+.home .product-front-door__card p{color:#5c6675;line-height:1.65}
+.home .product-front-door__category,
+.home .product-front-door__go{color:#8c641d}
+.home .product-front-door__library{
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);
+  gap:clamp(36px,6vw,84px);
+  align-items:center;
+  margin-top:20px;
+  padding:clamp(46px,6vw,76px);
+  background:
+    radial-gradient(circle at 90% 15%,rgba(111,173,255,.16),transparent 38%),
+    linear-gradient(135deg,#031329,#082d5b);
+  border:1px solid rgba(143,207,255,.22);
+  border-radius:28px;
+}
+.home .product-front-door__library h2{color:#fff;font-size:clamp(34px,4vw,56px)}
+.home .product-front-door__library p{color:#aebfd5;font-family:var(--serif);font-size:17px;line-height:1.7}
+.home .product-front-door__library-links a{
+  color:#eaf5ff;
+  border-color:rgba(159,214,255,.22);
+}
+.home .product-front-door__library-links a:hover{color:#9fd6ff;border-color:#9fd6ff}
+.home .product-front-door__enterprise{
+  margin-top:20px;
+  padding:26px 32px;
+  color:#07152a;
+  background:linear-gradient(100deg,#c99a42,#ead58c);
+  border:0;
+  border-radius:18px;
+}
+.home .product-front-door__enterprise p{color:#07152a}
+.home .product-front-door__enterprise a{color:#07152a;border-color:rgba(7,21,42,.28)}
+
+@media(max-width:1040px){
+  .home .product-front-door__hero{grid-template-columns:1fr;min-height:0}
+  .home .product-front-door__hero h1{max-width:11ch}
+  .home .product-front-door__search{min-height:360px}
+  .home .product-front-door__trust{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .home .product-front-door__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .home .product-front-door__card:first-child{grid-column:span 2}
+  .home .product-front-door__library{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .home .product-front-door{padding-top:62px}
+  .home .product-front-door__shell{width:min(calc(100% - 28px),1440px)}
+  .home .product-front-door__hero{gap:36px;padding-bottom:42px}
+  .home .product-front-door__hero h1{font-size:clamp(46px,14vw,66px)}
+  .home .product-front-door__search{min-height:320px;padding:26px 20px;border-radius:20px}
+  .home .product-front-door__search::before{left:20px;top:20px}
+  .home .product-front-door__search-row{display:grid;grid-template-columns:1fr}
+  .home .product-front-door__search-row button{width:100%;min-height:46px}
+  .home .product-front-door__trust{grid-template-columns:1fr}
+  .home .product-front-door__trust li{min-height:78px;padding:18px 20px}
+  .home .product-front-door__tools{padding:28px 18px;border-radius:22px}
+  .home .product-front-door__tools-head{grid-template-columns:1fr}
+  .home .product-front-door__grid{grid-template-columns:1fr}
+  .home .product-front-door__card:first-child{grid-column:auto;min-height:270px}
+  .home .product-front-door__card:nth-child(5){grid-row:auto}
+  .home .product-front-door__library{padding:34px 22px;border-radius:22px}
+  .home .product-front-door__enterprise{display:grid;gap:18px;padding:24px 20px}
+}
+@media(prefers-reduced-motion:reduce){
+  .home .product-front-door__card{transition:none}
+  .home .product-front-door__card:hover{transform:none}
+}
