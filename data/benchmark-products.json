@@ -30,7 +30,7 @@
         "requiresUncertaintyAndMissingnessDisclosure": true,
         "requiresHumanReviewBeforePublicRanking": true
       },
-      "claimBoundary": "The benchmark may describe results generated from the deposited data and disclosed method. It must not certify institutional quality, causality, policy success, eligibility or future performance, and it must not publish a ranking until the exact release inputs and transformation pipeline have been independently reproduced.",
+      "claimBoundary": "The benchmark may describe results generated from the deposited data and disclosed method. It must not certify institutional quality, establish causality, demonstrate that a policy caused observed outcomes, determine eligibility or predict future performance, and it must not publish a ranking until the exact release inputs and transformation pipeline have been independently reproduced.",
       "privacy": "Uses only aggregate, deposited research data. It accepts no private institutional, respondent-level or client research data.",
       "nextReleaseGate": "Reproduce the deposited release from its codebook and pipeline, reconcile every output against the DOI record, and publish a versioned result table with limitations before adding comparative scores to the public page."
     }
