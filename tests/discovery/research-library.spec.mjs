@@ -96,7 +96,7 @@ assert.equal(pillarCounts.get('research-integrity'), 6, 'research integrity must
 assert.equal(pillarCounts.get('research-design'), 6, 'research design must contain six governed entries');
 assert.equal((indexHtml.match(/class="library-card" href="library\//g) || []).length, 12, 'library index must expose all twelve entry routes');
 assert.ok(indexHtml.includes('Answers that show their evidence.'), 'library index must lead with the evidence-first proposition');
-assert.ok(indexHtml.includes('Twelve governed entries are live.'), 'library index must state the bounded twelve-entry corpus');
+assert.ok(indexHtml.includes('Twelve substantive entries are live.'), 'library index must state the bounded twelve-entry corpus');
 assert.ok(!indexHtml.includes('<input'), 'the twelve-entry release must not add premature search controls');
 
 console.log('Research Library contract passed for twelve governed entries and eight reciprocal practical evidence routes.');
