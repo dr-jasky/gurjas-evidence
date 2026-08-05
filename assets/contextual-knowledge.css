@@ -1,3 +1,5 @@
+@import url("./tools-operating-system.css?v=1");
+
 .contextual-knowledge{padding:clamp(3.5rem,7vw,6rem) 0;background:#f4efe5;border-block:1px solid rgba(6,38,78,.12)}
 .contextual-knowledge__shell{display:grid;gap:clamp(1.5rem,3vw,2.5rem)}
 .contextual-knowledge__head{display:grid;grid-template-columns:minmax(0,1fr) minmax(18rem,.72fr);gap:clamp(1.5rem,5vw,4rem);align-items:end}
