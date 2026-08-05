@@ -1,3 +1,5 @@
+@import url("./home-premium.css?v=1");
+
 /* Verified capability metrics — homepage only */
 .home .home-capability{
   margin-top:clamp(48px,7vw,76px);
