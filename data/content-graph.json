@@ -66,6 +66,24 @@
       "title": "Start with a bounded diagnostic",
       "description": "Share the decision, available evidence, deadline and review audience for an initial fit assessment.",
       "path": "contact/"
+    },
+    "research-design-selector": {
+      "type": "Decision workflow",
+      "title": "Group defensible research-design routes",
+      "description": "Preserve the stated objective, design conditions, alternatives, exclusions and human-review triggers in a local decision record.",
+      "path": "tools/research-design-selector/"
+    },
+    "journal-evaluation-workflow": {
+      "type": "Decision workflow",
+      "title": "Record journal evidence states",
+      "description": "Structure dated manual checks and unresolved identity, policy or payment evidence without a blacklist or legitimacy verdict.",
+      "path": "tools/journal-evaluation-workflow/"
+    },
+    "evidence-pathway-navigator": {
+      "type": "Decision workflow",
+      "title": "Sequence an institutional evidence pathway",
+      "description": "Preserve ownership, governance, inventory, verification and human-review requirements without making a compliance determination.",
+      "path": "tools/evidence-pathway-navigator/"
     }
   },
   "relationships": {
@@ -122,24 +140,6 @@
       "publications",
       "ethics",
       "services"
-    ],
-    "tools/research-design-selector/index.html": [
-      "knowledge",
-      "methods",
-      "resources",
-      "ethics"
-    ],
-    "tools/journal-evaluation-workflow/index.html": [
-      "knowledge",
-      "insights",
-      "tools",
-      "ethics"
-    ],
-    "tools/evidence-pathway-navigator/index.html": [
-      "knowledge",
-      "methods",
-      "services",
-      "ethics"
     ]
   }
 }
