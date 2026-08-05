@@ -1,7 +1,7 @@
 import { downloadDecisionRecord, renderDecisionRecord } from "./decision-tools.js";
 import { createResearchDesignRecord, evaluateResearchDesign } from "./research-design-selector.js";
 import { createJournalEvaluationRecord, evaluateJournalEvidence } from "./journal-evaluation-workflow.js";
-import { createEvidencePathwayRecord, evaluateEvidencePathway } from "./evidence-pathway-navigator.js";
+import { createEvidencePathwayRecord, navigateEvidencePathway } from "./evidence-pathway-navigator.js";
 
 const adapters = {
   "research-design-selector": {
@@ -20,10 +20,10 @@ const adapters = {
     },
   },
   "evidence-pathway-navigator": {
-    evaluate: evaluateEvidencePathway,
+    evaluate: navigateEvidencePathway,
     record: createEvidencePathwayRecord,
     summarize(result) {
-      return `Pathway: ${result.pathway.label}.`;
+      return `Pathway state: ${result.state.replaceAll("-", " ")}; ${result.pathway.length} governed stages recorded.`;
     },
   },
 };
