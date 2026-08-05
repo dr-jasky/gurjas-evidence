@@ -20,6 +20,9 @@ from tool_standard_panel import compose_tool_standard_panel, tool_standard_paths
 ROOT = Path(__file__).resolve().parents[1]
 CORE = Path(__file__).with_name("build_site_core.py")
 DEFAULT_OUTPUT = ROOT / "_site"
+TOOLS_OPERATING_SYSTEM_STYLESHEET = (
+    '<link rel="stylesheet" href="../assets/tools-operating-system.css?v=110">'
+)
 LEGACY_GUIDE_ITEM_RE = re.compile(
     r'\s*<li class="nav-guide-item"><button[\s\S]*?data-site-guide[\s\S]*?</button></li>',
     re.IGNORECASE,
@@ -67,6 +70,17 @@ def assert_core_safeguards() -> None:
         raise RuntimeError("Delegated builder is missing indexing safeguards: " + ", ".join(missing))
 
 
+def apply_tools_operating_system(document: str) -> str:
+    """Load the Tools Hub design directly so cached parent CSS cannot hide it."""
+    if TOOLS_OPERATING_SYSTEM_STYLESHEET in document:
+        return document
+    if "</head>" not in document:
+        raise RuntimeError("Tools Hub has no closing head element")
+    return document.replace(
+        "</head>", f"{TOOLS_OPERATING_SYSTEM_STYLESHEET}\n</head>", 1
+    )
+
+
 def publish_registered_composition(output: Path) -> None:
     for relative_path in registered_paths():
         target = output / relative_path
@@ -76,6 +90,8 @@ def publish_registered_composition(output: Path) -> None:
         composed = compose_tool_standard_panel(relative_path, source)
         composed = compose_tool_evidence_loop(relative_path, composed)
         composed = compose_document(relative_path, composed)
+        if relative_path == "tools/index.html":
+            composed = apply_tools_operating_system(composed)
         if relative_path == "index.html":
             composed, removed = COMPACT_GUIDE_RE.subn("", composed, count=1)
             if removed != 1:
