@@ -21,6 +21,11 @@
     "userDataStorage"
   ],
   "allowedMaturity": ["production", "beta", "living-resource"],
+  "versionRules": {
+    "production": "semantic-version",
+    "beta": "semantic-version",
+    "living-resource": "dated-snapshot"
+  },
   "requiredPageSignals": {
     "canonical": "Every tool page must expose one canonical URL.",
     "purpose": "The page must state what the tool does.",
@@ -28,7 +33,7 @@
     "privacy": "The page must state where user inputs are processed and whether any data leaves the browser.",
     "evidence": "The page must identify the evidence source or first-party method basis.",
     "maturity": "The page or registry must expose a governed maturity status.",
-    "version": "The page or registry must expose a method version.",
+    "version": "Computational tools must expose a semantic method version; living resources must expose a YYYY-MM snapshot tied to their ISO review date.",
     "export": "Any export must be local, inspectable and must not imply certification. A tool without export remains conformant when its outputs are reproducible or printable."
   },
   "privacyRules": [
