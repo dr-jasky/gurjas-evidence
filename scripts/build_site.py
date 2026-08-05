@@ -14,6 +14,7 @@ from advisory_composition import compose_document, composed_paths
 from home_navigation_utility import restore_compact_site_guide
 from product_front_door import compose_product_front_door
 from tool_evidence_loop import compose_tool_evidence_loop, tool_evidence_paths
+from tool_standard_panel import compose_tool_standard_panel, tool_standard_paths
 
 ROOT = Path(__file__).resolve().parents[1]
 CORE = Path(__file__).with_name("build_site_core.py")
@@ -48,7 +49,9 @@ def resolved_output(argv: list[str]) -> Path:
 
 
 def registered_paths() -> tuple[str, ...]:
-    return tuple(sorted(set(composed_paths()) | set(tool_evidence_paths())))
+    return tuple(
+        sorted(set(composed_paths()) | set(tool_evidence_paths()) | set(tool_standard_paths()))
+    )
 
 
 def assert_core_safeguards() -> None:
@@ -69,7 +72,8 @@ def publish_registered_composition(output: Path) -> None:
         if not target.exists():
             raise RuntimeError(f"Composed public page is missing: {relative_path}")
         source = target.read_text(encoding="utf-8")
-        composed = compose_tool_evidence_loop(relative_path, source)
+        composed = compose_tool_standard_panel(relative_path, source)
+        composed = compose_tool_evidence_loop(relative_path, composed)
         composed = compose_document(relative_path, composed)
         if relative_path == "index.html":
             composed, removed = COMPACT_GUIDE_RE.subn("", composed, count=1)
@@ -78,7 +82,10 @@ def publish_registered_composition(output: Path) -> None:
             composed = compose_product_front_door(composed)
             composed = restore_compact_site_guide(composed)
         target.write_text(composed, encoding="utf-8")
-    print("Published registered composition, including the homepage product front door and tool evidence loop")
+    print(
+        "Published registered composition, including the homepage product front door, "
+        "shared tool standard and Research Library evidence loop"
+    )
 
 
 def publish_sitewide_navigation(output: Path) -> None:
