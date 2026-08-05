@@ -168,6 +168,8 @@ try {
       const download = await downloadPromise;
       assert.match(download.suggestedFilename(), new RegExp(`^${workflow.id}-decision-record-\\d{4}-\\d{2}-\\d{2}\\.json$`));
 
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.waitForTimeout(50);
       await page.screenshot({
         path: `${outputDirectory}/${viewport.name}--${workflow.id}--result.png`,
         fullPage: true,
