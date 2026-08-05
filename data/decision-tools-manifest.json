@@ -40,8 +40,8 @@
     {
       "id": "evidence-pathway-navigator",
       "name": "Evidence Pathway Navigator",
-      "version": "1.0.0-alpha.1",
-      "status": "framework-ready",
+      "version": "1.0.0-alpha.2",
+      "status": "engine-ready",
       "route": "/tools/evidence-pathway-navigator/",
       "purpose": "Sequence an institutional evidence workflow while preserving ownership, governance and limitations.",
       "humanReviewTriggers": ["compliance determination", "sensitive institutional data", "unclear evidence ownership", "insufficient evidence for requested output"]
