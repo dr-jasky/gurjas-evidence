@@ -4,7 +4,7 @@
   "contentTypes": ["Guide", "Method note", "Checklist", "Evidence brief", "Template", "Tool"],
   "dateFields": ["published", "reviewed", "updated"],
   "libraryRegistry": "data/library-entries.json",
-  "libraryEntryCount": 6,
+  "libraryEntryCount": 12,
   "pillars": [
     {
       "id": "research-integrity",
@@ -17,8 +17,13 @@
         "knowledge/library/doi-record-verification/",
         "knowledge/library/journal-indexing-verification/",
         "knowledge/library/publication-update-status/",
+        "knowledge/library/orcid-identity-verification/",
+        "knowledge/library/preregistration-analysis-plan-boundary/",
+        "knowledge/library/trial-registration-publication-check/",
         "insights/how-to-identify-a-predatory-journal/",
         "tools/reference-integrity-checker/",
+        "tools/journal-evaluation-workflow/",
+        "tools/evidence-pathway-navigator/",
         "resources/journal-assessment-checklist/"
       ]
     },
@@ -33,7 +38,11 @@
         "knowledge/library/reporting-guideline-boundary/",
         "knowledge/library/reliability-validity-distinction/",
         "knowledge/library/sem-sample-size-planning/",
+        "knowledge/library/missing-data-planning/",
+        "knowledge/library/power-analysis-inputs/",
+        "knowledge/library/common-method-bias-diagnosis/",
         "methods/",
+        "tools/research-design-selector/",
         "tools/sem-sample-size-calculator/",
         "resources/research-question-canvas/"
       ]

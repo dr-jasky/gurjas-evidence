@@ -12,14 +12,14 @@ const pillarIds = new Set(taxonomy.pillars.map((pillar) => pillar.id));
 assert.equal(taxonomy.version, 3, 'knowledge taxonomy must expose the governed version-3 library contract');
 assert.equal(taxonomy.publicLabel, 'Research Library', 'the public knowledge label must be Research Library');
 assert.equal(taxonomy.pillars.length, 6, 'the library must retain six governed pillars');
-assert.equal(active.length, 2, 'only two evidence pillars may be active at launch');
+assert.equal(active.length, 2, 'only two evidence pillars may be active');
 assert.equal(planned.length, 4, 'four pillars must remain explicitly planned');
 assert.deepEqual(new Set(taxonomy.contentTypes).size, taxonomy.contentTypes.length, 'content types must be unique');
 assert.deepEqual(taxonomy.dateFields, ['published', 'reviewed', 'updated'], 'date semantics must remain explicit');
 assert.equal(taxonomy.institutionalPathways, 'knowledge/institutional-pathways/', 'institutional pathways must retain a canonical route');
 assert.equal(taxonomy.libraryRegistry, 'data/library-entries.json', 'taxonomy must register the governed library manifest');
 assert.equal(taxonomy.libraryEntryCount, registry.entries.length, 'taxonomy entry count must equal the registry');
-assert.ok(Array.isArray(taxonomy.resources) && taxonomy.resources.length === 2, 'the two governed launch resources must remain registered');
+assert.ok(Array.isArray(taxonomy.resources) && taxonomy.resources.length === 2, 'the two governed resources must remain registered');
 
 for (const pillar of taxonomy.pillars) {
   assert.ok(pillar.id && pillar.title && pillar.summary, `${pillar.id || 'pillar'} must be fully described`);
@@ -45,11 +45,11 @@ for (const resource of taxonomy.resources) {
   resourcePaths.add(resource.path);
 }
 
-assert.equal((html.match(/class="library-card" href="library\//g) || []).length, 6, 'exactly six flagship reference cards must render');
+assert.equal((html.match(/class="library-card" href="library\//g) || []).length, 12, 'exactly twelve substantive reference cards must render');
 assert.equal((html.match(/<article class="library-card">/g) || []).length, 4, 'exactly four planned pillar cards must remain non-links');
 assert.ok(html.includes('Published') && html.includes('Reviewed') && html.includes('Updated'), 'date governance must be visible');
 assert.ok(html.includes('CollectionPage'), 'Research Library must expose conservative collection-page semantics');
-assert.ok(!html.includes('Search the Research Library'), 'search must not launch before the corpus warrants it');
+assert.ok(!html.includes('Search the Research Library'), 'search must not launch before demand warrants it');
 assert.ok(!/guaranteed|market leader|best consultancy/i.test(html), 'Research Library must avoid unsupported promotional claims');
 
 assert.ok(html.includes('research-library-contrast.css?v=1'), 'Library index must load the contrast guard as a separately cacheable asset');
@@ -65,4 +65,4 @@ assert.match(contrastCss, /\.library-hero h1,[\s\S]*color:\s*#ffffff\s*!importan
 assert.match(contrastCss, /\.library-hero \.lede,[\s\S]*rgba\(255,\s*255,\s*255,\s*\.84\)\s*!important/i, 'contrast guard must preserve readable supporting copy');
 assert.match(contrastCss, /@media \(forced-colors: active\)/, 'contrast guard must retain forced-colors support');
 
-console.log('Research Library foundation version 3 passed for six entries, two active pillars, four planned areas, two governed resources and the composed high-specificity contrast contract.');
+console.log('Research Library foundation version 3 passed for twelve entries, two active pillars, four planned areas, two governed resources and the composed contrast contract.');
