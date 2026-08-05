@@ -1,0 +1,75 @@
+name: One-time decision source repair
+
+on:
+  push:
+    branches:
+      - agent/decision-workflows-public-beta
+    paths:
+      - .github/workflows/patch-decision-source.yml
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out repair branch
+        uses: actions/checkout@v7
+        with:
+          ref: agent/decision-workflows-public-beta
+          fetch-depth: 0
+
+      - name: Apply exact source-level semantic repairs
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          pages = {
+              "tools/research-design-selector/index.html": "design-record",
+              "tools/journal-evaluation-workflow/index.html": "journal-record",
+              "tools/evidence-pathway-navigator/index.html": "pathway-record",
+          }
+          for path, record_id in pages.items():
+              target = Path(path)
+              source = target.read_text(encoding="utf-8")
+              legacy = (
+                  f'class="decision-tool__record" id="{record_id}" '
+                  'aria-label="Generated decision record"'
+              )
+              repaired = (
+                  f'class="decision-tool__record" id="{record_id}" role="region" '
+                  'aria-label="Generated decision record"'
+              )
+              if source.count(legacy) != 1:
+                  raise SystemExit(f"{path}: expected one legacy record region")
+              source = source.replace(legacy, repaired, 1)
+              target.write_text(source, encoding="utf-8")
+
+          journal = Path("tools/journal-evaluation-workflow/index.html")
+          source = journal.read_text(encoding="utf-8")
+          manual_legacy = 'class="decision-tool__manual-links" aria-label="Manual primary-record checks"'
+          manual_repaired = 'class="decision-tool__manual-links" role="region" aria-label="Manual primary-record checks"'
+          if source.count(manual_legacy) != 1:
+              raise SystemExit("journal workflow: expected one manual-check region")
+          source = source.replace(manual_legacy, manual_repaired, 1)
+          for name in ("identity", "indexing", "editorial", "policies", "payment"):
+              marker = f'<select name="{name}" required>'
+              if source.count(marker) != 1:
+                  raise SystemExit(f"journal workflow: expected one {name} select")
+              source = source.replace(marker, marker + '<option value="">Choose one</option>', 1)
+          journal.write_text(source, encoding="utf-8")
+          PY
+
+      - name: Restore the unchanged authoritative builder
+        run: git show origin/main:scripts/build_site.py > scripts/build_site.py
+
+      - name: Remove repair workflow and commit exact changes
+        run: |
+          git rm .github/workflows/patch-decision-source.yml
+          git diff --check
+          git config user.name "Gurjas governed repair"
+          git config user.email "support@gurjas.org"
+          git add scripts/build_site.py tools/research-design-selector/index.html tools/journal-evaluation-workflow/index.html tools/evidence-pathway-navigator/index.html
+          git commit -m "GJ-018E: repair decision workflow HTML semantics"
+          git push origin HEAD:agent/decision-workflows-public-beta
