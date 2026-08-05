@@ -47,6 +47,45 @@
       "sourceCount": 2
     },
     {
+      "id": "orcid-identity-verification",
+      "title": "How to verify an ORCID record",
+      "pillar": "research-integrity",
+      "type": "Guide",
+      "version": "1.0",
+      "path": "knowledge/library/orcid-identity-verification/",
+      "published": "2026-08-05",
+      "reviewed": "2026-08-05",
+      "updated": null,
+      "relatedTool": "tools/journal-evaluation-workflow/",
+      "sourceCount": 2
+    },
+    {
+      "id": "preregistration-analysis-plan-boundary",
+      "title": "Preregistration does not replace an analysis plan",
+      "pillar": "research-integrity",
+      "type": "Method note",
+      "version": "1.0",
+      "path": "knowledge/library/preregistration-analysis-plan-boundary/",
+      "published": "2026-08-05",
+      "reviewed": "2026-08-05",
+      "updated": null,
+      "relatedTool": "tools/research-design-selector/",
+      "sourceCount": 2
+    },
+    {
+      "id": "trial-registration-publication-check",
+      "title": "How to compare a trial registration with a publication",
+      "pillar": "research-integrity",
+      "type": "Checklist",
+      "version": "1.0",
+      "path": "knowledge/library/trial-registration-publication-check/",
+      "published": "2026-08-05",
+      "reviewed": "2026-08-05",
+      "updated": null,
+      "relatedTool": "tools/evidence-pathway-navigator/",
+      "sourceCount": 2
+    },
+    {
       "id": "reporting-guideline-boundary",
       "title": "Reporting guideline versus study-design decision",
       "pillar": "research-design",
@@ -83,6 +122,45 @@
       "reviewed": "2026-08-04",
       "updated": null,
       "relatedTool": "tools/sem-sample-size-calculator/",
+      "sourceCount": 2
+    },
+    {
+      "id": "missing-data-planning",
+      "title": "Missing data requires a planned response",
+      "pillar": "research-design",
+      "type": "Method note",
+      "version": "1.0",
+      "path": "knowledge/library/missing-data-planning/",
+      "published": "2026-08-05",
+      "reviewed": "2026-08-05",
+      "updated": null,
+      "relatedTool": "tools/research-design-selector/",
+      "sourceCount": 2
+    },
+    {
+      "id": "power-analysis-inputs",
+      "title": "Power analysis depends on explicit inputs",
+      "pillar": "research-design",
+      "type": "Method note",
+      "version": "1.0",
+      "path": "knowledge/library/power-analysis-inputs/",
+      "published": "2026-08-05",
+      "reviewed": "2026-08-05",
+      "updated": null,
+      "relatedTool": "tools/sem-sample-size-calculator/",
+      "sourceCount": 2
+    },
+    {
+      "id": "common-method-bias-diagnosis",
+      "title": "Common-method bias cannot be diagnosed by one test",
+      "pillar": "research-design",
+      "type": "Method note",
+      "version": "1.0",
+      "path": "knowledge/library/common-method-bias-diagnosis/",
+      "published": "2026-08-05",
+      "reviewed": "2026-08-05",
+      "updated": null,
+      "relatedTool": "tools/research-design-selector/",
       "sourceCount": 2
     }
   ]
