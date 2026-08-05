@@ -71,6 +71,14 @@ async function dismissConsent(page) {
   if (appeared) await decline.click();
 }
 
+async function settleDocument(page) {
+  await page.waitForTimeout(100);
+  await Promise.race([
+    page.evaluate(() => document.fonts.ready),
+    page.waitForTimeout(2000),
+  ]);
+}
+
 async function assertNoOverflow(page, label) {
   const dimensions = await page.evaluate(() => ({
     documentWidth: document.documentElement.scrollWidth,
@@ -116,9 +124,10 @@ try {
 
     const referencePage = await context.newPage();
     const referenceRoute = new URL("/tools/reference-integrity-checker/", baseUrl);
-    const referenceResponse = await referencePage.goto(referenceRoute.href, { waitUntil: "networkidle" });
+    const referenceResponse = await referencePage.goto(referenceRoute.href, { waitUntil: "domcontentloaded" });
     assert.equal(referenceResponse?.status(), 200, `${viewport.name} reference checker must load`);
     await dismissConsent(referencePage);
+    await settleDocument(referencePage);
     const panel = referencePage.locator(".tool-evidence-loop");
     await panel.scrollIntoViewIfNeeded();
     assert.equal(await panel.count(), 1, `${viewport.name} must expose one evidence loop`);
@@ -133,10 +142,10 @@ try {
     for (const workflow of workflows) {
       const page = await context.newPage();
       const route = new URL(`/tools/${workflow.id}/`, baseUrl);
-      const response = await page.goto(route.href, { waitUntil: "networkidle" });
+      const response = await page.goto(route.href, { waitUntil: "domcontentloaded" });
       assert.equal(response?.status(), 200, `${viewport.name} ${workflow.id} must load`);
       await dismissConsent(page);
-      await page.evaluate(() => document.fonts.ready);
+      await settleDocument(page);
       await assertNoOverflow(page, `${viewport.name} ${workflow.id} initial`);
       await assertAccessible(page, `${viewport.name} ${workflow.id} initial`);
       await page.screenshot({
