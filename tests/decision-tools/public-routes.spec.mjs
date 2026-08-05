@@ -29,6 +29,7 @@ for (const route of routes) {
   const path = `tools/${route.id}/index.html`;
   const html = fs.readFileSync(path, "utf8");
   const manifestEntry = manifest.tools.find((tool) => tool.id === route.id);
+  const graphNode = graph.nodes[route.id];
 
   assert.ok(manifestEntry, `${route.id} must remain in the governed manifest`);
   assert.equal(manifestEntry.status, "engine-ready");
@@ -38,6 +39,11 @@ for (const route of routes) {
   assert.equal(manifest.processing, "browser-local");
   assert.equal(manifest.persistence, "download-only");
   assert.match(manifest.analyticsBoundary, /No workflow answer/i);
+  assert.ok(graphNode, `${route.id} must be a governed content-graph destination node`);
+  assert.equal(graphNode.type, "Decision workflow");
+  assert.equal(graphNode.path, `tools/${route.id}/`);
+  assert.ok(graphNode.title.length > 20);
+  assert.ok(graphNode.description.length > 60);
 
   assert.match(html, new RegExp(`<h1>${route.title}</h1>`));
   assert.ok(html.includes('<body class="tool-page">'));
@@ -67,7 +73,6 @@ for (const route of routes) {
   }
 
   assert.ok(sitemap.includes(`https://gurjas.org/tools/${route.id}/`));
-  assert.ok(graph.relationships[`tools/${route.id}/index.html`]?.length >= 4);
   for (const hub of [toolsHub, knowledgeHub, resourcesHub, evidenceHub]) {
     assert.ok(hub.includes(`${route.id}/`), `${route.id} must receive an inbound hub link`);
   }
