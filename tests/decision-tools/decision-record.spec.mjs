@@ -22,8 +22,7 @@ assert.deepEqual(
 );
 assert.equal(new Set(manifest.tools.map((tool) => tool.route)).size, 3);
 for (const tool of manifest.tools) {
-  const expectedStatus = tool.id === "evidence-pathway-navigator" ? "framework-ready" : "engine-ready";
-  assert.equal(tool.status, expectedStatus);
+  assert.equal(tool.status, "engine-ready");
   assert.match(tool.version, /^\d+\.\d+\.\d+-alpha\.\d+$/);
   assert.match(tool.route, /^\/tools\/[a-z0-9-]+\/$/);
   assert.ok(tool.purpose.length > 30);
@@ -210,12 +209,13 @@ for (const prohibited of [
 const packageData = JSON.parse(fs.readFileSync("package.json", "utf8"));
 assert.equal(
   packageData.scripts["test:decision-tools"],
-  "node tests/decision-tools/decision-record.spec.mjs && node tests/decision-tools/research-design-selector.spec.mjs && node tests/decision-tools/journal-evaluation-workflow.spec.mjs",
+  "node tests/decision-tools/decision-record.spec.mjs && node tests/decision-tools/research-design-selector.spec.mjs && node tests/decision-tools/journal-evaluation-workflow.spec.mjs && node tests/decision-tools/evidence-pathway-navigator.spec.mjs",
 );
 for (const fixture of [
   "tests/decision-tools/decision-record.spec.mjs",
   "tests/decision-tools/research-design-selector.spec.mjs",
   "tests/decision-tools/journal-evaluation-workflow.spec.mjs",
+  "tests/decision-tools/evidence-pathway-navigator.spec.mjs",
 ]) {
   assert.ok(
     packageData.scripts["test:tools"].includes(fixture),
