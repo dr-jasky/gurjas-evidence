@@ -3,9 +3,19 @@
   "status": "pilot",
   "reviewed": "2026-08-04",
   "hero": {
-    "eyebrow": "Free research tools · Reviewed knowledge · No sign-up to start",
-    "title": "Every research task. One verified toolkit.",
-    "summary": "Start with a transparent tool, then continue into reviewed research guidance, primary sources and institutional support when the decision requires it."
+    "eyebrow": "Open tools · Reviewed knowledge · Specialist support",
+    "title": "Evidence before action.",
+    "summary": "Eleven free research tools, reviewed guidance and specialist support—each built around stated sources, assumptions, limitations and decision boundaries."
+  },
+  "search": {
+    "label": "What decision are you facing?",
+    "placeholder": "Try ‘check a journal’, ‘plan an SEM sample’ or ‘map NAAC evidence’"
+  },
+  "toolsIntro": {
+    "eyebrow": "Open research utilities",
+    "title": "Choose the task in front of you.",
+    "summary": "Eleven public tools for publishing integrity, research design and institutional readiness. Every tool identifies its sources, assumptions, limitations and decision boundary.",
+    "cta": "Open tool ↗"
   },
   "library": {
     "publicLabel": "Research Library",
