@@ -50,6 +50,15 @@ jobs:
       - name: Build static site
         run: python scripts/build_site.py --clean
 
+      - name: Publish and validate security contact record
+        shell: bash
+        run: |
+          set -euo pipefail
+          install -m 0644 security.txt _site/security.txt
+          cmp --silent security.txt _site/security.txt
+          grep -Fxq 'Canonical: https://gurjas.org/security.txt' _site/security.txt
+          grep -Fxq 'Contact: mailto:support@gurjas.org' _site/security.txt
+
       - name: Check generated routes, canonicals and local links
         run: python scripts/check_build.py
 
@@ -105,11 +114,25 @@ jobs:
             --delay 15 \
             --report production-audit.json
 
+      - name: Verify deployed security contact record
+        shell: bash
+        env:
+          SITE_URL: ${{ needs.deploy.outputs.page_url }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error \
+            --retry 8 --retry-delay 15 --retry-all-errors \
+            "${SITE_URL%/}/security.txt" > deployed-security.txt
+          cmp --silent security.txt deployed-security.txt
+          grep -Fxq 'Canonical: https://gurjas.org/security.txt' deployed-security.txt
+
       - name: Upload deployment audit report
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: gurjas-deployment-audit
-          path: production-audit.json
+          path: |
+            production-audit.json
+            deployed-security.txt
           if-no-files-found: error
           retention-days: 30
