@@ -22,6 +22,9 @@ def load_contract() -> dict:
     paths = [tool.get("path") for tool in tools]
     if len(set(paths)) != len(paths):
         raise RuntimeError("Product front-door tool paths must be unique")
+    featured = [tool for tool in tools if tool.get("featured")]
+    if len(featured) != 1:
+        raise RuntimeError("Product front door must register exactly one featured tool")
     return contract
 
 
@@ -111,8 +114,12 @@ def render_tool_cards(contract: dict) -> str:
         searchable = " ".join(
             [tool["label"], tool["category"], tool["description"], *tool["keywords"]]
         )
+        classes = ["product-front-door__card"]
+        if tool.get("featured"):
+            classes.append("product-front-door__card--featured")
         cards.append(
-            '<li class="product-front-door__card" data-product-tool '
+            f'<li class="{" ".join(classes)}" data-product-tool '
+            f'data-tool-id="{html.escape(tool["id"], quote=True)}" '
             f'data-search-text="{html.escape(searchable, quote=True)}">'
             f'<a href="{html.escape(tool["path"], quote=True)}">'
             f'<span class="product-front-door__category">{html.escape(tool["category"])}</span>'

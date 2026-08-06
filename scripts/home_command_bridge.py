@@ -9,17 +9,25 @@ CAPABILITY_STYLESHEET_RE = re.compile(
     re.IGNORECASE,
 )
 COMMAND_STYLESHEET = "assets/home-command-centre-live.css?v=2"
+TOOL_STRUCTURE_STYLESHEET = "assets/home-tool-card-structure.css?v=1"
 
 
-def apply_home_command_bridge(document: str) -> str:
-    """Remove the superseded capability bundle and load the live generated-home design."""
-    document = CAPABILITY_STYLESHEET_RE.sub("", document, count=1)
-    if COMMAND_STYLESHEET in document:
+def ensure_stylesheet(document: str, href: str) -> str:
+    """Load one homepage stylesheet once in deterministic order."""
+    if href in document:
         return document
     if "</head>" not in document:
         raise RuntimeError("Homepage has no closing head element")
     return document.replace(
         "</head>",
-        f'<link rel="stylesheet" href="{COMMAND_STYLESHEET}">\n</head>',
+        f'<link rel="stylesheet" href="{href}">\n</head>',
         1,
     )
+
+
+def apply_home_command_bridge(document: str) -> str:
+    """Remove the superseded capability bundle and load live homepage styles."""
+    document = CAPABILITY_STYLESHEET_RE.sub("", document, count=1)
+    document = ensure_stylesheet(document, COMMAND_STYLESHEET)
+    document = ensure_stylesheet(document, TOOL_STRUCTURE_STYLESHEET)
+    return document

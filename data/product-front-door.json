@@ -31,6 +31,7 @@
   "tools": [
     {
       "id": "journal-evidence-checker",
+      "featured": true,
       "label": "Check a journal",
       "category": "Publishing integrity",
       "description": "Review identity, registry, indexing-snapshot and clone-alert evidence without an invented legitimacy score.",
