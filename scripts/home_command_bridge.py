@@ -8,7 +8,7 @@ CAPABILITY_STYLESHEET_RE = re.compile(
     r'\s*<link rel="stylesheet" href="(?:\./)?assets/capability-metrics\.css\?v=[^"]+">',
     re.IGNORECASE,
 )
-COMMAND_STYLESHEET = "assets/home-command-centre-live.css?v=1"
+COMMAND_STYLESHEET = "assets/home-command-centre-live.css?v=2"
 
 
 def apply_home_command_bridge(document: str) -> str:
