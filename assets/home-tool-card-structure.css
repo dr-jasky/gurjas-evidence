@@ -1,32 +1,40 @@
-/* Contract-driven tool-card hierarchy.
-   This final layer neutralises legacy positional selectors so card prominence
-   follows explicit generated markup rather than DOM order. */
-.home .product-front-door__grid .product-front-door__card {
+/* Contract-driven featured tool-card ownership.
+   The explicit generated class owns prominence. Legacy first-child styling is
+   neutralised only when DOM order and the governed featured flag diverge, so
+   the current grid composition remains visually unchanged. */
+.home .product-front-door__grid
+.product-front-door__card:first-child:not(.product-front-door__card--featured) {
   grid-column: auto;
-  grid-row: auto;
   min-height: 250px;
   color: #17243a;
   background: #fff;
-  border: 1px solid #ddd6c7;
+  border-color: #ddd6c7;
   box-shadow: 0 16px 36px rgba(5, 27, 59, 0.06);
 }
 
-.home .product-front-door__grid .product-front-door__card > a {
+.home .product-front-door__grid
+.product-front-door__card:first-child:not(.product-front-door__card--featured) > a {
   color: #17243a;
   background: #fff;
   border-color: #dde2e8;
 }
 
-.home .product-front-door__grid .product-front-door__card strong {
+.home .product-front-door__grid
+.product-front-door__card:first-child:not(.product-front-door__card--featured) strong {
   color: #06264e;
 }
 
-.home .product-front-door__grid .product-front-door__card p {
+.home .product-front-door__grid
+.product-front-door__card:first-child:not(.product-front-door__card--featured) p {
   color: #5c6675;
 }
 
-.home .product-front-door__grid .product-front-door__card .product-front-door__category,
-.home .product-front-door__grid .product-front-door__card .product-front-door__go {
+.home .product-front-door__grid
+.product-front-door__card:first-child:not(.product-front-door__card--featured)
+.product-front-door__category,
+.home .product-front-door__grid
+.product-front-door__card:first-child:not(.product-front-door__card--featured)
+.product-front-door__go {
   color: #8c641d;
 }
 
@@ -35,7 +43,6 @@
   min-height: 300px;
   background: transparent;
   border-color: transparent;
-  box-shadow: none;
 }
 
 .home .product-front-door__grid .product-front-door__card--featured > a {
@@ -51,8 +58,10 @@
   color: #fff;
 }
 
-.home .product-front-door__grid .product-front-door__card--featured .product-front-door__category,
-.home .product-front-door__grid .product-front-door__card--featured .product-front-door__go {
+.home .product-front-door__grid .product-front-door__card--featured
+.product-front-door__category,
+.home .product-front-door__grid .product-front-door__card--featured
+.product-front-door__go {
   color: #9fd6ff;
 }
 
