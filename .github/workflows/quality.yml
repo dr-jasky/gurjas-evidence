@@ -77,14 +77,17 @@ jobs:
       - name: Build static site
         run: python scripts/build_site.py --clean
 
-      - name: Publish and validate security contact record
+      - name: Publish and validate security contact records
         shell: bash
         run: |
           set -euo pipefail
+          mkdir -p _site/.well-known
           install -m 0644 security.txt _site/security.txt
+          install -m 0644 security.txt _site/.well-known/security.txt
           cmp --silent security.txt _site/security.txt
-          grep -Fxq 'Canonical: https://gurjas.org/security.txt' _site/security.txt
-          grep -Fxq 'Contact: mailto:support@gurjas.org' _site/security.txt
+          cmp --silent security.txt _site/.well-known/security.txt
+          grep -Fxq 'Canonical: https://gurjas.org/.well-known/security.txt' _site/.well-known/security.txt
+          grep -Fxq 'Contact: mailto:support@gurjas.org' _site/.well-known/security.txt
 
       - name: Validate generated HTML
         run: pnpm test:html
@@ -143,7 +146,9 @@ jobs:
       - name: Build static site
         run: |
           python scripts/build_site.py --clean
+          mkdir -p _site/.well-known
           install -m 0644 security.txt _site/security.txt
+          install -m 0644 security.txt _site/.well-known/security.txt
 
       - name: Run tool fixtures, accessibility gate and capture responsive review
         shell: bash
