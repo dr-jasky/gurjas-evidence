@@ -1,5 +1,5 @@
 Contact: mailto:support@gurjas.org
 Expires: 2027-08-06T00:00:00Z
 Preferred-Languages: en, pa, hi
-Canonical: https://gurjas.org/security.txt
+Canonical: https://gurjas.org/.well-known/security.txt
 Policy: https://gurjas.org/privacy/
