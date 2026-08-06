@@ -77,6 +77,15 @@ jobs:
       - name: Build static site
         run: python scripts/build_site.py --clean
 
+      - name: Publish and validate security contact record
+        shell: bash
+        run: |
+          set -euo pipefail
+          install -m 0644 security.txt _site/security.txt
+          cmp --silent security.txt _site/security.txt
+          grep -Fxq 'Canonical: https://gurjas.org/security.txt' _site/security.txt
+          grep -Fxq 'Contact: mailto:support@gurjas.org' _site/security.txt
+
       - name: Validate generated HTML
         run: pnpm test:html
 
@@ -132,7 +141,9 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Build static site
-        run: python scripts/build_site.py --clean
+        run: |
+          python scripts/build_site.py --clean
+          install -m 0644 security.txt _site/security.txt
 
       - name: Run tool fixtures, accessibility gate and capture responsive review
         shell: bash
