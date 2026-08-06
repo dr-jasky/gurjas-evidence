@@ -65,12 +65,27 @@ jobs:
       - name: Check generated routes, canonicals and local links
         run: python scripts/check_build.py
 
+      - name: Archive Pages artifact with well-known records
+        shell: bash
+        run: |
+          set -euo pipefail
+          tar \
+            --dereference --hard-dereference \
+            --directory _site \
+            -cvf "$RUNNER_TEMP/artifact.tar" \
+            --exclude=.git \
+            --exclude=.github \
+            .
+          tar -tf "$RUNNER_TEMP/artifact.tar" | grep -Fxq './security.txt'
+          tar -tf "$RUNNER_TEMP/artifact.tar" | grep -Fxq './.well-known/security.txt'
+
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          path: _site
+          name: github-pages
+          path: ${{ runner.temp }}/artifact.tar
           retention-days: 7
-          include-hidden-files: true
+          if-no-files-found: error
 
   deploy:
     needs: build
