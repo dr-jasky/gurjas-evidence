@@ -8,7 +8,7 @@ CAPABILITY_STYLESHEET_RE = re.compile(
     r'\s*<link rel="stylesheet" href="(?:\./)?assets/capability-metrics\.css\?v=[^"]+">',
     re.IGNORECASE,
 )
-INSTITUTIONAL_STYLESHEET = "assets/home-institutional.css?v=1"
+INSTITUTIONAL_STYLESHEET = "assets/home-institutional.css?v=2"
 TOOL_STRUCTURE_STYLESHEET = "assets/home-tool-card-structure.css?v=1"
 
 
