@@ -5,3 +5,9 @@
   --hi-muted: #596476;
   --hi-gold: #8a6424;
 }
+
+/* Service-pathway indices are meaningful text, not decorative marks.
+   Use the accessible muted token rather than the low-opacity ink treatment. */
+.home .home-row--lg .idx {
+  color: var(--hi-muted);
+}
