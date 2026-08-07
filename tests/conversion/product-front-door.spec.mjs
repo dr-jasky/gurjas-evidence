@@ -12,6 +12,19 @@ assert.equal(contract.tools.length, 11, 'front door must expose all eleven gover
 assert.equal(new Set(contract.tools.map((tool) => tool.id)).size, 11, 'tool IDs must be unique');
 assert.equal(new Set(contract.tools.map((tool) => tool.path)).size, 11, 'tool paths must be unique');
 
+for (const group of ['hero', 'search', 'toolsIntro']) {
+  assert.ok(contract[group] && typeof contract[group] === 'object', `${group} must be governed by the homepage contract`);
+}
+for (const field of ['eyebrow', 'title', 'summary']) {
+  assert.ok(contract.hero[field], `hero.${field} must be governed`);
+}
+for (const field of ['label', 'placeholder']) {
+  assert.ok(contract.search[field], `search.${field} must be governed`);
+}
+for (const field of ['eyebrow', 'title', 'summary', 'cta']) {
+  assert.ok(contract.toolsIntro[field], `toolsIntro.${field} must be governed`);
+}
+
 for (const tool of contract.tools) {
   assert.ok(tool.id && tool.label && tool.category && tool.description && tool.path, `${tool.id || 'tool'} must be fully described`);
   assert.ok(Array.isArray(tool.keywords) && tool.keywords.length >= 3, `${tool.id} requires useful task-search vocabulary`);
@@ -34,10 +47,16 @@ assert.ok(sectionMatch, 'generated homepage must contain one product-front-door 
 assert.equal((html.match(/<section class="product-front-door"/g) || []).length, 1, 'product front door must render exactly once');
 const frontDoor = sectionMatch[0];
 
-assert.ok(frontDoor.includes('Every research task.'), 'homepage must lead with the approved task-first proposition');
-assert.ok(frontDoor.includes('One verified toolkit.'), 'homepage must retain the governed verification promise');
-assert.ok(frontDoor.includes('aria-label="Where policy meets proof"'), 'the earlier policy-to-proof identity must return as an accessible kinetic motif');
-assert.ok(frontDoor.includes('product-front-door__motion-line'), 'policy-to-proof motion must have a dedicated decorative signal track');
+assert.ok(frontDoor.includes(contract.hero.title), 'homepage must lead with the governed institutional proposition');
+assert.ok(frontDoor.includes(contract.hero.summary), 'homepage must preserve the governed evidence-first summary');
+assert.ok(frontDoor.includes(contract.search.label), 'homepage search must use the governed decision-led label');
+assert.ok(frontDoor.includes(contract.search.placeholder), 'homepage search must use the governed task examples');
+assert.ok(frontDoor.includes(contract.toolsIntro.eyebrow), 'tools section must use the governed institutional eyebrow');
+assert.ok(frontDoor.includes(contract.toolsIntro.title), 'tools section must use the governed task-led title');
+assert.ok(frontDoor.includes(contract.toolsIntro.summary), 'tools section must preserve the governed decision-boundary summary');
+assert.equal((frontDoor.match(/Open tool ↗/g) || []).length, 11, 'every tool card must use the governed institutional CTA');
+assert.ok(!frontDoor.includes('product-front-door__motion'), 'superseded kinetic policy/proof motif must be removed from generated output');
+assert.ok(!frontDoor.includes('aria-label="Where policy meets proof"'), 'superseded kinetic identity must not remain in the generated homepage');
 assert.ok(frontDoor.includes('data-product-search'), 'front door must expose a progressively enhanced task search');
 assert.ok(frontDoor.includes('aria-live="polite"'), 'task-search result count must be announced accessibly');
 assert.equal((frontDoor.match(/data-product-tool/g) || []).length, 11, 'all eleven tool cards must be present in the opening product section');
@@ -47,7 +66,6 @@ for (const tool of contract.tools) {
   assert.ok(frontDoor.includes(`href="${tool.path}"`), `${tool.id} must be directly actionable from the homepage`);
   assert.ok(frontDoor.includes(tool.label), `${tool.id} must use the task-oriented public label`);
 }
-
 for (const item of contract.trustItems) {
   assert.ok(frontDoor.includes(item), `trust strip must preserve: ${item}`);
 }
@@ -60,6 +78,7 @@ assert.ok(!frontDoor.includes('href="library/"'), 'front door must not create a 
 assert.ok(!html.includes('aria-labelledby="h-tools"'), 'the lower duplicate tool section must be removed from generated output');
 assert.ok(html.indexOf('product-front-door') < html.indexOf('home-ledger'), 'tools and knowledge must appear before audience and capability proof');
 assert.ok(html.indexOf('product-front-door') < html.indexOf('home-principal-profile'), 'Principal Consultant metrics must remain secondary to the product front door');
+assert.equal((html.match(/<span class="icn" aria-hidden="true">/g) || []).length, 0, 'template-era audience emoji markers must be absent from generated output');
 
 const primaryNav = html.match(/<nav id="nav" class="site-nav" aria-label="Primary">\s*(<ul>[\s\S]*?<\/ul>)/)?.[1] || '';
 assert.ok(primaryNav, 'homepage must expose one deterministic primary-navigation list');
@@ -117,8 +136,9 @@ for (const item of proof.profile.experience) {
 }
 assert.ok(profilePanel.includes('not Gurjas organisational performance metrics'), 'expanded metrics must remain separated from organisational performance');
 
-assert.ok(html.includes('assets/product-front-door.css?v=2'), 'homepage must load the cache-busted front-door stylesheet');
-assert.ok(html.includes('assets/home-proof-refinement.css?v=1'), 'homepage must load the governed motion and proof stylesheet');
+assert.ok(html.includes('assets/home-institutional.css?v=2'), 'homepage must load the final institutional presentation layer');
+assert.ok(html.includes('assets/product-front-door.css?v=2'), 'homepage must retain the governed product-front-door stylesheet');
+assert.ok(html.includes('assets/home-proof-refinement.css?v=1'), 'homepage must retain the governed proof-system stylesheet');
 assert.ok(html.includes('assets/site-nav-compact.css?v=1'), 'homepage must load the shared compact route-utility stylesheet');
 assert.ok(html.includes('assets/product-front-door.js?v=1'), 'homepage must load the local-only task filter');
 assert.ok(!html.includes('assets/capability-metrics.css?v=1'), 'generated homepage must not load the superseded capability-card stylesheet');
@@ -129,4 +149,4 @@ for (const claim of contract.prohibitedClaims) {
 }
 assert.ok(!/₹499|pro subscription|five uses per day|5 uses\/day|create an account/i.test(frontDoor), 'pilot front door must not introduce unvalidated monetisation or account gates');
 
-console.log('Product front-door, compact navigation, kinetic policy/proof motif and governed proof system passed.');
+console.log('Institutional product front door, compact navigation and governed proof system passed.');
