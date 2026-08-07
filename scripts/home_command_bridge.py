@@ -9,6 +9,7 @@ CAPABILITY_STYLESHEET_RE = re.compile(
     re.IGNORECASE,
 )
 INSTITUTIONAL_STYLESHEET = "assets/home-institutional.css?v=2"
+INSTITUTIONAL_A11Y_STYLESHEET = "assets/home-institutional-a11y.css?v=1"
 TOOL_STRUCTURE_STYLESHEET = "assets/home-tool-card-structure.css?v=1"
 
 
@@ -30,4 +31,5 @@ def apply_home_command_bridge(document: str) -> str:
     document = CAPABILITY_STYLESHEET_RE.sub("", document, count=1)
     document = ensure_stylesheet(document, TOOL_STRUCTURE_STYLESHEET)
     document = ensure_stylesheet(document, INSTITUTIONAL_STYLESHEET)
+    document = ensure_stylesheet(document, INSTITUTIONAL_A11Y_STYLESHEET)
     return document
