@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bridge the governed homepage composition to the structural command-centre design."""
+"""Bridge the governed homepage composition to the institutional design system."""
 from __future__ import annotations
 
 import re
@@ -8,7 +8,8 @@ CAPABILITY_STYLESHEET_RE = re.compile(
     r'\s*<link rel="stylesheet" href="(?:\./)?assets/capability-metrics\.css\?v=[^"]+">',
     re.IGNORECASE,
 )
-COMMAND_STYLESHEET = "assets/home-command-centre-live.css?v=2"
+INSTITUTIONAL_STYLESHEET = "assets/home-institutional.css?v=2"
+INSTITUTIONAL_A11Y_STYLESHEET = "assets/home-institutional-a11y.css?v=1"
 TOOL_STRUCTURE_STYLESHEET = "assets/home-tool-card-structure.css?v=1"
 
 
@@ -26,8 +27,9 @@ def ensure_stylesheet(document: str, href: str) -> str:
 
 
 def apply_home_command_bridge(document: str) -> str:
-    """Remove the superseded capability bundle and load live homepage styles."""
+    """Remove superseded capability CSS and load the final homepage layers."""
     document = CAPABILITY_STYLESHEET_RE.sub("", document, count=1)
-    document = ensure_stylesheet(document, COMMAND_STYLESHEET)
     document = ensure_stylesheet(document, TOOL_STRUCTURE_STYLESHEET)
+    document = ensure_stylesheet(document, INSTITUTIONAL_STYLESHEET)
+    document = ensure_stylesheet(document, INSTITUTIONAL_A11Y_STYLESHEET)
     return document
