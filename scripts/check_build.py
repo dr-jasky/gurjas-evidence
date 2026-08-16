@@ -5,8 +5,8 @@ The core checker is preserved unchanged. For the duration of verification, the
 declared source pages are materialised exactly as the build composes them, then
 restored byte-for-byte. This keeps the source/output equality guarantee while
 allowing reviewed static fragments, the governed homepage product front door,
-the institutional homepage composition, the shared tool-standard panel and the
-registry-driven Research Library evidence loop to function as first-class source.
+the shared tool-standard panel and the registry-driven Research Library evidence
+loop to function as first-class source.
 """
 from __future__ import annotations
 
@@ -15,7 +15,6 @@ import sys
 from pathlib import Path
 
 from advisory_composition import compose_document, composed_paths
-from home_institutional_composition import apply_home_institutional_composition
 from home_navigation_utility import restore_compact_site_guide
 from product_front_door import compose_product_front_door
 from tool_evidence_loop import compose_tool_evidence_loop, tool_evidence_paths
@@ -51,7 +50,6 @@ def check_registered_build() -> list[str]:
             composed = compose_document(relative_path, composed)
             if relative_path == "index.html":
                 composed = compose_product_front_door(composed)
-                composed = apply_home_institutional_composition(composed)
                 composed = restore_compact_site_guide(composed)
             source.write_text(composed, encoding="utf-8")
         return check_build_core.check()
