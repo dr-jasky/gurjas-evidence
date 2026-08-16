@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0",
+  "principle": "Question → Discovery → Evidence → Method → Analysis → Verification → Output",
+  "workflows": [
+    {"id":"literature","label":"Literature Scout","question":"What does the evidence say?","outputs":["search strategy","key themes","competing findings","reading path"],"boundary":"Discovery and synthesis support; source quality must still be checked."},
+    {"id":"method","label":"Method Finder","question":"How should I study this?","outputs":["design options","sampling logic","measurement choices","analysis plan","reviewer risks"],"boundary":"Recommendations depend on the research question, data and assumptions."},
+    {"id":"journal","label":"Journal Intelligence","question":"Where should this research go?","outputs":["scope fit","indexing checks","publisher information","policy checks","warning signals"],"boundary":"Indexing and journal status can change; verify against current primary sources."},
+    {"id":"paper","label":"Paper Alignment","question":"Is this manuscript ready for its target journal?","outputs":["structure audit","scope alignment","reporting gaps","reviewer risks","submission checklist"],"boundary":"Editing does not replace author responsibility for the research and claims."},
+    {"id":"data","label":"Data Clinic","question":"What can I defensibly do with this dataset?","outputs":["data-quality checks","descriptives","diagnostics","analysis options","reproducible record"],"boundary":"Statistical output is conditional on data quality, design and assumptions."},
+    {"id":"integrity","label":"Research Integrity","question":"Can this claim, source or workflow be trusted?","outputs":["source checks","citation checks","AI-use risks","authorship issues","correction path"],"boundary":"A screening result is not a legal, editorial or institutional ruling."},
+    {"id":"ngo","label":"NGO / Impact Lab","question":"How do we demonstrate whether a programme is working?","outputs":["theory of change","indicator architecture","M&E plan","evaluation design","decision report"],"boundary":"Evaluation strength depends on programme design, data and identification strategy."},
+    {"id":"reviewer","label":"Reviewer Simulator","question":"What will a demanding reviewer challenge?","outputs":["major concerns","minor concerns","methodology critique","theory critique","response priorities"],"boundary":"Simulated review is a preparation aid, not a prediction of editorial outcome."}
+  ]
+}
