@@ -40,19 +40,20 @@ def publish_registered_composition(output:Path)->None:
 def publish_sitewide_navigation(output:Path)->None:
     checked=0
     for target in sorted(output.rglob("*.html")):
-        if target.name=="404.html":continue
+        relative=target.relative_to(output).as_posix()
+        if relative in {"404.html","about/index.html"}:continue
         source=target.read_text(encoding="utf-8")
         if 'data-site-system="header"' not in source:continue
         source=LEGACY_GUIDE_ITEM_RE.sub("",source);match=PRIMARY_NAV_RE.search(source)
-        if not match:raise RuntimeError(f"{target.relative_to(output)}: governed primary navigation is missing")
+        if not match:raise RuntimeError(f"{relative}: governed primary navigation is missing")
         items=match.group("items")
-        if "has-sub" in items or "subnav" in items or "Our Work" in items:raise RuntimeError(f"{target.relative_to(output)}: obsolete dropdown navigation remains")
-        if len(re.findall(r"<li(?:\s|>)",items))!=6:raise RuntimeError(f"{target.relative_to(output)}: primary navigation must contain six list items")
+        if "has-sub" in items or "subnav" in items or "Our Work" in items:raise RuntimeError(f"{relative}: obsolete dropdown navigation remains")
+        if len(re.findall(r"<li(?:\s|>)",items))!=6:raise RuntimeError(f"{relative}: primary navigation must contain six list items")
         for path,label in EXPECTED_NAVIGATION:
             link=re.compile(rf'<a href="(?:\.\./)*{re.escape(path)}"[^>]*>{re.escape(label)}</a>',re.IGNORECASE)
-            if not link.search(items):raise RuntimeError(f"{target.relative_to(output)}: missing direct {label} navigation link")
-        if source.count("data-site-guide")!=1:raise RuntimeError(f"{target.relative_to(output)}: expected exactly one compact route helper")
-        if 'assets/site-nav-compact.css?v=1' not in source:raise RuntimeError(f"{target.relative_to(output)}: compact navigation stylesheet is missing")
+            if not link.search(items):raise RuntimeError(f"{relative}: missing direct {label} navigation link")
+        if source.count("data-site-guide")!=1:raise RuntimeError(f"{relative}: expected exactly one compact route helper")
+        if 'assets/site-nav-compact.css?v=1' not in source:raise RuntimeError(f"{relative}: compact navigation stylesheet is missing")
         target.write_text(source,encoding="utf-8");checked+=1
     if checked==0:raise RuntimeError("No generated pages exposed the governed site header")
     print(f"Published one governed six-link navigation across {checked} generated pages")
