@@ -25,6 +25,8 @@ def apply_tools_operating_system(document:str)->str:
     if TOOLS_OPERATING_SYSTEM_STYLESHEET in document:return document
     if "</head>" not in document:raise RuntimeError("Tools Hub has no closing head element")
     return document.replace("</head>",f"{TOOLS_OPERATING_SYSTEM_STYLESHEET}\n</head>",1)
+def normalize_platform_landmarks(document:str)->str:
+    return re.sub(r'<div class="(home-proof-ticker|home-tool-groups|rd-suggestions)" aria-label=',r'<div class="\1" role="region" aria-label=',document)
 def publish_registered_composition(output:Path)->None:
     for relative_path in registered_paths():
         target=output/relative_path
