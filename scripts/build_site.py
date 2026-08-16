@@ -14,7 +14,7 @@ TOOLS_OPERATING_SYSTEM_STYLESHEET='<link rel="stylesheet" href="../assets/tools-
 LEGACY_GUIDE_ITEM_RE=re.compile(r'\s*<li class="nav-guide-item"><button[\s\S]*?data-site-guide[\s\S]*?</button></li>',re.IGNORECASE)
 COMPACT_GUIDE_RE=re.compile(r'\s*<button class="nav-guide nav-guide--compact"[\s\S]*?data-site-guide[\s\S]*?</button>',re.IGNORECASE)
 PRIMARY_NAV_RE=re.compile(r'<nav id="nav" class="site-nav" aria-label="Primary">[\s\S]*?<ul>(?P<items>[\s\S]*?)</ul>',re.IGNORECASE)
-EXPECTED_NAVIGATION=(("about/","About"),("services/","Services"),("tools/","Tools"),("knowledge/","Library"),("insights/","Insights"),("contact/","Contact"))
+EXPECTED_NAVIGATION=(("research-desk/","Research Desk"),("services/","Services"),("tools/","Tools"),("knowledge/","Library"),("insights/","Insights"),("contact/","Contact"))
 def resolved_output(argv:list[str])->Path:
     parser=argparse.ArgumentParser(add_help=False);parser.add_argument("--output",type=Path,default=DEFAULT_OUTPUT);args,_=parser.parse_known_args(argv);return (args.output if args.output.is_absolute() else ROOT/args.output).resolve()
 def registered_paths()->tuple[str,...]:return tuple(sorted(set(composed_paths())|set(tool_evidence_paths())|set(tool_standard_paths())))
@@ -48,11 +48,6 @@ def publish_sitewide_navigation(output:Path)->None:
         if not match:raise RuntimeError(f"{relative}: governed primary navigation is missing")
         items=match.group("items")
         if "has-sub" in items or "subnav" in items or "Our Work" in items:raise RuntimeError(f"{relative}: obsolete dropdown navigation remains")
-        insert_at=match.start("items");prefix="../"*max(0,len(Path(relative).parts)-1)
-        for path,label in EXPECTED_NAVIGATION:
-            link=re.compile(rf'<a href="(?:\.\./)*{re.escape(path)}"[^>]*>{re.escape(label)}</a>',re.IGNORECASE)
-            if not link.search(items):
-                item=f'<li><a href="{prefix}{path}">{label}</a></li>';source=source[:insert_at]+item+source[insert_at:];items=item+items
         if len(re.findall(r"<li(?:\s|>)",items))!=6:raise RuntimeError(f"{relative}: primary navigation must contain six list items")
         for path,label in EXPECTED_NAVIGATION:
             link=re.compile(rf'<a href="(?:\.\./)*{re.escape(path)}"[^>]*>{re.escape(label)}</a>',re.IGNORECASE)
