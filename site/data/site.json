@@ -2,13 +2,13 @@
   "brand": {
     "name": "Gurjas Evidence and Policy Analytics",
     "shortName": "Gurjas",
-    "strapline": "Research Intelligence Platform",
-    "footerLine": "Research, evidence, methods and AI workflows in one place."
+    "strapline": "Evidence & Policy Analytics",
+    "footerLine": "Evidence-led decisions for institutions, policy and impact."
   },
-  "assetVersion": "31",
-  "navigationVersion": 3,
+  "assetVersion": "30",
+  "navigationVersion": 2,
   "navigation": [
-    {"label": "Research Desk", "path": "research-desk/", "section": "research-desk"},
+    {"label": "About", "path": "about/", "section": "about"},
     {"label": "Services", "path": "services/", "section": "services"},
     {"label": "Tools", "path": "tools/", "section": "tools"},
     {"label": "Library", "path": "knowledge/", "section": "knowledge"},
@@ -22,25 +22,14 @@
   ],
   "footerColumns": [
     {
-      "heading": "Research Intelligence",
+      "heading": "Practice",
       "links": [
-        {"label": "Research Desk", "path": "research-desk/"},
-        {"label": "Research Tools", "path": "tools/"},
-        {"label": "Library", "path": "knowledge/"},
-        {"label": "Proof Ledger", "path": "evidence/"},
+        {"label": "About", "path": "about/"},
+        {"label": "Services", "path": "services/"},
+        {"label": "Methodology", "path": "methods/"},
         {"label": "Research", "path": "research/"},
-        {"label": "Publications", "path": "publications/"}
-      ]
-    },
-    {
-      "heading": "Services",
-      "links": [
-        {"label": "All Services", "path": "services/"},
-        {"label": "Research & Publication Support", "path": "services/research-publication-support/"},
-        {"label": "Research Methods", "path": "services/research-methods/"},
-        {"label": "Impact Evaluation", "path": "services/impact-evaluation/"},
-        {"label": "Research Integrity", "path": "services/research-integrity/"},
-        {"label": "NAAC Evidence Readiness", "path": "services/naac-evidence-readiness/"}
+        {"label": "Publications", "path": "publications/"},
+        {"label": "Research Tools", "path": "tools/"}
       ]
     },
     {
@@ -50,6 +39,7 @@
         {"label": "Founder-Led Experience", "path": "experience/"},
         {"label": "Advisory Board", "path": "advisory/"},
         {"label": "Resource Centre", "path": "resources/"},
+        {"label": "Proof Ledger", "path": "evidence/"},
         {"label": "Contact", "path": "contact/"}
       ]
     },
