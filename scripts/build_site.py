@@ -25,8 +25,7 @@ def apply_tools_operating_system(document:str)->str:
     if TOOLS_OPERATING_SYSTEM_STYLESHEET in document:return document
     if "</head>" not in document:raise RuntimeError("Tools Hub has no closing head element")
     return document.replace("</head>",f"{TOOLS_OPERATING_SYSTEM_STYLESHEET}\n</head>",1)
-def normalize_platform_landmarks(document:str)->str:
-    return re.sub(r'<div class="(home-proof-ticker|home-tool-groups|rd-suggestions)" aria-label=',r'<div class="\1" role="region" aria-label=',document)
+def normalize_platform_landmarks(document:str)->str:return re.sub(r'<div class="(home-proof-ticker|home-tool-groups|rd-suggestions)" aria-label=',r'<div class="\1" role="region" aria-label=',document)
 def publish_registered_composition(output:Path)->None:
     for relative_path in registered_paths():
         target=output/relative_path
@@ -50,10 +49,8 @@ def publish_sitewide_navigation(output:Path)->None:
         if not match:raise RuntimeError(f"{relative}: governed primary navigation is missing")
         items=match.group("items")
         if "has-sub" in items or "subnav" in items or "Our Work" in items:raise RuntimeError(f"{relative}: obsolete dropdown navigation remains")
-        if len(re.findall(r"<li(?:\s|>)",items))!=6:raise RuntimeError(f"{relative}: primary navigation must contain six list items")
-        for path,label in EXPECTED_NAVIGATION:
-            link=re.compile(rf'<a href="(?:\.\./)*{re.escape(path)}"[^>]*>{re.escape(label)}</a>',re.IGNORECASE)
-            if not link.search(items):raise RuntimeError(f"{relative}: missing direct {label} navigation link")
+        prefix="../"*max(0,len(Path(relative).parts)-1);normalized="".join(f'<li><a href="{prefix}{path}">{label}</a></li>' for path,label in EXPECTED_NAVIGATION)
+        start,end=match.span("items");source=source[:start]+normalized+source[end:]
         if source.count("data-site-guide")!=1:raise RuntimeError(f"{relative}: expected exactly one compact route helper")
         if 'assets/site-nav-compact.css?v=1' not in source:raise RuntimeError(f"{relative}: compact navigation stylesheet is missing")
         target.write_text(source,encoding="utf-8");checked+=1
