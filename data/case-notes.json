@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "publicLabel": "Anonymised case notes",
+  "privacyStandard": {
+    "directIdentifiers": "prohibited",
+    "indirectIdentifiers": "remove or generalise",
+    "privateResearchData": "prohibited",
+    "clientDocuments": "prohibited",
+    "outcomeClaims": "must be bounded to documented process changes",
+    "publicationBasis": "composite or consented account only"
+  },
+  "entries": [
+    {
+      "id": "doctoral-research-recovery-composite",
+      "path": "knowledge/institutional-pathways/case-notes/doctoral-research-recovery/",
+      "title": "Recovering a delayed doctoral research project",
+      "type": "composite",
+      "status": "published",
+      "version": "1.0",
+      "published": "2026-08-05",
+      "reviewed": "2026-08-05",
+      "institutionalPathway": "universities-research-offices",
+      "decision": "Whether to continue patching inherited analysis or rebuild the evidence chain from the research question onward.",
+      "privacyBoundary": "The note combines recurring process patterns. It contains no identifiable person, institution, supervisor, dataset, correspondence or client document.",
+      "claimBoundary": "It describes a defensible recovery sequence, not a guaranteed completion, publication or degree outcome."
+    }
+  ]
+}
