@@ -48,6 +48,8 @@ def publish_sitewide_navigation(output:Path)->None:
         if not match:raise RuntimeError(f"{relative}: governed primary navigation is missing")
         items=match.group("items")
         if "has-sub" in items or "subnav" in items or "Our Work" in items:raise RuntimeError(f"{relative}: obsolete dropdown navigation remains")
+        if not re.search(r'<a href="(?:\.\./)*about/"[^>]*>About</a>',items,re.IGNORECASE):
+            prefix="../"*max(0,len(Path(relative).parts)-1);about_item=f'<li><a href="{prefix}about/">About</a></li>';insert_at=match.start("items");source=source[:insert_at]+about_item+source[insert_at:];items=about_item+items
         if len(re.findall(r"<li(?:\s|>)",items))!=6:raise RuntimeError(f"{relative}: primary navigation must contain six list items")
         for path,label in EXPECTED_NAVIGATION:
             link=re.compile(rf'<a href="(?:\.\./)*{re.escape(path)}"[^>]*>{re.escape(label)}</a>',re.IGNORECASE)
