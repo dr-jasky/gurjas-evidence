@@ -30,7 +30,8 @@ def publish_registered_composition(output:Path)->None:
     for relative_path in registered_paths():
         target=output/relative_path
         if not target.exists():raise RuntimeError(f"Composed public page is missing: {relative_path}")
-        source=target.read_text(encoding="utf-8");composed=compose_tool_standard_panel(relative_path,source);composed=compose_tool_evidence_loop(relative_path,composed);composed=compose_document(relative_path,composed)
+        source=target.read_text(encoding="utf-8");composed=compose_tool_standard_panel(relative_path,source);composed=compose_tool_evidence_loop(relative_path,composed);composed=compose_document(relative_path,composed);composed=normalize_platform_landmarks(composed)
+        if relative_path=="research-desk/index.html":composed=composed.replace('<main id="main">','<main>',1)
         if relative_path=="tools/index.html":composed=apply_tools_operating_system(composed)
         if relative_path=="index.html" and 'class="platform"' not in composed:
             composed,removed=COMPACT_GUIDE_RE.subn("",composed,count=1)
@@ -49,8 +50,7 @@ def publish_sitewide_navigation(output:Path)->None:
         if not match:raise RuntimeError(f"{relative}: governed primary navigation is missing")
         items=match.group("items")
         if "has-sub" in items or "subnav" in items or "Our Work" in items:raise RuntimeError(f"{relative}: obsolete dropdown navigation remains")
-        prefix="../"*max(0,len(Path(relative).parts)-1);normalized="".join(f'<li><a href="{prefix}{path}">{label}</a></li>' for path,label in EXPECTED_NAVIGATION)
-        start,end=match.span("items");source=source[:start]+normalized+source[end:]
+        prefix="../"*max(0,len(Path(relative).parts)-1);normalized="".join(f'<li><a href="{prefix}{path}">{label}</a></li>' for path,label in EXPECTED_NAVIGATION);start,end=match.span("items");source=source[:start]+normalized+source[end:]
         if source.count("data-site-guide")!=1:raise RuntimeError(f"{relative}: expected exactly one compact route helper")
         if 'assets/site-nav-compact.css?v=1' not in source:raise RuntimeError(f"{relative}: compact navigation stylesheet is missing")
         target.write_text(source,encoding="utf-8");checked+=1
