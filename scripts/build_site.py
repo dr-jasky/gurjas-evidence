@@ -41,7 +41,7 @@ def publish_sitewide_navigation(output:Path)->None:
     checked=0
     for target in sorted(output.rglob("*.html")):
         relative=target.relative_to(output).as_posix()
-        if relative in {"404.html","about/index.html","advisory/index.html","contact/index.html","ethics-charter/index.html","evidence/index.html"}:continue
+        if relative in {"404.html","about/index.html","advisory/index.html","contact/index.html","ethics-charter/index.html","evidence/index.html","experience/index.html"}:continue
         source=target.read_text(encoding="utf-8")
         if 'data-site-system="header"' not in source:continue
         source=LEGACY_GUIDE_ITEM_RE.sub("",source);match=PRIMARY_NAV_RE.search(source)
