@@ -29,19 +29,31 @@ assert.deepEqual(
   'front door must link the exact active knowledge pillars',
 );
 
-const sectionMatch = html.match(/<section class="product-front-door"[\s\S]*?<\/section>/);
+const journeys = contract.journeys;
+assert.equal(journeys.length, 3, 'homepage should offer three differentiated expert entry journeys');
+assert.equal(new Set(journeys.map((journey) => journey.id)).size, 3, 'journey IDs must be unique');
+for (const journey of journeys) {
+  const tool = contract.tools.find((item) => item.id === journey.toolId);
+  assert.ok(tool, `journey ${journey.id} must link to a real existing tool`);
+  for (const field of ['question', 'source', 'method', 'output', 'boundary']) {
+    assert.ok(journey[field], `journey ${journey.id} needs transparent ${field}`);
+  }
+}
+
+const sectionMatch = html.match(/<section class="product-front-door studio"[\s\S]*?<\/section>/);
 assert.ok(sectionMatch, 'generated homepage must contain one product-front-door section');
-assert.equal((html.match(/<section class="product-front-door"/g) || []).length, 1, 'product front door must render exactly once');
+assert.equal((html.match(/<section class="product-front-door studio"/g) || []).length, 1, 'product front door must render exactly once');
 const frontDoor = sectionMatch[0];
 
-assert.ok(frontDoor.includes('Every research task.'), 'homepage must lead with the approved task-first proposition');
-assert.ok(frontDoor.includes('One verified toolkit.'), 'homepage must retain the governed verification promise');
-assert.ok(frontDoor.includes('aria-label="Where policy meets proof"'), 'the earlier policy-to-proof identity must return as an accessible kinetic motif');
-assert.ok(frontDoor.includes('product-front-door__motion-line'), 'policy-to-proof motion must have a dedicated decorative signal track');
+assert.ok(frontDoor.includes('What can your evidence actually prove?'), 'homepage must lead with a distinct research question');
+assert.ok(frontDoor.includes('Begin with the decision.'), 'homepage must place the real evidence pathway first');
+assert.ok(frontDoor.includes('Illustrative research pathway'), 'the original evidence-route illustration must carry an accessible description');
+assert.ok(frontDoor.includes('class="studio-trace"'), 'every selected pathway must expose the question/source/method/record trace');
 assert.ok(frontDoor.includes('data-product-search'), 'front door must expose a progressively enhanced task search');
 assert.ok(frontDoor.includes('aria-live="polite"'), 'task-search result count must be announced accessibly');
 assert.equal((frontDoor.match(/data-product-tool/g) || []).length, 11, 'all eleven tool cards must be present in the opening product section');
-assert.equal((frontDoor.match(/data-product-tool[^>]*hidden/g) || []).length, 0, 'all tool cards must be visible before filtering');
+assert.equal((frontDoor.match(/data-product-tool[^>]*hidden/g) || []).length, 0, 'all tool rows must remain registered before filtering');
+assert.ok(frontDoor.includes('class="studio-directory__details"'), 'complete tool directory must remain accessible with native details');
 
 for (const tool of contract.tools) {
   assert.ok(frontDoor.includes(`href="${tool.path}"`), `${tool.id} must be directly actionable from the homepage`);
@@ -56,6 +68,13 @@ assert.ok(frontDoor.includes('href="knowledge/"'), 'front door must route to the
 for (const pillar of contract.library.activePillars) {
   assert.ok(frontDoor.includes(`href="${pillar.path}"`), `front door must link active pillar ${pillar.path}`);
 }
+for (const journey of journeys) {
+  const tool = contract.tools.find((item) => item.id === journey.toolId);
+  assert.ok(frontDoor.includes(`data-studio-panel="${journey.id}"`), `journey ${journey.id} must render a panel`);
+  assert.ok(frontDoor.includes(`href="${tool.path}"`), `journey ${journey.id} must link to its governed tool`);
+  assert.ok(frontDoor.includes(journey.boundary), `journey ${journey.id} must disclose its decision boundary`);
+}
+assert.equal((frontDoor.match(/data-studio-tab=/g) || []).length, 3, 'three keyboard-selectable tabs must appear in the evidence desk');
 assert.ok(!frontDoor.includes('href="library/"'), 'front door must not create a duplicate library architecture');
 assert.ok(!html.includes('aria-labelledby="h-tools"'), 'the lower duplicate tool section must be removed from generated output');
 assert.ok(html.indexOf('product-front-door') < html.indexOf('home-ledger'), 'tools and knowledge must appear before audience and capability proof');
@@ -120,9 +139,9 @@ assert.ok(profilePanel.includes('not Gurjas organisational performance metrics')
 assert.ok(html.includes('assets/product-front-door.css?v=2'), 'homepage must load the cache-busted front-door stylesheet');
 assert.ok(html.includes('assets/home-proof-refinement.css?v=1'), 'homepage must load the governed motion and proof stylesheet');
 assert.ok(html.includes('assets/site-nav-compact.css?v=1'), 'homepage must load the shared compact route-utility stylesheet');
-assert.ok(html.includes('assets/product-front-door.js?v=1'), 'homepage must load the local-only task filter');
+assert.ok(html.includes('assets/evidence-studio-home.js?v=1'), 'homepage must load the keyboard-accessible local task finder and tabs');
 assert.ok(!html.includes('assets/capability-metrics.css?v=1'), 'generated homepage must not load the superseded capability-card stylesheet');
-assert.match(html, /<title>Free Research Tools and Reviewed Research Library \| Gurjas<\/title>/, 'homepage title must describe the product front door');
+assert.match(html, /<title>Gurjas \| Research Evidence Studio: Methods, Tools &amp; Verification<\/title>|<title>Gurjas \| Research Evidence Studio: Methods, Tools & Verification<\/title>/, 'homepage title must describe the research evidence studio');
 
 for (const claim of contract.prohibitedClaims) {
   assert.ok(!html.toLowerCase().includes(claim.toLowerCase()), `homepage must exclude unsupported claim: ${claim}`);
