@@ -48,7 +48,7 @@ jobs:
           python -m http.server 8000 --bind 127.0.0.1 --directory _site >/tmp/studio-server.log 2>&1 &
           pid=$!
           trap 'kill "$pid" 2>/dev/null || true' EXIT
-          curl --fail --silent --retry 10 --retry-delay 1 http://127.0.0.1:8000/ > /dev/null
+          curl --fail --silent --show-error --retry 20 --retry-delay 1 --retry-all-errors http://127.0.0.1:8000/ > /dev/null
           node tests/visual/studio-preview.mjs
       - name: Upload desktop, tablet and mobile preview (review only)
         if: always()
