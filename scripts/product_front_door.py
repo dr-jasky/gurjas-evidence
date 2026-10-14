@@ -22,6 +22,16 @@ def load_contract() -> dict:
     paths = [tool.get("path") for tool in tools]
     if len(set(paths)) != len(paths):
         raise RuntimeError("Product front-door tool paths must be unique")
+    journeys = contract.get("journeys", [])
+    registered_ids = {tool["id"] for tool in tools}
+    if len(journeys) != 3 or len({j.get("id") for j in journeys}) != 3:
+        raise RuntimeError("Evidence Studio requires exactly three distinct starting journeys")
+    for journey in journeys:
+        if journey.get("toolId") not in registered_ids:
+            raise RuntimeError("Evidence Studio journey must start from a registered tool")
+        for field in ("question", "intent", "source", "method", "output", "boundary", "libraryPath"):
+            if not journey.get(field):
+                raise RuntimeError(f"Evidence Studio journey missing {field}")
     featured = [tool for tool in tools if tool.get("featured")]
     if len(featured) != 1:
         raise RuntimeError("Product front door must register exactly one featured tool")
@@ -145,67 +155,159 @@ def render_motion(proof: dict) -> str:
     )
 
 
+def render_journey_panels(contract: dict) -> tuple[str, str]:
+    """A real task -> evidence -> method -> record route, not a simulated result."""
+    registered = {tool["id"]: tool for tool in contract["tools"]}
+    tabs = []
+    panels = []
+    for i, journey in enumerate(contract["journeys"]):
+        journey_id = html.escape(journey["id"], quote=True)
+        tabs.append(
+            '<button class="studio-switch" type="button" role="tab" '
+            f'id="studio-tab-{journey_id}" aria-controls="studio-panel-{journey_id}" '
+            f'aria-selected="{"true" if i == 0 else "false"}" '
+            f'tabindex="{"0" if i == 0 else "-1"}" data-studio-tab="{journey_id}">'
+            f'<span class="studio-switch__number">{html.escape(journey["number"])}</span>'
+            f'{html.escape(journey["shortLabel"])}'
+            '</button>'
+        )
+        tool_path = registered[journey["toolId"]]["path"]
+        parts = [
+            ("Question", journey["question"]),
+            ("Examine", journey["source"]),
+            ("Method", journey["method"]),
+            ("Record", journey["output"]),
+        ]
+        trail = "".join(
+            f'<div class="studio-trace__item"><span class="studio-trace__idx">0{n}</span>'
+            f'<div><b>{html.escape(label)}</b><p>{html.escape(description)}</p></div></div>'
+            for n, (label, description) in enumerate(parts, 1)
+        )
+        panels.append(
+            f'<section class="studio-panel" id="studio-panel-{journey_id}" '
+            f'role="tabpanel" aria-labelledby="studio-tab-{journey_id}" '
+            f'data-studio-panel="{journey_id}"{" hidden" if i else ""}>'
+            f'<p class="studio-panel__context">{html.escape(journey["intent"])}</p>'
+            f'<h3>{html.escape(journey["question"])}</h3>'
+            f'<div class="studio-trace">{trail}</div>'
+            f'<p class="studio-panel__boundary"><strong>Decision boundary</strong>'
+            f'{html.escape(journey["boundary"])}</p>'
+            '<div class="studio-panel__actions">'
+            f'<a class="studio-panel__open" href="{html.escape(tool_path, quote=True)}">'
+            f'{html.escape(journey["nextLabel"])} <span aria-hidden="true">↗</span></a>'
+            f'<a class="studio-panel__read" href="{html.escape(journey["libraryPath"], quote=True)}">'
+            f'{html.escape(journey["libraryLabel"])} →</a>'
+            '</div></section>'
+        )
+    return "".join(tabs), "".join(panels)
+
+
 def render_front_door(contract: dict, proof: dict) -> str:
+    """Evidence Studio homepage: editorial front page + task-first decision desk."""
     hero = contract["hero"]
     library = contract["library"]
-    trust = "".join(f"<li>{html.escape(item)}</li>" for item in contract["trustItems"])
-    pillar_links = "".join(
-        f'<a href="{html.escape(pillar["path"], quote=True)}"><span>{html.escape(pillar["label"])}</span><b aria-hidden="true">→</b></a>'
+    tabs, panels = render_journey_panels(contract)
+    cards = render_tool_cards(contract)
+    trust = "".join(
+        f'<li><span class="studio-footprint__dot" aria-hidden="true"></span>{html.escape(item)}</li>'
+        for item in contract["trustItems"]
+    )
+    pillars = "".join(
+        f'<a href="{html.escape(pillar["path"], quote=True)}">{html.escape(pillar["label"])} ↗</a>'
         for pillar in library["activePillars"]
     )
-    cards = render_tool_cards(contract)
-
     return (
-        '<section class="product-front-door" aria-labelledby="product-front-door-title" data-product-front-door>'
-        '<div class="product-front-door__shell">'
-        '<div class="product-front-door__hero">'
-        '<div>'
-        f'<p class="product-front-door__eyebrow">{html.escape(hero["eyebrow"])}</p>'
-        f'{render_motion(proof)}'
-        '<h1 id="product-front-door-title">Every research task. <em>One verified toolkit.</em></h1>'
-        f'<p class="product-front-door__summary">{html.escape(hero["summary"])}</p>'
+        '<section class="product-front-door studio" aria-labelledby="product-front-door-title" '
+        'data-product-front-door>'
+        '<div class="studio__shell">'
+        '<div class="studio__header">'
+        f'<p class="studio__eyebrow">{html.escape(hero["eyebrow"])}</p>'
+        '<a href="evidence/" class="studio__verification">Explore our evidence standards <span aria-hidden="true">↗</span></a>'
         '</div>'
-        '<form class="product-front-door__search" role="search" action="tools/" method="get" data-product-search>'
-        '<label for="home-task-search">What are you working on?</label>'
-        '<div class="product-front-door__search-row">'
+        '<div class="studio__intro">'
+        '<div class="studio__editorial">'
+        '<p class="studio__serial">Independent research practice <span aria-hidden="true">/</span> Patiala · Worldwide</p>'
+        f'<h1 id="product-front-door-title">{html.escape(hero["title"])}</h1>'
+        f'<p class="studio__statement">{html.escape(hero["summary"])}</p>'
+        '<div class="studio__primary-actions">'
+        '<a class="studio__primary" href="#evidence-desk">Explore the evidence desk <span aria-hidden="true">↗</span></a>'
+        '<a class="studio__secondary" href="services/">Talk through a research problem →</a>'
+        '</div>'
+        '</div>'
+        '<div class="studio__illustration" role="img" aria-label="Illustrative research pathway: question, evidence, method and defensible decision record">'
+        '<svg viewBox="0 0 520 460" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">'
+        '<defs><linearGradient id="studio-curve" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dab974"/><stop offset="1" stop-color="#8ca4b6"/></linearGradient></defs>'
+        '<circle cx="260" cy="230" r="174" class="studio-orbit" />'
+        '<circle cx="260" cy="230" r="116" class="studio-orbit studio-orbit--inner" />'
+        '<path d="M94 299C132 139 305 96 426 167M96 301C230 365 316 346 424 169" class="studio-curve" />'
+        '<path d="M146 260L260 152 374 260 260 365Z" class="studio-rhombus"/>'
+        '<path d="M146 260H374M260 152V365" class="studio-rhombus-line"/>'
+        '<circle cx="146" cy="260" r="7" class="studio-node"/><circle cx="260" cy="152" r="7" class="studio-node"/>'
+        '<circle cx="374" cy="260" r="7" class="studio-node"/><circle cx="260" cy="365" r="7" class="studio-node"/>'
+        '<text x="260" y="215" text-anchor="middle" class="studio-svg-overline">EVIDENCE</text>'
+        '<text x="260" y="244" text-anchor="middle" class="studio-svg-title">GURJAS</text>'
+        '<text x="260" y="265" text-anchor="middle" class="studio-svg-small">SOURCE → REASON → RECORD</text>'
+        '<text x="72" y="278" class="studio-svg-label">01 / ASK</text>'
+        '<text x="260" y="106" text-anchor="middle" class="studio-svg-label">02 / VERIFY</text>'
+        '<text x="391" y="278" class="studio-svg-label">03 / ANALYSE</text>'
+        '<text x="260" y="410" text-anchor="middle" class="studio-svg-label">04 / DOCUMENT</text>'
+        '</svg>'
+        '<p class="studio__illustration-caption">A decision is only as strong as the evidence you can trace.</p>'
+        '</div>'
+        '</div>'
+        f'<ul class="studio-footprint" aria-label="Practice principles">{trust}</ul>'
+        '<div class="studio-workbench" id="evidence-desk">'
+        '<div class="studio-workbench__head">'
+        '<div><p class="studio__section-label">01 / Evidence Desk</p>'
+        '<h2>Begin with the decision.<br><em>Not a sales pitch.</em></h2></div>'
+        '<p>Explore three concrete questions using existing Gurjas tools. '
+        'The pathway explains what gets examined—and what the tool cannot decide.</p>'
+        '</div>'
+        '<div class="studio-workbench__surface" data-studio-workbench>'
+        '<div class="studio-workbench__rail">'
+        '<p class="studio-workbench__rail-label">Choose a research moment</p>'
+        f'<div class="studio-workbench__tabs" role="tablist" aria-label="Research pathways">{tabs}</div>'
+        '<p class="studio-workbench__rail-note">Illustrative workflow, not a completed assessment. '
+        'No personal data or research question is sent by this interface.</p>'
+        '</div>'
+        f'<div class="studio-workbench__panels">{panels}</div>'
+        '</div></div>'
+        '<div class="studio-directory" id="research-tools">'
+        '<div class="studio-directory__intro">'
+        '<div><p class="studio__section-label">02 / Research instruments</p>'
+        '<h2>Useful instruments. <em>No gatekeeping.</em></h2></div>'
+        '<a href="tools/">View the complete tools hub ↗</a>'
+        '</div>'
+        '<form class="studio-directory__search" action="tools/" method="get" role="search" data-product-search>'
+        '<label for="home-task-search">Find a tool by research task</label>'
+        '<div class="studio-directory__search-control">'
         '<input id="home-task-search" name="task" type="search" autocomplete="off" '
-        'placeholder="Try ‘check a journal’, ‘sample size’ or ‘NAAC’" data-product-search-input>'
-        '<button type="reset">Clear</button>'
-        '</div>'
-        '<p class="product-front-door__status" id="product-search-status" role="status" aria-live="polite" '
-        'data-product-search-status><strong data-product-search-count>11</strong> tools available. Filtering happens only in your browser.</p>'
-        '</form>'
-        '</div>'
-        f'<ul class="product-front-door__trust" aria-label="Why researchers can inspect Gurjas">{trust}</ul>'
-        '<div class="product-front-door__tools" role="region" aria-labelledby="product-tools-title">'
-        '<div class="product-front-door__tools-head">'
-        '<div><p class="product-front-door__kicker">Start the task now</p>'
-        '<h2 id="product-tools-title">Eleven tools. No detour.</h2></div>'
-        '<p>Choose the decision in front of you. Every tool states its sources, processing, assumptions and decision boundary.</p>'
-        '</div>'
-        f'<ul class="product-front-door__grid">{cards}</ul>'
-        '<p class="product-front-door__empty" hidden data-product-search-empty>No matching tool yet. '
-        '<a href="tools/">Browse the complete tools hub</a> or use the Research Library below.</p>'
-        '</div>'
-        '<div class="product-front-door__library">'
-        '<div>'
-        f'<p class="product-front-door__kicker">{html.escape(library["publicLabel"])}</p>'
-        '<h2>Reviewed knowledge, connected to action.</h2>'
-        f'<p>{html.escape(library["summary"])}</p>'
-        '</div>'
-        '<nav class="product-front-door__library-links" aria-label="Research Library entry points">'
-        f'<a href="{html.escape(library["path"], quote=True)}"><span>Browse the Research Library</span><b aria-hidden="true">→</b></a>'
-        f'{pillar_links}'
-        '</nav>'
-        '</div>'
-        '<div class="product-front-door__enterprise">'
-        '<p><strong>Need institution-wide or study-specific support?</strong> The consultancy remains available as the evidence-intensive pathway.</p>'
-        '<a href="services/"><span>Explore Gurjas Services</span><b aria-hidden="true">→</b></a>'
+        'placeholder="Try journal, references, SEM, NAAC…" data-product-search-input>'
+        '<button type="submit">Find tool ↗</button>'
+        '<button type="reset">Clear</button></div>'
+        '<p class="studio-directory__status" id="product-search-status" role="status" aria-live="polite" '
+        'data-product-search-status><strong data-product-search-count>11</strong> tools available. '
+        'Filtering stays in your browser.</p></form>'
+        '<details class="studio-directory__details" data-studio-directory>'
+        '<summary>Browse all 11 research tools <span aria-hidden="true">＋</span></summary>'
+        f'<ul class="studio-directory__list">{cards}</ul>'
+        '<p class="product-front-door__empty" hidden data-product-search-empty>'
+        'No matching tool. <a href="tools/">Browse the tools hub</a>.</p>'
+        '</details></div>'
+        '<div class="studio-library">'
+        '<div><p class="studio__section-label">03 / Knowledge behind the method</p>'
+        '<h2>Read the sources.<br><em>Question the assumptions.</em></h2>'
+        f'<p>{html.escape(library["summary"])}</p></div>'
+        '<div class="studio-library__links">'
+        f'<a href="{html.escape(library["path"], quote=True)}">Explore the Research Library <span aria-hidden="true">↗</span></a>'
+        f'{pillars}'
+        '<a href="evidence/">Inspect the Proof Ledger ↗</a>'
         '</div>'
         '</div>'
-        '</section>'
+        '<div class="studio-endpoint"><span>Need a second pair of eyes on the evidence?</span>'
+        '<a href="services/">Explore scoped research and institutional advisory →</a></div>'
+        '</div></section>'
     )
-
 
 def signal_icon(name: str) -> str:
     icons = {
@@ -327,9 +429,10 @@ def compose_product_front_door(document: str) -> str:
     contract = load_contract()
     proof = load_proof_system()
     document = remove_legacy_capability_stylesheet(document)
+    # Legacy stylesheet stays for shared non-home rules until visual parity is approved.
     document = ensure_stylesheet(document, "assets/product-front-door.css?v=2")
     document = ensure_stylesheet(document, "assets/home-proof-refinement.css?v=1")
-    document = ensure_script(document, "assets/product-front-door.js?v=1")
+    document = ensure_script(document, "assets/evidence-studio-home.js?v=1")
     document = replace_metadata(document)
     document = simplify_home_navigation(document)
 
