@@ -208,6 +208,14 @@ def render_front_door(contract: dict, proof: dict) -> str:
     library = contract["library"]
     tabs, panels = render_journey_panels(contract)
     cards = render_tool_cards(contract)
+    registered = {tool["id"]: tool for tool in contract["tools"]}
+    noscript_routes = "".join(
+        '<a href="{}">{} research tool ↗</a>'.format(
+            html.escape(registered[item["toolId"]]["path"], quote=True),
+            html.escape(item["shortLabel"]),
+        )
+        for item in contract["journeys"]
+    )
     trust = "".join(
         f'<li><span class="studio-footprint__dot" aria-hidden="true"></span>{html.escape(item)}</li>'
         for item in contract["trustItems"]
@@ -271,7 +279,10 @@ def render_front_door(contract: dict, proof: dict) -> str:
         'No personal data or research question is sent by this interface.</p>'
         '</div>'
         f'<div class="studio-workbench__panels">{panels}</div>'
-        '</div></div>'
+        '</div>'
+        '<noscript><div class="studio-noscript"><strong>Choose a starting point:</strong> '
+        f'{noscript_routes}</div></noscript>'
+        '</div>'
         '<div class="studio-directory" id="research-tools">'
         '<div class="studio-directory__intro">'
         '<div><p class="studio__section-label">02 / Research instruments</p>'
