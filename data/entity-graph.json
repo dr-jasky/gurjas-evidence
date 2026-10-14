@@ -136,7 +136,11 @@
       "provider": {
         "@id": "https://gurjas.org/#org"
       },
-      "areaServed": ["India", "Canada", "Worldwide (remote)"]
+      "areaServed": [
+        "India",
+        "Canada",
+        "Worldwide (remote)"
+      ]
     },
     {
       "@type": "Service",
@@ -147,7 +151,11 @@
       "provider": {
         "@id": "https://gurjas.org/#org"
       },
-      "areaServed": ["India", "Canada", "Worldwide (remote)"]
+      "areaServed": [
+        "India",
+        "Canada",
+        "Worldwide (remote)"
+      ]
     },
     {
       "@type": "Service",
@@ -158,7 +166,11 @@
       "provider": {
         "@id": "https://gurjas.org/#org"
       },
-      "areaServed": ["India", "Canada", "Worldwide (remote)"]
+      "areaServed": [
+        "India",
+        "Canada",
+        "Worldwide (remote)"
+      ]
     },
     {
       "@type": "Service",
@@ -169,7 +181,11 @@
       "provider": {
         "@id": "https://gurjas.org/#org"
       },
-      "areaServed": ["India", "Canada", "Worldwide (remote)"]
+      "areaServed": [
+        "India",
+        "Canada",
+        "Worldwide (remote)"
+      ]
     },
     {
       "@type": "DataCatalog",
@@ -231,8 +247,14 @@
       "operatingSystem": "Any modern web browser",
       "softwareVersion": "1.0",
       "isAccessibleForFree": true,
-      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
-      "publisher": {"@id": "https://gurjas.org/#org"},
+      "offers": {
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "INR"
+      },
+      "publisher": {
+        "@id": "https://gurjas.org/#org"
+      },
       "description": "Turns a registration date and pace choice into a printable milestone sequence."
     },
     {
@@ -244,8 +266,14 @@
       "operatingSystem": "Any modern web browser",
       "softwareVersion": "1.1",
       "isAccessibleForFree": true,
-      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
-      "publisher": {"@id": "https://gurjas.org/#org"},
+      "offers": {
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "INR"
+      },
+      "publisher": {
+        "@id": "https://gurjas.org/#org"
+      },
       "description": "Compares three disclosed SEM sample-planning approximations."
     },
     {
@@ -257,8 +285,14 @@
       "operatingSystem": "Any modern web browser",
       "softwareVersion": "1.1",
       "isAccessibleForFree": true,
-      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
-      "publisher": {"@id": "https://gurjas.org/#org"},
+      "offers": {
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "INR"
+      },
+      "publisher": {
+        "@id": "https://gurjas.org/#org"
+      },
       "description": "Calculates composite reliability, average variance extracted and Cronbach's alpha with explicit data checks."
     },
     {
@@ -270,8 +304,14 @@
       "operatingSystem": "Any modern web browser",
       "softwareVersion": "2.0",
       "isAccessibleForFree": true,
-      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
-      "publisher": {"@id": "https://gurjas.org/#org"},
+      "offers": {
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "INR"
+      },
+      "publisher": {
+        "@id": "https://gurjas.org/#org"
+      },
       "description": "Assembles source-labelled journal identity, registration, indexing-snapshot and clone-alert evidence."
     },
     {
@@ -283,8 +323,14 @@
       "operatingSystem": "Any modern web browser",
       "softwareVersion": "0.3-beta",
       "isAccessibleForFree": true,
-      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
-      "publisher": {"@id": "https://gurjas.org/#org"},
+      "offers": {
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "INR"
+      },
+      "publisher": {
+        "@id": "https://gurjas.org/#org"
+      },
       "description": "Finds journal-type, ISSN-bearing OpenAlex sources connected to matching literature."
     },
     {
@@ -296,8 +342,14 @@
       "operatingSystem": "Any modern web browser",
       "softwareVersion": "1.1",
       "isAccessibleForFree": true,
-      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
-      "publisher": {"@id": "https://gurjas.org/#org"},
+      "offers": {
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "INR"
+      },
+      "publisher": {
+        "@id": "https://gurjas.org/#org"
+      },
       "description": "Reports article-processing-charge and open-access fields recorded in OpenAlex."
     },
     {
@@ -309,8 +361,14 @@
       "operatingSystem": "Any modern web browser",
       "softwareVersion": "1.0",
       "isAccessibleForFree": true,
-      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
-      "publisher": {"@id": "https://gurjas.org/#org"},
+      "offers": {
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "INR"
+      },
+      "publisher": {
+        "@id": "https://gurjas.org/#org"
+      },
       "description": "Checks each pasted reference's DOI against the Crossref registry and surfaces recorded post-publication updates."
     },
     {
@@ -322,8 +380,14 @@
       "operatingSystem": "Any modern web browser",
       "softwareVersion": "1.0",
       "isAccessibleForFree": true,
-      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
-      "publisher": {"@id": "https://gurjas.org/#org"},
+      "offers": {
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "INR"
+      },
+      "publisher": {
+        "@id": "https://gurjas.org/#org"
+      },
       "description": "Turns questionnaire answers about a received APC invoice into a discrepancy register of documented fraud patterns and factual comparisons."
     },
     {
@@ -335,8 +399,14 @@
       "operatingSystem": "Any modern web browser",
       "softwareVersion": "1.1",
       "isAccessibleForFree": true,
-      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
-      "publisher": {"@id": "https://gurjas.org/#org"},
+      "offers": {
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "INR"
+      },
+      "publisher": {
+        "@id": "https://gurjas.org/#org"
+      },
       "description": "Inventories present, partial and missing institutional records across the legacy RAF seven-criteria structure."
     },
     {
@@ -348,8 +418,14 @@
       "operatingSystem": "Any modern web browser",
       "softwareVersion": "1.1",
       "isAccessibleForFree": true,
-      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
-      "publisher": {"@id": "https://gurjas.org/#org"},
+      "offers": {
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "INR"
+      },
+      "publisher": {
+        "@id": "https://gurjas.org/#org"
+      },
       "description": "Turns eight self-reported evidence-control states into a gap register and next-control plan."
     },
     {
@@ -359,11 +435,17 @@
       "url": "https://gurjas.org/tools/grant-deadline-tracker/",
       "applicationCategory": "ReferenceApplication",
       "operatingSystem": "Any modern web browser",
-      "softwareVersion": "2026-07 snapshot",
+      "softwareVersion": "2026-10 snapshot",
       "isAccessibleForFree": true,
-      "offers": {"@type": "Offer", "price": 0, "priceCurrency": "INR"},
-      "publisher": {"@id": "https://gurjas.org/#org"},
-      "description": "Keeps selected Indian social-science and interdisciplinary funding calls visible with official links."
+      "offers": {
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "INR"
+      },
+      "publisher": {
+        "@id": "https://gurjas.org/#org"
+      },
+      "description": "Selected Indian research funding schemes with official source links and dated verification limits; this is not a live grant availability feed."
     }
   ]
 }
