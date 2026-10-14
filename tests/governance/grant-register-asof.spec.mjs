@@ -6,7 +6,7 @@ const entry = registry.tools.find((tool) => tool.id === 'grant-deadline-tracker'
 const html = fs.readFileSync('tools/grant-deadline-tracker/index.html', 'utf8');
 assert.ok(entry, 'grant reference contract must exist');
 assert.equal(entry.reviewed, '2026-10-15', 'a dated and evidenced source review must be recorded');
-assert.equal(entry.methodVersion, '2026-10 dated reference register');
+assert.equal(entry.methodVersion, '2026-10 snapshot');
 assert.match(html, /not a live opportunities feed/, 'page must declare that availability is not real time');
 assert.match(html, /3 Aug 2026/, 'the expired Taiwan submission deadline must remain accurate');
 assert.match(html, /18 Sep 2026/, 'the extended 2026–27 Major\/Minor deadline must be recorded');
