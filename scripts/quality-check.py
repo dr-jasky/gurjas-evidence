@@ -4,10 +4,13 @@ from __future__ import annotations
 import json
 import re
 import sys
-from datetime import date
+from datetime import date, datetime
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+# Public editorial review dates use the site’s India time zone, not the UTC runner date.
+PUBLICATION_DATE = datetime.now(ZoneInfo("Asia/Kolkata")).date()
 errors: list[str] = []
 INDEXNOW_KEY = "127d4f6734fd4c5b8f7308201fd3d836"
 EXCLUDED_TOP_LEVEL = {
@@ -340,7 +343,7 @@ try:
         if not source_evidence.get("url") or source_evidence.get("asOf") != facts.get("reviewed"):
             errors.append(f"site-facts.json: {source} evidence must have a URL and match the reviewed date")
     reviewed = date.fromisoformat(str(facts.get("reviewed", "")))
-    age = (date.today() - reviewed).days
+    age = (PUBLICATION_DATE - reviewed).days
     if age < 0 or age > 92:
         errors.append(f"site-facts.json: evidence snapshot is {age} days old; review at least quarterly")
 except Exception as exc:
@@ -387,7 +390,7 @@ try:
         if not (source_url.startswith("https://") or source_url.startswith("/")):
             errors.append(f"proof-ledger.json: {entry_id} source must be HTTPS or site-relative")
         verified = date.fromisoformat(str(entry.get("verifiedAt", "")))
-        if (date.today() - verified).days < 0 or (date.today() - verified).days > 92:
+        if (PUBLICATION_DATE - verified).days < 0 or (PUBLICATION_DATE - verified).days > 92:
             errors.append(f"proof-ledger.json: {entry_id} verification date must be current and reviewed at least quarterly")
         registered_values = leaf_values(entry.get("value"))
         for fact_path in entry.get("factPaths", []):
@@ -413,7 +416,7 @@ try:
         if contract.get("url") != f"/tools/{contract_id}/":
             errors.append(f"tool-contracts.json: {contract_id} URL must match its production route")
         reviewed = date.fromisoformat(str(contract.get("reviewed", "")))
-        if (date.today() - reviewed).days < 0 or (date.today() - reviewed).days > 92:
+        if (PUBLICATION_DATE - reviewed).days < 0 or (PUBLICATION_DATE - reviewed).days > 92:
             errors.append(f"tool-contracts.json: {contract_id} review date must be current and reviewed at least quarterly")
         outbound = contract.get("outboundRequests", [])
         if contract.get("processing") == "direct-third-party-requests" and not outbound:
