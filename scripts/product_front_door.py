@@ -76,10 +76,10 @@ def remove_legacy_capability_stylesheet(document: str) -> str:
 
 
 def replace_metadata(document: str) -> str:
-    title = "Free Research Tools and Reviewed Research Library | Gurjas"
+    title = "Gurjas | Research Evidence Studio: Methods, Tools & Verification"
     description = (
-        "Start with 11 free research tools and a reviewed Research Library for scholarly publishing, "
-        "research design and institutional evidence. No sign-up to start."
+        "Explore an evidence-first research studio: transparent journal checks, research-readiness "
+        "diagnostics, institutional evidence tools and source-linked methods. Free to start."
     )
     replacements = (
         (r"<title>[^<]*</title>", f"<title>{title}</title>"),
