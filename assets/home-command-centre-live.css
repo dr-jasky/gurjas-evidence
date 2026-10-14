@@ -296,6 +296,8 @@
 .home .studio-endpoint a { color: #d6b77f; text-decoration: none; }
 .home .studio-endpoint a:hover { text-decoration: underline; }
 
+.home .studio-noscript { margin-top: 16px; padding: 18px; border: 1px solid var(--st-line); font-size: 13px; display: flex; flex-wrap: wrap; gap: 12px 18px; }
+.home .studio-noscript a { color: #e5c790; }
 @media (min-width: 1000px) {
   .home .studio__illustration { transform: translateY(11px); }
 }
