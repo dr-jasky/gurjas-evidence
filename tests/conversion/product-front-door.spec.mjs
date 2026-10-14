@@ -130,3 +130,6 @@ for (const claim of contract.prohibitedClaims) {
 assert.ok(!/₹499|pro subscription|five uses per day|5 uses\/day|create an account/i.test(frontDoor), 'pilot front door must not introduce unvalidated monetisation or account gates');
 
 console.log('Product front-door, compact navigation, kinetic policy/proof motif and governed proof system passed.');
+
+// Exercise the accessible task-search interaction in an isolated DOM fixture.
+await import('./home-task-search.spec.mjs');

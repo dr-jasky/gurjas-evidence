@@ -27,9 +27,35 @@
     count.textContent = String(visible);
     empty.hidden = visible !== 0;
     status.dataset.filtered = query ? 'true' : 'false';
+    // Announce the real scope of the interface: it filters our tool catalogue,
+    // not research literature or the open web. The count remains a live region.
+    const suffix = status.lastChild;
+    if (suffix && suffix.nodeType === Node.TEXT_NODE) {
+      suffix.textContent = !query
+        ? ' tools available. Filtering happens only in your browser.'
+        : visible === 0
+          ? ' matching tools. Try another term or browse the tools hub.'
+          : visible === 1
+            ? ' matching tool. Press Enter to open it.'
+            : ' matching tools. Press Enter to focus the first result.';
+    }
   };
 
-  form.addEventListener('submit', (event) => event.preventDefault());
+  // Enter should do something useful, rather than silently cancelling the form.
+  // Only navigate directly when there is exactly one matching canonical tool.
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const matches = cards.filter((card) => !card.hidden);
+    if (matches.length === 1) {
+      const link = matches[0].querySelector('a[href]');
+      if (link) window.location.assign(link.href);
+      return;
+    }
+    const target = matches.length > 0
+      ? matches[0].querySelector('a[href]')
+      : empty.querySelector('a[href]');
+    if (target) target.focus();
+  });
   form.addEventListener('reset', () => {
     window.requestAnimationFrame(() => {
       input.value = '';
