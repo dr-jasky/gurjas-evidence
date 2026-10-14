@@ -40,10 +40,11 @@ for (const journey of journeys) {
   }
 }
 
-const sectionMatch = html.match(/<section class="product-front-door studio"[\s\S]*?<\/section>/);
-assert.ok(sectionMatch, 'generated homepage must contain one product-front-door section');
+const frontDoorStart = html.indexOf('<section class="product-front-door studio"');
+const frontDoorEnd = html.indexOf('<section class="home-section home-ledger', frontDoorStart);
+assert.ok(frontDoorStart >= 0 && frontDoorEnd > frontDoorStart, 'generated homepage must contain one complete Evidence Studio section');
 assert.equal((html.match(/<section class="product-front-door studio"/g) || []).length, 1, 'product front door must render exactly once');
-const frontDoor = sectionMatch[0];
+const frontDoor = html.slice(frontDoorStart, frontDoorEnd);
 
 assert.ok(frontDoor.includes('What can your evidence actually prove?'), 'homepage must lead with a distinct research question');
 assert.ok(frontDoor.includes('Begin with the decision.'), 'homepage must place the real evidence pathway first');
