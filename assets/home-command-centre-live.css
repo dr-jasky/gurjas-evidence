@@ -27,6 +27,9 @@
   font-family: var(--sans, "Archivo", sans-serif);
 }
 .home .studio, .home .studio * { box-sizing: border-box; }
+/* Retire the generic animated glow/grid pseudo-elements from the old hero. */
+.home .studio::before, .home .studio::after { content: none; display: none; }
+
 .home .studio a { text-underline-offset: 4px; }
 .home .studio :is(a, button, input):focus-visible {
   outline: 3px solid var(--st-brass);
