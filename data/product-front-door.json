@@ -3,9 +3,9 @@
   "status": "pilot",
   "reviewed": "2026-08-04",
   "hero": {
-    "eyebrow": "Free research tools · Reviewed knowledge · No sign-up to start",
-    "title": "Every research task. One verified toolkit.",
-    "summary": "Start with a transparent tool, then continue into reviewed research guidance, primary sources and institutional support when the decision requires it."
+    "eyebrow": "Gurjas / Research Evidence Studio",
+    "title": "What can your evidence actually prove?",
+    "summary": "Practical research tools, inspected sources and expert methods for decisions that must withstand scrutiny. Start with a specific question. Leave with a more defensible next step."
   },
   "library": {
     "publicLabel": "Research Library",
@@ -36,7 +36,13 @@
       "category": "Publishing integrity",
       "description": "Review identity, registry, indexing-snapshot and clone-alert evidence without an invented legitimacy score.",
       "path": "tools/predatory-journal-checker/",
-      "keywords": ["predatory journal", "legitimacy", "indexing", "clone", "ISSN"]
+      "keywords": [
+        "predatory journal",
+        "legitimacy",
+        "indexing",
+        "clone",
+        "ISSN"
+      ]
     },
     {
       "id": "journal-shortlist",
@@ -44,7 +50,13 @@
       "category": "Publishing integrity",
       "description": "Build a literature-neighbour shortlist of journal-type, ISSN-bearing OpenAlex sources for further investigation.",
       "path": "tools/journal-finder/",
-      "keywords": ["journal finder", "abstract", "OpenAlex", "shortlist", "submission"]
+      "keywords": [
+        "journal finder",
+        "abstract",
+        "OpenAlex",
+        "shortlist",
+        "submission"
+      ]
     },
     {
       "id": "recorded-apc-lookup",
@@ -52,7 +64,12 @@
       "category": "Publishing integrity",
       "description": "Inspect source-labelled APC and open-access fields recorded in OpenAlex without treating missing data as advice.",
       "path": "tools/apc-checker/",
-      "keywords": ["APC", "article processing charge", "open access", "journal fee"]
+      "keywords": [
+        "APC",
+        "article processing charge",
+        "open access",
+        "journal fee"
+      ]
     },
     {
       "id": "reference-integrity",
@@ -60,7 +77,13 @@
       "category": "Publishing integrity",
       "description": "Compare reference details with Crossref records and surface recorded corrections or retractions for manual review.",
       "path": "tools/reference-integrity-checker/",
-      "keywords": ["DOI", "reference", "citation", "Crossref", "retraction"]
+      "keywords": [
+        "DOI",
+        "reference",
+        "citation",
+        "Crossref",
+        "retraction"
+      ]
     },
     {
       "id": "apc-invoice-triage",
@@ -68,7 +91,13 @@
       "category": "Publishing integrity",
       "description": "Turn a questionable publication invoice into a factual discrepancy register without issuing a fraud verdict.",
       "path": "tools/apc-invoice-triage/",
-      "keywords": ["invoice", "APC payment", "publisher", "fraud", "bank details"]
+      "keywords": [
+        "invoice",
+        "APC payment",
+        "publisher",
+        "fraud",
+        "bank details"
+      ]
     },
     {
       "id": "research-readiness",
@@ -76,7 +105,12 @@
       "category": "Research design",
       "description": "Convert eight self-reported evidence-control states into a gap register and next-control plan.",
       "path": "tools/research-readiness-triage/",
-      "keywords": ["research readiness", "gap analysis", "doctoral", "evidence controls"]
+      "keywords": [
+        "research readiness",
+        "gap analysis",
+        "doctoral",
+        "evidence controls"
+      ]
     },
     {
       "id": "sem-planning-bounds",
@@ -84,7 +118,12 @@
       "category": "Research design",
       "description": "Compare three disclosed planning approximations and their limitations before undertaking model-specific power analysis.",
       "path": "tools/sem-sample-size-calculator/",
-      "keywords": ["SEM", "sample size", "power", "structural equation modelling"]
+      "keywords": [
+        "SEM",
+        "sample size",
+        "power",
+        "structural equation modelling"
+      ]
     },
     {
       "id": "reliability-validity",
@@ -92,7 +131,13 @@
       "category": "Research design",
       "description": "Calculate alpha, composite reliability and AVE with explicit data checks and non-universal reference markers.",
       "path": "tools/reliability-validity-kit/",
-      "keywords": ["Cronbach alpha", "AVE", "composite reliability", "validity", "measurement"]
+      "keywords": [
+        "Cronbach alpha",
+        "AVE",
+        "composite reliability",
+        "validity",
+        "measurement"
+      ]
     },
     {
       "id": "institutional-evidence",
@@ -100,7 +145,13 @@
       "category": "Institutional readiness",
       "description": "Inventory present, partial and missing records across the legacy seven-criteria structure without generating a score.",
       "path": "tools/naac-readiness-scorecard/",
-      "keywords": ["NAAC", "IQAC", "accreditation", "evidence", "institution"]
+      "keywords": [
+        "NAAC",
+        "IQAC",
+        "accreditation",
+        "evidence",
+        "institution"
+      ]
     },
     {
       "id": "phd-timeline",
@@ -108,7 +159,13 @@
       "category": "Research planning",
       "description": "Create a printable milestone plan aligned to the UGC PhD Regulations 2022 timeframes and honest sequencing.",
       "path": "tools/phd-timeline-planner/",
-      "keywords": ["PhD", "timeline", "doctoral", "UGC", "milestones"]
+      "keywords": [
+        "PhD",
+        "timeline",
+        "doctoral",
+        "UGC",
+        "milestones"
+      ]
     },
     {
       "id": "grant-deadlines",
@@ -116,7 +173,13 @@
       "category": "Research planning",
       "description": "Review ICSSR, ANRF and allied funding calls with every listed opportunity linked to its official source.",
       "path": "tools/grant-deadline-tracker/",
-      "keywords": ["grant", "ICSSR", "ANRF", "funding", "deadline"]
+      "keywords": [
+        "grant",
+        "ICSSR",
+        "ANRF",
+        "funding",
+        "deadline"
+      ]
     }
   ],
   "prohibitedClaims": [
@@ -126,5 +189,55 @@
     "countries reached",
     "guaranteed publication",
     "guaranteed accreditation"
+  ],
+  "journeys": [
+    {
+      "id": "journal",
+      "label": "Publishing integrity",
+      "shortLabel": "Journal",
+      "number": "01",
+      "question": "Is this journal what it claims to be?",
+      "intent": "Before you submit a paper or pay an invoice.",
+      "source": "Journal identity, ISSN records and dated source signals.",
+      "method": "Cross-check the publisher, journal identity and registry evidence; surface discrepancies for manual review.",
+      "output": "An inspectable evidence record and questions to resolve before acting.",
+      "boundary": "No automatic legitimacy verdict, indexing guarantee or substitute for independent checking.",
+      "toolId": "journal-evidence-checker",
+      "nextLabel": "Open Journal Evidence Checker",
+      "libraryPath": "knowledge/research-integrity/",
+      "libraryLabel": "Read the integrity guidance"
+    },
+    {
+      "id": "method",
+      "label": "Research design",
+      "shortLabel": "Method",
+      "number": "02",
+      "question": "Is your study ready for analysis?",
+      "intent": "Before committing to sample collection or modelling.",
+      "source": "Eight self-reported design and evidence-control states.",
+      "method": "Separate established decisions from missing inputs, assumptions and unresolved controls.",
+      "output": "A prioritised gap register and a defensible next-control plan.",
+      "boundary": "A planning diagnostic, not peer review or validation of the underlying dataset.",
+      "toolId": "research-readiness",
+      "nextLabel": "Open Research Readiness Triage",
+      "libraryPath": "knowledge/research-design/",
+      "libraryLabel": "Read the methods guidance"
+    },
+    {
+      "id": "institution",
+      "label": "Institutional evidence",
+      "shortLabel": "Institution",
+      "number": "03",
+      "question": "Can your institution substantiate its claims?",
+      "intent": "Before evidence compilation or accreditation review.",
+      "source": "An inventory of present, partial and missing records within the legacy NAAC criteria.",
+      "method": "Map evidence gaps and required owners without inventing accreditation outcomes.",
+      "output": "A structured readiness and evidence-gap picture for internal follow-up.",
+      "boundary": "The legacy seven-criteria framework is not a current accreditation score or approval prediction.",
+      "toolId": "institutional-evidence",
+      "nextLabel": "Open NAAC Evidence Mapper",
+      "libraryPath": "knowledge/research-design/",
+      "libraryLabel": "Review evidence methodology"
+    }
   ]
 }
