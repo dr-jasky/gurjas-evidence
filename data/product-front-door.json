@@ -5,6 +5,8 @@
   "hero": {
     "eyebrow": "Free research tools · Reviewed knowledge · No sign-up to start",
     "title": "Every research task. One verified toolkit.",
+    "titleLead": "Every research task.",
+    "titleAccent": "One verified toolkit.",
     "summary": "Start with a transparent tool, then continue into reviewed research guidance, primary sources and institutional support when the decision requires it."
   },
   "library": {
