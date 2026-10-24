@@ -16,6 +16,9 @@ def load_contract() -> dict:
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
     if contract.get("version") != 1:
         raise RuntimeError("Unsupported product-front-door contract version")
+    hero = contract.get("hero", {})
+    if f'{hero.get("titleLead", "")} {hero.get("titleAccent", "")}'.strip() != hero.get("title"):
+        raise RuntimeError("Homepage hero title fields must agree with approved title")
     tools = contract.get("tools", [])
     if len(tools) != 11:
         raise RuntimeError("Product front door must register exactly eleven public tools")
@@ -162,7 +165,7 @@ def render_front_door(contract: dict, proof: dict) -> str:
         '<div>'
         f'<p class="product-front-door__eyebrow">{html.escape(hero["eyebrow"])}</p>'
         f'{render_motion(proof)}'
-        '<h1 id="product-front-door-title">Every research task. <em>One verified toolkit.</em></h1>'
+        f'<h1 id="product-front-door-title">{html.escape(hero["titleLead"])} <em>{html.escape(hero["titleAccent"])}</em></h1>'
         f'<p class="product-front-door__summary">{html.escape(hero["summary"])}</p>'
         '</div>'
         '<form class="product-front-door__search" role="search" action="tools/" method="get" data-product-search>'
