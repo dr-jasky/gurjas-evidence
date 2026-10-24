@@ -27,9 +27,25 @@
     count.textContent = String(visible);
     empty.hidden = visible !== 0;
     status.dataset.filtered = query ? 'true' : 'false';
+    status.setAttribute('aria-label', query ? `${visible} Gurjas tools match your search` : `${visible} Gurjas tools available`);
+    return cards.filter((card) => !card.hidden);
   };
 
-  form.addEventListener('submit', (event) => event.preventDefault());
+  // Search is a local catalogue filter: never send entered terms to a server.
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const matches = applyFilter();
+    if (matches.length === 1) {
+      const link = matches[0].querySelector('a[href]');
+      if (link) link.click();
+    } else if (matches.length > 1) {
+      const firstLink = matches[0].querySelector('a[href]');
+      if (firstLink) firstLink.focus();
+    } else {
+      const fallback = empty.querySelector('a[href]');
+      if (fallback) fallback.focus();
+    }
+  });
   form.addEventListener('reset', () => {
     window.requestAnimationFrame(() => {
       input.value = '';
